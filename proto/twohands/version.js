@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.570.3', date: '2026-11-27', items: [
+    'The kicks page (kick.html) is built from the main page now, like the others: it gets the feint fix (a feinting lead hand guards nothing before its feint), the pull counter and the step fix. Every later rule fix reaches it too.'] },
   { v: '0.570.2', date: '2026-11-27', items: [
     'The strip shows your guard: a moment where no hand punches says which guard you hold (Lead high · Rear low, or Lead open before a feint) and shows your boxer holding it. Your guard is not a move of its own - every hand that is not punching stays where you set it, the whole beat, for free.',
     'Fix: when two or three moments showed the same picture, only one of them was drawn (the others were empty boxes).'] },

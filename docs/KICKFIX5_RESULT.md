@@ -14,7 +14,10 @@ leftover waiter (my own process, by PID) so nothing starts by itself when memory
 | F3 (KICKFIX4, the base to beat) | 56 | 1 | 5/9 | dead push off 3%, rear uppercut 3%, clinch 2%; jab 67%, body jab 78%, low kick 87%, head kick 30%; KD 2.9; two 10%, none 30% | 87% | 61% | 2.9 | 32% | two 10%, none 30% / two+ 25%, none 9% | 1.17 | 11/56, 5/18 |
 | F3 | 56 | 2 | 5/9 | dead rear uppercut 3%, clinch 2%; jab 69%, body jab 73%, overhand 72%, low kick 77%; stops 50%, KD 3.1; two 9%, none 30% | 77% | 72% | 3.1 | 50% | two 9%, none 30% / two+ 26%, none 9% | 1.18 | 7/56, 2/28 |
 | F4 = F3 + a teep covers the lead leg in its moment | 12 | 1 | 5/9 | dead push off 3%, overhand 2%, clinch 2%; jab 77%, body jab 73%, low kick 85%; stops 33% (PASS), KD 3.3; two 9%, none 28% | 85% | 80% (0.4 a bout) | 3.3 | 33% | two 9%, none 28% / two+ 30%, none 10% (PASS) | 1.22 | 0/12, 0/4 |
-| F5 = F4 + a low kick at a man backing off falls short + checkHurt 1 + health 21 | - | - | table started 16:14 | | | | | | | | |
+| F5 = F4 + a low kick at a man backing off falls short + checkHurt 1 + health 21 | 12 | 1 | 4/9 | dead push off 3%, head kick 2%, clinch 2%; jab 87%, lead uppercut 73%, body hook 27%, low kick 72%; KD 2.6; two 11%, none 29%; order: feet first 61% | 72% | 67% (0.5 a bout) | 2.6 | 17% | two 11%, none 29% / two+ 33%, none 11% (PASS) | 1.24 | 0/12, 0/2 |
+| F5 | 56 | 1 | 5/9 | dead body hook 3%, head kick 2%, clinch 2%; jab 81%, lead uppercut 66%, low kick 80%; KD 2.6; two 10%, none 29% | 80% | 64% | 2.6 | 23% (PASS) | two 10%, none 29% / two+ 34%, none 10% (PASS) | 1.26 | 17/57, 2/13 |
+| F5 | 56 | 2 | not measured | run ended at 19:16 by my own memory guard (RAM 98%); not needed for the verdict: seed 1 is not finished | | | | | | | |
+| F6 = F5 + low kick speed 3 (a cross that lands first stops it) + head kick 3 stamina + health 22 | - | - | written, not measured | | | | | | | | |
 
 ## Second start, 13:23 to 13:57 (the owner closed his game at 13:20 and asked for the restart)
 The chain started with RAM at 60% and three jobs. The boxing control on seed 2 finished in 4 minutes (8 of 9, row above,
@@ -75,4 +78,34 @@ one more version fits in the day:
   1.01, so 18 health bought 3 knockdowns a bout where boxing has 2.2.
 Two changes in one version: if F5 moves, the N=12 line says which bar moved; they touch different bars.
 
-KICKFIX5 RUNNING: F5 table started 16:14 (two hours), then its N=12 trial, then N=56 on both seeds if the gate passes.
+## F5 measured (18:04 to 19:16)
+The F5 table took 1 hour 50 minutes (Claude Code stopped the chain for memory once more at about 17:59; its processes
+outlived the stop again with the table on its last row, and I let it end). Trial gate: PASSES (no switch over 40%, low
+kick 72% under 90%, 0 of 2 stoppages after a limp). N=56 seed 1 ran 36 minutes on three jobs: 5 of 9.
+At 19:16, 12 minutes into seed 2, RAM read 98% twice (a 9.5 GB llama-server, the local model seat, had started) and my own
+guard ended my five processes, as it was written to. The watchdog reads RED now (1.4 GB of commit memory free).
+
+What F5 did, at N=56 seed 1 against F3:
+- Low kick: thrown three times as often (17% of beats, 3 a bout, was 1), but it still lands 80%. Only 3% fall short:
+  the man who expects it holds his ground (16-18% checked) and hardly backs off (10-13% of beats). It lands because half of
+  all beats the other man is kicking himself or stepping in, and both plant the leg. The cheap miss did not fix the bar.
+- Knockdowns 2.9 -> 2.6 and stoppages 32% -> 23% (PASS) with health 21: the right direction, one tenth short.
+- The limp loop's input grew, as warned: limp bouts 17 of 57 (F3: 11 of 56), but only 2 of 13 stoppages came after a limp.
+- New red: the head kick is dead (2% of beats; 4 stamina for 4 health buys less against 21 health).
+- Strikes a fighter-beat 1.26 (floor 0.94), stamina bar 5.96 at the last bell, mirror 53%.
+F5 is NOT finished: against the boxing page it is red on dead switches (head kick, clinch), knockdowns (2.6 against
+2.5), the low kick (80% against 65%) and the hands-only plan mix (which passes with a kick counted as a strike).
+
+## F6 (written, loads on kick.html, not measured): ops/research/s558_balance/kick_fix_f6.json
+One line of why each: the low kick is a full rear-leg swing, so it is as slow as the body kick (speed 3) and a cross that
+lands first stops it - the classic answer to a low kick; the head kick costs 3 stamina again so it is thrown; health 22
+for the last tenth of a knockdown. Risk: a slower low kick may simply be thrown less (watch strikes a beat and the limp
+count), and the clinch (2% of beats on every kicks version) stays red - it needs its own rule (a clinch smothers kicks is
+the real-fight candidate), which is F7.
+
+## For the owner
+Nothing went on kick.html: no version passed. Three were measured today in spite of four memory stops (F4 at 12 bouts, F5 at 12 and 56).
+The best so far is F5: bouts stop less (23%, was 32-50%) and knockdowns are 2.6 a bout (bar 2.5), but the low kick still lands 80% of the time because a man who kicks or steps in has his leg planted.
+The player feels no change yet; F6 (the cross beats the low kick, cheaper head kick, health 22) is written and it needs about 3.5 hours with the PC free of the local model, and someone to start it.
+
+KICKFIX5 BLOCKED: not finished - F5 is 5 of 9 on seed 1 (low kick 80%, knockdowns 2.6, head kick and clinch dead); the PC went RED on memory at 19:16 (llama-server 9.5 GB); F6 is written and NOT queued: Claude Code stopped its waiting chain for memory at 19:18 before it had started anything, so I ended the two waiting processes (mine, by PID) and nothing of KICKFIX5 runs or starts by itself. To resume: `bash E:/FightCamp/wt_tmp/KICKFIX5/run.sh c6 table:f6 play:f6:12:1 > E:/FightCamp/wt_tmp/KICKFIX5/c6.log 2>&1`, then `play:f6:56:1 play:f6:56:2` if the trial gate passes.

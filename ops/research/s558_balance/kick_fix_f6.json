@@ -1,0 +1,47 @@
+{
+  "_note": "KICKFIX5 F6: F5 + the low kick is a full rear-leg swing (speed 3, so a cross that lands first stops it: the classic answer to a low kick) + the head kick costs 3 stamina again (it was dead at 2% of beats) + health 22 (knockdowns 2.6 at 21).",
+  "page": "kick.html",
+  "src": [
+    [
+      "wasDrawn = drawn[sh.k] === 1;",
+      "wasDrawn = drawn[sh.k] === 1 && !sh.kick;"
+    ],
+    [
+      "if (P[k].feet === 'check') c.leg = 1;",
+      "if (P[k].feet === 'hold' || P[k].feet === 'back' || (act[k] === 'feet' && P[k].feet === 'teep')) c.leg = 1;"
+    ],
+    [
+      "const FEETS = ['in', 'hold', 'back', 'check', 'teep',",
+      "const FEETS = ['in', 'hold', 'back', 'teep',"
+    ],
+    [
+      "  check: { n: 'Check', st: 1, t: 'Your lead leg ready all beat: his low kick is stopped and hurts him. You do not move.' },",
+      ""
+    ],
+    [
+      "bodyk: { n: 'Body kick', st: 3,",
+      "bodyk: { n: 'Body kick', st: 2,"
+    ],
+    [
+      "if (cov[v][a.line] && !wasDrawn && a.line === 'leg') { A.hp -= N.checkHurt;",
+      "if (a.line === 'leg' && P[v].feet === 'back' && f[v].g > 0) { say(sh.k, { m: i, t: 'miss', id: sh.id, a: a.n, o: 'falls short: ' + (v ? 'he' : 'you') + ' backed off and the leg was gone' }); opening[v] = 1; continue; } if (cov[v][a.line] && !wasDrawn && a.line === 'leg') { A.hp -= N.checkHurt;"
+    ]
+  ],
+  "ACT": {
+    "headk": {
+      "d": 4
+    },
+    "low": {
+      "d": 1,
+      "rearLeg": 0,
+      "sp": 3
+    },
+    "bodyk": {
+      "d": 2,
+      "st": 2
+    }
+  },
+  "N": {
+    "hp": 22
+  }
+}

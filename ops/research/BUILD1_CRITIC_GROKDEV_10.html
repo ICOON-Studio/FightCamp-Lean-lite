@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Puncher's chance - Camp: build the body</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;overflow:hidden;background:#d9c7a6;font-family:Kalam,"Segoe UI",Arial,sans-serif;color:#2a2118}
+.top{height:60px;background:#1f1b17;color:#f3e9d6;display:flex;align-items:center;padding:0 28px;gap:28px;font-size:20px}
+.top h1{font-family:"Permanent Marker",Impact,sans-serif;font-size:28px;letter-spacing:1px;font-weight:normal}
+.top .sp{flex:1}
+.top .chip{background:#3a332b;border-radius:6px;padding:6px 12px;font-size:17px}
+.wrap{display:grid;grid-template-columns:380px 1fr 430px;gap:18px;padding:14px 22px 0 22px;height:724px}
+.panel{height:710px;overflow:hidden;background:#f6eedd;border:2px solid #8a6e4b;border-radius:10px;box-shadow:3px 4px 0 rgba(0,0,0,.18);padding:14px 16px}
+.panel h2{font-family:"Permanent Marker",Impact,sans-serif;font-weight:normal;font-size:21px;margin-bottom:8px;color:#3b2a18}
+.small{font-size:14px;color:#5b4a36}
+.fig{height:400px;background:#e9dcc2;border:2px solid #b49a72;border-radius:8px;position:relative;margin-bottom:10px}
+.fig .head{position:absolute;left:150px;top:30px;width:62px;height:72px;border-radius:50%;background:#7a5a40}
+.fig .neck{position:absolute;left:170px;top:98px;width:22px;height:18px;background:#7a5a40}
+.fig .trunk{position:absolute;left:128px;top:114px;width:106px;height:140px;border-radius:30px 30px 14px 14px;background:#8a6648}
+.fig .shorts{position:absolute;left:126px;top:246px;width:110px;height:52px;border-radius:8px;background:#b0302c}
+.fig .arm1{position:absolute;left:90px;top:124px;width:36px;height:120px;border-radius:18px;background:#7a5a40;transform:rotate(14deg)}
+.fig .arm2{position:absolute;left:236px;top:124px;width:36px;height:120px;border-radius:18px;background:#7a5a40;transform:rotate(-14deg)}
+.fig .g1{position:absolute;left:70px;top:232px;width:52px;height:52px;border-radius:50%;background:#b0302c}
+.fig .g2{position:absolute;left:240px;top:232px;width:52px;height:52px;border-radius:50%;background:#b0302c}
+.fig .leg1{position:absolute;left:134px;top:294px;width:40px;height:80px;border-radius:14px;background:#7a5a40}
+.fig .leg2{position:absolute;left:188px;top:294px;width:40px;height:80px;border-radius:14px;background:#7a5a40}
+.fig .b1{position:absolute;left:128px;top:368px;width:50px;height:22px;border-radius:6px;background:#222}
+.fig .b2{position:absolute;left:184px;top:368px;width:50px;height:22px;border-radius:6px;background:#222}
+.key{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:15px}
+.key div{background:#fffaf0;border:1px solid #c9b28c;border-radius:6px;padding:5px 8px}
+.key b{display:block;font-size:13px;color:#7a5a40}
+.parts{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:12px}
+.part{background:#fffaf0;border:2px solid #b49a72;border-radius:9px;padding:9px 11px}
+.part h3{font-size:18px;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.part h3 span{font-size:13px;color:#6d5a42;font-weight:normal}
+.slots{display:flex;gap:8px}
+.card{flex:1;min-width:0;border-radius:8px;padding:7px 8px;font-size:14px;line-height:1.25;border:2px solid #333;background:#fff}
+.card .t{font-weight:bold;font-size:15.5px}
+.card .n{font-size:13px;color:#444}
+.card .pips{margin-top:3px;font-size:12.5px}
+.lead{border-color:#2b5d9b;background:#eaf1fb}
+.rear{border-color:#a3322c;background:#fbecea}
+.legs{border-color:#3d7a3a;background:#ecf6ea}
+.core{border-color:#8a5a14;background:#fbf1df}
+.headc{border-color:#5d4b8a;background:#f0ecf9}
+.empty{border:2px dashed #9b8a70;background:#f3ead8;color:#6d5a42}
+.locked{border:2px dashed #b6b0a6;background:#e9e5de;color:#8a847a}
+.drill{display:inline-block;background:#2a2118;color:#fff;border-radius:4px;padding:0 5px;font-size:11.5px;margin-left:4px}
+.budget{grid-column:1/3;display:flex;gap:14px;align-items:center;font-size:16px}
+.bar{height:14px;background:#e3d6bd;border-radius:7px;overflow:hidden;flex:1;border:1px solid #b49a72}
+.bar i{display:block;height:100%;background:#3b2a18}
+.blend{grid-column:1/3;font-size:14.5px}
+.blend table{width:100%;border-collapse:collapse}
+.blend td{padding:3px 6px;border-bottom:1px solid #e2d4b8}
+.ok{color:#2f6b2c;font-weight:bold}.no{color:#a3322c;font-weight:bold}
+.pool{margin-bottom:9px;background:#fffaf0;border:2px solid #b49a72;border-radius:9px;padding:9px 11px}
+.pool h3{font-size:18px;display:flex;justify-content:space-between}
+.track{position:relative;height:22px;background:#e3d6bd;border-radius:5px;margin:6px 0 4px;border:1px solid #b49a72}
+.track i{position:absolute;left:0;top:0;bottom:0;border-radius:5px}
+.track u{position:absolute;top:-4px;bottom:-4px;width:3px;background:#2a2118}
+.track em{position:absolute;top:-19px;font-size:11.5px;font-style:normal;transform:translateX(-50%);white-space:nowrap}
+.buys{font-size:14px;line-height:1.35}
+.buys b{color:#3b2a18}
+.focus{display:flex;gap:8px;margin:8px 0}
+.btn{white-space:nowrap;border:2px solid #2a2118;background:#fffaf0;border-radius:7px;padding:6px 10px;font-size:14.5px;font-family:inherit;cursor:pointer}
+.btn.on{background:#2a2118;color:#fff}
+.btn.go{background:#b0302c;border-color:#7d1f1b;color:#fff;font-size:16px;padding:6px 14px}
+.read{background:#2a2118;color:#f3e9d6;border-radius:9px;padding:8px 11px;font-size:14.5px;line-height:1.3}
+.read b{color:#ffd88a}
+.strip{margin:10px 22px 0 22px;height:252px;overflow:hidden;background:#1f1b17;border-radius:10px;padding:10px 14px;color:#f3e9d6}
+.strip h2{font-family:"Permanent Marker",Impact,sans-serif;font-weight:normal;font-size:20px;display:flex;gap:20px;align-items:baseline}
+.strip h2 span{font-family:Kalam,"Segoe UI",sans-serif;font-size:15px;color:#cdbb9a}
+.groups{display:grid;grid-template-columns:1.25fr 1.25fr 1fr 1fr .8fr;gap:10px;margin-top:8px}
+.grp{background:#2d2721;border-radius:8px;padding:7px 8px}
+.grp h4{font-size:15px;margin-bottom:5px;display:flex;justify-content:space-between}
+.grp h4 span{font-weight:normal;font-size:12.5px;color:#cdbb9a}
+.hand{display:flex;gap:6px}
+.hc{flex:1;min-width:0;background:#f6eedd;color:#2a2118;border-radius:7px;padding:5px 6px;font-size:12.5px;line-height:1.2;border-top:6px solid #333;height:122px}
+.hc .t{font-weight:bold;font-size:14px}
+.hc .c{display:inline-block;background:#2a2118;color:#fff;border-radius:4px;padding:0 4px;font-size:11.5px;margin-top:3px}
+.hc.sel{outline:3px solid #ffd88a}
+.hc.grey{background:#6d655b;color:#cfc6b8;border-top-color:#555}
+.hc.grey .c{background:#4a443d}
+.bl{border-top-color:#2b5d9b}.br{border-top-color:#a3322c}.bg{border-top-color:#3d7a3a}.bc{border-top-color:#8a5a14}.bh{border-top-color:#5d4b8a}
+.foot{display:flex;gap:14px;align-items:center;margin-top:7px;font-size:14.5px}
+.foot .sp{flex:1}
+</style></head>
+<body>
+<div class="top"><h1>Puncher's chance</h1><div>Camp &middot; Alex Moreno &middot; week 3 of 6 &middot; next bout Sat 14 Mar</div><div class="sp"></div>
+<div class="chip">Slots 7 of 8</div><div class="chip">Camp weeks left 3</div><div class="chip">Pool points to place 0</div></div>
+<div class="wrap">
+ <div class="panel">
+  <h2>The body</h2>
+  <div class="fig"><div class="head"></div><div class="neck"></div><div class="arm1"></div><div class="arm2"></div><div class="g1"></div><div class="g2"></div><div class="trunk"></div><div class="shorts"></div><div class="leg1"></div><div class="leg2"></div><div class="b1"></div><div class="b2"></div></div>
+  <div class="key">
+   <div><b>Lead hand</b>3 slots, 2 used</div><div><b>Rear hand</b>3 slots, 2 used</div>
+   <div><b>Legs</b>2 slots, 1 used</div><div><b>Core</b>2 slots, 1 used</div>
+   <div><b>Head</b>1 slot, 1 used</div><div><b>Base cards</b>always held</div>
+  </div>
+  <p class="small" style="margin-top:8px">Base cards every body holds: jab, cross, guard high and low, step in, hold your ground, back off.</p>
+ </div>
+ <div class="panel">
+  <h2>Parts and slots <span class="small">&middot; drag a card onto a slot of its part &middot; a card only fits its own part</span></h2>
+  <div class="parts">
+   <div class="part"><h3>Lead hand <span>if this part is hurt: these cards rest 1 beat</span></h3>
+    <div class="slots">
+     <div class="card lead"><div class="t">Body jab</div><div class="n">1 stamina &middot; 1 health<br>Long and Mid, to the body</div><div class="pips">Used 31 in 100 beats last bout</div></div>
+     <div class="card lead"><div class="t">Feint <span class="drill">drilled 1</span></div><div class="n">1 stamina<br>Next punch cannot be blocked</div><div class="pips">Drill: 1 more week to level 2</div></div>
+     <div class="card empty"><div class="t">Open slot</div><div class="n">Fits: lead hook, lead uppercut, body hook, push off</div></div>
+    </div></div>
+   <div class="part"><h3>Rear hand <span>if hurt: these cards rest 1 beat</span></h3>
+    <div class="slots">
+     <div class="card rear"><div class="t">Body cross</div><div class="n">2 stamina &middot; 2 health<br>Shortens the opponent's stamina bar</div><div class="pips">Used 39 in 100 beats</div></div>
+     <div class="card rear"><div class="t">Overhand</div><div class="n">3 stamina &middot; 4 health<br>Needs a step forward</div><div class="pips">Used 2 in 100 beats: think about swapping</div></div>
+     <div class="card locked"><div class="t">Locked</div><div class="n">Opens at Attack 60 (now 58)</div></div>
+    </div></div>
+   <div class="part"><h3>Legs <span>a low blow or a cut stops these for the round</span></h3>
+    <div class="slots">
+     <div class="card legs"><div class="t">Ring craft</div><div class="n">Back off once more on the ropes before you are stuck</div><div class="pips">Fired 3 times a bout</div></div>
+     <div class="card empty"><div class="t">Open slot</div><div class="n">Costs 2 camp weeks with the coach</div></div>
+    </div></div>
+   <div class="part"><h3>Core <span>each body shot taken: 1 stamina off your bar</span></h3>
+    <div class="slots">
+     <div class="card core"><div class="t">Clinch</div><div class="n">1 stamina &middot; Inside only<br>No punch lands, +2 stamina</div><div class="pips">Greyed for the round after 2 body shots</div></div>
+     <div class="card empty"><div class="t">Open slot</div><div class="n">Fits: roll under, tie up</div></div>
+    </div></div>
+   <div class="part" style="grid-column:1/3"><h3>Head <span>always on, never played</span></h3>
+    <div class="slots">
+     <div class="card headc" style="flex:0 0 32%"><div class="t">Good chin</div><div class="n">Get up on 1 more health after a knockdown</div></div>
+     <div class="card headc" style="flex:0 0 32%;opacity:.55"><div class="t">Sharp eyes (not mounted)</div><div class="n">See one card the opponent will pick, once a round</div></div>
+     <div class="small" style="align-self:center">One Head slot. Swapping costs 1 camp week.</div>
+    </div></div>
+   <div class="budget"><b>Body budget</b><div class="bar"><i style="width:87.5%"></i></div>7 of 8 slots &middot; at most 3 on a part</div>
+   <div class="blend"><table>
+    <tr><td><b>Blends this body owns</b></td><td></td><td class="small">two cards in one moment</td></tr>
+    <tr><td>Feint, then Body cross</td><td class="ok">yes</td><td>the cross goes through the gap the feint makes</td></tr>
+    <tr><td>Back off, then Overhand</td><td class="no">no</td><td>the overhand needs weight going forward</td></tr>
+    <tr><td>Body jab, then Body cross</td><td class="ok">yes</td><td>two body shots: the opponent's bar drops 1</td></tr>
+   </table></div>
+  </div>
+ </div>
+ <div class="panel">
+  <h2>Three pools <span class="small">&middot; 50 to start, 100 at the top</span></h2>
+  <div class="pool"><h3>Conditioning <span>64</span></h3>
+   <div class="track"><i style="width:28%;background:#3d7a3a"></i><u style="left:20%"></u><em style="left:20%">60</em><u style="left:50%"></u><em style="left:50%">75</em></div>
+   <div class="buys">Buys <b>health 15</b> and a <b>stamina bar of 7</b>.<br>At 75: bar 8, the top. Past 75 it buys health only.</div></div>
+  <div class="pool"><h3>Attack <span>58</span></h3>
+   <div class="track"><i style="width:16%;background:#a3322c"></i><u style="left:20%"></u><em style="left:20%">60</em><u style="left:50%"></u><em style="left:50%">75</em></div>
+   <div class="buys">Buys <b>5 stamina a beat</b>, punches at <b>0.8 weight</b>.<br>At 60: a second punch in a beat and the locked Rear slot opens.</div></div>
+  <div class="pool"><h3>Defence <span>55</span></h3>
+   <div class="track"><i style="width:10%;background:#2b5d9b"></i><u style="left:20%"></u><em style="left:20%">60</em><u style="left:50%"></u><em style="left:50%">75</em></div>
+   <div class="buys">Buys a <b>guard of 4</b> and <b>get up on 4</b> after a knockdown.<br>At 60: a blocked body shot costs you no stamina.</div></div>
+  <div class="small">Training focus this week (+1 to that pool):</div>
+  <div class="focus"><button class="btn">Conditioning</button><button class="btn on">Attack</button><button class="btn">Defence</button></div>
+  <div class="read"><b>Against the booked opponent</b> (a body puncher):<br>Lands most to your Core. This body: <b>wins 54 in 100</b> (spar test, 200 bouts, give or take 7). With Defence 60 instead of Attack 60: <b>49 in 100</b>.</div>
+  <div style="display:flex;gap:10px;margin-top:10px"><button class="btn">Spar test this body</button><button class="btn">Coach's body</button><button class="btn go">Lock the camp</button></div>
+ </div>
+</div>
+<div class="strip">
+ <h2>Bout hand <span>round 2, beat 4 of 6 &middot; Mid &middot; your stamina 5 of 7, up to 5 this beat &middot; pick one card a part, then Fight this beat</span></h2>
+ <div class="groups">
+  <div class="grp"><h4>Lead hand <span>ready</span></h4><div class="hand">
+   <div class="hc bl sel"><div class="t">Jab</div>Long, Mid<br>head<br><span class="c">1 st</span> <span class="c">1 hp</span></div>
+   <div class="hc bl"><div class="t">Body jab</div>Long, Mid<br>body<br><span class="c">1 st</span> <span class="c">1 hp</span></div>
+   <div class="hc bl"><div class="t">Feint</div>next punch cannot be blocked<br><span class="c">1 st</span></div>
+   <div class="hc bl"><div class="t">Hold high</div>blocks jab and cross<br><span class="c">0 st</span></div>
+  </div></div>
+  <div class="grp"><h4>Rear hand <span>ready</span></h4><div class="hand">
+   <div class="hc br"><div class="t">Cross</div>Mid, Inside<br>head<br><span class="c">2 st</span> <span class="c">3 hp</span></div>
+   <div class="hc br sel"><div class="t">Body cross</div>Mid, Inside<br>their bar -1<br><span class="c">2 st</span> <span class="c">2 hp</span></div>
+   <div class="hc br"><div class="t">Overhand</div>needs a step in<br><span class="c">3 st</span> <span class="c">4 hp</span></div>
+   <div class="hc br"><div class="t">Hold low</div>blocks body shots<br><span class="c">0 st</span></div>
+  </div></div>
+  <div class="grp"><h4>Legs <span>ready</span></h4><div class="hand">
+   <div class="hc bg"><div class="t">Step in</div>one place closer<br><span class="c">1 st</span></div>
+   <div class="hc bg sel"><div class="t">Hold</div>stay where you are<br><span class="c">0 st</span></div>
+   <div class="hc bg"><div class="t">Back off</div>+1 on your next punch<br><span class="c">1 st</span></div>
+  </div></div>
+  <div class="grp"><h4>Core <span>hurt: 2 body shots</span></h4><div class="hand">
+   <div class="hc bc grey"><div class="t">Clinch</div>out for this round: 2 body shots taken<br><span class="c">1 st</span></div>
+   <div class="hc bc"><div class="t">Stamina bar</div>7 now, never under 3<br>back at the bell</div>
+  </div></div>
+  <div class="grp"><h4>Head <span>on</span></h4><div class="hand">
+   <div class="hc bh"><div class="t">Good chin</div>get up on 5, not 4</div>
+  </div></div>
+ </div>
+ <div class="foot"><span>Your plan: 1 Body cross, 2 Jab &middot; lead high after the jab &middot; feet hold &middot; costs 3 of 5</span><span class="sp"></span><span>Opponent's last beat: body hook, step in</span><button class="btn go">Fight this beat</button></div>
+</div>
+</body></html>

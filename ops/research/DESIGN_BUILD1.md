@@ -97,16 +97,20 @@ here (the page's order of moments already pays some: a counter after a block is 
   edge from growth is real and the ladder that grows with you cancels it.
 - **Low health -> smaller stamina pool -> fewer actions -> more damage -> lower health** (his link). Floor: the stamina bar
   never drops below its minimum (today 4 of 8), stamina comes back every beat and at the bell. Measured: the share of men
-  15%+ behind on health after round 1 who still win was 25% on today's rules and **11% with the link** - it fails the bar
-  ("at least the boxing page's comeback share"). Not taken. A softer form (the link takes at most 2 off the bar) was
+  15%+ behind on health after round 1 who still win was 25% on today's rules and **11% with the link** (5 of 20 v 2 of 18:
+  the bands overlap, decided by 3 bouts - the code check is right that this does not reject his link). Not taken YET:
+  re-measure at n=200 on 3 seeds. A softer form (the link takes at most 2 off the bar) was
   queued and stopped by the PC's low-memory reaper before it ran.
 - **Trial first**: one rep each (N=12, seed 1) of the outboxer and the pressure fighter mirrors ran before the probe: the
   two plan mixes differ (the outboxer: body cross 39%, holds his ground 41%; the pressure fighter: jab 38%, backs off 40%,
   body hook 29%, clinch 9%), so the probe went on.
 
 ## 6. The greybox probe (two rounds, measured)
-Tool: `ops/research/s558_balance/build1_probe.mjs` (new; reads order.html's rules through rules.mjs; five small patches in
-memory only: a deck filter per man, the spend cap a beat, the guard bar size, the stamina floor, punch weight). Both men
+Tool: `ops/research/s558_balance/build1_probe.mjs` (new; reads order.html's rules through rules.mjs; changes in memory only,
+listed in full after the code check: a deck filter per man, the spend cap a beat, the clinch only with a clinch card (and,
+round 3, not while the trunk is hurt), the stamina floor, the guard bar size, punch weight (x attack / 75, on health only -
+points still come from the raw damage), the Legs cards; it also adds the drilled cards to the option lists, scales the
+health a man gets up on to his health (round 3: to his defence), and adds a fourth 'mirror' opponent slot). Both men
 play the beat's solved mix; the look-ahead is today's vtable.json (made for two equal full-deck men - an approximation for
 unequal builds). Builds: base cards + 3 discipline cards + 1 drilled card. n=36, seed 1, jobs=1 per cell. Full output:
 `results/build1_v1.txt`, `results/build1_v2.txt`. Control: today's man (all 12 cards, 75 everywhere) in the same loop.
@@ -143,17 +147,21 @@ Spread: 100-50-50 v 67-67-67: conditioning 17%, attack 28%, defence 28% - spread
 **What the probe says**
 1. **The builds play differently - yes.** Two builds against each other share far less of their plan mix (distance 0.7 to
    1.3) than a build against itself (0.1 to 0.2). The body-as-ship map makes styles real in the bout, not a label.
-2. **A deck that is part of another is beaten by it** (v1 trial at the old scaling: the outboxer's 6 cards v every card won
-   25%). In a game of solved mixes more cards is never worse, so the full deck can never exist: slots must be scarce and
+2. **A deck that is part of another tends to lose to it** (my first trial, at a scaling not kept, is not in the result
+   files; Grok Dev's runs on the kept tool: 5 of the 12 cards v all 12 won 13%, the two base punches alone 0%). In theory a
+   smaller set is never better, not always beaten. In a game of solved mixes more cards is never worse, so the full deck can never exist: slots must be scarce and
    every build an equal budget. Designed in.
 3. **The pool scale decides how violent a bout is.** v1 (punch weight with attack, health with conditioning) keeps 50 v 50
    quiet - 0 to 8% stoppages (bar 10-40%); v2 (defence also takes weight off) makes it 42 to 69%. The number between lies
    in the weight curve, not in the map.
 4. **Defence as a bar buys nothing; spreading must not beat choosing.** v1: defence 19% v attack 56%. v2: even spread
    beats every choice. A pool must pay in a way the others cannot - round 3 below.
-5. **Dead cards**: the pressure fighter's lead hook is chosen in 0-3% of beats in every cell (drilled or not), the
-   overhand 0-1% at 50 (attack 50 caps a beat at 4 stamina: the 3-stamina overhand leaves no feet). The pressure mirror
-   drifts to Long (46-51% of beats): the stalking Legs card did not make pressure press.
+5. **Dead cards**: the pressure fighter's lead hook is chosen in 0-3% of beats in the pressure MIRROR (13-27% in the cross
+   cells); the overhand 0-1% at 50 (at conditioning 50 the stamina bar is 5, and the 3-stamina overhand leaves no lead
+   punch beside it). The pressure mirror drifts to Long (46-51% of beats). The stalking Legs card was DEAD CODE (it lifts a
+   rule the page switches off: `keep: 0`, Grok Dev's runs identical with and without it), so v2 says nothing about it.
+   v2 also moved the pressure drill from the lead hook to the body hook (unstated before), and its 'defence takes weight
+   off' made punches HEAVIER at 50 (damage / (50/75)): that, not defence, is why v2 bouts were violent.
 6. **His health-to-stamina link halves comebacks** (25% -> 11%): not taken as written.
 7. Growth changes outcomes the way a career should: 50 v 75 is a heavy loss (14%, v2 0%), 100 v 75 a clear win, a ladder
    that grows with you stays level.
@@ -173,5 +181,55 @@ Spread: 100-50-50 v 67-67-67: conditioning 17%, attack 28%, defence 28% - spread
   sit within 40-60% of each other; no card under 3% in its own build; where-to-put-50 points: each choice 35-65% v the
   even spread; comebacks at least 20%.
 
-## 8. Critics
-See `BUILD1_CRITIC_*.md` (two fresh critics, one code-checked). The verdict and the last line follow at the end of this page.
+## 6b. Round 3 measured (after Kalli's critique; n=200, seed 11, `results/build1_v3.txt`)
+Round 3 as section 7 wrote it, less the up-and-down card (not in the engine): the pressure build carries the body cross in
+place of the lead hook; the generalist is the boxer-puncher (one of the game's styles), its overhand open from attack 75;
+a landed body punch takes the trunk's card (the clinch) away for the NEXT beat only (Kalli PLAY 1).
+| Cell (all at 50) | A / B / draws | stoppages | knockdowns | came back | distance |
+|---|---|---|---|---|---|
+| outboxer mirror | 49 / 45 / 6 | 18% | 1.9 | 23% | 0.08 |
+| pressure mirror | 48 / 44 / 8 | 2% | 0.5 | 25% | 0.08 |
+| boxer-puncher mirror | 50 / 42 / 9 | 2% | 0.5 | 10% | 0.05 |
+| outboxer v pressure | 48 / 46 / 7 | 2% | 0.6 | 16% | 0.78 |
+| outboxer v boxer-puncher | 34 / 57 / 9 | 10% | 1.3 | 15% | 0.48 |
+| pressure v boxer-puncher | 46 / 46 / 8 | 4% | 0.6 | 16% | 0.54 |
+Where to put 50 points (pressure, v 67-67-67): conditioning 28%, **attack 58%, defence 16%**.
+Growth (boxer-puncher): 50 v 75 wins 14% (stopped 50%); 100 v 75 wins 60%.
+- PASS: every cross-match inside 35-65% of decided bouts (outboxer v boxer-puncher 37%) - the styles are now close, not a
+  cycle; the builds still play differently (0.5-0.8 v 0.05-0.08); growth reads like a career.
+- FAIL: pools still have one answer (attack 58, defence 16 - the chin does not pay); bouts at 50 are too quiet for two of
+  three builds (2-4% stoppages, bar 10-40%); comebacks 10-16% in four of six cells (bar 20%); the trunk is hurt 6-10 times
+  a bout (body punches are common), so "the clinch is away" is the normal state, not an event; the feint is 1-7%.
+
+## 8. Critics (two fresh, one code-checked) - neither reaches 8
+| Critic | DEPTH | PLAY | GENERAL | SPEED | FIRST 5 MIN | File |
+|---|---|---|---|---|---|---|
+| Kalli (design) | 6 | 6 | 5 | 6 | 4 | BUILD1_CRITIC_KALLI.md, 10/10 page BUILD1_CRITIC_KALLI_10.png |
+| Grok Dev (code-checked, ran 27 of its own probes) | 4 | 4 | 5 | 6 | 3 | BUILD1_CRITIC_GROKDEV.md, 10/10 page BUILD1_CRITIC_GROKDEV_10.png |
+Both scored the page at commit 4ecd137 (rounds 1-2; round 3 was measured after, and fixes only the cross-matches).
+Both agree: the body-as-ship spine is right ("for the first time a week in the gym changes what the player can press in the
+next bout"); the pools have one right answer; the hurt part - the one new idea - is unmeasured where it matters (protect a
+part as a choice); dead or hidden cards; too much for the first five minutes. The code check found 18 page-v-code faults;
+the ones that changed a conclusion are corrected above (dead stalking card, unstated drill move, v2's heavier punches, the
+subset claim, the comeback rejection decided by 3 bouts, the hook "dead in every cell", the overhand reason).
+
+## 9. The next round (from both critics' To reach 10/10, most important first)
+1. **Pools: no single right answer.** Sweep all 21 splits of the 50 spare points, 200 bouts x 3 seeds: no split over 60%,
+   each pool's best split at least 40%. Defence must pay something attack cannot (a shown threshold: from 60 a blocked
+   body punch costs no stamina, from 75 the slip card) and never make punches heavier (ab = max(1, D / 75)).
+2. **A look-ahead per build** (vtable for each pair: deck, spend cap, bar sizes) - every cell today borrows the
+   full-deck 18-health table. This is the heavy step (a table a pair): needs a PC slot, not a worker beside two others.
+3. **The hurt part as a choice:** a held hand guards a PART (lead low covers the trunk cards this beat); a part loses at
+   most one card a round, back at the bell; measure protect v not-protect (8+ points of win share) and comebacks 20%+.
+4. **Dead cards out:** the stalking card gets a live rule ("your step in beats his back off even on the ropes") or goes;
+   feint + cross becomes one slot card owned by the builds that pay for it (Kalli: it decided all five of her bouts);
+   every discipline card in 5%+ of its build's beats.
+5. **Words:** four parts - Lead hand, Rear hand, Feet, Trunk (Head cut: the chin belongs to Defence); Engine for
+   conditioning; the pools map to the agreed abilities (Conditioning = stamina, recovery, durability; Attack = strength,
+   explosiveness, speed; Defence = defence, footwork, composure); "the opponent", never he.
+6. **First five minutes:** the coach builds the first body (base cards + one discipline card), one thing opens per bout
+   (slots after bout 1, thresholds after 2, combining after 3); a spar test (wins in 100 v the booked opponent) before a
+   slot is locked; every grey card says why in one line.
+7. Re-measure his health-to-stamina link at n=200 x 3 seeds before it is rejected.
+
+BUILD1 BLOCKED: two fresh critics scored DEPTH 6 / 4 and PLAY 6 / 4 (bar 8); round 3 fixed the style cross-matches but the pools still have one right answer (attack 58% v defence 16%), and the next round needs a look-ahead table per build pair (heavy CPU, not with two measuring workers on the PC) and the hurt part as a guard choice on a page this worker does not own

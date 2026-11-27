@@ -1,0 +1,119 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Puncher's chance - camp</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1920px;height:1080px;background:#15171b;color:#e6e3dc;font-family:'IBM Plex Mono',monospace;font-size:16px;overflow:hidden}
+.bb{font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:1px}
+.hdr{height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;border-bottom:1px solid #2c3139}
+.hdr h1{font-size:46px;font-weight:400}.hdr .r{font-size:16px;color:#9aa1aa;text-align:right;line-height:1.5}
+.main{display:grid;grid-template-columns:380px 800px 600px;gap:44px;padding:28px 48px 0;height:672px}
+.col h2{font-size:30px;font-weight:400;margin-bottom:14px}
+.panel{background:#262b33;border-radius:6px;padding:18px}
+.fig{height:520px;position:relative;background:#1c2026;border-radius:6px}
+.fig .s{position:absolute;background:#4a525d}
+.legend{margin-top:14px;font-size:14px;color:#9aa1aa;line-height:1.7}
+.row{display:grid;grid-template-columns:150px 1fr;gap:16px;margin-bottom:14px;align-items:start}
+.pn{font-size:28px}.pc{font-size:13px;color:#9aa1aa;margin-top:2px}
+.cards{display:flex;gap:10px;flex-wrap:wrap}
+.c{width:140px;height:96px;border-radius:5px;padding:9px;background:#323844;display:flex;flex-direction:column;justify-content:space-between}
+.c .n{font-size:22px}.c .m{font-size:12px;color:#b9bec6;line-height:1.4}
+.c.base{background:#232830;color:#8c939c;border:1px solid #333a45}
+.c.empty{background:transparent;border:2px dashed #3d4552;color:#7d8590;font-size:13px;justify-content:center;text-align:center}
+.combo{margin-top:6px;font-size:14px;color:#b9bec6;line-height:1.7}
+.pool{margin-bottom:26px}.pool .t{display:flex;justify-content:space-between;align-items:baseline}
+.pool .t span:first-child{font-size:30px}.pool .t span:last-child{font-size:30px}
+.bar{position:relative;height:22px;background:#1c2026;border-radius:3px;margin:8px 0 6px}
+.fill{position:absolute;left:0;top:0;bottom:0;;border-radius:3px}
+.tick{position:absolute;top:-6px;bottom:-6px;width:3px;background:#9aa1aa}
+.tick.gold{background:#d9a62a;width:4px}
+.feeds{font-size:13px;color:#9aa1aa;line-height:1.6}
+.open{font-size:14px;line-height:1.6}.open b{font-weight:600}
+.gold-t{color:#d9a62a}
+.strip{position:absolute;left:48px;right:48px;top:796px;height:190px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.grp{background:#1e2228;border-radius:6px;padding:12px 14px}
+.grp h3{font-size:24px;font-weight:400;margin-bottom:8px;display:flex;justify-content:space-between}
+.grp h3 span{font-family:'IBM Plex Mono',monospace;font-size:13px;color:#9aa1aa;letter-spacing:0}
+.hc{display:flex;gap:8px}
+.h{flex:1;height:110px;background:#323844;border-radius:4px;padding:8px;font-size:13px;line-height:1.45}
+.h .n{font-size:20px;display:block}
+.h.dim{background:#232830;color:#6f767f}
+.hurt{font-size:13px;color:#c9796d;margin-top:6px}
+.foot{position:absolute;left:48px;right:48px;bottom:22px;height:56px;display:flex;justify-content:space-between;align-items:center}
+.btn{height:56px;padding:0 34px;border-radius:5px;font-size:28px;display:flex;align-items:center;background:#2c323b;color:#e6e3dc}
+.go{background:#3d9a4f;color:#fff}
+.note{font-size:14px;color:#9aa1aa}
+</style></head><body>
+
+<div class="hdr"><h1 class="bb">CAMP - LUCY JACKSON - OUT-BOXER</h1>
+<div class="r">Bout: Sat 31 Jan, club show - 3 weeks of camp left<br>Example numbers</div></div>
+
+<div class="main">
+ <div class="col"><h2 class="bb">THE BODY</h2>
+  <div class="fig">
+   <div class="s" style="left:160px;top:40px;width:64px;height:72px;border-radius:50%"></div>
+   <div class="s" style="left:132px;top:122px;width:120px;height:170px;border-radius:18px 18px 10px 10px"></div>
+   <div class="s" style="left:84px;top:132px;width:40px;height:150px;border-radius:16px;transform:rotate(14deg)"></div>
+   <div class="s" style="left:262px;top:132px;width:40px;height:150px;border-radius:16px;transform:rotate(-14deg)"></div>
+   <div class="s" style="left:140px;top:300px;width:46px;height:190px;border-radius:14px;transform:rotate(5deg)"></div>
+   <div class="s" style="left:198px;top:300px;width:46px;height:190px;border-radius:14px;transform:rotate(-5deg)"></div>
+  </div>
+  <div class="legend">Four parts: lead hand, rear hand, trunk, feet.<br>Each part holds only its own kind of card.<br>A hurt part loses one card for the next beat.</div>
+ </div>
+
+ <div class="col"><h2 class="bb">CARDS ON EACH PART - 5 OF 8 SLOTS</h2>
+  <div class="row"><div><div class="pn bb">LEAD HAND</div><div class="pc">2 of 3 slots</div></div>
+   <div class="cards">
+    <div class="c base"><span class="n bb">JAB</span><span class="m">always held<br>1 stamina - Mid, Long</span></div>
+    <div class="c"><span class="n bb">BODY JAB</span><span class="m">1 stamina, 1 damage<br>Mid, Long - body</span></div>
+    <div class="c"><span class="n bb">JAB +1</span><span class="m">drilled: 2 damage<br>2 weeks of pads</span></div>
+    <div class="c empty">empty slot<br>learn: 2 camp weeks</div></div></div>
+  <div class="row"><div><div class="pn bb">REAR HAND</div><div class="pc">2 of 3 slots</div></div>
+   <div class="cards">
+    <div class="c base"><span class="n bb">CROSS</span><span class="m">always held<br>2 stamina - Inside, Mid</span></div>
+    <div class="c"><span class="n bb">FEINT AND CROSS</span><span class="m">3 stamina, can't be covered<br>lead hand open after</span></div>
+    <div class="c"><span class="n bb">BODY CROSS</span><span class="m">2 stamina, 2 damage<br>shortens his stamina bar</span></div>
+    <div class="c empty">empty slot<br>needs Attack 75</div></div></div>
+  <div class="row"><div><div class="pn bb">TRUNK</div><div class="pc">0 of 1 slot</div></div>
+   <div class="cards">
+    <div class="c empty">empty slot<br>clinch: 1 camp week</div></div></div>
+  <div class="row"><div><div class="pn bb">FEET</div><div class="pc">1 of 1 slot</div></div>
+   <div class="cards">
+    <div class="c base"><span class="n bb">STEP / HOLD / BACK</span><span class="m">always held</span></div>
+    <div class="c"><span class="n bb">ROPE ESCAPE</span><span class="m">back off once more<br>on the ropes</span></div></div></div>
+  <div class="combo">Combined in this body: feint and cross, step in and jab.<br>Before you fill a slot, the screen shows how the new build does against her next opponent.</div>
+ </div>
+
+ <div class="col"><h2 class="bb">POOLS - 50 TO 100</h2>
+  <div class="panel">
+   <div class="pool"><div class="t"><span class="bb">ENGINE</span><span class="bb">58</span></div>
+    <div class="bar"><div class="fill" style="width:16%;background:#6b7380"></div></div>
+    <div class="feeds">From stamina and durability.</div>
+    <div class="open">Health 16, stamina bar 8.</div></div>
+   <div class="pool"><div class="t"><span class="bb">ATTACK</span><span class="bb">56</span></div>
+    <div class="bar"><div class="fill" style="width:12%;background:#6b7380"></div>
+     <div class="tick gold" style="left:20%"></div><div class="tick" style="left:50%"></div></div>
+    <div class="feeds">From strength, explosiveness and speed.</div>
+    <div class="open"><span class="gold-t">At 60: a second punch a beat. 4 focused weeks away.</span><br>At 75: the overhand and the rear uppercut.</div></div>
+   <div class="pool"><div class="t"><span class="bb">DEFENCE</span><span class="bb">52</span></div>
+    <div class="bar"><div class="fill" style="width:4%;background:#6b7380"></div><div class="tick" style="left:30%"></div></div>
+    <div class="feeds">From the defence skill and composure.</div>
+    <div class="open">Guard bar 6. Gets up on 6 health.<br>At 65: gets up on 7 health.</div></div>
+   <div class="open" style="color:#9aa1aa">This week's training: attack, +1.0. A pool grows only when you train it.</div>
+  </div>
+ </div>
+</div>
+
+<div class="strip">
+ <div class="grp"><h3 class="bb">LEAD HAND <span>3 cards</span></h3><div class="hc">
+  <div class="h"><span class="n bb">JAB +1</span>1 stamina<br>2 damage</div><div class="h"><span class="n bb">BODY JAB</span>1 stamina<br>body</div><div class="h"><span class="n bb">HOLD</span>high or low</div></div></div>
+ <div class="grp"><h3 class="bb">REAR HAND <span>4 cards</span></h3><div class="hc">
+  <div class="h"><span class="n bb">CROSS</span>2 stamina</div><div class="h"><span class="n bb">FEINT AND CROSS</span>3 stamina</div><div class="h"><span class="n bb">BODY CROSS</span>2 stamina</div><div class="h"><span class="n bb">HOLD</span>high or low</div></div></div>
+ <div class="grp"><h3 class="bb">TRUNK <span>hurt</span></h3><div class="hc">
+  <div class="h dim"><span class="n bb">CLINCH</span>not learned</div></div>
+  <div class="hurt">Trunk hurt: clinch away next beat.</div></div>
+ <div class="grp"><h3 class="bb">FEET <span>4 cards</span></h3><div class="hc">
+  <div class="h"><span class="n bb">STEP IN</span>1 stamina</div><div class="h"><span class="n bb">HOLD</span>free</div><div class="h"><span class="n bb">BACK OFF</span>1 stamina</div><div class="h"><span class="n bb">ROPE ESCAPE</span>once</div></div></div>
+</div>
+
+<div class="foot"><div class="btn bb">RESET BUILD</div>
+ <div class="note">The bout hand is the body above. Nothing is drawn, nothing is shuffled.</div>
+ <div class="btn go bb">CONTINUE</div></div>
+</body></html>

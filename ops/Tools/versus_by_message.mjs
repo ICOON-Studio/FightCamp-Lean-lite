@@ -24,11 +24,15 @@ const st = fs.existsSync(STATE) ? JSON.parse(fs.readFileSync(STATE, 'utf8')) : {
 const save = () => fs.writeFileSync(STATE, JSON.stringify(st));
 const stall = (why) => { log('STALLED ' + why); console.log(`VERSUS STALLED ${why}`); process.exit(1); };
 const run = (cmd, args, opt = {}) => new Promise((ok) => { const p = spawn(cmd, args, { cwd: ROOT, windowsHide: true, ...opt }); let o = '', e = ''; p.stdout.on('data', (d) => { o += d; }); p.stderr.on('data', (d) => { e += d; }); p.on('close', (code) => ok({ out: o.trim(), err: e.trim(), code })); p.on('error', (x) => ok({ out: '', err: String(x), code: -1 })); });
-const vs = (...a) => { const r = spawnSync('node', ['proto/twohands/tools/versus.mjs', ...a], { cwd: ROOT, encoding: 'utf8' }); return { out: (r.stdout || '').trim(), code: r.status }; };
+/* S570 game=octagon (owner: "make a small cup between agents including you"): the bout is the owner's Octagon Tactics,
+   boxing first (proto/octagon/versus_oct.mjs - same new / show / plan shape); a plan is one card (+ then= / react=). */
+const OCT = arg.game === 'octagon';
+const vs = (...a) => { const r = spawnSync('node', [OCT ? 'proto/octagon/versus_oct.mjs' : 'proto/twohands/tools/versus.mjs', ...a], { cwd: ROOT, encoding: 'utf8' }); return { out: (r.stdout || '').trim(), code: r.status }; };
 
 // ---- one message to one seat, the whole reply back (all async: the two seats think at the same time)
 async function ask(S, k, text, want, maxMin) {
   const n = ++st.n[k]; save(); const f = path.join(S.dir, `msg_${String(n).padStart(3, '0')}.txt`); fs.writeFileSync(f, text);
+  if (S.via === 'test' && OCT && !/YOUR VERDICT/.test(text)) { const ok = text.split(/\r?\n/).filter((l) => /^\s+(\dx )?[a-z]+ = /.test(l) && !/CANNOT NOW/.test(l)).map((l) => l.trim().replace(/^\dx /, '').split(' ')[0]); return `card=${ok.length ? ok[n % ok.length] : 'none'}\nWHY: test`; }
   if (S.via === 'test') return /YOUR VERDICT/.test(text) ? 'x'.repeat(700) + '\nFUN 7 DEPTH 7 CLARITY 7 VARIETY 7\nVERDICT END' : /NOT PLAYED/.test(text) ? 'lead=high rear=high feet=hold\nWHY: rest' : n % 3 === 0 ? 'lead=jab rear=cross feet=hold\nWHY: one two' : 'lead=jab rear=high feet=in order=feet,lead\nWHY: close';
   if (S.via === 'agy') { const all = path.join(S.dir, 'match_so_far.md'); fs.appendFileSync(all, `\n\n=== MESSAGE ${n} TO YOU ===\n${text}\n`);
     const agy = path.join(process.env.LOCALAPPDATA, 'agy', 'bin', 'agy.exe'), prompt = `You are a boxer in a match. Read the file ${all.replace(/\\/g, '/')} from top to bottom with your file read tool: it is the whole match so far. Answer ONLY its LAST message, exactly in the form it asks for, as your final message. Use no other tool: no shell command, no file write, no search.`;
@@ -67,13 +71,19 @@ ${r.out}
     if (quiet > maxMin * 60) { if (reply) return reply; stall(S.seat + ': no reply in ' + maxMin + ' min'); } }
 }
 function parsePlan(reply) { const lines = reply.split(/\r?\n/).map((l) => l.replace(/[`*>]/g, ' ').trim().toLowerCase());
+  if (OCT) { for (let i = lines.length - 1; i >= 0; i--) { const l = lines[i], c = (l.match(/\bcard\s*=\s*([a-z]+)/) || [])[1]; if (!c) continue;
+      const th = (l.match(/\bthen\s*=\s*([a-z, ]+?)(?=\s+[a-z]+\s*=|$)/) || [])[1], re = (l.match(/\breact\s*=\s*([a-z]+)/) || [])[1];
+      return [`card=${c}`, ...(th ? [`then=${th.split(',').map((x) => x.trim()).filter(Boolean).join(',')}`] : []), ...(re && re !== 'none' ? [`react=${re}`] : [])]; } return null; }
   for (let i = lines.length - 1; i >= 0; i--) { const l = lines[i], lead = (l.match(/\blead\s*=\s*([a-z]+)/) || [])[1], rear = (l.match(/\brear\s*=\s*([a-z]+)/) || [])[1];
     if (lead && rear) { const feet = (l.match(/\bfeet\s*=\s*([a-z]+)/) || [])[1] || 'hold', order = ((l.match(/\border\s*=\s*([a-z, ]+)/) || [])[1] || '').split(',').map((x) => x.trim().split(' ')[0]).filter((x) => ['feet', 'lead', 'rear'].includes(x));
       return [`lead=${lead}`, `rear=${rear}`, `feet=${feet}`, ...(order.length ? [`order=${order.join(',')}`] : [])]; }
     if (/^(plan\s*[:=]\s*)?clinch\W*$/.test(l)) return ['clinch']; }
   return null; }
-const FORM = 'Answer with ONE line: lead=<punch|high|low> rear=<punch|high|low> feet=in|hold|back order=<feet,lead,rear in your order>   (or the one word: clinch)\nand ONE line starting WHY: . Nothing else.';
-const help = spawnSync('node', ['proto/twohands/tools/play_cli.mjs', 'help'], { cwd: ROOT, encoding: 'utf8' }).stdout.split('\n').filter((l) => !/^Opponents:|HE READS HABITS/.test(l)).join('\n').trim();
+const FORM = OCT ? 'Answer with ONE line: card=<id from YOUR HAND>  (optional on the same line: then=<id>,<id> to combo while you hold the Lead; react=<id> a Counter or Defend kept for his combo)\nand ONE line starting WHY: . Nothing else.'
+  : 'Answer with ONE line: lead=<punch|high|low> rear=<punch|high|low> feet=in|hold|back order=<feet,lead,rear in your order>   (or the one word: clinch)\nand ONE line starting WHY: . Nothing else.';
+const SAFE = OCT ? ['card=none'] : ['lead=high', 'rear=high', 'feet=hold'];   /* what is played after three refused plans */
+const help = OCT ? spawnSync('node', ['proto/octagon/versus_oct.mjs', 'help'], { cwd: ROOT, encoding: 'utf8' }).stdout.trim()
+  : spawnSync('node', ['proto/twohands/tools/play_cli.mjs', 'help'], { cwd: ROOT, encoding: 'utf8' }).stdout.split('\n').filter((l) => !/^Opponents:|HE READS HABITS/.test(l)).join('\n').trim();
 
 /* S568 server=<url> (the S567 handover: "point versus_by_message.mjs at the match server"): the bout is fought on the match
    server (proto/twohands/site/match_server.mjs, or the public one) instead of a local versus.mjs file - both seats join by
@@ -99,22 +109,22 @@ if (SERVER && st.phase === 'intro') { st.tok = st.tok || [];   /* tokens saved a
 async function serverBeat(k, s) { const S = SEATS[k];
   if (S.via === 'worker') { for (const t0 = Date.now(); ;) { const x = await state(k); if (!x.yourTurn || x.over) return; if (Date.now() - t0 > 20 * 60000) stall(S.seat + ': the worker sealed no beat in 20 min'); await sleep(4000); } }
   let msg = `${st.first ? intro(S, SEATS[1 - k]) + '\n' : ''}${serverText(s)}\n\n${FORM}`;
-  for (let t = 0; t < 3; t++) { const t0 = Date.now(), reply = await ask(S, k, msg, (r) => !!parsePlan(r), 12), secs = (Date.now() - t0) / 1000, late = LIMIT && secs > LIMIT, plan = late ? ['lead=high', 'rear=high', 'feet=hold'] : parsePlan(reply) || ['lead=high', 'rear=high', 'feet=hold'], _t = timed(S, secs, late), why = (reply.split(/\r?\n/).find((l) => /^\W*why\b/i.test(l.trim())) || '').trim();
+  for (let t = 0; t < 3; t++) { const t0 = Date.now(), reply = await ask(S, k, msg, (r) => !!parsePlan(r), 12), secs = (Date.now() - t0) / 1000, late = LIMIT && secs > LIMIT, plan = late ? SAFE : parsePlan(reply) || SAFE, _t = timed(S, secs, late), why = (reply.split(/\r?\n/).find((l) => /^\W*why\b/i.test(l.trim())) || '').trim();
     fs.appendFileSync(path.join(DIR, 'why.txt'), `${S.Name}: ${plan.join(' ')}\n  ${why}\n`); const r = await api('/api/plan', { token: st.tok[k], match: st.match, ...planBody(plan) }); log(`${S.seat} ${plan.join(' ')} | ${why.slice(0, 160)} | ${r.ok ? 'sealed' : r.error}`);
     if (r.ok || /already sealed|is over/.test(r.error || '')) return; msg = `${r.error}\nYour plan was not accepted; nothing is lost. Send another.\n\n${FORM}`; }
   await api('/api/plan', { token: st.tok[k], match: st.match, lead: 'high', rear: 'high', feet: 'hold' }); log(S.seat + ': three refused plans, both hands held'); }
 /* S568: a local model loads once (~10 s) before the first beat - not on the clock */
 if (SEATS.some((S) => S.via === 'ollama') && st.phase !== 'verdict') { const wf = path.join(DIR, 'warm.txt'); fs.writeFileSync(wf, 'Say: ready'); const r = await run('python', ['ops/Tools/ollama_seat.py', wf, '--model', arg.model || 'gemma4:12b', '--max-tokens', '5']); log('warm-up: ' + r.err.trim().split(/\r?\n/).slice(-1)[0]); }
-if (!SERVER && st.phase === 'intro') { vs('new', BOUT, `a=${SEATS[0].Name}`, `b=${SEATS[1].Name}`, `seed=${arg.seed || 1}`, ...(arg.page ? [`page=${arg.page}`] : [])); st.phase = 'bout'; st.first = 1; save(); log(`new bout ${SEATS[0].Name} v ${SEATS[1].Name}`); }
-const intro = (S, o) => `You are ${S.Name}, and this is a MATCH: one bout of a small boxing game, Puncher's chance, against another AI agent, ${o.Name}. You both have the same boxer and the same rules. Each beat you each send your plan without seeing the other's; then the beat is played and you both see what happened. I am only the referee and your hands. Three rounds of six beats. PLAY TO WIN: read what ${o.Name} does and punish it.\n\nTHE GAME'S OWN HELP (all a player is told; there is no computer opponent here, only ${o.Name}):\n\n${help}\n`;
+if (!SERVER && st.phase === 'intro') { vs('new', BOUT, `a=${SEATS[0].Name}`, `b=${SEATS[1].Name}`, `seed=${arg.seed || 1}`, ...(arg.page ? [`page=${arg.page}`] : []), ...(OCT ? [`pa=${arg.pa || 'out'}`, `pb=${arg.pb || 'press'}`] : [])); st.phase = 'bout'; st.first = 1; save(); log(`new bout ${SEATS[0].Name} v ${SEATS[1].Name}`); }
+const intro = (S, o) => `You are ${S.Name}, and this is a MATCH: one bout of ${OCT ? 'a boxing card game, Octagon Tactics' : "a small boxing game, Puncher's chance"}, against another AI agent, ${o.Name}. ${OCT ? 'You each have your own fighter type and deck (shown below); the rules are the same for both' : 'You both have the same boxer and the same rules'}. Each ${OCT ? 'exchange' : 'beat'} you each send your ${OCT ? 'card' : 'plan'} without seeing the other's; then it is played and you both see what happened. I am only the referee and your hands. Three rounds of six ${OCT ? 'exchanges' : 'beats'}. PLAY TO WIN: read what ${o.Name} does and punish it.\n\nTHE GAME'S OWN HELP (all a player is told; there is no computer opponent here, only ${o.Name}):\n\n${help}\n`;
 // one seat's beat: asked until the tool accepts the plan (three refusals: both hands held, feet still)
 async function beat(k) { const S = SEATS[k];
   /* via=worker (S567, the league's Claude Opus player: a console worker that runs versus.mjs itself): nothing is sent, the driver waits until that side has sealed its beat */
   if (S.via === 'worker') { for (const t0 = Date.now(); ;) { const B = JSON.parse(fs.readFileSync(BOUT, 'utf8')); if (B.sealed[k] || B.over || B.n !== beat.n0) return; if (Date.now() - t0 > 20 * 60000) stall(S.seat + ': the worker sealed no beat in 20 min'); await sleep(4000); } } let msg = `${st.first ? intro(S, SEATS[1 - k]) + '\n' : ''}${vs('show', BOUT, `who=${S.who}`).out}\n\n${FORM}`;
-  for (let t = 0; t < 3; t++) { const t0 = Date.now(), reply = await ask(S, k, msg, (r) => !!parsePlan(r), 12), secs = (Date.now() - t0) / 1000, late = LIMIT && secs > LIMIT, plan = late ? ['lead=high', 'rear=high', 'feet=hold'] : parsePlan(reply) || ['lead=high', 'rear=high', 'feet=hold'], _t = timed(S, secs, late), why = (reply.split(/\r?\n/).find((l) => /^\W*why\b/i.test(l.trim())) || '').trim();
+  for (let t = 0; t < 3; t++) { const t0 = Date.now(), reply = await ask(S, k, msg, (r) => !!parsePlan(r), 12), secs = (Date.now() - t0) / 1000, late = LIMIT && secs > LIMIT, plan = late ? SAFE : parsePlan(reply) || SAFE, _t = timed(S, secs, late), why = (reply.split(/\r?\n/).find((l) => /^\W*why\b/i.test(l.trim())) || '').trim();
     fs.appendFileSync(path.join(DIR, 'why.txt'), `${S.Name}: ${plan.join(' ')}\n  ${why}\n`); const r = vs('plan', BOUT, `who=${S.who}`, ...plan); log(`${S.seat} ${plan.join(' ')} | ${why.slice(0, 160)} | code ${r.code}`);
     if (r.code === 0) return; msg = `${r.out}\nYour plan was not accepted; nothing is lost. Send another.\n\n${FORM}`; }
-  vs('plan', BOUT, `who=${S.who}`, 'lead=high', 'rear=high', 'feet=hold'); log(S.seat + ': three refused plans, both hands held'); }
+  vs('plan', BOUT, `who=${S.who}`, ...SAFE); log(S.seat + ': three refused plans, both hands held'); }
 while (SERVER && st.phase === 'bout') { const s0 = await state(0);
   if (s0.lastBeat && s0.n !== st.logged) { fs.appendFileSync(LOGF, s0.lastBeat.lines.join('\n') + '\n'); st.logged = s0.n; save(); }
   if (s0.over) { st.result = s0.over; st.phase = 'verdict'; save(); break; }
