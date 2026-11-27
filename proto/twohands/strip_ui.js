@@ -19,7 +19,7 @@
     '#strip .slot.full{border:1px solid var(--gold);background:#2a2116;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}#strip .slot.full .no{color:var(--gold);opacity:1}' +
     '#strip .slot.wait{border:1px dashed var(--gold);background:none}' +
     '#strip .slot.anim .ln3,#strip .slot.anim .ln3x{display:none}#strip .slot .cpic{position:relative;height:3.3rem;overflow:hidden;border-radius:.35rem;background:radial-gradient(ellipse at 50% 65%,#2b3550,#15161b)}#strip .slot .cpic canvas{position:absolute;pointer-events:none}' +
-    '#strip .vb{font-size:1.02rem;font-weight:800;letter-spacing:.07em;line-height:1.1;white-space:nowrap}#strip .vb small{font-size:.74rem;font-weight:600;letter-spacing:0;color:#e8dcc6}' +
+    '#strip .vb{font-size:1.02rem;font-weight:800;letter-spacing:.07em;line-height:1.1;white-space:nowrap}#strip .vb small{font-size:.74rem;font-weight:600;letter-spacing:0;color:#e8dcc6}#strip .vb small.gw{display:block;margin-top:.05rem}' +
     '#strip .slot b{font-size:1rem}#strip .slot i{font-style:normal;color:var(--muted)}#strip .slot .ok{color:#bfe6c3}#strip .slot .no2{color:#ffb3ad}' +
     '#strip .slot.empty{color:var(--muted)}' +
     '#strip .slot .lm{font-size:.72rem;color:var(--muted);line-height:1.15}#strip .slot.empty b{color:#bfe6c3}#strip .ln3{display:flex;align-items:center;gap:.3rem;font-size:.78rem;line-height:1.25;white-space:nowrap}#strip .ln3 i{width:.45rem;height:.45rem;border-radius:50%;flex:none}#strip .ln3 em{font-style:normal;color:var(--muted);width:2.1rem;flex:none;font-size:.72rem}#strip .ln3.act b{font-size:.9rem;color:#fff}#strip .ln3x{font-size:.68rem;line-height:1.15;color:var(--muted);white-space:normal}#strip .slot{justify-content:flex-start}#strip .slot.empty .lm{font-size:.8rem;color:#d8cfc2}#strip .slot.full.sel{box-shadow:0 0 0 2px var(--gold),0 0 .9rem rgba(227,171,69,.55)}#strip .pt.sel{color:var(--gold);font-weight:700}#strip .sel.flash{animation:selflash 1.1s ease-out}@keyframes selflash{0%{filter:brightness(2.2)}100%{filter:none}}' +   /* S568: the whole boxer in each moment */
@@ -85,8 +85,14 @@
     if (id === 'feint') return ['FEINT', col]; if (id === 'push') return ['PUSH', col];
     if (a && a.d) return [/kick|teep|knee/.test(id + ' ' + (a.pic || '')) ? 'KICK' : 'PUNCH', col];
     return [String(m.name || '').toUpperCase(), col]; }
-  function lanes(i, m) { const actor = m ? m.sl : null, rows = [], vb = verb(m);
-    rows.push(`<span class="vb" style="color:${vb[1]}">${vb[0]}${m && m.sl !== 'wait' && m.sl !== 'feet' && !['FEINT', 'PUSH'].includes(vb[0]) ? ` <small>${m.name}</small>` : ''}</span>`);
+  /* S570 (owner: "i do not understand the current defence , doesnt guard high count as a beat ? why it doesnt shoe on the
+     strip ?"): a guard is not a moment - every hand that is not punching is held where you set it, the whole beat, free.
+     The strip said only "GUARD" (which guard was in the tooltip) and drew no picture. Now a moment where no hand acts says
+     the guard in words (Lead high · Rear low) and shows your boxer holding exactly that guard. */
+  const guardAt = (i, h) => (h === 'lead' && P.lead === 'feint' && P.ord.indexOf('lead') > i ? 'open' : P[h] ? 'high' : h === 'lead' ? P.hl : P.hr);
+  const guardWords = (i) => `Lead ${guardAt(i, 'lead')} · Rear ${guardAt(i, 'rear')}`;
+  function lanes(i, m) { const actor = m ? m.sl : null, rows = [], vb = verb(m), handsFree = !P.clinch && (!m || m.sl === 'feet' || m.sl === 'wait');
+    rows.push(`<span class="vb" style="color:${vb[1]}">${vb[0]}${m && m.sl !== 'wait' && m.sl !== 'feet' && !['FEINT', 'PUSH'].includes(vb[0]) ? ` <small>${m.name}</small>` : handsFree ? ` <small class="gw">${guardWords(i)}</small>` : ''}</span>`);
     for (const h of ['lead', 'rear', 'feet']) { let v;
       if (P.clinch) v = h === 'feet' ? 'clinch' : 'tied up';
       else if (actor === h) v = `<b>${m.name}</b>`;
@@ -108,7 +114,8 @@
     /* S569 (owner: "make animations show here too instead of buttons"): each moment shows your boxer doing it - the same
        looping picture as its card (hand_ui.js cardAnim) - under its big word; the limb rows move into the tooltip */
     if (window.cardAnim) [...el.querySelectorAll('.slot')].forEach((sl, i) => { const m = ms[i], who = sl.dataset.sl;
-      const run = who === 'lead' || who === 'rear' ? cardAnim.run(who, P[who]) : who === 'feet' ? cardAnim.run('feet', P.feet === 'hold' || sl.classList.contains('hold') ? 'hold' : P.feet) : cardAnim.run('feet', 'hold');
+      const still = !who || (who === 'feet' && (P.feet === 'hold' || sl.classList.contains('hold'))), gl = guardAt(i, 'lead'), gr = guardAt(i, 'rear');
+      const run = who === 'lead' || who === 'rear' ? cardAnim.run(who, P[who]) : still ? (gl !== 'open' && cardAnim.run('guard', `${gl}_${gr}`)) || cardAnim.run('feet', 'hold') : who === 'feet' ? cardAnim.run('feet', P.feet) : cardAnim.run('feet', 'hold');   /* S570: a still moment shows the guard you hold */
       const NL = String.fromCharCode(10), rows = [...sl.querySelectorAll('.ln3, .ln3x')].map((r) => r.innerText.replace(/\s+/g, ' ').trim()).join(NL);
       if (!run) return; const box = document.createElement('div'); box.className = 'cpic'; const vb = sl.querySelector('.vb'); (vb || sl.firstChild).after(box);
       sl.classList.add('anim'); sl.dataset.tip = (sl.dataset.tip ? sl.dataset.tip + NL : '') + rows; requestAnimationFrame(() => cardAnim.attach(box, run, 0.5)); });

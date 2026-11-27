@@ -38,6 +38,15 @@ idea 4.
 7. Two fresh critics (CRITIC_PACK first) score DEPTH and PLAY (8+ to stay), with their To reach 10/10 lists and drawn
    10/10 pages. A lower score = another round, never the board.
 
+## Feedback loops
+- Stronger build -> more wins -> more progression (slots, upgrades, bigger pools) -> stronger build. Caps to design and
+  show in the probe: opponents scale with the ladder (their pools grow too), slots are scarce (a new slot costs camp weeks,
+  not wins), upgrades cost training weeks the gym must pay for, and every pool has a ceiling of 100.
+- Low health -> smaller stamina pool -> fewer actions -> more damage taken -> lower health (his "lower health limits your
+  stamina pool"): the downward spiral needs a floor (a minimum pool, the round-break recovery) - measure how often a man
+  who falls behind in health ever comes back (bar: at least the boxing page's comeback share).
+- Trial first: ONE rep (N=12, seed 1) of each build before the full probe; stop if the two builds' plan mixes are the same.
+
 ## Prior research
 ops/research/MMC_PLAYTEST_S569.md (style decks with the plan written on them; the rest as a plan pick),
 ops/research/CARDREF1_REFERENCE_GAMES.md, ops/research/DESIGN_CARDGAME_SCOPE.md (the card-game rounds S537-S550),

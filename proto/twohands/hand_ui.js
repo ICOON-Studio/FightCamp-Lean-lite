@@ -61,6 +61,7 @@
   const first = (...ns) => ns.find(has) || '';
   function runFor(b) { const g = b.dataset.g, id = b.dataset.id, r = typeof range === 'number' ? range : 3;
     if (g === 'clinch') return first('blue_clinch');
+    if (g === 'guard') return first(`blue_both_${id}_bob${suf(r)}`, `blue_both_${id}${suf(r)}`, `blue_both_${id}`);   /* S570: both hands' guard (id 'high_low' = lead high, rear low) - a strip moment where no hand acts */
     if (id === 'high' || id === 'low') return first(`blue_${g}_${id}_bob${suf(r)}`, `blue_${g}_${id}${suf(r)}`, `blue_${g}_${id}`);   /* S569 (owner: "why this is not a animated card , you have the poses ?"): the guard switches are picture cards too */
     if (g === 'feet') { if (id === 'in' || id === 'slipin') { const k = id === 'in' ? 'step_in' : 'slip_in'; return r > 1 ? first(`blue_${k}_r${r - 1}`) : first(`blue_${k}_r2`); }
       if (id === 'back') return first(r === 3 ? 'blue_back_off' : `blue_back_off_r${r + 1}`); if (id === 'hold') return first(`blue_guard_bob${suf(r)}`, `blue_guard${suf(r)}`); return ''; }
@@ -97,7 +98,10 @@
       for (const f of R.files) blueOnly(f, c[0], k); extra.push({ box, R, c, k, W: box.clientWidth || 100, pos: pos || 0.45, i: 0, next: 0 }); return true; } };
   setInterval(() => { const now = performance.now(); for (let j = extra.length - 1; j >= 0; j--) if (!extra[j].box.isConnected) extra.splice(j, 1);
     for (const L of loops.concat(extra)) { if (now < L.next) continue; const n = L.R.files.length, cv = blueOnly(L.R.files[L.i], L.c[0], L.k);
-      if (cv.dataset.ok) { if (L.box.firstChild !== cv) { L.box.replaceChildren(cv); L.W = L.box.clientWidth || L.W; } cv.style.left = Math.round(L.W * (L.pos || 0.26) - ((L.c[2] || 480) - L.c[0]) * L.k) + 'px'; cv.style.top = Math.round(3 - 84 * L.k) + 'px'; }
+      /* S570: a cached frame is ONE canvas, and a canvas lives in one box: two boxes on the same run stole it from each other
+         (the strip's three GUARD moments drew one picture, two blank). Each box now draws into its own canvas. */
+      if (cv.dataset.ok) { const own = L.own || (L.own = document.createElement('canvas')); if (own.width !== cv.width || own.height !== cv.height) { own.width = cv.width; own.height = cv.height; } const g2 = own.getContext('2d'); g2.clearRect(0, 0, own.width, own.height); g2.drawImage(cv, 0, 0);
+        if (L.box.firstChild !== own) { L.box.replaceChildren(own); L.W = L.box.clientWidth || L.W; } own.style.left = Math.round(L.W * (L.pos || 0.26) - ((L.c[2] || 480) - L.c[0]) * L.k) + 'px'; own.style.top = Math.round(3 - 84 * L.k) + 'px'; }
       const w = L.i + 1 < n ? Math.max(60, Math.min(260, (L.R.offs ? L.R.offs[L.i + 1] - L.R.offs[L.i] : 0.08) * 1000)) : 650; L.i = (L.i + 1) % n; L.next = now + w; } }, 40);
   const lay0 = lay; lay = function () { lay0(); const fb = document.getElementById('farbox');
     { const gb = document.getElementById('guardbar'); if (gb) { gb.classList.add('pcg'); for (const l of gb.querySelectorAll('.gl')) l.remove();

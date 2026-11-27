@@ -44,3 +44,6 @@ ops/AgentComms/pingerrrr_bot.json
 ops/AgentComms/*token*
 ops/AgentComms/*secret*
 ops/AgentComms/credit_runs/
+
+# S570: the paid Animo pack (81 MB) stays out of git and the public mirror
+assets/anim/animo_boxing/*.fbx

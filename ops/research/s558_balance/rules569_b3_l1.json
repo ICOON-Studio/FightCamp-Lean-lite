@@ -24,7 +24,7 @@
   ],
   [
    " + (pull ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg;",
-   " + (pull ? 1 : 0) - (L0[sh.k].tired && a.d >= 2 ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg; let hcap = 0; if (N.lk1) { const want = Math.min(2, Math.floor((D.max - D.hp) * N.lk1 / D.max)); if (want > (D.hc || 0)) { hcap = want - (D.hc || 0); const c0 = D.cap; D.cap = Math.max(N.capMin, D.cap - hcap); D.hc = want; D.st = Math.min(D.st, D.cap); hcap = c0 - D.cap; } }"
+   " + (pull ? 1 : 0) - (L0[sh.k].tired && a.d >= 2 ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg; let hcap = 0; if (N.lk1) { const want = Math.min(2, Math.floor((D.max - D.hp) * N.lk1 / D.max)); if (want > (D.hc || 0)) { hcap = want - (D.hc || 0); const c0 = D.cap; D.cap = Math.max(N.capMin, D.cap - hcap); D.hc = want; D.st = Math.min(D.st, D.cap); hcap = c0 - D.cap; D.hct = (D.hct || 0) + hcap; } }"
   ],
   [
    "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n,",

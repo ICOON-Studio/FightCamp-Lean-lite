@@ -1,0 +1,133 @@
+{
+ "_note": "RULES569 R3 = the three ideas TOGETHER (R1 the guard as one card + idea 2 the power switch + idea 3 the four bar links), the rules of the toy page proto/twohands/rules.html. R1 failed its trial alone, so this version is a toy to click, not a candidate: its bars are in docs/RULES569_RESULT.md. Each part's own note: rules569_r1.json, rules569_p2.json, rules569_b3.json.",
+ "src": [
+  [
+   "const N = { ",
+   "const N = { drain: 1, shell: 1, "
+  ],
+  [
+   "Stops his clinch.' },",
+   "Stops his clinch.' },\n  guard: { n: 'Guard up', h: 0, st: 1, guard: 1, t: 'Both gloves high, elbows in: every punch is blocked from this moment until your next action. Takes both hands for its moment. A feint still draws it.' },   /* RULES569 R1: the guard is ONE action */"
+  ],
+  [
+   "const LO = [{ lead: null, hl: 'high' }, { lead: null, hl: 'low' }, ...['jab', 'bjab', 'hook', 'lup', 'lbody', 'feint', 'push'].map(",
+   "const LO = [{ lead: null, hl: 'high' }, ...['jab', 'bjab', 'hook', 'lup', 'lbody', 'feint', 'push', 'guard'].map("
+  ],
+  [
+   "const RO = [{ rear: null, hr: 'high' }, { rear: null, hr: 'low' }, ...[",
+   "const RO = [{ rear: null, hr: 'high' }, ...["
+  ],
+  [
+   "function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });",
+   "/* RULES569 R1: no guard switches. A hand that is not punching is back in its STANCE guard by itself: the lead glove in front of the chin, the rear glove by the cheek. Guard up (one card, the lead-hand lane, both hands) is a shell: every line, from its moment until his next action. */\nconst STANCE = { lead: [\"straight\"], rear: [\"side\"] };\nconst shell = (p, i) => { if (p.clinch || p.lead !== 'guard') return false; const j = p.ord.indexOf('lead'); return j >= 0 && (i === j || (i > j && p.ord.length === j + 1 && (N.shell === 1 || (N.shell === 2 && i === j + 1)))); };\nfunction resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });"
+  ],
+  [
+   "if (!leadAway) c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];",
+   "if (!leadAway) for (const l of STANCE.lead) c[l] = 1; if (act[k] !== 'rear') for (const l of STANCE.rear) c[l] = 1; if (shell(P[k], i)) { for (const l in LINE) c[l] = 1; c.shell = 1; } return c; }), stun = [0, 0];"
+  ],
+  [
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { drawn[k] = 2;",
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'guard') say(k, { m: i, t: 'flat', a: 'guards up', o: 'both gloves high, elbows in' });\n    for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { drawn[k] = 2;"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ?",
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, shell: cov[v].shell || 0, o: cov[v].shell ? `blocked by ${v ? 'his' : 'your'} Guard up` + (D.g <= 0 ? ' - GUARD BROKEN' : '') : (P[v][sl] ?"
+  ],
+  [
+   "`${v ? 'his' : 'your'} ${sl} hand was held ${heightOf(P[v], sl)}`;",
+   "`${v ? 'his' : 'your'} stance guard does not cover that line (${LINE[a.line]})`;"
+  ],
+  [
+   "D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0));",
+   "D.g = Math.max(0, D.g - (cov[v].shell ? 0 : N.drain ? (a.d >= 3 ? 2 : 1) : (a.d >= 3 ? 1 : 0)));"
+  ],
+  [
+   "const W = { st: 0.25, cap: 0.6, guard: 0.15,",
+   "const W = { st: 0.25, cap: 0.6, guard: 0.3,"
+  ],
+  [
+   "const N = { ",
+   "const N = { pw: 1, pwSt: 1, "
+  ],
+  [
+   "FEET[p.feet].st + (p.clinch ? 1 : 0);",
+   "FEET[p.feet].st + (p.clinch ? 1 : 0) + (!p.clinch && p.pw && p[p.pw] && ACT[p[p.pw]].d ? N.pwSt : 0);\n/* RULES569 idea 2, THE POWER SWITCH: one punch a beat can be thrown at FULL POWER (p.pw = 'lead' or 'rear'): +1 stamina, +1 health (a light punch) or +2 (a punch of 3 or more), one step slower. Blocked or short, he is OPEN in his next moment (his guard covers nothing; the last moment of a beat carries to the first of the next). */\nconst full = (a) => ({ ...a, d: a.d + (a.d >= 3 ? 2 : 1), sp: a.sp + 1, full: 1 });"
+  ],
+  [
+   "for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')",
+   "const wide = [0, 1].map((k) => { const w = f[k].wide && S.t !== N.beats ? 0 : -1; f[k].wide = 0; return w; });\n  for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')"
+  ],
+  [
+   "shots.push({ k, id: P[k][sl], a: ACT[P[k][sl]] });",
+   "shots.push({ k, id: P[k][sl], a: P[k].pw === sl ? full(ACT[P[k][sl]]) : ACT[P[k][sl]] });"
+  ],
+  [
+   "const c = {}; if (f[k].g <= 0) return c; const leadAway",
+   "const c = {}; if (f[k].g <= 0 || wide[k] === i) return c; const leadAway"
+  ],
+  [
+   "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }",
+   "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; if (a.full) wide[sh.k] = i + 1; continue; }"
+  ],
+  [
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }",
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; if (a.full) wide[sh.k] = i + 1; continue; }"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n,",
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, wideHit: wide[v] === i ? 1 : 0,"
+  ],
+  [
+   "const why = D.g <= 0 ? 'guard broken' :",
+   "const why = D.g <= 0 ? 'guard broken' : wide[v] === i ? `${v ? 'he was' : 'you were'} wide open after the full-power punch` :"
+  ],
+  [
+   "o: `lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "o: `${a.full ? 'FULL POWER, ' : ''}lands${openNow[sh.k] ? ' as a counter' : ''}"
+  ],
+  [
+   "if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown'",
+   "for (const k of [0, 1]) if (wide[k] === 3) f[k].wide = 1;\n  if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown'"
+  ],
+  [
+   "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); }",
+   "for (const ord of perms(ordOf(c0))) { out.push({ ...c0, ord }); if (N.pw) for (const sl of ['lead', 'rear']) if (c0[sl] && ACT[c0[sl]].d && cost({ ...c0, pw: sl }) + (typeof dear === 'function' ? dear(me, c0) : 0) <= me.st) out.push({ ...c0, ord, pw: sl }); } }"
+  ],
+  [
+   "const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);",
+   "const T = { range: S.range, t, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);"
+  ],
+  [
+   "return (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap",
+   "return (t > 1 ? 1.0 * ((y.wide || 0) - (x.wide || 0)) : 0) + (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap"
+  ],
+  [
+   "const N = { ",
+   "const N = { lk1: 3, lk2: 2, lk3: 2, lk4: 1, "
+  ],
+  [
+   "for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')",
+   "/* RULES569 idea 3, THE BARS AFFECT EACH OTHER. Read once at the start of the beat (L0), so no link feeds another twice in a beat. lk1 HEALTH -> STAMINA BAR: each third of his health lost takes 1 from his stamina bar (never under N.capMin). lk2 STAMINA -> PUNCHES: starting a beat on N.lk2 stamina or less, his punches of 2 or more do 1 less. lk3 GUARD -> BLOCKS: starting a beat on N.lk3 guard or less, a blocked punch of 3 or more lets 1 through (never the last health). lk4 GROUND -> GUARD: on the ropes, every punch he blocks takes 1 more guard. */\n  const L0 = f.map((m) => ({ tired: !!N.lk2 && m.st <= N.lk2, soft: !!N.lk3 && m.g <= N.lk3, roped: !!N.lk4 && m.ropes >= 2 }));\n  for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')"
+  ],
+  [
+   "if (cov[v][a.line] && !wasDrawn) { ",
+   "if (cov[v][a.line] && !wasDrawn) { const leak = L0[v].soft && a.d >= 3 && D.hp > 1 ? 1 : 0; D.hp -= leak; if (L0[v].roped) D.g = Math.max(0, D.g - 1); "
+  ],
+  [
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') });",
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') + (leak ? ' - a tired guard: 1 gets through' : '') + (L0[v].roped ? ' - on the ropes: 1 more guard' : ''), leak, roped: L0[v].roped ? 1 : 0 });"
+  ],
+  [
+   " + (pull ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg;",
+   " + (pull ? 1 : 0) - (L0[sh.k].tired && a.d >= 2 ? 1 : 0); pulled[sh.k] = 0; D.hp -= dmg; let hcap = 0; if (N.lk1) { const want = Math.min(2, Math.floor((D.max - D.hp) * N.lk1 / D.max)); if (want > (D.hc || 0)) { hcap = want - (D.hc || 0); const c0 = D.cap; D.cap = Math.max(N.capMin, D.cap - hcap); D.hc = want; D.st = Math.min(D.st, D.cap); hcap = c0 - D.cap; D.hct = (D.hct || 0) + hcap; } }"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n,",
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, tired: L0[sh.k].tired && a.d >= 2 ? 1 : 0, hcap,"
+  ],
+  [
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}`, down: D.hp <= 0 });",
+   "${a.keep && N.keep ? (v ? ' - he cannot step in next beat' : ' - you cannot step in next beat') : ''}${L0[sh.k].tired && a.d >= 2 ? ' - tired arms: 1 less' : ''}${hcap ? `, health lost: ${v ? 'his' : 'your'} stamina bar is ${D.cap}` : ''}`, down: D.hp <= 0 });"
+  ]
+ ]
+}

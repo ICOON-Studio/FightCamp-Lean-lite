@@ -1,0 +1,128 @@
+BUILD1 probe v1 (S570), node ops/research/s558_balance/build1_probe.mjs, n=36 seed=1 jobs=1 (trials n=12 seed=1). Build = deck:conditioning:attack:defence.
+
+### trial_out
+out:50:50:50 v out:50:50:50: wins 58%, losses 17%, draws 25%; stoppages 0% (his 0%); knockdowns a bout 0.9 v 0.8; health taken 14.6 v 13.3; Inside / Mid / Long 45% / 28% / 27%; clinches 0.0; plans a beat 97 v 89; stamina at the last bell 1.9 v 2.0; behind 15%+ after round 1: 3 bouts, came back 1 (33%)
+  A a beat: feet hold 41%, rbody 39%, lead held low 34%, lead held high 31%, step in 30%, cross 29%, back off 29%, rear held high 17%, bjab 17%, rear held low 15%, jab_d 12%, feint 6% | punches: none 10%, one 83%, two 7%
+  B a beat: rbody 39%, lead held high 39%, lead held low 38%, feet hold 37%, step in 32%, back off 31%, cross 30%, rear held low 16%, rear held high 15%, jab_d 12%, bjab 11%, feint 1% | punches: none 15%, one 78%, two 7%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.18
+  (12 bouts, seed 1, 10 s)
+
+### trial_pres
+pres:50:50:50 v pres:50:50:50: wins 25%, losses 67%, draws 8%; stoppages 0% (his 0%); knockdowns a bout 0.2 v 0.2; health taken 8.9 v 10.4; Inside / Mid / Long 24% / 28% / 49%; clinches 2.8; plans a beat 66 v 66; stamina at the last bell 2.3 v 2.8; behind 15%+ after round 1: 7 bouts, came back 0 (0%)
+  A a beat: rear held high 45%, back off 40%, jab 38%, step in 29%, lbody 29%, cross 22%, rear held low 20%, feet hold 19%, clinch 13%, lead held low 11%, lead held high 9%, hook_d 1% | punches: none 17%, one 77%, two 6%
+  B a beat: rear held high 55%, back off 37%, jab 34%, step in 31%, lbody 28%, feet hold 26%, cross 25%, lead held low 19%, rear held low 14%, lead held high 10%, clinch 6%, hook_d 3% | punches: none 18%, one 75%, two 7%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.25
+  (12 bouts, seed 1, 5 s)
+
+### m_out
+out:50:50:50 v out:50:50:50: wins 47%, losses 36%, draws 17%; stoppages 8% (his 3%); knockdowns a bout 0.9 v 1.0; health taken 13.9 v 14.1; Inside / Mid / Long 47% / 29% / 24%; clinches 0.0; plans a beat 98 v 92; stamina at the last bell 2.0 v 2.0; behind 15%+ after round 1: 20 bouts, came back 2 (10%)
+  A a beat: feet hold 41%, rbody 39%, lead held low 36%, lead held high 35%, step in 33%, cross 32%, back off 26%, rear held high 15%, rear held low 14%, bjab 14%, jab_d 11%, feint 4% | punches: none 11%, one 83%, two 6%
+  B a beat: feet hold 39%, rbody 38%, lead held low 37%, lead held high 36%, cross 32%, step in 31%, back off 30%, rear held high 16%, rear held low 14%, jab_d 12%, bjab 11%, feint 3% | punches: none 12%, one 84%, two 5%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.09
+  (36 bouts, seed 1, 33 s)
+
+### m_pres
+pres:50:50:50 v pres:50:50:50: wins 39%, losses 50%, draws 11%; stoppages 0% (his 0%); knockdowns a bout 0.3 v 0.2; health taken 9.4 v 10.5; Inside / Mid / Long 26% / 28% / 46%; clinches 2.6; plans a beat 66 v 66; stamina at the last bell 2.4 v 2.4; behind 15%+ after round 1: 18 bouts, came back 1 (6%)
+  A a beat: rear held high 46%, back off 38%, jab 38%, step in 28%, lbody 26%, cross 23%, feet hold 22%, rear held low 20%, clinch 12%, lead held low 11%, lead held high 10%, hook_d 3% | punches: none 17%, one 77%, two 6%
+  B a beat: rear held high 53%, back off 39%, jab 36%, step in 30%, lbody 27%, feet hold 25%, cross 23%, rear held low 17%, lead held low 16%, lead held high 10%, clinch 6%, hook_d 4% | punches: none 16%, one 77%, two 7%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.15
+  (36 bouts, seed 1, 14 s)
+
+### m_ctr
+ctr:50:50:50 v ctr:50:50:50: wins 47%, losses 44%, draws 8%; stoppages 0% (his 0%); knockdowns a bout 0.4 v 0.4; health taken 11.3 v 10.7; Inside / Mid / Long 57% / 20% / 23%; clinches 0.0; plans a beat 87 v 90; stamina at the last bell 2.3 v 2.3; behind 15%+ after round 1: 22 bouts, came back 1 (5%)
+  A a beat: rear held high 42%, step in 41%, feet hold 33%, lead held high 29%, rbody 28%, lead held low 27%, back off 26%, cross_d 21%, hook 18%, bjab 16%, jab 9%, rear held low 9% | punches: none 14%, one 79%, two 7%
+  B a beat: rear held high 42%, step in 40%, feet hold 38%, lead held low 32%, rbody 31%, lead held high 26%, back off 23%, cross_d 20%, hook 18%, bjab 16%, jab 8%, rear held low 8% | punches: none 17%, one 74%, two 9%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.12
+  (36 bouts, seed 1, 27 s)
+
+### x_out_pres
+out:50:50:50 v pres:50:50:50: wins 53%, losses 47%, draws 0%; stoppages 0% (his 0%); knockdowns a bout 0.5 v 0.3; health taken 10.9 v 8.8; Inside / Mid / Long 39% / 32% / 29%; clinches 2.2; plans a beat 109 v 68; stamina at the last bell 1.9 v 2.4; behind 15%+ after round 1: 20 bouts, came back 3 (15%)
+  A a beat: back off 42%, rear held high 42%, rbody 35%, lead held high 30%, feet hold 29%, step in 29%, bjab 21%, lead held low 21%, jab_d 21%, cross 16%, rear held low 8%, feint 7% | punches: none 20%, one 67%, two 13%
+  B a beat: step in 40%, feet hold 35%, rear held low 32%, rear held high 32%, lead held low 24%, cross 24%, lbody 20%, hook_d 20%, lead held high 15%, back off 13%, clinch 12%, jab 9% | punches: none 32%, one 63%, two 4%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 1.25
+  (36 bouts, seed 1, 26 s)
+
+### x_out_ctr
+out:50:50:50 v ctr:50:50:50: wins 28%, losses 58%, draws 14%; stoppages 8% (his 3%); knockdowns a bout 0.6 v 0.9; health taken 12.5 v 14.3; Inside / Mid / Long 49% / 29% / 22%; clinches 0.0; plans a beat 94 v 85; stamina at the last bell 2.4 v 2.1; behind 15%+ after round 1: 19 bouts, came back 4 (21%)
+  A a beat: feet hold 36%, lead held low 34%, lead held high 33%, step in 33%, rbody 31%, back off 31%, cross 31%, rear held high 30%, bjab 16%, jab_d 12%, rear held low 8%, feint 5% | punches: none 17%, one 78%, two 6%
+  B a beat: feet hold 40%, rbody 37%, step in 36%, lead held low 36%, lead held high 30%, cross_d 26%, back off 23%, rear held low 19%, rear held high 18%, bjab 16%, hook 13%, jab 5% | punches: none 12%, one 80%, two 9%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.70
+  (36 bouts, seed 1, 28 s)
+
+### x_pres_ctr
+pres:50:50:50 v ctr:50:50:50: wins 36%, losses 56%, draws 8%; stoppages 0% (his 0%); knockdowns a bout 0.1 v 0.5; health taken 9.2 v 11.8; Inside / Mid / Long 42% / 37% / 21%; clinches 2.4; plans a beat 68 v 93; stamina at the last bell 2.5 v 2.2; behind 15%+ after round 1: 25 bouts, came back 7 (28%)
+  A a beat: rear held high 50%, step in 44%, feet hold 29%, hook_d 27%, lead held low 24%, cross 24%, lbody 21%, rear held low 13%, back off 13%, clinch 13%, jab 9%, lead held high 6% | punches: none 23%, one 74%, two 4%
+  B a beat: rear held high 42%, back off 38%, lead held high 37%, rbody 35%, step in 31%, feet hold 31%, bjab 27%, lead held low 20%, cross_d 18%, jab 12%, rear held low 5%, hook 3% | punches: none 19%, one 67%, two 14%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 1.30
+  (36 bouts, seed 1, 21 s)
+
+### c_full75
+full:75:75:75 v full:75:75:75: wins 47%, losses 39%, draws 14%; stoppages 14% (his 8%); knockdowns a bout 1.2 v 1.1; health taken 21.7 v 21.3; Inside / Mid / Long 32% / 36% / 32%; clinches 1.0; plans a beat 388 v 383; stamina at the last bell 2.2 v 2.4; behind 15%+ after round 1: 20 bouts, came back 5 (25%)
+  A a beat: back off 33%, step in 33%, lead held low 31%, cross 28%, feet hold 27%, rbody 21%, rear held high 20%, rear held low 17%, bjab 15%, lead held high 12%, jab 8%, hook 7%, lup 6%, lbody 6%, clinch 6%, rup 6%, feint 4%, push 4%, over 3% | punches: none 20%, one 60%, two 20%
+  B a beat: lead held low 38%, back off 35%, step in 32%, feet hold 31%, cross 27%, rbody 24%, rear held high 21%, rear held low 16%, bjab 15%, lead held high 10%, hook 9%, jab 7%, lup 6%, lbody 5%, rup 5%, push 5%, over 4%, feint 4%, clinch 2% | punches: none 15%, one 67%, two 17%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.17
+  (36 bouts, seed 1, 547 s)
+
+### c_full50
+full:50:50:50 v full:50:50:50: wins 53%, losses 42%, draws 6%; stoppages 8% (his 6%); knockdowns a bout 0.8 v 0.7; health taken 12.6 v 12.3; Inside / Mid / Long 33% / 39% / 28%; clinches 1.9; plans a beat 192 v 191; stamina at the last bell 2.2 v 2.3; behind 15%+ after round 1: 21 bouts, came back 8 (38%)
+  A a beat: step in 33%, lead held low 31%, feet hold 30%, back off 27%, cross 26%, rear held high 25%, rbody 20%, rear held low 17%, bjab 15%, lead held high 15%, clinch 10%, jab 8%, hook 7%, lup 6%, lbody 4%, push 2%, feint 2%, rup 2%, over 0% | punches: none 20%, one 73%, two 7%
+  B a beat: lead held low 37%, feet hold 32%, step in 32%, back off 30%, cross 28%, rear held high 28%, rbody 19%, rear held low 18%, bjab 16%, lead held high 13%, jab 9%, hook 6%, clinch 6%, lup 5%, lbody 4%, push 3%, rup 2%, feint 1%, over 0% | punches: none 20%, one 71%, two 9%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.14
+  (36 bouts, seed 1, 118 s)
+
+### g_pres50v75
+pres:50:50:50 v pres:75:75:75: wins 14%, losses 83%, draws 3%; stoppages 31% (his 0%); knockdowns a bout 0.0 v 1.9; health taken 9.4 v 17.4; Inside / Mid / Long 32% / 42% / 26%; clinches 3.6; plans a beat 60 v 85; stamina at the last bell 2.5 v 2.6; behind 15%+ after round 1: 25 bouts, came back 2 (8%)
+  A a beat: rear held high 45%, back off 33%, lbody 31%, feet hold 25%, step in 25%, cross 21%, lead held high 17%, clinch 17%, rear held low 17%, jab 15%, lead held low 14%, hook_d 5% | punches: none 30%, one 68%, two 2%
+  B a beat: rear held high 44%, lbody 43%, step in 43%, cross 41%, feet hold 30%, lead held low 23%, back off 22%, jab 17%, rear held low 9%, lead held high 8%, clinch 6%, hook_d 4% | punches: none 19%, one 59%, two 22%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.53
+  (36 bouts, seed 1, 14 s)
+
+### g_pres100v75
+pres:100:100:100 v pres:75:75:75: wins 58%, losses 22%, draws 19%; stoppages 17% (his 17%); knockdowns a bout 1.3 v 0.0; health taken 23.3 v 15.7; Inside / Mid / Long 32% / 41% / 27%; clinches 3.9; plans a beat 80 v 80; stamina at the last bell 2.3 v 3.0; behind 15%+ after round 1: 24 bouts, came back 4 (17%)
+  A a beat: lbody 44%, rear held high 38%, step in 37%, cross 37%, back off 26%, feet hold 23%, jab 18%, clinch 14%, rear held low 11%, lead held high 10%, lead held low 9%, hook_d 4% | punches: none 23%, one 51%, two 26%
+  B a beat: lbody 40%, rear held high 38%, back off 35%, cross 34%, step in 27%, feet hold 26%, lead held low 20%, rear held low 15%, jab 13%, clinch 12%, lead held high 12%, hook_d 4% | punches: none 28%, one 54%, two 18%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.26
+  (36 bouts, seed 1, 20 s)
+
+### g_pres100v100
+pres:100:100:100 v pres:100:100:100: wins 56%, losses 33%, draws 11%; stoppages 0% (his 0%); knockdowns a bout 0.5 v 0.3; health taken 23.7 v 21.1; Inside / Mid / Long 27% / 35% / 38%; clinches 2.9; plans a beat 79 v 79; stamina at the last bell 2.7 v 2.4; behind 15%+ after round 1: 13 bouts, came back 3 (23%)
+  A a beat: lbody 46%, rear held high 41%, back off 35%, cross 33%, step in 30%, feet hold 22%, jab 19%, rear held low 14%, clinch 13%, lead held low 10%, lead held high 8%, hook_d 3% | punches: none 20%, one 58%, two 22%
+  B a beat: rear held high 49%, lbody 44%, back off 35%, step in 33%, cross 31%, feet hold 25%, jab 21%, rear held low 14%, lead held low 13%, lead held high 11%, clinch 7%, hook_d 4% | punches: none 23%, one 54%, two 23%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.16
+  (36 bouts, seed 1, 20 s)
+
+### s_C
+pres:100:50:50 v pres:67:67:67: wins 33%, losses 53%, draws 14%; stoppages 0% (his 0%); knockdowns a bout 0.1 v 0.0; health taken 9.9 v 13.6; Inside / Mid / Long 25% / 34% / 41%; clinches 2.8; plans a beat 77 v 83; stamina at the last bell 3.8 v 1.9; behind 15%+ after round 1: 10 bouts, came back 1 (10%)
+  A a beat: rear held high 42%, back off 39%, lbody 30%, cross 27%, step in 25%, jab 24%, feet hold 22%, rear held low 17%, lead held high 15%, clinch 14%, lead held low 12%, hook_d 5% | punches: none 22%, one 70%, two 8%
+  B a beat: rear held high 49%, lbody 38%, step in 37%, back off 33%, cross 32%, jab 30%, feet hold 26%, rear held low 16%, lead held low 15%, lead held high 9%, hook_d 4%, clinch 3% | punches: none 12%, one 72%, two 16%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.35
+  (36 bouts, seed 1, 18 s)
+
+### s_A
+pres:50:100:50 v pres:67:67:67: wins 56%, losses 39%, draws 6%; stoppages 11% (his 11%); knockdowns a bout 0.9 v 0.8; health taken 18.4 v 13.3; Inside / Mid / Long 27% / 37% / 37%; clinches 3.4; plans a beat 60 v 79; stamina at the last bell 2.3 v 2.9; behind 15%+ after round 1: 24 bouts, came back 2 (8%)
+  A a beat: rear held high 47%, step in 33%, lbody 33%, back off 29%, jab 26%, feet hold 26%, cross 23%, rear held low 18%, clinch 12%, lead held high 11%, lead held low 11%, hook_d 8% | punches: none 17%, one 76%, two 7%
+  B a beat: rear held high 47%, back off 38%, lbody 32%, cross 30%, step in 29%, jab 22%, feet hold 20%, lead held low 16%, lead held high 14%, clinch 13%, rear held low 11%, hook_d 2% | punches: none 28%, one 57%, two 15%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.26
+  (36 bouts, seed 1, 11 s)
+
+### s_D
+pres:50:50:100 v pres:67:67:67: wins 19%, losses 75%, draws 6%; stoppages 3% (his 0%); knockdowns a bout 0.0 v 1.0; health taken 9.1 v 14.8; Inside / Mid / Long 29% / 38% / 33%; clinches 3.4; plans a beat 60 v 82; stamina at the last bell 2.4 v 2.1; behind 15%+ after round 1: 24 bouts, came back 3 (13%)
+  A a beat: rear held high 45%, back off 36%, lbody 28%, step in 26%, feet hold 22%, jab 20%, cross 20%, rear held low 18%, clinch 16%, lead held high 16%, lead held low 14%, hook_d 6% | punches: none 28%, one 69%, two 3%
+  B a beat: rear held high 48%, step in 40%, lbody 38%, cross 34%, back off 30%, jab 25%, feet hold 24%, lead held low 19%, rear held low 13%, lead held high 8%, clinch 6%, hook_d 4% | punches: none 18%, one 63%, two 19%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.43
+  (36 bouts, seed 1, 12 s)
+
+### h_pres50
+pres:50:50:50 v pres:50:50:50: wins 33%, losses 53%, draws 14%; stoppages 0% (his 0%); knockdowns a bout 0.1 v 0.2; health taken 8.5 v 10.0; Inside / Mid / Long 27% / 28% / 45%; clinches 2.8; plans a beat 62 v 63; stamina at the last bell 2.3 v 2.2; behind 15%+ after round 1: 19 bouts, came back 2 (11%)
+  A a beat: rear held high 49%, back off 38%, jab 37%, step in 30%, lbody 26%, feet hold 21%, cross 20%, rear held low 19%, clinch 11%, lead held high 11%, lead held low 10%, hook_d 5% | punches: none 18%, one 77%, two 5%
+  B a beat: rear held high 55%, back off 40%, jab 36%, step in 31%, lbody 27%, feet hold 22%, cross 21%, rear held low 17%, lead held low 15%, lead held high 11%, clinch 8%, hook_d 4% | punches: none 17%, one 78%, two 5%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.12
+  (36 bouts, seed 1, health caps stamina, 10 s)
+
+### h_full75
+full:75:75:75 v full:75:75:75: wins 47%, losses 39%, draws 14%; stoppages 17% (his 8%); knockdowns a bout 1.0 v 1.0; health taken 20.8 v 20.5; Inside / Mid / Long 30% / 37% / 33%; clinches 1.3; plans a beat 278 v 264; stamina at the last bell 2.0 v 2.0; behind 15%+ after round 1: 18 bouts, came back 2 (11%)
+  A a beat: back off 32%, step in 32%, feet hold 31%, lead held low 30%, rear held high 27%, cross 26%, bjab 21%, rbody 20%, rear held low 15%, lead held high 12%, hook 8%, jab 6%, clinch 5%, push 5%, feint 5%, lup 5%, lbody 3%, rup 3%, over 3% | punches: none 17%, one 71%, two 12%
+  B a beat: back off 35%, lead held low 34%, step in 32%, feet hold 28%, rear held high 28%, cross 25%, bjab 22%, rbody 20%, rear held low 16%, lead held high 12%, lup 6%, jab 6%, hook 5%, clinch 5%, feint 4%, lbody 4%, rup 3%, over 3%, push 2% | punches: none 20%, one 66%, two 14%
+  plan-mix distance A v B (0 = the same mix, 3 = nothing shared): 0.12
+  (36 bouts, seed 1, health caps stamina, 256 s)
+
