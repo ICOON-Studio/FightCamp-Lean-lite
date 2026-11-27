@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.568.11', date: '2026-11-27', items: [
+    'The two arms no longer look the same: each guard button says what it stops (lead High - jab and cross, lead Low - body punches, rear High - hook and overhand, rear Low - uppercuts), and the strip rows say what each held hand blocks.'] },
+  { v: '0.568.10', date: '2026-11-27', items: [
+    'The strip shows three rows in each moment, one per limb in the card colours: Lead, Rear, Feet. Every choice sits in its own row - your guards, Stay put, and each move in the moment it happens.'] },
   { v: '0.568.9', date: '2026-11-27', items: [
     'A hand of cards replaces clicking your boxer: two guard switches on top (lead arm and rear arm, High or Low), then your moves as cards - blue for the lead arm, red for the rear arm, green for the feet. Click a card or drag it onto a moment under the ring. Moves that cannot reach fold away under "Doesn’t reach", so the hand stays small when kicks and knees arrive. The old body view is still there with ?ui=body.'] },
   { v: '0.568.8', date: '2026-11-27', items: [

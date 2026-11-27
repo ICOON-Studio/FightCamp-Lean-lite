@@ -1,0 +1,29 @@
+{
+  "_note": "SHORTBEAT1 S1: each round opens with one moment, at most one punch or feet action, no feint, push or clinch; all later beats unchanged. Pass t into the solver/table and worth resolution.",
+  "src": [
+    [
+      "function solveBeat(S, t, o = {}) { const A = plansFor(S, 0)",
+      "function solveBeat(S, t, o = {}) { S = { ...S, t }; const A = plansFor(S, 0)"
+    ],
+    [
+      "function worth(S, a, b, t) { const T = { range: S.range, f:",
+      "function worth(S, a, b, t) { const T = { t, range: S.range, f:"
+    ],
+    [
+      "for (let i = 0; i < 3; i++) { const act = [P[0].ord[i], P[1].ord[i]];",
+      "for (let i = 0; i < (S.t === N.beats ? 1 : 3); i++) { const act = [P[0].ord[i], P[1].ord[i]];"
+    ],
+    [
+      "if (cost(c0) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept)) continue;",
+      "if ((S.t === N.beats && ((Number(!!c0.lead) + Number(!!c0.rear) + Number(feet !== 'hold')) > 1 || (c0.lead && !ACT[c0.lead].d))) || cost(c0) > me.st || (feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept)) continue;"
+    ],
+    [
+      "if (S.range <= 1 && !me.held && me.st >= 1) out.push({ ...plan0(), clinch: true });",
+      "if (S.t !== N.beats && S.range <= 1 && !me.held && me.st >= 1) out.push({ ...plan0(), clinch: true });"
+    ],
+    [
+      "const hist = you.hist || [], key =",
+      "const hist = S.t === N.beats ? (you.hist || []).filter((p) => !p.clinch && ordOf(p).length <= 1 && (!p.lead || ACT[p.lead].d)) : (you.hist || []), key ="
+    ]
+  ]
+}

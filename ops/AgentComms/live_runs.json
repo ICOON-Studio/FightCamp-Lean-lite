@@ -14,18 +14,6 @@
    "branch": "arena/95892a39-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21a26-5a3a-7109-b2cd-316e95892a39"
   },
-  "SHORTBEAT1": {
-   "id": "SHORTBEAT1",
-   "status": "running",
-   "seat": "arena",
-   "agent": "Arena (cloud: costs your PC nothing)",
-   "started": "2026-11-27T01:05",
-   "eta": "3-4 h",
-   "title": "Your 'Yes, measure it': a short opening beat each round (one moment, one action), measured against the page",
-   "brief": "ops/research/TASK_SHORTBEAT1.md",
-   "branch": "arena/2a3d0ae3-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21a0e-d3ad-7a41-9a55-2a722a3d0ae3"
-  },
   "KICKFIX4": {
    "id": "KICKFIX4",
    "status": "running",

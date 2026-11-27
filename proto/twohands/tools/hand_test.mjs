@@ -37,6 +37,8 @@ try {
   // Inside: a different hand
   await send('Page.navigate', { url: base }); await sleep(2500); await ev("document.getElementById('go').click(), 1"); await sleep(1200); await ev('range = 1, plan(), 1'); await sleep(500);
   h = await ev('handState()'); ok(h.cards.includes('rear:cross') && h.cards.includes('lead:hook'), 'at Inside the cross and hook are in the hand: ' + JSON.stringify(h.cards));
+  ok(await ev("document.getElementById('side').scrollHeight <= document.getElementById('side').clientHeight + 2"), 'the hand overflows its panel at Inside: ' + (await ev("document.getElementById('side').scrollHeight + ' > ' + document.getElementById('side').clientHeight")));
+  ok(await ev("new Set([...document.querySelectorAll('#guardbar .sw small')].map((x) => x.textContent)).size === 4"), 'the four guard buttons do not each say what they stop');
   await shot('hand_inside.png', { x: 0, y: 230, width: 400, height: 850 });
   // the body view is still reachable
   await send('Page.navigate', { url: base + '?ui=body' }); await sleep(2500); ok(!(await ev('!!window.handState')), '?ui=body still loads the hand');

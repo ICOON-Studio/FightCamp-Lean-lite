@@ -1,0 +1,22 @@
+SHORTBEAT COUNT who=mix opp=mirror n=84 seed=2 jobs=2 tweak=ops/research/s558_balance/short_beat_s1.json table=/tmp/shortbeat1/s1.vt.json
+mix v the same man (no style): wins 48%, draws 5%, stops him 5%, is stopped 11%; knockdowns a bout 1.2 v 1.3; health taken a bout 21.1 v 21.7; beats at Inside / Mid / Long 24% / 30% / 46%; clinches a bout 0.9; rounds level on points 16%, 78% of them given on ground
+  you a beat: feet hold 37%, back off 30%, step in 28%, lead held low 27%, rear held high 24%, Body jab 24%, rear held low 21%, Cross 21%, Body cross 21%, Jab 16%, lead held high 7%, Feint 6%, Rear uppercut 5%, Lead hook 5%, clinch 4%, Body hook 4%, Lead uppercut 4%, Overhand 4%, Push off 3% | punches in a plan: none 7%, one 74%, two 15%
+  your punches (thrown a bout: lands / blocked / misses): Body jab 4.2: 79% / 20% / 2%, Cross 3.5: 38% / 21% / 41%, Body cross 3.4: 45% / 28% / 27%, Jab 2.7: 84% / 15% / 0%, Lead hook 0.8: 37% / 40% / 23%, Rear uppercut 0.8: 55% / 11% / 34%, Body hook 0.7: 56% / 33% / 11%, Overhand 0.7: 70% / 13% / 18%, Lead uppercut 0.6: 68% / 17% / 15%
+  he  a beat: feet hold 36%, back off 33%, step in 29%, lead held low 28%, rear held high 25%, Body jab 23%, rear held low 22%, Cross 22%, Body cross 20%, Jab 18%, Feint 6%, Lead hook 6%, lead held high 6%, Rear uppercut 5%, Body hook 4%, Lead uppercut 4%, Overhand 4%, Push off 3%, clinch 3% | punches in a plan: none 8%, one 73%, two 16%
+  his  punches (thrown a bout: lands / blocked / misses): Body jab 4.0: 75% / 22% / 3%, Cross 3.5: 42% / 25% / 34%, Body cross 3.3: 51% / 25% / 24%, Jab 3.1: 85% / 15% / 1%, Lead hook 0.9: 32% / 49% / 19%, Rear uppercut 0.8: 53% / 6% / 41%, Body hook 0.7: 61% / 23% / 16%, Lead uppercut 0.7: 55% / 18% / 27%, Overhand 0.6: 77% / 6% / 17%
+  your order, of the beats with one to choose (58%): first lead 28%, feet 53%, rear 19%
+BARS 7 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 24%, Mid 30%, Long 46%
+  PASS no switch is a must (none in over 40% of beats): back off 32%, step in 29%, Body jab 23%
+  FAIL no switch is dead (each in at least 3% of beats): Push off 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 84%, short 1%; Body jab lands 77%, short 2%; Overhand lands 73%, short 18%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 15%, draws 5%, knockdowns 2.4
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 15%, none 8%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 0.9
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 58%, most often first 53%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 50%
+OPEN {"rounds":251,"acts":[0,502,0,0],"plans":{"1 Jab - rear hand low":164,"1 Body jab - rear hand high":112,"1 Body jab - rear hand low":108,"1 Jab - rear hand high":118},"actions":{"jab":282,"bjab":220},"bothHold":0,"range":[0,0,0,251],"dmg":502,"spent":502,"roundDamage":3602,"singleStep":0,"stepWin":0,"stepDraw":0,"stoppedRound":0,"jab":1177,"punches":2927}
+OPEN 251 rounds, fighter plans 0/1/2/3: 0.00% / 100.00% / 0.00% / 0.00%; both hold 0.00%; range Inside/Mid/Long 0.00% / 0.00% / 100.00%; health dealt 2.000 and stamina spent 2.000 per round (both men); health/started round 14.351; lone-stepper wins 0/0 scored rounds (n/a), draws 0, stopped excluded 0; jab share 40.21% (1177/2927)
+TOP OPEN ACTIONS (ignoring guards) jab: 282 (56.18%) | bjab: 220 (43.82%)
+TOP OPEN PLANS 1 Jab - rear hand low: 164 (32.67%) | 1 Jab - rear hand high: 118 (23.51%) | 1 Body jab - rear hand high: 112 (22.31%) | 1 Body jab - rear hand low: 108 (21.51%)
+(84 bouts, 584 s)

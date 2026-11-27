@@ -25319,6 +25319,19 @@
    "branch": "arena/4c40abf4-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a2197e-3c74-79ad-a2d7-74364c40abf4",
    "note": "S568: collected - fails (5th tells round); Q-345 keep-or-cut on the board"
+  },
+  {
+   "id": "SHORTBEAT1",
+   "status": "done",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-27T01:05",
+   "eta": "3-4 h",
+   "title": "Your 'Yes, measure it': a short opening beat each round (one moment, one action), measured against the page",
+   "brief": "ops/research/TASK_SHORTBEAT1.md",
+   "branch": "arena/2a3d0ae3-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21a0e-d3ad-7a41-9a55-2a722a3d0ae3",
+   "note": "S568: collected - none (openings collapse to the two jabs; seed 2 loses a bar)"
   }
  ],
  "KNOWBUILD1": {

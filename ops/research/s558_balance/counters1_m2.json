@@ -1,0 +1,61 @@
+{
+  "_note": "COUNTERS1 M2, the one follow-up after M's n=12 trial stopped it (step in 21.96% < 22%, Long 49%, the wait in 26% of beats): M, and sitting on the punch costs 1 stamina (the Wait is a loaded stance, not a rest). Nothing else changed.",
+  "src": [
+    [
+      "const active = (p, sl) => (sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);",
+      "const active = (p, sl) => (sl === 'wait' ? true : sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);"
+    ],
+    [
+      "const actName = (p, sl) => (sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);",
+      "const actName = (p, sl) => (sl === 'wait' ? 'Wait' : sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);"
+    ],
+    [
+      "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord });",
+      "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); if (cost(c0) + 1 <= me.st && c0.feet === 'hold' && !c0.lead !== !c0.rear && ACT[c0.lead || c0.rear].d) out.push({ ...c0, ord: ['wait', c0.lead ? 'lead' : 'rear'] });"
+    ],
+    [
+      "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0];",
+      "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0], came = [0, 0];"
+    ],
+    [
+      "if (P[k].feet === 'in') { d--; f[k].ropes = 0; }",
+      "if (P[k].feet === 'in') { d--; f[k].ropes = 0; if (i === 0) came[k] = 1; }"
+    ],
+    [
+      "wasDrawn = drawn[sh.k] === 1;",
+      "wasDrawn = drawn[sh.k] === 1, timed = P[sh.k].ord[0] === 'wait' && came[v] === 1;"
+    ],
+    [
+      "if (cov[v][a.line] && !wasDrawn) {",
+      "if (cov[v][a.line] && !wasDrawn && !timed) {"
+    ],
+    [
+      "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+      "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0) + (timed ? 1 : 0);"
+    ],
+    [
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${pull ? ' - off the pull, +1' : ''}",
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${timed ? ' - a timed counter: he stepped onto it, +1' : ''}${pull ? ' - off the pull, +1' : ''}"
+    ],
+    [
+      "const why = D.g <= 0 ? 'guard broken' : wasDrawn ?",
+      "const why = D.g <= 0 ? 'guard broken' : timed ? 'he stepped onto it, no time to cover' : wasDrawn ?"
+    ],
+    [
+      "const cost = (p) => (p.lead ? ACT[p.lead].st : 0) + (p.rear ? ACT[p.rear].st : 0) + FEET[p.feet].st + (p.clinch ? 1 : 0);",
+      "const cost = (p) => (p.lead ? ACT[p.lead].st : 0) + (p.rear ? ACT[p.rear].st : 0) + FEET[p.feet].st + (p.clinch ? 1 : 0) + ((p.ord || [])[0] === 'wait' ? 1 : 0);"
+    ]
+  ],
+  "scenes": {
+    "counter_right": {
+      "2": {
+        "blue": {
+          "lead": "low",
+          "rear": "over",
+          "feet": "hold",
+          "order": "wait,rear"
+        }
+      }
+    }
+  }
+}

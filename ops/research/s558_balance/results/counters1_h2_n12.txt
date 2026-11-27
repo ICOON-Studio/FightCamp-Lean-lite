@@ -1,0 +1,30 @@
+COMMAND: node proto/twohands/tools/balance.mjs table tweak=ops/research/s558_balance/counters1_h2.json out=E:/FightCamp/wt_tmp/COUNTERS1/h2.vt.json jobs=3
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.112; having given ground twice v none: -0.564; Mid 0.392; Inside 0.459
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 1.087; having given ground twice v none: -0.837; Mid 1.499; Inside 1.444
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 1.281; having given ground twice v none: -0.554; Mid 1.566; Inside 1.471
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.365; having given ground twice v none: -0.488; Mid 1.622; Inside 1.55
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.386; having given ground twice v none: -0.478; Mid 1.629; Inside 1.56
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.384; having given ground twice v none: -0.48; Mid 1.623; Inside 1.566
+BALANCE_TABLE wrote E:/FightCamp/wt_tmp/COUNTERS1/h2.vt.json in 819 s
+EXIT 0
+
+COMMAND: node --import <measure.mjs> proto/twohands/tools/balance.mjs play tweak=ops/research/s558_balance/counters1_h2.json table=<wt_tmp/COUNTERS1/h2.vt.json> n=12 seed=1 jobs=3
+mix v the same man (no style): wins 50%, draws 0%, stops him 0%, is stopped 0%; knockdowns a bout 1.0 v 0.9; health taken a bout 20.3 v 19.0; beats at Inside / Mid / Long 24% / 37% / 39%; clinches a bout 1.3; rounds level on points 17%, 50% of them given on ground
+  you a beat: back off 37%, lead held low 32%, step in 30%, feet hold 28%, Cross 26%, rear held high 25%, Body cross 23%, Body jab 21%, rear held low 13%, Lead hook 13%, lead held high 9%, Feint 7%, Jab 6%, Rear uppercut 6%, clinch 5%, Push off 4%, Overhand 3%, Lead uppercut 3%, Body hook 0% | punches in a plan: none 14%, one 62%, two 19%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.3: 37% / 13% / 50%, Body cross 3.8: 54% / 17% / 28%, Body jab 3.6: 77% / 23% / 0%, Lead hook 2.3: 33% / 19% / 48%, Jab 1.2: 29% / 64% / 7%, Overhand 0.6: 86% / 0% / 14%, Rear uppercut 0.6: 29% / 29% / 43%, Lead uppercut 0.5: 50% / 0% / 50%, Body hook 0.1: 100% / 0% / 0%
+  he  a beat: back off 35%, lead held low 34%, feet hold 32%, Body cross 28%, step in 28%, Cross 24%, Body jab 22%, rear held high 21%, rear held low 16%, Jab 8%, Lead hook 8%, Feint 6%, lead held high 6%, clinch 6%, Lead uppercut 5%, Body hook 3%, Overhand 3%, Rear uppercut 3%, Push off 2% | punches in a plan: none 12%, one 62%, two 21%
+  his  punches (thrown a bout: lands / blocked / misses): Body cross 4.6: 36% / 20% / 44%, Cross 4.0: 35% / 29% / 35%, Body jab 3.9: 64% / 32% / 4%, Jab 1.5: 50% / 50% / 0%, Lead hook 1.2: 50% / 14% / 36%, Lead uppercut 0.9: 36% / 18% / 45%, Body hook 0.5: 33% / 50% / 17%, Overhand 0.4: 80% / 20% / 0%, Rear uppercut 0.3: 25% / 25% / 50%
+  your order, of the beats with one to choose (68%): first rear 19%, feet 54%, lead 27%
+COUNTERS1_METRICS {"n":12,"beats":216,"dmg":[244,228],"use":[{"in":64,"back":80},{"in":60,"back":75}],"rng":[0,52,80,84],"wait":[0,0],"fired":[0,0],"timed":[0,0],"out":[{},{}],"hookPlan":[15,10],"cut":[2,5],"chk":[2,5],"chkOut":[{"hit":2},{"hit":5}]}
+  (12 bouts, 72 s)
+BARS 6 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 24%, Mid 37%, Long 39%
+  PASS no switch is a must (none in over 40% of beats): back off 36%, step in 29%, Body cross 25%
+  FAIL no switch is dead (each in at least 3% of beats): Body hook 2%, Push off 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Body jab lands 70%, short 2%; Lead hook lands 39%, short 44%; Lead uppercut lands 41%, short 47%; Cross lands 36%, short 43%; Overhand lands 83%, short 8%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 0%, draws 0%, knockdowns 1.9
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 20%, none 13%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.3
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 68%, most often first 54%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 50%
+EXIT 0
