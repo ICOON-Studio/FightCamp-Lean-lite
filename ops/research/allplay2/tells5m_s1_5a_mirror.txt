@@ -1,0 +1,14 @@
+TELLS VERSION 5a
+PROBE_TELLS bot=0 (BOT 0: no tell (the page's mix)) v the mirror mix (the same man, no style, no tells): n=12 seed=1 jobs=2 (worker i: seed*100+i; page order.html through rules.mjs, tells.mjs v2; nothing edited)
+  wins of decided 50% (6 of 12), draws 0; stoppages 25% (he is stopped 1, you are stopped 2); knockdowns a bout 2.83 (him 1.33, you 1.50)
+  stamina at the bells (avg, of 8; bells reached 12 / 12 / 9): him 1.6 / 2.3 / 3.1; you 2.1 / 2.2 / 2.0; stoppages by round 0 / 0 / 3
+  PASS stoppages 10-40%: 25%
+  PASS BOT 0 about 50% v the mirror mix (40-60% of decided): 50%
+  bot0 v the same man (no style): wins 50%, draws 0%, stops him 8%, is stopped 17%; knockdowns a bout 1.3 v 1.5; health taken a bout 22.7 v 24.0; beats at Inside / Mid / Long 32% / 41% / 27%; clinches a bout 1.8; rounds level on points 15%, 60% of them given on ground
+    you a beat: lead held low 33%, back off 33%, step in 32%, feet hold 28%, Cross 25%, rear held high 22%, Body cross 21%, Body jab 17%, rear held low 12%, lead held high 8%, Jab 8%, Feint 7%, clinch 7%, Lead hook 7%, Rear uppercut 7%, Overhand 6%, Lead uppercut 6%, Body hook 4%, Push off 3% | punches in a plan: none 9%, one 67%, two 17%
+    your punches (thrown a bout: lands / blocked / misses): Cross 3.6: 49% / 26% / 26%, Body cross 3.5: 50% / 26% / 24%, Body jab 3.0: 69% / 31% / 0%, Jab 1.3: 63% / 31% / 6%, Rear uppercut 1.2: 36% / 21% / 43%, Lead hook 1.0: 50% / 42% / 8%, Lead uppercut 0.9: 73% / 0% / 27%, Overhand 0.8: 60% / 20% / 20%, Body hook 0.8: 44% / 56% / 0%
+    he  a beat: back off 36%, lead held low 33%, step in 31%, feet hold 29%, Cross 26%, Body cross 24%, rear held high 21%, Body jab 18%, rear held low 17%, lead held high 9%, Lead uppercut 9%, Jab 8%, Feint 7%, Lead hook 7%, clinch 5%, Rear uppercut 4%, Overhand 3%, Body hook 3%, Push off 2% | punches in a plan: none 11%, one 66%, two 18%
+    his  punches (thrown a bout: lands / blocked / misses): Cross 4.3: 55% / 18% / 27%, Body cross 3.8: 48% / 33% / 20%, Body jab 3.1: 59% / 35% / 5%, Lead uppercut 1.4: 71% / 12% / 18%, Jab 1.3: 81% / 19% / 0%, Lead hook 0.9: 45% / 36% / 18%, Rear uppercut 0.7: 63% / 13% / 25%, Overhand 0.6: 57% / 14% / 29%, Body hook 0.5: 33% / 50% / 17%
+    your order, of the beats with one to choose (69%): first rear 17%, feet 58%, lead 25%
+  SUMMARY {"bot":0,"opp":"mirror","n":12,"wins":6,"draws":0,"decided":12,"winDec":0.5,"stop":0.25,"ko":1,"lost":2,"kdBout":2.833,"kdHim":1.333,"kdYou":1.5,"fakeBeat":null,"changed":null,"lieHeld":null,"bellHim":[1.58,2.33,3.11],"bellYou":[2.08,2.17,2],"bells":[12,12,9],"fakeBluff":0,"bluffShare":null,"fakeOver":{},"fakeHid3":0,"plus1":0,"plus1Bout":0,"plus1Beat":null}
+  (12 bouts, 89 s)

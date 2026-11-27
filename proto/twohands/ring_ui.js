@@ -111,7 +111,10 @@
      lands there; a hovered switch turns it green (reaches) or red (does not reach); a range change flashes it. */
   function place() { if (!st.clientHeight || !range) return; const gap = ruler.querySelector('.gap'), lab = ruler.querySelector('.plabel'); gap.style.display = 'none';
     const reach = hoverReach ? hoverReach.includes(range) : null; lab.className = 'plabel corner' + (reach === true ? ' ok' : reach === false ? ' no' : '');
-    lab.innerHTML = hoverReach ? `<b>${RNG[range]}</b> ${hoverName} ${reach ? 'reaches' : '<u>does not reach</u>'}` : `<b>${RNG[range]}</b> lands: ${lands(range)}`;
+    /* S568 CLARITY1 (Ludo S567, clarity 5: "the current range ... named large"): the range word is LARGE, on the same one
+       line (a second line grew the badge into the blue man's gloves - nothing near the men; the step's new range is on its
+       strip card already: "Step in Long -> Mid"). */
+    lab.innerHTML = hoverReach ? `<b class="big">${RNG[range]}</b> ${hoverName} ${reach ? 'reaches' : '<u>does not reach</u>'}` : `<b class="big">${RNG[range]}</b> lands: ${lands(range)}`;
     if (range !== shown) { if (shown) { lab.classList.remove('flash'); void lab.offsetWidth; lab.classList.add('flash'); } shown = range; } }
   document.addEventListener('mouseover', (e) => { const b = e.target.closest ? e.target.closest('.sw') : null, g = b && b.dataset.g, id = b && b.dataset.id;
     const a = !b ? null : g === 'lead' || g === 'rear' ? (id === 'high' || id === 'low' ? null : ACT[id]) : g === 'feet' ? ACT[id] : null;   // a hand's 'low' hold is not the low kick
@@ -119,6 +122,7 @@
   /* S562 (owner on the gold squares and the white bar in the ring's corner: "also i do not undestand what is this"): the
      ground left behind each man moves out of the ring into his panel, a fourth bar under Guard in plain words. */
   css.textContent += '.rng{display:none}.bar.rm i{background:var(--gold)}#ruler .plabel.corner{left:.5rem;top:.45rem;transform:none;border:1px solid var(--line2)}#ruler .plabel.corner.ok{border-color:#74bd7c;box-shadow:0 0 10px rgba(116,189,124,.7)}#ruler .plabel.corner.no{border-color:#d9534a;box-shadow:0 0 10px rgba(217,83,74,.7)}#ruler .plabel.flash{animation:plateflash .9s ease-out}';
+  css.textContent += '#ruler .plabel.corner{line-height:1.1}#ruler .plabel b.big{font-size:1.4rem;line-height:1;vertical-align:-.08em;margin-right:.3rem}';   /* S568 CLARITY1: the range large, one line */
   const room = (k) => { const m = F[k], n = 2 - Math.min(2, m.ropes || 0), who = k ? 'he' : 'you';
     return gz(k, 'rm', n / 2, 0, 0, n ? n + '/2' : 'ropes', 'Ground', `${n ? 'Room to back off: ' + n + ' of 2' : 'On the ropes: cannot back off'}. Every back off gives up one step of ground; with none left ${who} ${k ? 'is' : 'are'} on the ropes and cannot back off. A step in wins it back.`); };   /* S567: a round gauge like the others */
   const draw0 = draw; draw = function () { draw0(); for (const k of [0, 1]) { const el = $(k ? 'him' : 'you'), h = el.querySelector('.gz.gb'); if (h && !el.querySelector('.gz.rm')) h.insertAdjacentHTML('afterend', room(k)); } place(); };

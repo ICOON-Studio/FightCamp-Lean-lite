@@ -2,7 +2,8 @@
 // Owner S567: "can you make it so agents compete vs each other ?". The bout is proto/twohands/tools/versus.mjs (the page's
 // own rules, each beat sealed before the other is seen); this driver is both seats' hands, as play_by_message.mjs is for one.
 //
-//   node ops/Tools/versus_by_message.mjs <dir> a=<seat>:<via> b=<seat>:<via> [seed=1] [pace=<s>]
+//   node ops/Tools/versus_by_message.mjs <dir> a=<seat>:<via> b=<seat>:<via> [seed=1] [pace=<s>] [server=http://127.0.0.1:8796] [page=one.html]
+//     server=: fight on the match server (its lobby and table) instead of a local bout file (S568)
 //     seat: kalli | john | maria | antigravity | dola | claude       via: grok | agy | dola | claude (API) | worker (a console worker plays by itself) | test
 //     dir:  E:/FightCamp/tmp/versus/<a>_v_<b>
 // Resumable: <dir>/driver.json; everything said is in <dir>/driver.log and <dir>/<seat>/. After the bout each seat is asked
@@ -69,7 +70,32 @@ function parsePlan(reply) { const lines = reply.split(/\r?\n/).map((l) => l.repl
 const FORM = 'Answer with ONE line: lead=<punch|high|low> rear=<punch|high|low> feet=in|hold|back order=<feet,lead,rear in your order>   (or the one word: clinch)\nand ONE line starting WHY: . Nothing else.';
 const help = spawnSync('node', ['proto/twohands/tools/play_cli.mjs', 'help'], { cwd: ROOT, encoding: 'utf8' }).stdout.split('\n').filter((l) => !/^Opponents:|HE READS HABITS/.test(l)).join('\n').trim();
 
-if (st.phase === 'intro') { vs('new', BOUT, `a=${SEATS[0].Name}`, `b=${SEATS[1].Name}`, `seed=${arg.seed || 1}`); st.phase = 'bout'; st.first = 1; save(); log(`new bout ${SEATS[0].Name} v ${SEATS[1].Name}`); }
+/* S568 server=<url> (the S567 handover: "point versus_by_message.mjs at the match server"): the bout is fought on the match
+   server (proto/twohands/site/match_server.mjs, or the public one) instead of a local versus.mjs file - both seats join by
+   name, are paired with vs=, and each plan goes in through /api/plan, so the bout shows in the lobby and the table beside
+   people's bouts. The server plays a beat not sealed in its limit (BEAT_LIMIT_S, 600 s) as both hands held. */
+const SERVER = (arg.server || '').replace(/\/$/, ''), LOGF = BOUT + '.log.txt';
+async function api(p, o) { for (let t = 0; t < 6; t++) { try { const r = await fetch(SERVER + p, o ? { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(o) } : undefined); return await r.json(); } catch (e) { log('server: ' + e); await sleep(5000); } } stall('the match server does not answer at ' + SERVER); }
+const state = (k) => api(`/api/state?token=${st.tok[k]}&match=${st.match}`);
+function serverText(s) { const m = (lab, f) => `${lab}: health ${f.health}/${f.healthMax}${f.downs ? ` (down ${f.downs}x)` : ''}, stamina ${f.stamina}/${f.staminaCap}, guard ${f.guard}, ground given ${f.groundGiven}/2${f.onTheRopes ? ' ON THE ROPES' : ''}${f.noClinchYet ? ', no clinch yet' : ''}${f.keptOut ? ', kept out (no step in this beat)' : ''}`;
+  const L = [`ROUND ${s.round} of ${s.rounds}, beat ${s.beat} of ${s.beats}, range ${s.rangeName}. Points this round: you ${s.me.points} - ${s.him} ${s.he.points}. Cards so far (you-him): ${s.cards.map((c) => c.join('-')).join(', ') || 'none'}`, m(`YOU (${s.you})`, s.me), m(`HIM (${s.him})`, s.he)];
+  if (s.hisLastBeats.length) L.push(`HIS LAST BEATS, newest first: ${s.hisLastBeats.join('  |  ')}`);
+  if (s.lastBeat) L.push('THE LAST BEAT:', ...s.lastBeat.lines.map((x) => '  ' + x));
+  L.push(s.over || (s.youSealed ? 'Your beat is sealed. Waiting for him.' : 'Choose your beat.')); return L.join('\n'); }
+const planBody = (plan) => plan[0] === 'clinch' ? { clinch: true } : Object.fromEntries(plan.map((x) => x.split('=')));
+if (SERVER && st.phase === 'intro') { st.tok = st.tok || [];   /* tokens saved as they come: a restarted driver reuses them (the server holds a name 15 min) */
+  for (const S of SEATS.slice(st.tok.length)) { const j = await api('/api/join', { name: S.Name }); if (!j.token) stall(`${S.Name} cannot join: ${j.error}`); st.tok.push(j.token); save(); }
+  for (const t0 = Date.now(); !st.match;) { for (const k of [0, 1]) { const f = await api('/api/find', { token: st.tok[k], vs: SEATS[1 - k].Name }); if (f.match) st.match = f.match; }
+    if (!st.match && Date.now() - t0 > 60000) stall('the server paired nobody in a minute'); if (!st.match) await sleep(1500); }
+  fs.writeFileSync(LOGF, `${SEATS[0].Name} v ${SEATS[1].Name} on ${SERVER}, bout ${st.match}\n`); st.phase = 'bout'; st.first = 1; st.logged = 0; save(); log(`server bout ${st.match} ${SEATS[0].Name} v ${SEATS[1].Name}`); }
+async function serverBeat(k, s) { const S = SEATS[k];
+  if (S.via === 'worker') { for (const t0 = Date.now(); ;) { const x = await state(k); if (!x.yourTurn || x.over) return; if (Date.now() - t0 > 20 * 60000) stall(S.seat + ': the worker sealed no beat in 20 min'); await sleep(4000); } }
+  let msg = `${st.first ? intro(S, SEATS[1 - k]) + '\n' : ''}${serverText(s)}\n\n${FORM}`;
+  for (let t = 0; t < 3; t++) { const reply = await ask(S, k, msg, (r) => !!parsePlan(r), 12), plan = parsePlan(reply) || ['lead=high', 'rear=high', 'feet=hold'], why = (reply.split(/\r?\n/).find((l) => /^\W*why\b/i.test(l.trim())) || '').trim();
+    fs.appendFileSync(path.join(DIR, 'why.txt'), `${S.Name}: ${plan.join(' ')}\n  ${why}\n`); const r = await api('/api/plan', { token: st.tok[k], match: st.match, ...planBody(plan) }); log(`${S.seat} ${plan.join(' ')} | ${why.slice(0, 160)} | ${r.ok ? 'sealed' : r.error}`);
+    if (r.ok || /already sealed|is over/.test(r.error || '')) return; msg = `${r.error}\nYour plan was not accepted; nothing is lost. Send another.\n\n${FORM}`; }
+  await api('/api/plan', { token: st.tok[k], match: st.match, lead: 'high', rear: 'high', feet: 'hold' }); log(S.seat + ': three refused plans, both hands held'); }
+if (!SERVER && st.phase === 'intro') { vs('new', BOUT, `a=${SEATS[0].Name}`, `b=${SEATS[1].Name}`, `seed=${arg.seed || 1}`, ...(arg.page ? [`page=${arg.page}`] : [])); st.phase = 'bout'; st.first = 1; save(); log(`new bout ${SEATS[0].Name} v ${SEATS[1].Name}`); }
 const intro = (S, o) => `You are ${S.Name}, and this is a MATCH: one bout of a small boxing game, Puncher's chance, against another AI agent, ${o.Name}. You both have the same boxer and the same rules. Each beat you each send your plan without seeing the other's; then the beat is played and you both see what happened. I am only the referee and your hands. Three rounds of six beats. PLAY TO WIN: read what ${o.Name} does and punish it.\n\nTHE GAME'S OWN HELP (all a player is told; there is no computer opponent here, only ${o.Name}):\n\n${help}\n`;
 // one seat's beat: asked until the tool accepts the plan (three refusals: both hands held, feet still)
 async function beat(k) { const S = SEATS[k];
@@ -79,9 +105,14 @@ async function beat(k) { const S = SEATS[k];
     fs.appendFileSync(path.join(DIR, 'why.txt'), `${S.Name}: ${plan.join(' ')}\n  ${why}\n`); const r = vs('plan', BOUT, `who=${S.who}`, ...plan); log(`${S.seat} ${plan.join(' ')} | ${why.slice(0, 160)} | code ${r.code}`);
     if (r.code === 0) return; msg = `${r.out}\nYour plan was not accepted; nothing is lost. Send another.\n\n${FORM}`; }
   vs('plan', BOUT, `who=${S.who}`, 'lead=high', 'rear=high', 'feet=hold'); log(S.seat + ': three refused plans, both hands held'); }
-while (st.phase === 'bout') { const B = JSON.parse(fs.readFileSync(BOUT, 'utf8')); if (B.over) { st.phase = 'verdict'; save(); break; } beat.n0 = B.n;
+while (SERVER && st.phase === 'bout') { const s0 = await state(0);
+  if (s0.lastBeat && s0.n !== st.logged) { fs.appendFileSync(LOGF, s0.lastBeat.lines.join('\n') + '\n'); st.logged = s0.n; save(); }
+  if (s0.over) { st.result = s0.over; st.phase = 'verdict'; save(); break; }
+  await Promise.all([0, 1].map(async (k) => { const s = k ? await state(1) : s0; if (s.yourTurn) await serverBeat(k, s); }));
+  for (const t0 = Date.now(); (await state(0)).n === s0.n && Date.now() - t0 < 15 * 60000;) await sleep(2000); st.first = 0; save(); }
+while (!SERVER && st.phase === 'bout') { const B = JSON.parse(fs.readFileSync(BOUT, 'utf8')); if (B.over) { st.phase = 'verdict'; save(); break; } beat.n0 = B.n;
   await Promise.all([0, 1].filter((k) => !B.sealed[k]).map((k) => beat(k))); st.first = 0; save(); }
-const result = JSON.parse(fs.readFileSync(BOUT, 'utf8')).over, whole = fs.readFileSync(BOUT + '.log.txt', 'utf8');
+const result = SERVER ? st.result : JSON.parse(fs.readFileSync(BOUT, 'utf8')).over, whole = fs.readFileSync(LOGF, 'utf8');
 await Promise.all([0, 1].map(async (k) => { if (st.verdict[k]) return; const S = SEATS[k], o = SEATS[1 - k];
   if (S.via === 'worker') { const vf = path.join(DIR, `VERSUS_${S.seat.toUpperCase()}.md`); for (const t0 = Date.now(); !fs.existsSync(vf) && Date.now() - t0 < 15 * 60000;) await sleep(5000); st.verdict[k] = 1; save(); log(S.seat + (fs.existsSync(vf) ? ' verdict file found' : ' wrote no verdict in 15 min')); return; }
   const msg = `THE BOUT IS OVER: ${result}\n\nEvery beat as it was played:\n\n${whole}\n\nYOUR VERDICT, as ONE message of at most 500 words: (1) why you won or lost - the two beats that decided it; (2) what ${o.Name} did that you could read, and what you could not; (3) was playing another agent more fun than a scripted opponent would be, and why; (4) one plan that felt too strong and one switch you never wanted; (5) one line each, 1 to 10: FUN, DEPTH, CLARITY, VARIETY; (6) TO REACH 10/10: the three changes to the game, most important first, each tied to a beat of this bout. End with the line: VERDICT END`;

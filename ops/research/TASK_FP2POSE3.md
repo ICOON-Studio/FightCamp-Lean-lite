@@ -15,6 +15,18 @@ rear uppercuts have the same flat rear foot (CrossLegs.TAKES is one table away f
    "blue fighter twists knee unnaturally outwards when he throws". The re-baked rear leg's knee swings OUTWARD (away from the
    body's centre line) through the cross. A cross drives the rear knee IN and forward with the hip turn. Find why (the leg
    solve's pole / knee direction in tools/cross_legs_bake.gd, likely not following the foot's turn-in) and fix it at the bake.
+   OWNER S537: "the power does not come from twisting the knee use our research/clips when you make animations". METHOD for
+   every leg/hip change in this task - from OUR research and clips, never invented:
+   - ops/research/K46_BOXER_FEET_DURING_PUNCHES.md: the cross's leg drive is ankle extension ~12 deg + knee EXTENSION ~25 deg
+     (Cheraghi 2014), knee ~143 deg at impact (Dinu & Louis 2020), ground force ~61 % lead / 39 % rear; the rear heel is
+     soft, not locked.
+   - ops/research/CROSS_POWER_S439.md: real fighters drive the hips ~28 cm FORWARD and carry ~11 cm through the target; our
+     takes move the hips 0 cm. The power chain is rear foot pivots on its ball -> hip turns and drives forward -> shoulder ->
+     arm; the knee follows the hip and the foot, it never twists out on its own.
+   - ops/research/K49_TORSO_IN_A_HOOK.md for the hooks' trunk; the clean captured Mixamo Cross_Punch measured in FP2POSE2 and
+     the labelled clips in E:/FightCamp/fight_video_data as the reference to measure against (numbers, not copies).
+   Write the reference numbers beside ours in the RESULT (knee yaw relative to the foot, knee extension, ankle extension, hip
+   forward travel) before and after.
    Test: tests/player2_test.gd KNEE - at the contact the rear knee sits on or inside the line from the rear hip to the rear
    foot (seen from above), every cross take; red on the current bake, green fixed. Film before/after of this alone first.
 1. Measure first on the takes v2 plays (st_wait / st_wait_g and every punch take's start): stance length along the line,

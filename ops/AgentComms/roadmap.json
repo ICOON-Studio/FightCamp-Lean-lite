@@ -1,19 +1,21 @@
 {
  "_note": "SINGLE SOURCE OF TRUTH for the roadmap. The ops board reads this file directly and ROADMAP.md is GENERATED from it by Tools/render_roadmap.py. Do not hand-maintain a second copy anywhere - that is the defect R136/U62 named and it has cost this project eight times.",
- "updated": "2026-11-26",
+ "updated": "2026-11-27",
  "author": "claude S294",
  "now": {
   "id": "S567",
   "owner": "claude",
-  "updated": "2026-11-26",
-  "summary": "S567 (Fable). His ask on the move panel (\"can you show here for which distances each punch can hit and for how much vs how much\"): every punch and kick card shows Inside / Mid / Long (lit = it reaches, the framed one = where you will be when it goes; red frame = it will fall short), its damage in red beside its stamina in green; the side panel is one card a row (v0.567.1). The same range marks on HIS punches on his hand panel (v0.567.2). Stills on 8787/review; beat_shot.mjs takes \"part\": \"0:rear\" / \"1:lead\". Page play test 4 of 4 on the five pages. His \"not yet and stop asking\" on the Cascadeur plan: NO purchase question again (memory). His question on the test link answered: the gate serves the live folder, so it is always the latest version while the PC and the gate are on. COLLECTED: TELLS4M - 4 of 7 bars, not for the page; obeying every tell blind +5.9 / +5.3 / +9.4 points (was +8 / +10 / +29), catching the lie pays nothing -> TASK_TELLS5M, the LAST tells round, at Arena (4c40abf4). KICKFIX4: the PC worker stopped for low memory beside ArcheAge (F1 'a checked low kick costs the kicker 2' survives N=12; F2 fails, low kick 91%); the rest moved to Arena (b9de29e2). FEINTFIX1 (the feint that opens the overhand) queued to Kalli (SQ341) and Dola (SQ342). GUARDSTANCE1: red stills of today's four set-ups taken, our candidate takes noted. His 'Yes, close them': the three finished S566 worker consoles closed (about 1.4 GB, not the 7 GB first said).",
-  "next_action": "S568: collect what landed - TELLS5M (arena 4c40abf4; fails = his keep-or-cut on the tell, no fifth round), KICKFIX4 (arena b9de29e2: judge by its pull request, its result page starts with the old BLOCKED line), LONG1 (cba93bd0) judged with LONG2 -> TASK_LONG3, PROGP4 (efb38a10), FEINTFIX1_BRIEF_KALLI / _DOLA -> one feint probe brief. His game closed: launch INSIDE1 Phase 2 (the see-through overlap) as the one render worker. NEVER ask about the Cascadeur plan or the packs: he says when they are bought; then TASK_CASC_MCP and GUARDSTANCE1.",
-  "last_working_commit": "5c222e187",
+  "updated": "2026-11-27",
+  "summary": "S567 (Fable), part 2. ON THE PAGE (v0.567.1 to v0.567.9, all pushed): punch cards show the ranges they reach and damage beside stamina, his punches too; a Replay round button at the bell; health, stamina, guard and ground as round gauges; move names in the commentary are links to their cards; after a pick the overview comes back with the move in its lit row (owner: 'i selct an action to go as second and it deltes the first one' - one move a hand, now said), a move card can be dragged onto a slot, the no-step feet card reads 'Stay put (no step)'; the strip has two sides (his 'like rune colossieum'): yours left, his right, his slots fill as each moment plays with the result timed to the picture. NEW PAGES: scene.html (four famous exchanges on our rules, checked on film: 10 of 14 match the ring; the timed counter and the check hook do not exist in our rules), online.html (Play online). PLAYING EACH OTHER: proto/twohands/site/match_server.mjs (port 8796), reached on his tailnet through the gate (:8443/online.html) and PUBLIC on Render: https://punchers-chance-test.onrender.com (private repo ICOON-Studio/punchers-chance-test, a personal code + the notice, Free plan; codes in proto/twohands/site/data/tester_codes.json on this PC). THE AGENTS' LEAGUE (his ask; versus.mjs, versus_by_message.mjs, league.mjs): 15 bouts, Claude (Opus console worker) 13 points, Ziva 12, Dola 9, John 7, Maria 3, Kalli 0; mean verdicts fun 7.4, depth 6.8, clarity 7.2, variety 6.0; every top seat names the FEINT as the broken plan; Antigravity out (its tool opened tabs in his browser). REVIEWS: Arena solo ALLPLAY3 fun 8 depth 8 clarity 7 variety 7; Ludo from a still fun 7 depth 8 clarity 5 variety 6; Toribash read (TORIBASH_NOTES_S567). COLLECTED: TELLS4M (4 of 7, not for the page), PROGP4 (no new upgrade pair passes two seeds), LONG1 (none; with LONG2 none). FIXED ON THE WAY: play_cli.mjs could not start since the S565 rename (a quote), version.js broken for one version (an apostrophe), a commit that went out with a failing play test.",
+  "next_action": "S568: (1) collect the four Arena runs - FEINTFIX2 (95892a39: G1 'the feinting hand does not guard first' is a CORRECTION by his word, it goes on the page if it holds the bars; the best of G2 / G3 on top if G1 alone does not fix the loop), SHORTBEAT1 (2a3d0ae3), TELLS5M (4c40abf4: fails = his keep-or-cut, no fifth round), KICKFIX4 (b9de29e2: judge by its pull request). (2) RESTART THE THREE SERVICES in terminal tabs (they die with the session): page server `python proto/cardgame/serve.py 8797 twohands`, the gate `powershell -NoProfile -ExecutionPolicy Bypass -File proto/twohands/site/run_gate.ps1`, the match server `node proto\\\\twohands\\\\site\\\\match_server.mjs`. The Render site needs nothing. (3) After ANY page change he should see publicly: make_site.py + push the test repo (it restarts the public server: ASK FIRST, it cuts bouts). (4) Then LONG3 (the jab that meets him does health) after the feint fix; the screen's clarity (three reviewers: 5, 5, 7): a per-moment cover row, the range named large, a guided first beat; point versus_by_message.mjs at the match server; INSIDE1 Phase 2 (his game closed). NEVER ask about the Cascadeur plan or the packs.",
+  "last_working_commit": "369173f03",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
-  "incomplete_blocked": "Four Arena measures running (LONG1, PROGP4, TELLS5M, KICKFIX4) and two seat questions out. No export: no game code changed. INSIDE1 Phase 2 not started (his game was open).",
-  "next_acceptance": "Each run collected and judged against its bars; the tell either passes its bars or goes to him as keep or cut; one Long rule brief from LONG1 + LONG2.",
+  "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
+  "next_acceptance": "Each run judged against its bars; the feint correction on the page with the loop under 30% and the feint still in 3% of beats; his friend plays one whole online bout.",
   "awaiting_operator": [
-   "Your look at the punch cards (v0.567.2) and the strip + preview"
+   "Your look: the two-sided strip, the gauges, the replay, drag and drop (v0.567.9)",
+   "Your first whole online bout on https://punchers-chance-test.onrender.com",
+   "The strip: his side left-to-right (as built) or mirrored?"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2486,8 +2488,8 @@
   },
   {
    "id": "S567",
-   "date": "2026-11-26",
-   "summary": "S567 (Fable). His ask on the move panel (\"can you show here for which distances each punch can hit and for how much vs how much\"): every punch and kick card shows Inside / Mid / Long (lit = it reaches, the framed one = where you will be when it goes; red frame = it will fall short), its damage in red beside its stamina in green; the side panel is one card a row (v0.567.1). The same range marks on HIS punches on his hand panel (v0.567.2). Stills on 8787/review; beat_shot.mjs takes \"part\": \"0:rear\" / \"1:lead\". Page play test 4 of 4 on the five pages. His \"not yet and stop asking\" on the Cascadeur plan: NO purchase question again (memory). His question on the test link answered: the gate serves the live folder, so it is always the latest version while the PC and the gate are on. COLLECTED: TELLS4M - 4 of 7 bars, not for the page; obeying every tell blind +5.9 / +5.3 / +9.4 points (was +8 / +10 / +29), catching the lie pays nothing -> TASK_TELLS5M, the LAST tells round, at Arena (4c40abf4). KICKFIX4: the PC worker stopped for low memory beside ArcheAge (F1 'a checked low kick costs the kicker 2' survives N=12; F2 fails, low kick 91%); the rest moved to Arena (b9de29e2). FEINTFIX1 (the feint that opens the overhand) queued to Kalli (SQ341) and Dola (SQ342). GUARDSTANCE1: red stills of today's four set-ups taken, our candidate takes noted. His 'Yes, close them': the three finished S566 worker consoles closed (about 1.4 GB, not the 7 GB first said)."
+   "date": "2026-11-27",
+   "summary": "S567 (Fable). His ask on the move panel (\"can you show here for which distances each punch can hit and for how much vs how much\"): every punch and kick card shows Inside / Mid / Long (lit = it reaches, the framed one = where you will be when it goes; red frame = it will fall short), its damage in red beside its stamina in green; the side panel is one card a row (v0.567.1). The same range marks on HIS punches on his hand panel (v0.567.2). Stills on 8787/review; beat_shot.mjs takes \"part\": \"0:rear\" / \"1:lead\". Page play test 4 of 4 on the five pages. His \"not yet and stop asking\" on the Cascadeur plan: NO purchase question again (memory). His question on the test link answered: the gate serves the live folder, so it is always the latest version while the PC and the gate are on. COLLECTED: TELLS4M - 4 of 7 bars, not for the page; obeying every tell blind +5.9 / +5.3 / +9.4 points (was +8 / +10 / +29), catching the lie pays nothing -> TASK_TELLS5M, the LAST tells round, at Arena (4c40abf4). KICKFIX4: the PC worker stopped for low memory beside ArcheAge (F1 'a checked low kick costs the kicker 2' survives N=12; F2 fails, low kick 91%); the rest moved to Arena (b9de29e2). FEINTFIX1 (the feint that opens the overhand) queued to Kalli (SQ341) and Dola (SQ342). GUARDSTANCE1: red stills of today's four set-ups taken, our candidate takes noted. His 'Yes, close them': the three finished S566 worker consoles closed (about 1.4 GB, not the 7 GB first said). || S567 (Fable), part 2. ON THE PAGE (v0.567.1 to v0.567.9, all pushed): punch cards show the ranges they reach and damage beside stamina, his punches too; a Replay round button at the bell; health, stamina, guard and ground as round gauges; move names in the commentary are links to their cards; after a pick the overview comes back with the move in its lit row (owner: 'i selct an action to go as second and it deltes the first one' - one move a hand, now said), a move card can be dragged onto a slot, the no-step feet card reads 'Stay put (no step)'; the strip has two sides (his 'like rune colossieum'): yours left, his right, his slots fill as each moment plays with the result timed to the picture. NEW PAGES: scene.html (four famous exchanges on our rules, checked on film: 10 of 14 match the ring; the timed counter and the check hook do not exist in our rules), online.html (Play online). PLAYING EACH OTHER: proto/twohands/site/match_server.mjs (port 8796), reached on his tailnet through the gate (:8443/online.html) and PUBLIC on Render: https://punchers-chance-test.onrender.com (private repo ICOON-Studio/punchers-chance-test, a personal code + the notice, Free plan; codes in proto/twohands/site/data/tester_codes.json on this PC). THE AGENTS' LEAGUE (his ask; versus.mjs, versus_by_message.mjs, league.mjs): 15 bouts, Claude (Opus console worker) 13 points, Ziva 12, Dola 9, John 7, Maria 3, Kalli 0; mean verdicts fun 7.4, depth 6.8, clarity 7.2, variety 6.0; every top seat names the FEINT as the broken plan; Antigravity out (its tool opened tabs in his browser). REVIEWS: Arena solo ALLPLAY3 fun 8 depth 8 clarity 7 variety 7; Ludo from a still fun 7 depth 8 clarity 5 variety 6; Toribash read (TORIBASH_NOTES_S567). COLLECTED: TELLS4M (4 of 7, not for the page), PROGP4 (no new upgrade pair passes two seeds), LONG1 (none; with LONG2 none). FIXED ON THE WAY: play_cli.mjs could not start since the S565 rename (a quote), version.js broken for one version (an apostrophe), a commit that went out with a failing play test."
   }
  ],
  "blocked_on_operator": [],
@@ -5406,7 +5408,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-26 23:11 board_sync",
+  "updated": "2026-11-27 03:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5600,7 +5602,8 @@
     "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T16:01",
-    "run": "LONG1"
+    "run": "LONG1",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
@@ -5612,22 +5615,22 @@
   ],
   "next": [
    {
-    "id": "CARDS1",
+    "id": "ONLINE1",
     "who": "operator",
-    "title": "Your ask built (v0.567.2): every punch card shows the ranges it reaches and its damage beside its stamina; his punches too - your look",
-    "after": ""
-   },
-   {
-    "id": "FEINTFIX1",
-    "who": "kalli",
-    "title": "The feint that opens the overhand wins too much: three rule ideas each from Kalli and Dola, then one measure",
+    "title": "Play online is public: https://punchers-chance-test.onrender.com (your code, the notice, Find an opponent) - your first whole bout with your friend",
     "after": ""
    },
    {
     "id": "STRIP1",
     "who": "operator",
-    "title": "The strip with three slots and the see-through preview (v0.566.3) - your look",
+    "title": "Your look (v0.567.9): the two-sided strip, round gauges, replay at the bell, drag a move onto a slot, links in the commentary",
     "after": ""
+   },
+   {
+    "id": "CLARITY1",
+    "who": "claude",
+    "title": "The screen explains less than the rules (three reviewers: 5, 5, 7): what each hand covers in each moment, the range named large, a guided first beat",
+    "after": "FEINTFIX2"
    },
    {
     "id": "GUARDSTANCE1",
@@ -6127,6 +6130,36 @@
   },
   "done_recently": [
    {
+    "id": "LEAGUE1",
+    "who": "claude",
+    "title": "The agents' league: 15 bouts, Claude (Opus) 13 points, Ziva 12 - every top seat names the feint as the broken plan",
+    "after": ""
+   },
+   {
+    "id": "MATCHSERVER",
+    "who": "claude",
+    "title": "A match server and Play online in the game, on your tailnet and public on Render",
+    "after": ""
+   },
+   {
+    "id": "SCENES1",
+    "who": "claude",
+    "title": "Four famous exchanges played on our rules and checked on film: 10 of 14 match the ring",
+    "after": ""
+   },
+   {
+    "id": "PROGP4",
+    "who": "arena",
+    "title": "Upgrade pairs for each punch: none passes on two seeds",
+    "after": ""
+   },
+   {
+    "id": "LONG1",
+    "who": "arena",
+    "title": "Long range, two measures: none",
+    "after": ""
+   },
+   {
     "id": "TELLS4M",
     "who": "claude",
     "title": "Tells version 4 measured: 4 of 7 bars - obeying every tell blind is worth far less now, spotting his fake still pays nothing",
@@ -6178,31 +6211,6 @@
    {
     "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered",
     "who": "Arena (cloud: costs your PC nothing)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The clinch loop: he notices a player who clinches every beat (his habit read sees clinches) - measured",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Your \"Yes, a choice\": at Sharp, is \"cheaper\" or \"faster\" a real choice for each punch? Measured first",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Inside is too close (your 'the distance looks wrong'): a real inside distance, then the parts where the men overlap see-through",
-    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Head moves and kicks at every range: the men keep their distance on head.html and kick.html",
-    "who": "console worker (Opus, Code Mode), terminal tab renders564 (S564: both resumed in one tab, game closed)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "At Sharp, is 'cheaper' or 'faster' a real choice for each punch? Measured: for the overhand only (PROGP2)",
-    "who": "Arena",
     "when": "2026-11-26"
    }
   ],
@@ -6376,6 +6384,42 @@
     {
      "text": "Famous exchanges page + film check",
      "who": "claude"
+    },
+    {
+     "text": "Long range: 2 measures, none",
+     "who": "agent"
+    },
+    {
+     "text": "Upgrade pairs: none passes",
+     "who": "agent"
+    },
+    {
+     "text": "Match server + Play online",
+     "who": "claude"
+    },
+    {
+     "text": "Public link live on Render",
+     "who": "claude"
+    },
+    {
+     "text": "Agents' league: Claude 13, Ziva 12",
+     "who": "agent"
+    },
+    {
+     "text": "Two-sided strip (v0.567.9)",
+     "who": "claude"
+    },
+    {
+     "text": "Pick fix + drag onto a slot",
+     "who": "claude"
+    },
+    {
+     "text": "Round gauges",
+     "who": "claude"
+    },
+    {
+     "text": "Replay at the bell",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6416,8 +6460,16 @@
      "who": "claude"
     },
     {
-     "text": "Agents' league (6 seats, 15 bouts)",
+     "text": "Feint fix: 3 answers (Arena)",
      "who": "agent"
+    },
+    {
+     "text": "Short opening beat (Arena)",
+     "who": "agent"
+    },
+    {
+     "text": "Your friend's first online bout",
+     "who": "operator"
     }
    ],
    "next": [
@@ -6916,6 +6968,10 @@
     {
      "text": "Feint fix: Kalli + Dola ideas",
      "who": "agent"
+    },
+    {
+     "text": "Clarity: cover per moment, range",
+     "who": "claude"
     }
    ],
    "session": "S567"
@@ -6923,8 +6979,8 @@
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "5c222e187",
- "next_action": "S568: collect what landed - TELLS5M (arena 4c40abf4; fails = his keep-or-cut on the tell, no fifth round), KICKFIX4 (arena b9de29e2: judge by its pull request, its result page starts with the old BLOCKED line), LONG1 (cba93bd0) judged with LONG2 -> TASK_LONG3, PROGP4 (efb38a10), FEINTFIX1_BRIEF_KALLI / _DOLA -> one feint probe brief. His game closed: launch INSIDE1 Phase 2 (the see-through overlap) as the one render worker. NEVER ask about the Cascadeur plan or the packs: he says when they are bought; then TASK_CASC_MCP and GUARDSTANCE1.",
+ "last_working_commit": "369173f03",
+ "next_action": "S568: (1) collect the four Arena runs - FEINTFIX2 (95892a39: G1 'the feinting hand does not guard first' is a CORRECTION by his word, it goes on the page if it holds the bars; the best of G2 / G3 on top if G1 alone does not fix the loop), SHORTBEAT1 (2a3d0ae3), TELLS5M (4c40abf4: fails = his keep-or-cut, no fifth round), KICKFIX4 (b9de29e2: judge by its pull request). (2) RESTART THE THREE SERVICES in terminal tabs (they die with the session): page server `python proto/cardgame/serve.py 8797 twohands`, the gate `powershell -NoProfile -ExecutionPolicy Bypass -File proto/twohands/site/run_gate.ps1`, the match server `node proto\\\\twohands\\\\site\\\\match_server.mjs`. The Render site needs nothing. (3) After ANY page change he should see publicly: make_site.py + push the test repo (it restarts the public server: ASK FIRST, it cuts bouts). (4) Then LONG3 (the jab that meets him does health) after the feint fix; the screen's clarity (three reviewers: 5, 5, 7): a per-moment cover row, the range named large, a guided first beat; point versus_by_message.mjs at the match server; INSIDE1 Phase 2 (his game closed). NEVER ask about the Cascadeur plan or the packs.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

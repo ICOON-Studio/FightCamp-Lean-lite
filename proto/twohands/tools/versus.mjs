@@ -1,7 +1,7 @@
 // VERSUS (S567, owner: "can you make it so agents compete vs each other ?"): one bout of Puncher's chance between TWO
 // players, on the page's own rules (rules.mjs reads order.html). Each player seals his beat without seeing the other's;
 // when both are sealed the beat is played. Nobody has an AI opponent, a habit read or a tell: only the other player.
-//   node proto/twohands/tools/versus.mjs new  <state.json> a=<name> b=<name> [seed=1]
+//   node proto/twohands/tools/versus.mjs new  <state.json> a=<name> b=<name> [seed=1] [page=one.html]
 //   node proto/twohands/tools/versus.mjs show <state.json> who=a|b            the bout as that player sees it (never the other's sealed beat)
 //   node proto/twohands/tools/versus.mjs plan <state.json> who=a|b lead=<punch|high|low> rear=<punch|high|low> feet=in|hold|back [order=feet,lead,rear]
 //   node proto/twohands/tools/versus.mjs plan <state.json> who=a|b clinch
@@ -10,10 +10,13 @@ import fs from 'node:fs';
 import { load } from './rules.mjs';
 
 const [cmd, file, ...rest] = process.argv.slice(2), arg = Object.fromEntries(rest.filter((a) => a.includes('=')).map((a) => a.split('=')));
-const R0 = load(1), { N, ACT, FEET, RNG } = R0;
+/* S568 page=<file.html> (ONEACT1, owner: "test it fable vs dola" on the one-action page): the bout is fought on that page's
+   rules; `new` stores the page in the state file, show / plan read it from there. Default order.html as before. */
+const PAGE = (cmd === 'new' ? arg.page : (file && fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')).page : '')) || 'order.html';
+const R0 = load(1, PAGE), { N, ACT, FEET, RNG } = R0;
 const out = []; const say = (s) => { out.push(s); console.log(s); };
 if (!cmd || !file) { console.log('usage: versus.mjs new|show|plan <state.json> ...  (see the top of the file)'); process.exit(2); }
-if (cmd === 'new') { const S = { vs: 1, names: [arg.a || 'A', arg.b || 'B'], seed: Number(arg.seed || 1), n: 0, round: 1, beat: 0, range: 3, cards: [], over: '', F: [R0.man(N.hp), R0.man(N.hp)], sealed: [null, null], last: [] };
+if (cmd === 'new') { const S = { vs: 1, page: PAGE, names: [arg.a || 'A', arg.b || 'B'], seed: Number(arg.seed || 1), n: 0, round: 1, beat: 0, range: 3, cards: [], over: '', F: [R0.man(N.hp), R0.man(N.hp)], sealed: [null, null], last: [] };
   fs.writeFileSync(file, JSON.stringify(S)); fs.writeFileSync(file + '.log.txt', `${S.names[0]} v ${S.names[1]}, seed ${S.seed}\n`); console.log(`A new bout: ${S.names[0]} v ${S.names[1]}. Both start at Long with ${N.hp} health.`); process.exit(0); }
 const S = JSON.parse(fs.readFileSync(file, 'utf8')), who = arg.who === 'b' ? 1 : 0, nm = S.names;
 // the bout as one player sees it: himself first, the other man second; never the other's sealed beat
@@ -27,7 +30,7 @@ if (cmd === 'show') { view(who).forEach((s) => console.log(s)); if (S.over) cons
 if (cmd !== 'plan') { console.log('unknown command: ' + cmd); process.exit(2); }
 if (S.over) { console.log('The bout is over: ' + S.over); process.exit(0); }
 if (S.sealed[who]) { console.log('NOT PLAYED: your beat is already sealed for this beat.'); process.exit(2); }
-const R = load(S.seed * 1000 + S.n), me = S.F[who];
+const R = load(S.seed * 1000 + S.n, PAGE), me = S.F[who];
 let mine = R.plan0();
 if (rest.includes('clinch')) mine.clinch = true;
 else { /* S567, Kalli's first match: "my plan was rejected over the name bodycross" - a punch may be named as the help prints it, by its id, or with the hand left off; a refusal lists the legal words */

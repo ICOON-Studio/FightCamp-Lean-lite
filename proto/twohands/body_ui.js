@@ -107,16 +107,30 @@
     for (const b of brd.querySelectorAll('.sw')) b.style.display = !test || test(b) ? '' : 'none';
     for (const g of brd.querySelectorAll('.grp')) g.style.display = !test || [...g.querySelectorAll('.sw')].some((b) => b.style.display !== 'none') ? '' : 'none'; }
   // ---- the panel
+  /* S568 CLARITY1 - THE GUIDED FIRST BEAT (Ludo S567, clarity 5: "a guided first beat: choose a hand, the other hand or hold,
+     the feet and the order"): on the very first beat a player ever plays here, three short steps, each with ONE pulsing
+     thing to click next (owner S544: one pulsing next action; S545: little text). Remembered once fought (pc_guided). */
+  const GKEY = 'pc_guided', guided = () => { try { return !!localStorage.getItem(GKEY); } catch (e) { return false; } };
+  let sawFeet = false;
+  function guide(first) { for (const el of document.querySelectorAll('.gpulse')) el.classList.remove('gpulse'); if (!first || guided()) return;
+    if (pinned === '0:feet') sawFeet = true;
+    const row = (p) => sum.querySelector(`button[data-k="0:${p}"]`), step = !P.lead && !P.rear && P.feet === 'hold' && !P.clinch ? 1 : !sawFeet && P.feet === 'hold' ? 2 : 3;
+    const say = [`<b>Your first beat, 1 of 3</b><small>You start at <b>${RNG[range]}</b>: only the jab reaches. Click <b>Lead hand</b>, then <b>Jab</b>.</small>`,
+      '<b>2 of 3: your feet</b><small><b>Step in</b> brings you to Mid, where more punches land. Or stay. Your other hand stays up and blocks.</small>',
+      '<b>3 of 3: fight</b><small>The cards under the ring play left to right, against his, moment by moment. Press <b>Fight this beat</b>.</small>'][step - 1];
+    head.className = 'hd'; head.innerHTML = say; const el = step === 1 ? row('lead') : step === 2 ? row('feet') : $('go'); if (el) el.classList.add('gpulse'); }
+  { const gs = document.createElement('style'); gs.textContent = '.gpulse{animation:pulse 1.4s infinite;outline:2px solid var(--gold);outline-offset:2px}'; document.head.appendChild(gs); }
   function show() { redraw(); panel(); }
   const T = (s) => tipAttr(s);
   function panel() { const k = phase === 'plan' ? hover || pinned : null; side.className = 'side' + (k ? ' w' + k[0] : '');
     his.style.display = 'none'; sum.style.display = 'none'; brd.style.display = '';
     if (phase === 'setup') { head.className = 'hd'; head.innerHTML = '<b>Pick your man</b><small>then Fight. In the bout, click your boxer to choose his moves.</small>'; filter(null); return; }
     if (phase === 'over') { head.className = 'hd'; head.innerHTML = '<b>The bout is over</b>'; filter(null); return; }
-    if (phase !== 'plan') { head.className = 'hd'; head.innerHTML = '<b>This beat</b><small>your switches, lit as they act</small>'; filter((b) => b.classList.contains('on') && !b.classList.contains('home')); return; }
+    if (phase !== 'plan') { if (phase === 'play' && round === 1 && beat === 0 && !guided()) { try { localStorage.setItem(GKEY, '1'); } catch (e) {} for (const el of document.querySelectorAll('.gpulse')) el.classList.remove('gpulse'); } head.className = 'hd'; head.innerHTML = '<b>This beat</b><small>your switches, lit as they act</small>'; filter((b) => b.classList.contains('on') && !b.classList.contains('home')); return; }
     if (!k) { const first = round === 1 && beat === 0;
       const got = (P.lead ? 1 : 0) + (P.rear ? 1 : 0) + (P.feet !== 'hold' ? 1 : 0); head.className = 'hd' + (first && !got ? ' hint' : ''); head.innerHTML = got ? `<b>${got === 1 ? 'One move chosen' : got + ' moves chosen'}</b><small>Each hand does ONE thing a beat, and so do the feet: up to three moves. Click another row below to add a move; click a row again to change it. Drag the cards under the ring to change their order.</small>` : '<b>Choose your moves</b><small>1. Click a row below (or a part of your boxer, the blue one): a hand, the feet.<br>2. Its moves show here: click the one you want, or drag it onto a slot under the ring.<br>Each hand does ONE thing a beat. Mouse over the red boxer to see what he can hit you with.</small>';   /* S566 C521, owner: "i do not understand what it does, maybe reoharse and use basic terminology" */
-      brd.style.display = 'none'; sum.style.display = 'flex'; sum.innerHTML = summary(); for (const b of sum.querySelectorAll('button')) { b.onclick = () => { pinned = b.dataset.k; peek = null; show(); }; b.onmouseenter = () => { peek = b.dataset.k; redraw(); }; b.onmouseleave = () => { peek = null; redraw(); }; } return; }
+      brd.style.display = 'none'; sum.style.display = 'flex'; sum.innerHTML = summary(); for (const b of sum.querySelectorAll('button')) { b.onclick = () => { pinned = b.dataset.k; peek = null; show(); }; b.onmouseenter = () => { peek = b.dataset.k; redraw(); }; b.onmouseleave = () => { peek = null; redraw(); }; }
+      guide(first); return; }
     head.className = 'hd'; const [w, part] = k.split(':'), kept = pinned === k ? (w === '0' && (part === 'lead' || part === 'rear') ? 'ONE move a beat for this hand: pick it, or drag it onto a slot below. A new pick replaces the old one.' : w === '0' ? 'pick one, or drag it onto a slot below' : 'kept open: click it again to let go') : '';   /* S567, owner: "i selct an action to go as second and it deltes the first one" - the panel says the rule */
     if (w === '1') { brd.style.display = 'none'; his.style.display = 'flex'; head.innerHTML = `<b>His ${NAME[part].toLowerCase()}</b><small>${kept || 'what it can do to you at ' + RNG[range]}</small>`; his.innerHTML = hisPart(part); return; }
     const hm = part === 'head' && !HM.length;
