@@ -162,4 +162,6 @@
   const bell1 = bell; bell = function () { const ev = liveEv; liveEv = null; bell1(); const c = cards[cards.length - 1]; if (c) say(1, `End of the round. I have it ${c[0]}-${c[1]}${c[0] === c[1] ? ', dead even' : c[0] > c[1] ? ' for Blue' : ' for ' + nm(1)}. ${ev && ev.some((e) => e.down) ? 'And that knockdown was the difference.' : 'Corners have work to do.'}`); };
   const over1 = over; over = function (text) { liveEv = null; over1(text); say(2, /YOU WIN/.test(text) ? `It's over! Blue gets it done tonight!` : /DRAW/.test(text) ? `A draw! Nobody goes home happy.` : `It's over. ${nm(1)} takes this one.`); };
   place();
+  /* S568: the decision clock (clock_ui.js) - on one.html by default, elsewhere with ?clock=<seconds> */
+  if (/[?&](clock|round)=\d/.test(location.search) || /one\.html$/.test(location.pathname)) { const s = document.createElement('script'); s.src = 'clock_ui.js?v=' + (window.RS_VERSION || ''); document.body.appendChild(s); }
 })();

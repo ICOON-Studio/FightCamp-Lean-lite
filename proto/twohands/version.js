@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.568.4', date: '2026-11-27', items: [
+    'A round clock on the one-action page: 1 minute a round in real time, shown at the top. At 0 the bell rings - straight away if you are still choosing, or as soon as the beat being played ends. Think slowly and fewer beats get thrown. The Clock button switches both clocks off; any page can have it with ?round=60.'] },
+  { v: '0.568.3', date: '2026-11-27', items: [
+    'A decision clock on the one-action trial page (one.html): 5 seconds a beat, counted down on the Fight button; at 0 the beat is fought with what you chose. Switch it off with the Clock button at the top. Any page can have it with ?clock=5 in its address.'] },
   { v: '0.568.2', date: '2026-11-27', items: [
     'Your very first beat is guided: three short steps (a jab, your feet, fight), each lighting the one thing to click next. Shown once.'] },
   { v: '0.568.1', date: '2026-11-27', items: [
