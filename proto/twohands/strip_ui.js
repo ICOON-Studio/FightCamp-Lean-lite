@@ -78,8 +78,20 @@
           const w = Math.min(MAX_GAP, (r.offs[i + 1] - r.offs[i]) * 1000) + (i === r.contact ? HOLD : 0); i++; setTimeout(show, w); };
         show(); };
       next(); }); }, delay); }
+  /* S567, owner: "makeiteasy to drag and rop the items" - a move card of the panel can be dragged onto one of the three slots under the ring: it is chosen AND put at that moment. A plain click still picks it (last in the order). */
+  function cardDrag() { for (const b of document.querySelectorAll('#board .sw')) { if (b.disabled || b.classList.contains('home') || b.dataset.g === 'clinch' || (b.dataset.g === 'feet' && b.dataset.id === 'hold')) continue; b.style.touchAction = 'none';
+      b.addEventListener('pointerdown', (e) => { if (e.button > 0 || phase !== 'plan') return; const x0 = e.clientX, y0 = e.clientY; let fly = null, moved = false;
+        const slotAt = (x, y) => [...document.querySelectorAll('#strip .slot')].findIndex((s) => { const r = s.getBoundingClientRect(); return x >= r.left - 6 && x <= r.right + 6 && y >= r.top - 30 && y <= r.bottom + 30; });
+        const mark = (k) => document.querySelectorAll('#strip .slot').forEach((s, i) => { s.style.outline = i === k ? '2px solid #7fe9ff' : ''; s.style.outlineOffset = '2px'; });
+        const move = (ev) => { if (!moved && Math.hypot(ev.clientX - x0, ev.clientY - y0) < 8) return; if (!moved) { moved = true; stop(); fly = b.cloneNode(true); const r = b.getBoundingClientRect(); fly.style.cssText = `position:fixed;z-index:9999;pointer-events:none;width:${r.width}px;opacity:.92;box-shadow:0 .4rem 1.2rem #000c;left:0;top:0`; document.body.appendChild(fly); document.getElementById('strip') && (document.getElementById('strip').style.boxShadow = '0 0 0 2px rgba(127,233,255,.35)'); }
+          fly.style.transform = `translate(${ev.clientX - fly.offsetWidth / 2}px, ${ev.clientY - 18}px)`; mark(slotAt(ev.clientX, ev.clientY)); };
+        const end = (ev) => { removeEventListener('pointermove', move); removeEventListener('pointerup', end); removeEventListener('pointercancel', end); if (fly) fly.remove(); mark(-1); if (!moved) return;
+          const kill = (c) => { c.stopPropagation(); c.preventDefault(); }; addEventListener('click', kill, { capture: true, once: true }); setTimeout(() => removeEventListener('click', kill, { capture: true }), 80);   /* the release is not a click on the card */
+          const k = ev.type === 'pointerup' ? slotAt(ev.clientX, ev.clientY) : -1; if (k < 0) return plan(); const g = b.dataset.g, id = b.dataset.id; P.clinch = false; if (g === 'feet') P.feet = id; else P[g] = id;
+          const o = ordOf(P).filter((sl) => sl !== g); o.splice(Math.min(k, o.length), 0, g); P.ord = o; plan(); if (window.bodyOverview) bodyOverview(); };
+        addEventListener('pointermove', move); addEventListener('pointerup', end); addEventListener('pointercancel', end); }); } }
   const board1 = board, go2 = go;
-  board = function () { board1(); strip(); };
+  board = function () { board1(); strip(); cardDrag(); };
   go = function () { stop(); lastKey = ''; const el = document.getElementById('strip'); if (el) el.remove(); return go2(); };
   window.stripState = () => ({ slots: [...document.querySelectorAll('#strip .slot')].map((s) => s.textContent), playing, nowAt, ghost: (ghost.getAttribute('src') || '').split('/').pop(), on: ghost.classList.contains('on'), runs: phase === 'plan' && !P.clinch ? runsOf() : [] });   /* read by the browser check */
   if (typeof phase !== 'undefined' && phase === 'plan') strip();

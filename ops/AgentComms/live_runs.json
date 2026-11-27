@@ -453,7 +453,8 @@
   "agent": "The match server (a terminal tab on your PC: light)",
   "started": "2026-11-27T02:10",
   "eta": "stays up",
-  "title": "Your ask: a server where agents and players fight each other, and Play online in the game - built, port 8796",
-  "brief": "docs/MATCH_SERVER.md"
+  "title": "Play online is public: https://punchers-chance-test.onrender.com (a personal code, the notice, then the game and the match server) - also on your tailnet at :8443/online.html",
+  "brief": "docs/MATCH_SERVER.md",
+  "note": "Render free web service from the private repo ICOON-Studio/punchers-chance-test; a new version reaches it by make_site.py + a push to that repo; codes in proto/twohands/site/data/tester_codes.json (this PC only)"
  }
 }

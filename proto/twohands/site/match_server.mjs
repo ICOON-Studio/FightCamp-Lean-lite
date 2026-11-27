@@ -61,7 +61,8 @@ const HELP = () => `PUNCHER'S CHANCE - MATCH SERVER\nJoin with a name, find an o
   `\nclinch: Inside only, 1 stamina, no punch lands, +2 stamina, the referee breaks you at Mid; not twice running.\nORDER: up to three moments; your first action meets his first. In one moment the faster punch lands first; a big one (3 health or more) that lands stops his slower punch. A punch of his that misses or is blocked makes your later punches counters (+1).\nPOINTS: 2 for a big punch landed, 1 for a small one, 3 for a knockdown; more points takes the round 10-9. The third knockdown ends the bout.\n`;
 const send = (res, code, body, type = 'application/json') => { res.writeHead(code, { 'Content-Type': type + '; charset=utf-8', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'content-type', 'Cache-Control': 'no-store' }); res.end(type === 'application/json' ? JSON.stringify(body) : body); };
 const body = (req) => new Promise((ok) => { let s = ''; req.on('data', (d) => { s += d; if (s.length > 20000) req.destroy(); }); req.on('end', () => { try { ok(JSON.parse(s || '{}')); } catch { ok(null); } }); });
-http.createServer(async (req, res) => { const u = new URL(req.url, 'http://x'), q = Object.fromEntries(u.searchParams);
+/* S567: the same handler runs alone on this PC (below) or inside the public server (site/public_server.mjs, Render) */
+export async function matchHandle(req, res) { const u = new URL(req.url, 'http://x'), q = Object.fromEntries(u.searchParams);
   if (req.method === 'OPTIONS') return send(res, 204, '', 'text/plain');
   if (u.pathname === '/api/help') return send(res, 200, HELP(), 'text/plain');
   if (u.pathname === '/api/lobby') { for (const M of matches.values()) tick(M); return send(res, 200, { waiting: queue.map((t) => players.get(t).name), bouts: [...matches.values()].map((M) => ({ match: M.id, names: M.names, round: M.round, beat: M.beat + 1, over: M.over })), table: table() }); }
@@ -79,4 +80,5 @@ http.createServer(async (req, res) => { const u = new URL(req.url, 'http://x'), 
   if (u.pathname === '/api/plan') { if (M.over) return send(res, 200, { ok: false, error: 'the bout is over: ' + M.over }); if (M.sealed[k]) return send(res, 200, { ok: false, error: 'your beat is already sealed' });
     const R = load(1), m = b.plan && typeof b.plan === 'object' ? { ...R.plan0(), ...b.plan } : makePlan(R, b), bad = refuse(M, k, m, R); if (bad) return send(res, 200, { ok: false, error: bad });
     M.sealed[k] = m; const both = !!M.sealed[1 - k]; if (both) play(M); return send(res, 200, { ok: true, sealed: R0.planWords(m), resolved: both, state: view(M, k) }); }
-  send(res, 404, { error: 'no such call: GET /api/help' }); }).listen(PORT, '127.0.0.1', () => console.log(`MATCH SERVER up on 127.0.0.1:${PORT} - results ${RESULTS} - ${results.length} bouts on file`));
+  send(res, 404, { error: 'no such call: GET /api/help' }); }
+if (process.argv[1] && path.resolve(process.argv[1]) === path.resolve(here, 'match_server.mjs')) http.createServer(matchHandle).listen(PORT, '127.0.0.1', () => console.log(`MATCH SERVER up on 127.0.0.1:${PORT} - results ${RESULTS} - ${results.length} bouts on file`));

@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.567.8', date: '2026-11-27', items: [
+    'Choosing a second move is clear now: after you pick a move the list of all your parts comes back, with the move in its row, so the next click is another hand or the feet. Each hand does one thing a beat, and the page says so.',
+    'A move can be dragged from its list straight onto one of the three slots under the ring: it is chosen and put at that moment.',
+    'The row of the part you just set lights up, and the feet card that means no step says so: Stay put (no step).' ] },
   { v: '0.567.7', date: '2026-11-27', items: [
     'A new page, Play online (online.html): type a name, find an opponent, and fight another player or an agent. Each beat you both choose before either sees the other.' ] },
   { v: '0.567.6', date: '2026-11-27', items: [
