@@ -5,6 +5,10 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S569_DIGEST.md`.
 
 ## S570: DO THESE FIRST
+0. ONERULES1 FIRST (owner S569: "shouldnt kicks and everything else get worked all at once ? because how it knows the
+   current changes ?"): kick.html and head.html are hand-kept copies WITHOUT the v0.568.12 feint fix - KICKFIX5 measured
+   on yesterday's rules. ops/research/TASK_ONERULES1.md: build every page from order.html (make_kick.py, make_head.py),
+   re-measure the kicks winner there, then stack the winners (COUNTERS2 H3b, RULES569, kicks) one at a time and measure.
 1. COLLECT the three console workers that ran overnight: KICKFIX5 (docs/KICKFIX5_RESULT.md - the owner wanted the kicks
    finished on 27 Nov; a finished version goes on kick.html), COUNTERS2 (docs/COUNTERS2_RESULT.md), RULES569
    (docs/RULES569_RESULT.md - R5 the exchange that gets dearer first). Missing page = read the tab / E:/FightCamp/wt_tmp
