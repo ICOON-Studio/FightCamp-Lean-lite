@@ -7,7 +7,7 @@
   "owner": "claude",
   "updated": "2026-11-27",
   "summary": "S568 (Opus): clarity (range large, guided first beat, the whole boxer on the strip, the strip lights what you pick), the hand of cards replaces the body view (v0.568.9), a 5 s beat clock + 1-minute round clock on the one-action page, Gemma (local model) plays live on the match server; workers: ONEACT1 (Fable, one action a beat; Fable beat Dola on it), COUNTERS1 (Opus, Marquez and Mayweather counters); TELLS5M fails (Q-345).",
-  "next_action": "S569 (cont.): running on the PC - KICKFIX5 (Fable, kicks finished today), COUNTERS2 (Opus, check hook), MMCTOY1 (Fable, Mixed Martial Cards' distance rules on our boxer: mmc.html). Next when a seat frees: MMCPLAY1 (our agents play Mixed Martial Cards from its own rules + AI, report on the structure). METHOD: no patch layer on the two-man fight pictures (RECOIL1, PUSH1 stopped) until LAYERS_SCOPE_S569 is approved (owner asked; his rules question came first). LONG3 to Arena when its limit resets. Public site at v0.569.1 (v0.569.2-4 wait for his OK). RECOIL1's leftover render chain (hidden desktop, wt_tmp only) needs his OK to be stopped.",
+  "next_action": "S570: (1) collect what ran overnight - KICKFIX5 (Fable, tab c10: F4 then F5-F7, the winner on kick.html; the owner wanted kicks finished today), COUNTERS2 (Opus, tab c7: the check hook made a read), RULES569 (Fable, tab c11: R5 the exchange that gets dearer first, then guard one action, power mode, bar links incl. health caps stamina, combined moves); a result page missing = read the tab / wt_tmp logs and relaunch with 'resume from docs/<ID>_RESULT.md'. (2) BUILD1 (design: the fighter's body as a Breachway ship, discipline cards per body part, pools 50 -> 100) to a free seat. (3) LAYERS (one man per picture, the page owns each spot) - the owner said 'we can buy the animations and cascaduer now if needed': ask once whether Cascadeur + the Animo pack are bought, then LAYERS phase 0. (4) MMCPLAY1 (agents play Mixed Martial Cards) when a seat frees; LONG3 to Arena. Public site at v0.569.7 (v0.569.8-9 not pushed).",
   "last_working_commit": "369173f03",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
@@ -2496,6 +2496,12 @@
    "id": "S568",
    "date": "2026-11-27",
    "summary": "S568 (Opus). The screen made clear on his words: the range large, a guided first beat, the HAND OF CARDS replacing picking by limb (his 'i like the B'), the strip LANES Lead/Rear/Feet in every moment ('i select stay put and nothing like that appears'), guard buttons that say what they stop ('both hands have the same options'). His FEINT RULE on the page (FEINTFIX2 G1, 8 of 9 bars on both seeds). Clocks on one.html (5 s beat, 1-minute round). Gemma, a local model, plays him live on the match server (1.5 s a beat). Measured: his one-action idea (faster per beat, not per round; a toy), the Marquez/Mayweather counters (none yet), the short opening beat (none), tells v5 (fails, Q-345). v0.568.1-12 not public yet. KICKFIX4 stalled at Arena (needs 'Keep working' in Browser 2)."
+  },
+  {
+   "id": "S569",
+   "date": "2026-11-27",
+   "model": "Opus 5.5",
+   "summary": "Tells cut, Head row dropped, public site v0.569.1 then v0.569.7; Stay put card, step and cross-short jumps fixed (jump recorder), strip big words + pictures, picture cards in the hand (blue alone), guard picture cards; Mixed Martial Cards read (distance = card words) and played (7/10, MMC_PLAYTEST_S569); LAYERS method finding (RECOIL1/PUSH1 stopped); workers KICKFIX5, COUNTERS2, RULES569 running; MMCTOY1 stopped (less balanced); briefs BUILD1, MMCPLAY1, LONG3"
   }
  ],
  "blocked_on_operator": [],
@@ -5414,7 +5420,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-27 13:40 board_sync",
+  "updated": "2026-11-27 14:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5603,17 +5609,23 @@
     "run": "COUNTERS2"
    },
    {
-    "title": "Re-render the punch runs so the man who is hit, blocks or dodges ends on his spot (no snap after a punch)",
-    "who": "Opus 5.5 console worker (PC, tab c8)",
-    "started": "2026-11-27T13:26",
-    "run": "RECOIL1"
+    "title": "Mixed Martial Cards' distance structure on our boxer: a toy page (mmc.html), measured",
+    "who": "Fable 5.2 console worker (PC, tab c9)",
+    "started": "2026-11-27T13:42",
+    "run": "MMCTOY1"
    }
   ],
   "next": [
    {
-    "id": "MMCTOY1",
+    "id": "BUILD1",
     "who": "claude",
-    "title": "Mixed Martial Cards' distance rules on our boxer (Outside / Pocket + clinch, the jab long range, back off = create distance, the feint as a mode): toy page mmc.html, measured",
+    "title": "Your Breachway idea: the fighter's body as a ship - discipline cards on each body part are your fight deck, pools grow from 50 toward 100, moves that blend and flow (design, probe, critics at 8+)",
+    "after": ""
+   },
+   {
+    "id": "BUY1",
+    "who": "operator",
+    "title": "Buy Cascadeur (Indie) + the Animo boxing pack when you are ready (you said 'we can buy ... now') - the one-man-per-picture renders start after",
     "after": ""
    },
    {
@@ -5644,12 +5656,6 @@
     "id": "LONG3",
     "who": "arena",
     "title": "Long range round three: the jab that meets his step in does health (Arena when its daily limit resets)",
-    "after": ""
-   },
-   {
-    "id": "HAND1",
-    "who": "operator",
-    "title": "Your play: the hand of cards (v0.568.9) - guard switches on top, cards by limb colour, what does not reach folded away; ?ui=body keeps the old body view",
     "after": ""
    },
    {
@@ -6408,6 +6414,22 @@
     {
      "text": "Animated cards (0.569.5)",
      "who": "claude"
+    },
+    {
+     "text": "MMC played, rated 7/10",
+     "who": "claude"
+    },
+    {
+     "text": "Picture cards + guard cards (.8)",
+     "who": "claude"
+    },
+    {
+     "text": "Strip pictures (0.569.9)",
+     "who": "claude"
+    },
+    {
+     "text": "Public site v0.569.7",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6460,7 +6482,7 @@
      "who": "agent"
     },
     {
-     "text": "MMCTOY1: MMC rules toy (Fable)",
+     "text": "RULES569: exchange dearer + more",
      "who": "agent"
     }
    ],
@@ -6964,6 +6986,14 @@
     {
      "text": "RULES569: guard 1 action, power",
      "who": "claude"
+    },
+    {
+     "text": "BUILD1: body as a ship (design)",
+     "who": "operator"
+    },
+    {
+     "text": "Buy Cascadeur + Animo pack",
+     "who": "operator"
     }
    ],
    "session": "S569"

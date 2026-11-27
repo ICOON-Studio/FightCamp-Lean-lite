@@ -11,7 +11,7 @@
    "eta": "today",
    "title": "Kicks balance finished today: F4 (the teep covers the lead leg), up to three more fixes, then the winner on kick.html",
    "brief": "ops/research/TASK_KICKFIX5.md",
-   "note": "owner S569: 'put a fable console for kicks i want it finished today'; stopped for memory with ArcheAge open, resumed 13:25 after he closed it"
+   "note": "owner S569: 'put a fable console for kicks i want it finished today'; stopped for memory with ArcheAge open, resumed 13:25 after he closed it | still running at the S569 handover"
   },
   "COUNTERS2": {
    "id": "COUNTERS2",
@@ -22,18 +22,18 @@
    "eta": "3-5 h",
    "title": "The check hook, round two: a high lead hand on the step in answers it",
    "brief": "ops/research/TASK_COUNTERS2.md",
-   "note": "owner S569: 'Second round'"
+   "note": "owner S569: 'Second round' | still running at the S569 handover"
   },
-  "MMCTOY1": {
-   "id": "MMCTOY1",
+  "RULES569": {
+   "id": "RULES569",
    "status": "running",
    "seat": "claude",
-   "agent": "Fable 5.2 console worker (PC, tab c9)",
-   "started": "2026-11-27T13:42",
-   "eta": "3-5 h",
-   "title": "Mixed Martial Cards' distance structure on our boxer: a toy page (mmc.html), measured",
-   "brief": "ops/research/TASK_MMCTOY1.md",
-   "note": "owner S569: 'Build the toy'"
+   "agent": "Fable 5.2 console worker (PC, tab c11)",
+   "started": "2026-11-27T16:25",
+   "eta": "6-10 h",
+   "title": "His rule ideas measured: the exchange that gets dearer first, then one Guard action, the power switch, bars that affect each other (health caps stamina), combined moves",
+   "brief": "ops/research/TASK_RULES569.md",
+   "note": "owner S569"
   }
  },
  "codex_budget": {

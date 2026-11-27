@@ -13,7 +13,8 @@ leftover waiter (my own process, by PID) so nothing starts by itself when memory
 | Boxing page control | 56 | 2 | 8/9 | landing: jab 68%, overhand 70% | - | 70% | 2.2 | 21% | two 20%, none 13% (PASS) | 1.01 | 0/57, 0/12 |
 | F3 (KICKFIX4, the base to beat) | 56 | 1 | 5/9 | dead push off 3%, rear uppercut 3%, clinch 2%; jab 67%, body jab 78%, low kick 87%, head kick 30%; KD 2.9; two 10%, none 30% | 87% | 61% | 2.9 | 32% | two 10%, none 30% / two+ 25%, none 9% | 1.17 | 11/56, 5/18 |
 | F3 | 56 | 2 | 5/9 | dead rear uppercut 3%, clinch 2%; jab 69%, body jab 73%, overhand 72%, low kick 77%; stops 50%, KD 3.1; two 9%, none 30% | 77% | 72% | 3.1 | 50% | two 9%, none 30% / two+ 26%, none 9% | 1.18 | 7/56, 2/28 |
-| F4 = F3 + a teep covers the lead leg in its moment | - | - | written, not measured | ops/research/s558_balance/kick_fix_f4.json loads on kick.html (checked); its table ran 30 minutes (2 of its beat rows) and was stopped; table, N=12 and N=56 still to do | | | | | | | |
+| F4 = F3 + a teep covers the lead leg in its moment | 12 | 1 | 5/9 | dead push off 3%, overhand 2%, clinch 2%; jab 77%, body jab 73%, low kick 85%; stops 33% (PASS), KD 3.3; two 9%, none 28% | 85% | 80% (0.4 a bout) | 3.3 | 33% | two 9%, none 28% / two+ 30%, none 10% (PASS) | 1.22 | 0/12, 0/4 |
+| F5 = F4 + a low kick at a man backing off falls short + checkHurt 1 + health 21 | - | - | table started 16:14 | | | | | | | | |
 
 ## Second start, 13:23 to 13:57 (the owner closed his game at 13:20 and asked for the restart)
 The chain started with RAM at 60% and three jobs. The boxing control on seed 2 finished in 4 minutes (8 of 9, row above,
@@ -55,4 +56,23 @@ Nothing went on kick.html yet: the measuring was stopped for low memory a second
 The yardstick is complete: the boxing page passes 8 of 9 bars on both seeds, so a kicks version has to match that.
 The player feels no change yet; the kicks need about two hours a version with the PC to themselves - run KICKFIX5 alone, or after COUNTERS2 and RECOIL1 finish.
 
-KICKFIX5 BLOCKED: Claude Code stopped the run chain for low memory a second time (13:56, RAM 90%, CPU 100%) during the F4 table; both boxing controls are done (8/9, 8/9), F4 is written and unmeasured. It is not restarted until someone says so.
+## Third start, 14:00 (the owner asked for the restart; two jobs beside COUNTERS2 and MMCTOY1)
+The F4 table took 2 hours 1 minute on two jobs (14:00 to 16:01). At about 15:26 Claude Code stopped the chain for low
+memory a third time (RAM 85% when I looked), but the chain's processes outlived the stop with the table two thirds done
+(487 MB). I did not restart anything and did not end it: a waiter that ends my processes at RAM 91% twice in a row stood
+beside it, and the chain itself now waits while RAM is 88% or more. The N=12 trial ran 16:01 to 16:12.
+
+F4 trial gate: PASSES (no switch over 40%, low kick 85-86% under 90%, 0 of 4 stoppages after a limp). But the trial shows
+F4 is F3 again: low kick 85%, knockdowns 3.3, the same three bars red that the boxing page has green. As predicted above,
+a teep's one moment moves nothing. DECISION: F4's two N=56 runs (about 100 minutes) are skipped so that F5 can be
+measured today; they would confirm a version that cannot finish. The F4 table is kept in wt_tmp if someone wants them.
+
+F5 (ops/research/s558_balance/kick_fix_f5.json, loads on kick.html, checked) aims at the two kick bars at once because only
+one more version fits in the day:
+- low kick 85% -> a low kick at a man who backs off falls short: a miss, nobody's shin is hurt; only holding your ground
+  (or a teep's moment) checks it, and a check costs the kicker 1 again. A cheap miss makes the kick worth a guess.
+- knockdowns 3.3 -> health 21 on the kicks page: it throws 1.17-1.22 strikes a fighter-beat against the boxing page's
+  1.01, so 18 health bought 3 knockdowns a bout where boxing has 2.2.
+Two changes in one version: if F5 moves, the N=12 line says which bar moved; they touch different bars.
+
+KICKFIX5 RUNNING: F5 table started 16:14 (two hours), then its N=12 trial, then N=56 on both seeds if the gate passes.

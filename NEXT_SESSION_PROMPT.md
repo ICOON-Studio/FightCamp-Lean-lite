@@ -1,5 +1,29 @@
 ## METHOD (S569, fight pictures): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump; five patch rounds left leftovers. Fighting games keep each fighter's spot in CODE and play clips on it. No new patch layer on the two-man pictures (RECOIL1 and PUSH1 stopped) until ops/research/LAYERS_SCOPE_S569.md (one man per picture, the page owns each spot) is approved - the owner was asked; his rules question came first (Mixed Martial Cards: ops/research/MMC_DISTANCE_S569.md, toy MMCTOY1 running).
 
+# S570 handover (written 2026-11-27, S569 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S569_DIGEST.md`.
+
+## S570: DO THESE FIRST
+1. COLLECT the three console workers that ran overnight: KICKFIX5 (docs/KICKFIX5_RESULT.md - the owner wanted the kicks
+   finished on 27 Nov; a finished version goes on kick.html), COUNTERS2 (docs/COUNTERS2_RESULT.md), RULES569
+   (docs/RULES569_RESULT.md - R5 the exchange that gets dearer first). Missing page = read the tab / E:/FightCamp/wt_tmp
+   logs, relaunch with "resume from docs/<ID>_RESULT.md" (a worker stopped for memory never restarts itself).
+2. BUILD1 (his Breachway idea, ops/research/TASK_BUILD1.md) to a free seat: design + greybox probe + two critics at 8+.
+3. LAYERS: he said "we can buy the animations and cascaduer now if needed" - ask ONCE whether Cascadeur (Indie) and the
+   Animo boxing pack are bought; then LAYERS_SCOPE_S569 phase 0 (holds + jab, one man per picture, ?layers=1).
+4. MMCPLAY1 (agents play Mixed Martial Cards from its own rules) when a seat frees; LONG3 to Arena (limit resets daily).
+5. Public site is at v0.569.7; v0.569.8-9 (guard cards, strip pictures) need his OK to push (a push cuts bouts).
+6. Services: page server 8797, gate 8798, match server 8796, Gemma - they survived the last session; check with
+   Get-NetTCPConnection before starting copies (S569 started duplicates and cut a Gemma bout).
+
+## Rules learned in S569 (also in memory)
+- Heredocs eat backslashes (a `
+` became a line break three times): Edit tool or String.fromCharCode(10).
+- One heavy thing of mine at a time beside the workers: a 2 GB game copy + headless runs stopped two workers for memory.
+- To playtest an Electron reference game: back up its %APPDATA% folders, run it on the hidden desktop with --mute-audio
+  --remote-debugging-port, drive it through CDP (scratchpad cdp.mjs / play_mmc.mjs), restore the saves after (diff -rq = 0).
+
 # S569 handover (written 2026-11-27, S568 - Opus 5.5)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S568_DIGEST.md`.

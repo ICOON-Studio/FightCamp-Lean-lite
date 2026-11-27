@@ -25390,6 +25390,17 @@
    "title": "Re-render the punch runs so the man who is hit, blocks or dodges ends on his spot (no snap after a punch)",
    "brief": "ops/research/TASK_RECOIL1.md",
    "note": "owner S569: 'the fighter get displaced without moving' | S569: stopped - the method is wrong (two men baked per picture); LAYERS_SCOPE_S569.md replaces it"
+  },
+  {
+   "id": "MMCTOY1",
+   "status": "blocked",
+   "seat": "claude",
+   "agent": "Fable 5.2 console worker (PC, tab c9)",
+   "started": "2026-11-27T13:42",
+   "eta": "3-5 h",
+   "title": "Mixed Martial Cards' distance structure on our boxer: a toy page (mmc.html), measured",
+   "brief": "ops/research/TASK_MMCTOY1.md",
+   "note": "owner S569: 'Build the toy' | S569: stopped for low memory; M1/M2 5 and 4 of 9 bars v today's 8 and 8 (less balanced); mmc.html built"
   }
  ],
  "KNOWBUILD1": {

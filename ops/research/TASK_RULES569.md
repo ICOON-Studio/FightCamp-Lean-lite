@@ -1,6 +1,6 @@
 # TASK RULES569 - his three rule ideas on the boxing page: one Guard action, a power switch, bars that affect each other (S569)
 
-Kind: probe. Model: Fable 5.2 console worker (PC) - AFTER MMCTOY1 lands (it changes the same page half; build on its
+Kind: probe. Model: Fable 5.2 console worker (PC) - started S569 after MMCTOY1 stopped (build on order.html; MMCTOY1
 result if it keeps a version, else on order.html). Discipline: boxing (Puncher's chance). Seat rules:
 ops/research/WORKER_S566.md (commit by pathspec, no questions, watchdog before each table, one run at a time).
 
@@ -24,13 +24,30 @@ ops/research/WORKER_S566.md (commit by pathspec, no questions, watchdog before e
    damage through; low health -> stamina comes back slower; no ground left (on the ropes) -> no back off and the guard
    costs more. At most four links. Each shown on the page where the bar is (a tooltip line on the gauge: "low: your
    punches do -1").
+   Owner S569: "the energy management should be part of the decision making (maybe lower health limits your stamina
+   pool orr something)": ONE of the links is HEALTH CAPS THE STAMINA BAR (lost health takes stamina room with it, as
+   body shots already do) - measure it first among the links. His other line ("scaling health and the other parameters
+   to start at 50 (or 75) and possible to reach 100 later") is progression: it goes to TASK_BUILD1, not here - keep
+   today's numbers.
 4. COMBINED MOVES (owner S569: "would combining animations would be nice idea ?" / "drag one ontop of another to
    create the blend of them"): dropping one card on another makes ONE move in ONE moment - the step-in jab, the pull
    counter (back off + hook), the feint-and-cross - with its own cost and effect (cheaper than the two apart? harder to
    read? say why). At most four combinations, each a real boxing combination (Mixed Martial Cards' Combo cards are the
    reference). Each needs its own frame run (a render, not a blend of two runs): list them for the render queue; the
    probe can run on the rules with the nearer single run as a stand-in picture.
-Versions: R1 = 1 alone; R2 = 1+2; R3 = 1+2+3; R4 = R3 + 4 (only if R3 holds its bars). Stop at the first that fails its trial and say which idea broke it.
+   Owner S569, on top: "we can use it as unique feature so that the player drafts his deck on the spot , and of course
+   not all move can be combined with others": combining is HOW the player builds his moves during the fight (a draft on
+   the spot), and a COMBINATION TABLE says which pairs combine (a stepping jab yes; two rear-hand punches in one moment
+   no). Write the table first (each yes and no with a real-boxing reason), then measure.
+5. THE EXCHANGE THAT GETS DEARER (owner S569 "Yes, measure it", from the Mixed Martial Cards playtest,
+   ops/research/MMC_PLAYTEST_S569.md): every extra action in the same exchange costs more stamina (+1 the 2nd beat in a
+   row of attacking, +2 the 3rd ... say the curve and why); ending the exchange (a back off, or a beat with no punch)
+   resets the costs and hands the lead to the other man. The question it answers: does it cap the feint-then-overhand
+   loop (today 35/53/37%, bar 30) without killing combinations?
+Versions: R1 = 1 alone; R2 = 1+2; R3 = 1+2+3; R4 = R3 + 4 (only if R3 holds its bars); R5 = 5 ALONE on today's page
+first (it is the cheapest and answers the loop question), then on the best of R1-R4.
+MMCTOY1 (docs/MMCTOY1_RESULT.md) stopped part way: its two-place version was LESS balanced (5 and 4 of 9 bars v 8 and 8):
+build on today's order.html, not on mmc.html. Stop at the first that fails its trial and say which idea broke it.
 
 ## Do
 1. Tweaks ops/research/s558_balance/rules569_r1.json (r2, r3), `src` pairs exact text; a toy page proto/twohands/rules.html
