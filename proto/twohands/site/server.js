@@ -64,6 +64,10 @@ const server = http.createServer((req, res) => { try {
       send(res, 303, 'text/plain', 'ok', { Location: '/order.html' }); }); }
   if (rel === 'owner/log') return OWNER && login === OWNER ? ownerLog(res, url) : page(res, 403, "Puncher's chance", '<h1>Not yours</h1><p>This page is for the owner.</p>');
   if (rel === '') return send(res, 302, 'text/plain', 'ok', { Location: '/order.html' });
+  /* S567 (owner: "Yes, open it"): the match server (match_server.mjs, this PC only) is reached THROUGH the gate, at the same address - a signed-in tester who agreed to the notice may call /api/*; nobody else can, and no second port is opened */
+  if (rel.startsWith('api/')) { if (!agreed(login, n)) return send(res, 403, 'application/json', JSON.stringify({ error: 'agree to the notice first: open the game page' }));
+    const up = http.request({ host: '127.0.0.1', port: Number(process.env.MATCH_PORT || 8796), path: url.pathname + url.search, method: req.method, headers: { 'content-type': req.headers['content-type'] || 'application/json' } }, (r) => { res.writeHead(r.statusCode || 502, { 'Content-Type': r.headers['content-type'] || 'application/json', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow' }); r.pipe(res); });
+    up.on('error', () => send(res, 502, 'application/json', JSON.stringify({ error: 'the match server is not running' }))); return req.pipe(up); }
   const file = path.resolve(ROOT, rel), ext = path.extname(file).toLowerCase(), inside = file.startsWith(ROOT + path.sep);
   if (!inside || !TYPES[ext] || HIDDEN.some((h) => h.test(rel.replace(/\\/g, '/'))) || !fs.existsSync(file) || !fs.statSync(file).isFile()) return page(res, 404, "Puncher's chance", '<h1>Not here</h1><p><a href="/order.html">To the ring</a></p>');
   if (!agreed(login, n)) {   // nothing of the game - not a page, not a picture - before the notice is agreed

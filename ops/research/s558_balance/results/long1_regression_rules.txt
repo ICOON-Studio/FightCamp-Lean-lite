@@ -1,0 +1,2 @@
+# node proto/twohands/tools/rules_test.mjs 
+RULES_TEST 37 passed

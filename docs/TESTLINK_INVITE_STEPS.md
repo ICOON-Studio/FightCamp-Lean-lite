@@ -47,3 +47,13 @@ Save. Check from the guest's side later: the game opens, https://beast.tail6f2f5
 
 ## Taking access away
 Machines -> beast -> Share -> remove him. The whole address: `tailscale serve --https=8443 off`.
+
+## Playing each other (S567: the match server, opened on the owner's "Yes, open it")
+Nothing new to set up in Tailscale: the match server is reached THROUGH the same address and the same sign-in.
+- The page: https://beast.tail6f2f5c.ts.net:8443/online.html - type a name, press Find an opponent. Two people who both
+  press it are paired; a bout is three rounds, each beat chosen by both before either sees the other.
+- A tester must have agreed to the notice first (opening any game page shows it once). Before that the match calls answer
+  "agree to the notice first".
+- This PC must be on, with three things running: the page gate (`proto/twohands/site/run_gate.ps1`), the match server
+  (`node proto\twohands\site\match_server.mjs`) and Tailscale.
+- To close it again without touching the test link: stop the match server; the page then says the server does not answer.

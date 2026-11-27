@@ -1,0 +1,12 @@
+# node proto/twohands/tools/probe_long.mjs tweak=ops/research/s558_balance/long1_l3.json table=/home/user/long1_tmp/l3.vt.json n=84 seed=2 jobs=2
+PROBE_LONG n=84: beats 1499 (17.8 a bout); ranges at beat START Inside/Mid/Long 23% / 31% / 46%; ranges AFTER the beat (balance's count) 28% / 37% / 35%
+beats that START at Long: 683 (8.1 a bout, 46% of all beats); of them NOTHING thrown by either man 15 (2%)
+punches landing WHILE at Long in beats STARTING at Long: points a bout you 1.8 v he 1.7 (pooled 3.5); health taken a bout you 2.4 v he 2.4 (pooled 4.8); by punch: Body jab 203 hits, 2.4 pts, 3.4 health a bout; Jab 95 hits, 1.1 pts, 1.4 health a bout
+cross-check, points in beats that STARTED at Long (any moment): you 4.8 v he 5.0 (pooled 9.8 a bout)
+step in from Long: tried a bout you 3.0 v he 2.6 (pooled 5.6); got in (end the beat closer than Long) 84% (you 84%, he 85%); stopped by the jab a bout you 0.1 v he 0.1 (pooled 0.2); paid the fence tax a bout you 0.3 v he 0.2 (pooled 0.5); fence condition met (opponent lead held high) a bout pooled 0.6
+lead hand at Long (man-beats 1366): jab 12%, body jab 32%, feint 5%, held high 9%, held low 38%, other 3%; you: jab 13%, body jab 32%, feint 6%, high 11%, low 36%; he: jab 12%, body jab 32%, feint 4%, high 8%, low 41%
+outfighter's rounds: 8 of 237 completed rounds (3%, 0.10 a bout; you 5, he 3)
+first step in of a round: mean 0.81 beats before it (median 0), over 252 rounds with a step in; 0 rounds with none; distribution beats-before: 0:128 1:63 2:45 3:13 4:2 5:1
+stamina on arrival at Mid (steps from Long ending the beat at Mid, before recovery): you 3.03 over 136 arrivals, he 3.18 over 116; lead held high share of ALL man-beats 10%; jab in 6% of all man-beats, body jab 18%, step in 31%
+bout: wins 45%, stops 18% (ko 8, lost 7), draws 2%, knockdowns a bout 2.3
+  (84 bouts, 643 s)

@@ -83,4 +83,45 @@ test('setOf builds each man his table from punch:up; a punch with no upgrade to 
   assert.throws(() => setOf(R, 'cross:slower'), /unknown upgrade/);
 });
 
+// PROGP4: new fields must work through resolve, not merely appear in the table.
+test('per-man DAMAGE changes a hit and the three-damage points/stun threshold, not the other man', () => {
+  const R = load(9, 'order.html', applyPatch);
+  const a = R.man(R.N.hp, setOf(R, 'lbody:damage')), b = R.man(R.N.hp);
+  const S = { f: [a, b], range: 2 };
+  const ev = R.resolve(S, [{ ...R.plan0(), lead: 'lbody' }, { ...R.plan0(), hl: 'high', hr: 'high' }]);
+  assert.equal(ev.find(e => e.t === 'hit').dmg, 3);
+  assert.equal(a.pts, 2); assert.equal(b.hp, R.N.hp - 3);
+  assert.equal(b.cap, R.N.st - 1, 'body cap shrinks once per hit, not once per damage');
+  assert.equal(R.ACT.lbody.d, 2, 'shared ACT untouched');
+});
+
+test('per-man REACH lets only the upgraded hook land at Long; jabs already reach Long', () => {
+  const R = load(9, 'order.html', applyPatch);
+  const S = { f: [R.man(R.N.hp, setOf(R, 'hook:long')), R.man(R.N.hp)], range: 3 };
+  const ev = R.resolve(S, [0, 1].map(() => ({ ...R.plan0(), lead: 'hook', hr: 'low' })));
+  assert.ok(ev.some(e => e.k === 0 && e.t === 'hit'));
+  assert.ok(ev.some(e => e.k === 1 && e.t === 'miss'));
+  assert.deepEqual(Array.from(R.ACT.hook.reach), [1, 2]);
+  assert.throws(() => setOf(R, 'jab:long'), /already reaches/);
+  assert.throws(() => setOf(R, 'bjab:long'), /already reaches/);
+  assert.deepEqual(Array.from(setOf(R, 'jab:inside').tb.jab.reach), [1, 2, 3]);
+  assert.deepEqual(Array.from(setOf(R, 'rup:mid').tb.rup.reach), [1, 2]);
+});
+
+test('per-man jab KEEP holds him out for exactly one following beat, fallback keeps nobody', () => {
+  const R = load(9, 'order.html', applyPatch);
+  const S = { f: [R.man(R.N.hp, setOf(R, 'jab:keep')), R.man(R.N.hp)], range: 2 };
+  R.resolve(S, [{ ...R.plan0(), lead: 'jab' }, { ...R.plan0(), hl: 'low' }]);
+  assert.equal(S.f[1].kept, 1);
+  assert.ok(R.plansFor(S, 1).every(p => p.feet !== 'in'));
+  R.resolve(S, [{ ...R.plan0() }, { ...R.plan0(), feet: 'in' }]);
+  assert.equal(S.range, 2); assert.equal(S.f[1].kept, 0);
+  R.resolve(S, [{ ...R.plan0() }, { ...R.plan0(), feet: 'in' }]);
+  assert.equal(S.range, 1);
+  const T = { f: [R.man(R.N.hp), R.man(R.N.hp)], range: 2 };
+  R.resolve(T, [{ ...R.plan0(), lead: 'jab' }, { ...R.plan0(), hl: 'low' }]);
+  assert.equal(T.f[1].kept, 0);
+  assert.throws(() => setOf(R, 'cross:keep'), /jab only/);
+});
+
 console.log(`PROBE_SHARP_TEST ${n} passed${process.exitCode ? ' - FAILURES above' : ''}`);

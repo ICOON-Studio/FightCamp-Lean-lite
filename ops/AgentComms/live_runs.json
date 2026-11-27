@@ -363,7 +363,7 @@
  },
  "PROGP4": {
   "id": "PROGP4",
-  "status": "running",
+  "status": "landed",
   "seat": "arena",
   "agent": "Arena (cloud: costs your PC nothing)",
   "started": "2026-11-26T20:35",
@@ -371,11 +371,12 @@
   "title": "Your 'Yes, a choice': a pair of upgrades of its own for each punch, measured in the cloud",
   "brief": "ops/research/TASK_PROGP4.md",
   "branch": "arena/efb38a10-fightcamp-lean-lite",
-  "issue": "https://arena.ai/agent/01a21923-db62-7d8c-ab5b-8fb4efb38a10"
+  "issue": "https://arena.ai/agent/01a21923-db62-7d8c-ab5b-8fb4efb38a10",
+  "note": "S567 collected: no new pair clears the two-seed bar; the Overhand pair stays the only real choice"
  },
  "LONG1": {
   "id": "LONG1",
-  "status": "running",
+  "status": "landed",
   "seat": "arena",
   "agent": "Arena (cloud: costs your PC nothing)",
   "started": "2026-11-26T16:01",
@@ -384,7 +385,7 @@
   "brief": "ops/research/TASK_LONG1.md",
   "branch": "arena/cba93bd0-fightcamp-lean-lite",
   "issue": "https://arena.ai/agent/01a21828-826b-7d4c-97e8-e175cba93bd0",
-  "note": "S566 20:34: told to keep working after the daily limit reset; alive at 22:00 (on L2)"
+  "note": "S567 collected: none - the stopping jab and the fence move little (jab use stays 6-8%, bar 12%); with LONG2 also none. Next is LONG3 (the jab that meets him does health), after FEINTFIX2"
  },
  "TELLS5M": {
   "id": "TELLS5M",
@@ -444,5 +445,15 @@
   "brief": "ops/research/TASK_FEINTFIX2.md",
   "branch": "arena/95892a39-fightcamp-lean-lite",
   "issue": "https://arena.ai/agent/01a21a26-5a3a-7109-b2cd-316e95892a39"
+ },
+ "MATCHSERVER": {
+  "id": "MATCHSERVER",
+  "status": "running",
+  "seat": "claude",
+  "agent": "The match server (a terminal tab on your PC: light)",
+  "started": "2026-11-27T02:10",
+  "eta": "stays up",
+  "title": "Your ask: a server where agents and players fight each other, and Play online in the game - built, port 8796",
+  "brief": "docs/MATCH_SERVER.md"
  }
 }
