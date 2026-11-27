@@ -1,0 +1,16 @@
+mix v the same man (no style): wins 0%, draws 0%, stops him 0%, is stopped 100%; knockdowns a bout 2.0 v 3.0; health taken a bout 28.0 v 28.0; beats at Inside / Mid / Long 0% / 0% / 100%; clinches a bout 0.0; rounds level on points 98%
+  you a beat: feet hold 100%, rear held high 51%, Jab 50%, Body jab 49%, rear held low 49%, lead held low 0%, Feint 0%, back off 0%, Body cross 0% | punches in a plan: none 0%, one 100%, two 0%
+  your punches (thrown a bout: lands / blocked / misses): Jab 14.1: 100% / 0% / 0%, Body jab 13.9: 100% / 0% / 0%, Body cross 0.0: 0% / 0% / 100%
+  he  a beat: feet hold 100%, rear held high 51%, Jab 50%, Body jab 50%, rear held low 49%, lead held high 0%, back off 0% | punches in a plan: none 0%, one 100%, two 0%
+  his  punches (thrown a bout: lands / blocked / misses): Jab 14.1: 100% / 0% / 0%, Body jab 13.9: 100% / 0% / 0%
+  (84 bouts, 8 s)
+BARS 1 of 9 pass
+  FAIL every range is fought at (each 15-55% of beats): Inside 0%, Mid 0%, Long 100%
+  FAIL no switch is a must (none in over 40% of beats): Jab 50%, Body jab 50%, back off 0%
+  FAIL no switch is dead (each in at least 3% of beats): Lead hook 0%, Lead uppercut 0%, Body hook 0%, Feint 0%, Push off 0%, Cross 0%, Overhand 0%, Rear uppercut 0%, Body cross 0%, clinch 0%, step in 0%, back off 0%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 100%, short 0%; Body jab lands 100%, short 0%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 100%, draws 0%, knockdowns 5.0
+  FAIL one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 0%, none 0%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 0.0
+  FAIL the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 0%, most often first -Infinity%
+  FAIL the mirror is fair (wins 40-60% of decided bouts): 0%

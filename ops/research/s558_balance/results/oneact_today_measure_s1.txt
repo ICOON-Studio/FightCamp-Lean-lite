@@ -1,0 +1,6 @@
+MEASURE today v mirror seed 1: 28 bouts, 84 rounds, 494 beats (N.beats 6, rec 1, hold 1)
+  a man a round: stamina spent 15.68, stamina back 10.30, health dealt 7.45 | a bout: knockdowns 2.75, stoppages 39%, draws 0%, his habit reads 0.00
+  actions, share of man-beats: back off 34%, step in 34%, Body cross 24%, Cross 22%, Body jab 16%, nothing 9%, Feint 8%, Lead hook 7%, Jab 7%, Lead uppercut 6%, Rear uppercut 6%, clinch 5%, Overhand 5%, Body hook 4%, Push off 4%
+  actions in a beat: none 9%, one 23%, two 46%, three 22%
+  landed punches: Body jab 98 (counter 13, pull 37, after feint 0), Cross 87 (counter 14, pull 1, after feint 24), Lead uppercut 37 (counter 6, pull 0, after feint 0), Lead hook 25 (counter 1, pull 0, after feint 0), Body cross 107 (counter 12, pull 10, after feint 1), Rear uppercut 32 (counter 6, pull 0, after feint 3), Jab 49 (counter 5, pull 6, after feint 0), Overhand 39 (counter 4, pull 0, after feint 33), Body hook 21 (counter 2, pull 0, after feint 0)
+  SPEED, your side: clicks a beat 6.37 (a beat with nothing changed = 1 click: 1% of beats; the busiest beat seen 12), clicks a round 37.5 | the page plays a beat for 3.61 s, a round for 21.2 s (full rounds: 21.7 s)

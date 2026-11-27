@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.568.6', date: '2026-11-27', items: [
+    'The strip shows your whole boxer in each of the three moments: a moment with no action reads "guarding" with where your hands are and that your feet stay still, and an action card also lists your other hand and feet. Point at a slot to see what each held hand stops.'] },
+  { v: '0.568.5', date: '2026-11-27', items: [
+    'Play a local AI live: Gemma, a model running on this PC, waits on the match server. Open Play online, type your name, Find an opponent. It answers a beat in about 1.5 seconds. Add ?clock=5 to the address for the 5-second clock (the round clock stays off online: the server runs the rounds).'] },
   { v: '0.568.4', date: '2026-11-27', items: [
     'A round clock on the one-action page: 1 minute a round in real time, shown at the top. At 0 the bell rings - straight away if you are still choosing, or as soon as the beat being played ends. Think slowly and fewer beats get thrown. The Clock button switches both clocks off; any page can have it with ?round=60.'] },
   { v: '0.568.3', date: '2026-11-27', items: [

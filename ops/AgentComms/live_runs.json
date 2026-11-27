@@ -48,6 +48,16 @@
    "status": "running",
    "brief": "ops/research/TASK_ONEACT1.md",
    "note": "S568: owner 'assign a fable worker for it and then test it fable vs dola'"
+  },
+  "COUNTERS1": {
+   "id": "COUNTERS1",
+   "who": "Opus console worker (PC, tab c5)",
+   "title": "The two counters the famous exchanges miss: Marquez's timed right and Mayweather's check hook - measured on the balance checks and on the film scenes",
+   "started": "2026-11-27T05:05",
+   "eta": "3-5 h",
+   "status": "running",
+   "brief": "ops/research/TASK_COUNTERS1.md",
+   "note": "S568: owner 'measure the two ideas for marquez and mayweather'"
   }
  },
  "codex_budget": {

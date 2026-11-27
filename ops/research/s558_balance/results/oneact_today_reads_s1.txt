@@ -1,0 +1,18 @@
+MEASURE today v 0 seed 1: 10 bouts, 29 rounds, 170 beats (N.beats 6, rec 1, hold 1)
+  a man a round: stamina spent 15.60, stamina back 10.12, health dealt 7.45 | a bout: knockdowns 2.80, stoppages 40%, draws 0%, his habit reads 0.90
+  actions, share of man-beats: back off 34%, step in 32%, Cross 28%, Body cross 18%, Body jab 15%, Feint 12%, nothing 10%, Overhand 9%, Jab 8%, clinch 6%, Rear uppercut 6%, Body hook 5%, Lead hook 5%, Push off 2%, Lead uppercut 2%
+  actions in a beat: none 10%, one 19%, two 50%, three 21%
+  landed punches: Body jab 31 (counter 5, pull 13, after feint 0), Jab 31 (counter 5, pull 8, after feint 0), Cross 31 (counter 6, pull 2, after feint 7), Lead uppercut 6 (counter 0, pull 0, after feint 0), Rear uppercut 9 (counter 4, pull 0, after feint 2), Lead hook 7 (counter 0, pull 0, after feint 0), Body hook 12 (counter 0, pull 1, after feint 0), Body cross 30 (counter 9, pull 1, after feint 0), Overhand 15 (counter 4, pull 0, after feint 12)
+  SPEED, your side: clicks a beat 6.36 (a beat with nothing changed = 1 click: 2% of beats; the busiest beat seen 12), clicks a round 37.3 | the page plays a beat for 3.64 s, a round for 21.3 s (full rounds: 21.8 s)
+MEASURE today v 1 seed 1: 10 bouts, 30 rounds, 178 beats (N.beats 6, rec 1, hold 1)
+  a man a round: stamina spent 16.17, stamina back 10.33, health dealt 7.48 | a bout: knockdowns 2.20, stoppages 30%, draws 0%, his habit reads 0.40
+  actions, share of man-beats: step in 33%, back off 29%, Body cross 22%, Cross 19%, Body jab 13%, nothing 12%, Feint 11%, Overhand 10%, Lead hook 10%, clinch 8%, Lead uppercut 7%, Rear uppercut 6%, Push off 5%, Body hook 3%, Jab 3%
+  actions in a beat: none 12%, one 25%, two 34%, three 29%
+  landed punches: Body jab 33 (counter 5, pull 11, after feint 0), Overhand 22 (counter 3, pull 2, after feint 17), Body hook 6 (counter 2, pull 0, after feint 0), Lead uppercut 15 (counter 3, pull 0, after feint 0), Cross 18 (counter 3, pull 0, after feint 6), Body cross 31 (counter 8, pull 2, after feint 0), Jab 9 (counter 1, pull 1, after feint 0), Lead hook 18 (counter 0, pull 1, after feint 0), Rear uppercut 12 (counter 2, pull 0, after feint 1)
+  SPEED, your side: clicks a beat 6.52 (a beat with nothing changed = 1 click: 2% of beats; the busiest beat seen 11), clicks a round 38.7 | the page plays a beat for 3.60 s, a round for 21.3 s (full rounds: 21.6 s)
+MEASURE today v 2 seed 1: 10 bouts, 30 rounds, 178 beats (N.beats 6, rec 1, hold 1)
+  a man a round: stamina spent 15.75, stamina back 10.43, health dealt 7.27 | a bout: knockdowns 2.50, stoppages 20%, draws 0%, his habit reads 0.70
+  actions, share of man-beats: step in 31%, back off 28%, Cross 28%, Body cross 20%, Feint 13%, Body jab 11%, nothing 11%, clinch 7%, Overhand 7%, Body hook 6%, Jab 6%, Push off 5%, Rear uppercut 4%, Lead hook 4%, Lead uppercut 4%
+  actions in a beat: none 11%, one 26%, two 41%, three 22%
+  landed punches: Body jab 12 (counter 3, pull 5, after feint 0), Body cross 43 (counter 8, pull 6, after feint 1), Cross 34 (counter 4, pull 0, after feint 11), Body hook 10 (counter 3, pull 0, after feint 0), Overhand 13 (counter 2, pull 0, after feint 13), Lead hook 10 (counter 0, pull 1, after feint 0), Rear uppercut 10 (counter 4, pull 0, after feint 1), Lead uppercut 12 (counter 2, pull 0, after feint 0), Jab 14 (counter 2, pull 4, after feint 0)
+  SPEED, your side: clicks a beat 6.54 (a beat with nothing changed = 1 click: 1% of beats; the busiest beat seen 12), clicks a round 38.8 | the page plays a beat for 3.52 s, a round for 20.9 s (full rounds: 21.1 s)

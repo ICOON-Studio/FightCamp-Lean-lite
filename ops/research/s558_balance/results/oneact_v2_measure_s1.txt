@@ -1,0 +1,6 @@
+MEASURE oneact_v2.json v mirror seed 1: 84 bouts, 246 rounds, 2729 beats (N.beats 12, rec 1, hold 0)
+  a man a round: stamina spent 17.68, stamina back 10.54, health dealt 8.47 | a bout: knockdowns 3.46, stoppages 64%, draws 4%, his habit reads 0.00
+  actions, share of man-beats: step in 28%, nothing 20%, clinch 17%, Cross 15%, Body hook 11%, back off 11%, Lead hook 8%, Lead uppercut 6%, Body cross 4%, Body jab 3%, Push off 3%, Feint 3%, Jab 2%, Rear uppercut 1%, Overhand 1%
+  actions in a beat: none 20%, one 48%, two 32%, three 0%
+  landed punches: Body hook 402 (counter 124, pull 4, after feint 3), Cross 418 (counter 74, pull 2, after feint 1), Lead hook 183 (counter 28, pull 1, after feint 0), Lead uppercut 214 (counter 35, pull 0, after feint 0), Body cross 103 (counter 22, pull 4, after feint 0), Rear uppercut 18 (counter 9, pull 0, after feint 0), Jab 43 (counter 14, pull 22, after feint 1), Body jab 92 (counter 34, pull 45, after feint 2), Overhand 20 (counter 7, pull 0, after feint 0)
+  SPEED, your side: clicks a beat 5.02 (a beat with nothing changed = 1 click: 1% of beats; the busiest beat seen 9), clicks a round 55.7 | the page plays a beat for 2.44 s, a round for 27.0 s (full rounds: 29.3 s)

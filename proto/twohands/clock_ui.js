@@ -7,7 +7,7 @@
 // changes no rule. Nothing near the fighters: the count is on the Fight button and a thin bar under it.
 (function () {
   const q = /[?&]clock=(\d+)/.exec(location.search), SECS = q ? Number(q[1]) : /one\.html$/.test(location.pathname) ? 5 : 0;
-  const RQ = /[?&]round=(\d+)/.exec(location.search), RSECS0 = RQ ? Number(RQ[1]) : /one\.html$/.test(location.pathname) ? 60 : 0;
+  const RQ = /[?&]round=(\d+)/.exec(location.search), RSECS0 = /online\.html$/.test(location.pathname) ? 0 : RQ ? Number(RQ[1]) : /one\.html$/.test(location.pathname) ? 60 : 0;   /* online: the server runs the rounds - a round clock here would ring a bell only in this browser */
   if (!SECS && !RSECS0) return;
   const KEY = 'pc_clock', on = () => { try { return localStorage.getItem(KEY) !== 'off'; } catch (e) { return true; } };
   const guidedNow = () => { try { return round === 1 && beat === 0 && !localStorage.getItem('pc_guided'); } catch (e) { return false; } };

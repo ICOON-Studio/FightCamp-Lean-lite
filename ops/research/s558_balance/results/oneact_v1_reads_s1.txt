@@ -1,0 +1,15 @@
+MEASURE oneact_v1.json v 0 seed 1: 28 bouts, 75 rounds, 788 beats (N.beats 12, rec 1, hold 0)
+  a man a round: stamina spent 13.61, stamina back 10.35, health dealt 9.31 | a bout: knockdowns 4.00, stoppages 93%, draws 0%, his habit reads 11.54
+  actions, share of man-beats: Body jab 22%, Jab 19%, back off 18%, Cross 10%, Body hook 9%, step in 9%, Lead hook 3%, nothing 3%, Overhand 2%, Body cross 2%, clinch 1%, Feint 1%, Lead uppercut 1%, Rear uppercut 1%, Push off 0%
+  actions in a beat: none 3%, one 97%, two 0%, three 0%
+  landed punches: Body jab 136 (counter 38, pull 57, after feint 2), Jab 313 (counter 85, pull 114, after feint 0), Cross 84 (counter 21, pull 0, after feint 0), Body cross 12 (counter 6, pull 2, after feint 0), Overhand 24 (counter 22, pull 0, after feint 1), Body hook 51 (counter 15, pull 0, after feint 0), Lead hook 25 (counter 9, pull 0, after feint 0), Rear uppercut 4 (counter 4, pull 0, after feint 0), Lead uppercut 3 (counter 0, pull 0, after feint 0)
+MEASURE oneact_v1.json v 1 seed 1: 28 bouts, 83 rounds, 985 beats (N.beats 12, rec 1, hold 0)
+  a man a round: stamina spent 16.77, stamina back 11.54, health dealt 7.69 | a bout: knockdowns 2.32, stoppages 25%, draws 4%, his habit reads 6.00
+  actions, share of man-beats: Body jab 17%, back off 16%, Jab 14%, clinch 8%, Cross 8%, Body hook 7%, step in 5%, Lead hook 5%, Feint 5%, Lead uppercut 4%, Overhand 3%, Body cross 3%, nothing 1%, Push off 1%, Rear uppercut 1%
+  actions in a beat: none 1%, one 99%, two 0%, three 0%
+  landed punches: Body jab 145 (counter 25, pull 38, after feint 4), Jab 147 (counter 33, pull 56, after feint 2), Lead hook 55 (counter 12, pull 0, after feint 6), Lead uppercut 42 (counter 6, pull 0, after feint 1), Body hook 65 (counter 20, pull 0, after feint 0), Rear uppercut 11 (counter 8, pull 0, after feint 0), Cross 60 (counter 8, pull 0, after feint 0), Body cross 16 (counter 0, pull 0, after feint 0), Overhand 22 (counter 13, pull 0, after feint 2)
+MEASURE oneact_v1.json v 2 seed 1: 28 bouts, 84 rounds, 969 beats (N.beats 12, rec 1, hold 0)
+  a man a round: stamina spent 15.99, stamina back 11.25, health dealt 8.21 | a bout: knockdowns 3.43, stoppages 50%, draws 7%, his habit reads 9.14
+  actions, share of man-beats: Jab 18%, Body jab 18%, back off 17%, Body hook 8%, Cross 8%, step in 5%, clinch 5%, Lead hook 5%, Feint 4%, Lead uppercut 4%, Overhand 3%, Body cross 3%, Push off 1%, nothing 1%, Rear uppercut 0%
+  actions in a beat: none 1%, one 99%, two 0%, three 0%
+  landed punches: Body jab 151 (counter 29, pull 52, after feint 3), Jab 176 (counter 31, pull 53, after feint 7), Cross 77 (counter 19, pull 1, after feint 1), Lead hook 34 (counter 6, pull 1, after feint 2), Lead uppercut 34 (counter 8, pull 0, after feint 1), Body cross 27 (counter 8, pull 0, after feint 1), Body hook 97 (counter 30, pull 0, after feint 0), Overhand 27 (counter 14, pull 0, after feint 2), Rear uppercut 2 (counter 1, pull 0, after feint 0)

@@ -20,6 +20,7 @@
     '#strip .slot.wait{border:1px dashed var(--gold);background:none}' +
     '#strip .slot b{font-size:1rem}#strip .slot i{font-style:normal;color:var(--muted)}#strip .slot .ok{color:#bfe6c3}#strip .slot .no2{color:#ffb3ad}' +
     '#strip .slot.empty{color:var(--muted)}' +
+    '#strip .slot .lm{font-size:.72rem;color:var(--muted);line-height:1.15}#strip .slot.empty i{color:#bfe6c3}' +   /* S568: the whole boxer in each moment */
     /* S567, owner: "make the strip like rune colossieum , left side for left fighter and right side for the right fighter and the fill the slots when the beat is resolved time the actions for the result" */
     '#strip .slot,#strip .hslot{width:11.6rem}#strip .hslot{position:relative;min-height:4.3rem;border-radius:.55rem;border:1px dashed var(--line2);padding:.3rem 2rem .35rem .55rem;display:flex;flex-direction:column;justify-content:center;gap:.08rem;font-size:.82rem;line-height:1.2;text-align:right;color:var(--muted)}' +
     '#strip .hslot .no{position:absolute;right:.45rem;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:700;color:var(--muted);opacity:.7}#strip .hslot b{font-size:1rem;color:#ffd0cb}#strip .hslot.shown{border:1px solid var(--red);background:#2a1614;color:#efe4d2}#strip .hslot.shown .no{color:var(--red);opacity:1}#strip .hslot.old{opacity:.5}' +
@@ -35,6 +36,17 @@
   document.head.appendChild(css);
   const ghost = document.createElement('img'); ghost.id = 'ghost'; ghost.alt = ''; stage.appendChild(ghost);
   const NTH = ['1st', '2nd', '3rd', '4th'], clampR = (r) => Math.max(1, Math.min(3, r));
+  /* S568 (owner: "why have 3 actions if only 2 get filled ? the hold ground does not appear on the strip the hands posstion
+     same , shouldnt all the selection appear on the strip ?"): a beat is three moments whether you act in them or not - his
+     moment 3 meets yours. Each slot now shows the WHOLE boxer in that moment: the limbs that do not act, as they stand then
+     (a hand that punches in another moment is held HIGH, the rule; a held hand at its height; the feet still or already
+     moved). An empty moment reads "guarding", not "nothing". Its tip says what each held hand stops. (Ludo S567: "what
+     each hand blocks or leaves open, per moment".) */
+  function limbs(i, actor) { const txt = [], tip = [], hasC = typeof COVER !== 'undefined' && typeof THREAT !== 'undefined';
+    for (const h of ['lead', 'rear']) { if (h === actor || P.clinch) continue; const pos = P[h] ? 'high' : h === 'lead' ? P.hl : P.hr; txt.push(`${h} ${pos}`);
+      const line = hasC && COVER[pos] ? COVER[pos][h === 'lead' ? 0 : 1] : null; if (line && THREAT[line]) tip.push(`${h === 'lead' ? 'Lead' : 'Rear'} hand ${pos}: stops ${THREAT[line].replace(/^His /, 'his ')}${P[h] ? ` (it punches in moment ${P.ord.indexOf(h) + 1}, and is back up after)` : ''}.`); }
+    if (actor !== 'feet') { const at = P.ord.indexOf('feet'), nm = P.feet === 'hold' ? '' : ((FEET[P.feet] || ACT[P.feet] || {}).n || P.feet).toLowerCase(); txt.push(at >= 0 && at < i ? ({ in: 'stepped in', back: 'backed off' }[P.feet] || nm) : 'feet still'); }
+    return { txt: txt.join(' · '), tip: (tip.join('\n') || 'Both hands held: they block.').replace(/"/g, '') }; }
   const feetStep = () => (P.feet === 'in' || P.feet === 'slipin' ? -1 : P.feet === 'back' ? 1 : 0);
   const actOf = (sl) => (sl === 'wait' ? null : sl === 'feet' ? (ACT[P.feet] && ACT[P.feet].d ? ACT[P.feet] : null) : ACT[P[sl]]);
   // what each moment is: its words for the card, and the range it happens at / leaves the men at
@@ -47,9 +59,9 @@
   function strip() { const old = document.getElementById('strip'); if (old) old.remove(); if (phase !== 'plan' || P.clinch) { stop(); return; }
     const ms = moments(), n = Math.max(3, ms.length), el = document.createElement('div'); el.id = 'strip';
     el.innerHTML = '<span class="hd">This beat</span>' + Array.from({ length: n }, (x, i) => { const m = ms[i];
-      if (!m) return `<div class="slot empty"><span class="no">${i + 1}</span><i>${ms.length ? 'nothing' : i ? 'nothing' : 'both hands held, feet still'}</i></div>`;
+      if (!m) { const L = limbs(i, null); return `<div class="slot empty" data-tip="${L.tip}"><span class="no">${i + 1}</span><i>guarding</i><span class="lm">${L.txt}</span></div>`; }
       const tip = m.sl === 'wait' ? 'An empty moment before your step. Switch it off with the button beside the strip.' : `${NTH[i]} moment: ${m.name}. Drag the card to another slot to change when it happens (a click: one slot earlier).\nYour ${NTH[i]} moment meets his ${NTH[i]} moment.`;
-      return `<div class="slot full${m.sl === 'wait' ? ' wait' : ''}" data-sl="${m.sl}" data-tip="${tip}"><span class="no">${i + 1}</span><b>${m.name}</b>${m.line}${m.open ? `<span class="no2">open: ${m.open.toLowerCase()}</span>` : ''}</div>`; }).join('');
+      return `<div class="slot full${m.sl === 'wait' ? ' wait' : ''}" data-sl="${m.sl}" data-tip="${tip}"><span class="no">${i + 1}</span><b>${m.name}</b>${m.line}${m.open ? `<span class="no2">open: ${m.open.toLowerCase()}</span>` : ''}<span class="lm">${limbs(i, m.sl).txt}</span></div>`; }).join('');
     el.innerHTML += hisSide(false);
     lines.insertBefore(el, lines.firstChild);
     for (const c of lines.querySelectorAll(':scope > .ln.open')) if (/open in moment \d/.test(c.textContent)) c.remove();   /* each card says what its own moment leaves open: the chips keep what is open or covered the whole beat */
