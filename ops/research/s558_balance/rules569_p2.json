@@ -1,0 +1,61 @@
+{
+ "_note": "RULES569 idea 2 ALONE on today's page (owner: 'a switch that sets the power that goes to your punches would be a good idea'): THE POWER SWITCH. One punch a beat can be thrown at FULL POWER: +1 stamina, +1 health for a light punch (jab, body punches) or +2 for a punch of 3 or more, and it is one step slower (he sees it coming). If it is blocked or falls short the thrower is OPEN in his next moment: his guard covers nothing (the last moment of a beat carries to the first of the next). Our numbers, not Mixed Martial Cards' (double damage for +50% stamina).",
+ "src": [
+  [
+   "const N = { ",
+   "const N = { pw: 1, pwSt: 1, "
+  ],
+  [
+   "FEET[p.feet].st + (p.clinch ? 1 : 0);",
+   "FEET[p.feet].st + (p.clinch ? 1 : 0) + (!p.clinch && p.pw && p[p.pw] && ACT[p[p.pw]].d ? N.pwSt : 0);\n/* RULES569 idea 2, THE POWER SWITCH: one punch a beat can be thrown at FULL POWER (p.pw = 'lead' or 'rear'): +1 stamina, +1 health (a light punch) or +2 (a punch of 3 or more), one step slower. Blocked or short, he is OPEN in his next moment (his guard covers nothing; the last moment of a beat carries to the first of the next). */\nconst full = (a) => ({ ...a, d: a.d + (a.d >= 3 ? 2 : 1), sp: a.sp + 1, full: 1 });"
+  ],
+  [
+   "for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')",
+   "const wide = [0, 1].map((k) => { const w = f[k].wide && S.t !== N.beats ? 0 : -1; f[k].wide = 0; return w; });\n  for (const k of [0, 1]) { if (f[k].kept && P[k].feet === 'in')"
+  ],
+  [
+   "shots.push({ k, id: P[k][sl], a: ACT[P[k][sl]] });",
+   "shots.push({ k, id: P[k][sl], a: P[k].pw === sl ? full(ACT[P[k][sl]]) : ACT[P[k][sl]] });"
+  ],
+  [
+   "const c = {}; if (f[k].g <= 0) return c; const leadAway",
+   "const c = {}; if (f[k].g <= 0 || wide[k] === i) return c; const leadAway"
+  ],
+  [
+   "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; continue; }",
+   "'smothered - too close at ' + RNG[S.range] }); opening[v] = 1; if (a.full) wide[sh.k] = i + 1; continue; }"
+  ],
+  [
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; continue; }",
+   "(D.g <= 0 ? ' - GUARD BROKEN' : '') }); opening[v] = 1; if (a.full) wide[sh.k] = i + 1; continue; }"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n,",
+   "say(sh.k, { m: i, t: 'hit', id: sh.id, a: a.n, wideHit: wide[v] === i ? 1 : 0,"
+  ],
+  [
+   "const why = D.g <= 0 ? 'guard broken' :",
+   "const why = D.g <= 0 ? 'guard broken' : wide[v] === i ? `${v ? 'he was' : 'you were'} wide open after the full-power punch` :"
+  ],
+  [
+   "o: `lands${openNow[sh.k] ? ' as a counter' : ''}",
+   "o: `${a.full ? 'FULL POWER, ' : ''}lands${openNow[sh.k] ? ' as a counter' : ''}"
+  ],
+  [
+   "if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown'",
+   "for (const k of [0, 1]) if (wide[k] === 3) f[k].wide = 1;\n  if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown'"
+  ],
+  [
+   "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); }",
+   "for (const ord of perms(ordOf(c0))) { out.push({ ...c0, ord }); if (N.pw) for (const sl of ['lead', 'rear']) if (c0[sl] && ACT[c0[sl]].d && cost({ ...c0, pw: sl }) + (typeof dear === 'function' ? dear(me, c0) : 0) <= me.st) out.push({ ...c0, ord, pw: sl }); } }"
+  ],
+  [
+   "const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);",
+   "const T = { range: S.range, t, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);"
+  ],
+  [
+   "return (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap",
+   "return (t > 1 ? 1.0 * ((y.wide || 0) - (x.wide || 0)) : 0) + (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap"
+  ]
+ ]
+}
