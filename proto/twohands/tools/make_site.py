@@ -27,7 +27,7 @@ HERE = Path(__file__).resolve().parent
 GAME = HERE.parent
 SALT = "punchers-chance-test"
 PAGES = ["order.html", "online.html", "head.html", "kick.html", "punch.html", "wait.html", "scene.html", "changelog.html"]
-SCRIPTS = ["ring_ui.js", "body_ui.js", "strip_ui.js", "version.js", "online_ui.js", "scenes.js", "scene_ui.js", "clock_ui.js", "vtable.json", "vtable_wait.json"]
+SCRIPTS = ["ring_ui.js", "body_ui.js", "strip_ui.js", "version.js", "online_ui.js", "scenes.js", "scene_ui.js", "clock_ui.js", "hand_ui.js", "vtable.json", "vtable_wait.json"]
 
 
 def main() -> None:

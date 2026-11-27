@@ -1,0 +1,29 @@
+{
+  "_note": "COUNTERS1 H2 (the check hook + the angle): as H1, and that check hook is not blocked by his held rear hand (he turns into it).",
+  "src": [
+    [
+      "{ d = -1; pulled[0] = pulled[1] = 0; }",
+      "{ d = -1; for (const k of [0, 1]) pulled[k] = pulled[k] && P[k].lead === 'hook' && P[k].ord.indexOf('lead') > i ? 2 : 0; }"
+    ],
+    [
+      "wasDrawn = drawn[sh.k] === 1;",
+      "wasDrawn = drawn[sh.k] === 1, chk = pulled[sh.k] === 2 && sh.id === 'hook';"
+    ],
+    [
+      "if (cov[v][a.line] && !wasDrawn) {",
+      "if (cov[v][a.line] && !wasDrawn && !chk) {"
+    ],
+    [
+      "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+      "const pull = pulled[sh.k] === 1 || chk, dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);"
+    ],
+    [
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${pull ? ' - off the pull, +1' : ''}",
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${chk ? ' - a check hook: off the pull as he cuts you off, +1' : pull ? ' - off the pull, +1' : ''}"
+    ],
+    [
+      "const why = D.g <= 0 ? 'guard broken' : wasDrawn ?",
+      "const why = D.g <= 0 ? 'guard broken' : chk ? 'he turned into it, his rear hand could not cover the angle' : wasDrawn ?"
+    ]
+  ]
+}

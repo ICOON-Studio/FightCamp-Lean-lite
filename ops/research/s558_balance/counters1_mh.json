@@ -1,0 +1,61 @@
+{
+  "_note": "COUNTERS1 MH: M (the timed counter) plus H2 (the check hook with the angle), both rules together.",
+  "src": [
+    [
+      "const active = (p, sl) => (sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);",
+      "const active = (p, sl) => (sl === 'wait' ? true : sl === 'feet' ? p.feet !== 'hold' : !!p[sl]);"
+    ],
+    [
+      "const actName = (p, sl) => (sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);",
+      "const actName = (p, sl) => (sl === 'wait' ? 'Wait' : sl === 'feet' ? FEET[p.feet].n : ACT[p[sl]].n);"
+    ],
+    [
+      "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord });",
+      "for (const ord of perms(ordOf(c0))) out.push({ ...c0, ord }); if (c0.feet === 'hold' && !c0.lead !== !c0.rear && ACT[c0.lead || c0.rear].d) out.push({ ...c0, ord: ['wait', c0.lead ? 'lead' : 'rear'] });"
+    ],
+    [
+      "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0];",
+      "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0], came = [0, 0];"
+    ],
+    [
+      "if (P[k].feet === 'in') { d--; f[k].ropes = 0; }",
+      "if (P[k].feet === 'in') { d--; f[k].ropes = 0; if (i === 0) came[k] = 1; }"
+    ],
+    [
+      "{ d = -1; pulled[0] = pulled[1] = 0; }",
+      "{ d = -1; for (const k of [0, 1]) pulled[k] = pulled[k] && P[k].lead === 'hook' && P[k].ord.indexOf('lead') > i ? 2 : 0; }"
+    ],
+    [
+      "wasDrawn = drawn[sh.k] === 1;",
+      "wasDrawn = drawn[sh.k] === 1, timed = P[sh.k].ord[0] === 'wait' && came[v] === 1, chk = pulled[sh.k] === 2 && sh.id === 'hook';"
+    ],
+    [
+      "if (cov[v][a.line] && !wasDrawn) {",
+      "if (cov[v][a.line] && !wasDrawn && !timed && !chk) {"
+    ],
+    [
+      "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+      "const pull = pulled[sh.k] === 1 || chk, dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0) + (timed ? 1 : 0);"
+    ],
+    [
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${pull ? ' - off the pull, +1' : ''}",
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${timed ? ' - a timed counter: he stepped onto it, +1' : ''}${chk ? ' - a check hook: off the pull as he cuts you off, +1' : pull ? ' - off the pull, +1' : ''}"
+    ],
+    [
+      "const why = D.g <= 0 ? 'guard broken' : wasDrawn ?",
+      "const why = D.g <= 0 ? 'guard broken' : timed ? 'he stepped onto it, no time to cover' : chk ? 'he turned into it, his rear hand could not cover the angle' : wasDrawn ?"
+    ]
+  ],
+  "scenes": {
+    "counter_right": {
+      "2": {
+        "blue": {
+          "lead": "low",
+          "rear": "over",
+          "feet": "hold",
+          "order": "wait,rear"
+        }
+      }
+    }
+  }
+}

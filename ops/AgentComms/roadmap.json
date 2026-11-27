@@ -3,19 +3,20 @@
  "updated": "2026-11-27",
  "author": "claude S294",
  "now": {
-  "id": "S567",
+  "id": "S568",
   "owner": "claude",
   "updated": "2026-11-27",
-  "summary": "S567 (Fable), part 2. ON THE PAGE (v0.567.1 to v0.567.9, all pushed): punch cards show the ranges they reach and damage beside stamina, his punches too; a Replay round button at the bell; health, stamina, guard and ground as round gauges; move names in the commentary are links to their cards; after a pick the overview comes back with the move in its lit row (owner: 'i selct an action to go as second and it deltes the first one' - one move a hand, now said), a move card can be dragged onto a slot, the no-step feet card reads 'Stay put (no step)'; the strip has two sides (his 'like rune colossieum'): yours left, his right, his slots fill as each moment plays with the result timed to the picture. NEW PAGES: scene.html (four famous exchanges on our rules, checked on film: 10 of 14 match the ring; the timed counter and the check hook do not exist in our rules), online.html (Play online). PLAYING EACH OTHER: proto/twohands/site/match_server.mjs (port 8796), reached on his tailnet through the gate (:8443/online.html) and PUBLIC on Render: https://punchers-chance-test.onrender.com (private repo ICOON-Studio/punchers-chance-test, a personal code + the notice, Free plan; codes in proto/twohands/site/data/tester_codes.json on this PC). THE AGENTS' LEAGUE (his ask; versus.mjs, versus_by_message.mjs, league.mjs): 15 bouts, Claude (Opus console worker) 13 points, Ziva 12, Dola 9, John 7, Maria 3, Kalli 0; mean verdicts fun 7.4, depth 6.8, clarity 7.2, variety 6.0; every top seat names the FEINT as the broken plan; Antigravity out (its tool opened tabs in his browser). REVIEWS: Arena solo ALLPLAY3 fun 8 depth 8 clarity 7 variety 7; Ludo from a still fun 7 depth 8 clarity 5 variety 6; Toribash read (TORIBASH_NOTES_S567). COLLECTED: TELLS4M (4 of 7, not for the page), PROGP4 (no new upgrade pair passes two seeds), LONG1 (none; with LONG2 none). FIXED ON THE WAY: play_cli.mjs could not start since the S565 rename (a quote), version.js broken for one version (an apostrophe), a commit that went out with a failing play test.",
-  "next_action": "S568: (1) collect the four Arena runs - FEINTFIX2 (95892a39: G1 'the feinting hand does not guard first' is a CORRECTION by his word, it goes on the page if it holds the bars; the best of G2 / G3 on top if G1 alone does not fix the loop), SHORTBEAT1 (2a3d0ae3), TELLS5M (4c40abf4: fails = his keep-or-cut, no fifth round), KICKFIX4 (b9de29e2: judge by its pull request). (2) RESTART THE THREE SERVICES in terminal tabs (they die with the session): page server `python proto/cardgame/serve.py 8797 twohands`, the gate `powershell -NoProfile -ExecutionPolicy Bypass -File proto/twohands/site/run_gate.ps1`, the match server `node proto\\\\twohands\\\\site\\\\match_server.mjs`. The Render site needs nothing. (3) After ANY page change he should see publicly: make_site.py + push the test repo (it restarts the public server: ASK FIRST, it cuts bouts). (4) Then LONG3 (the jab that meets him does health) after the feint fix; the screen's clarity (three reviewers: 5, 5, 7): a per-moment cover row, the range named large, a guided first beat; point versus_by_message.mjs at the match server; INSIDE1 Phase 2 (his game closed). NEVER ask about the Cascadeur plan or the packs.",
+  "summary": "S568 (Opus): clarity (range large, guided first beat, the whole boxer on the strip, the strip lights what you pick), the hand of cards replaces the body view (v0.568.9), a 5 s beat clock + 1-minute round clock on the one-action page, Gemma (local model) plays live on the match server; workers: ONEACT1 (Fable, one action a beat; Fable beat Dola on it), COUNTERS1 (Opus, Marquez and Mayweather counters); TELLS5M fails (Q-345).",
+  "next_action": "S569: (1) collect COUNTERS1 (docs/COUNTERS1_RESULT.md) and ONEACT1 (docs/ONEACT1_RESULT.md), and the three Arena runs FEINTFIX2 (95892a39, G1 cuts the loop to 35/53/37%, G2/G3 on top), SHORTBEAT1 (2a3d0ae3), KICKFIX4 (b9de29e2, on F4); (2) his answers: the hand of cards, head moves onto the main page or drop the Head row, Q-345 tells, the public push of v0.568.1-9; (3) RESTART FOUR SERVICES in terminal tabs: page server, gate, match server, and Gemma (node proto/twohands/site/match_llm_bot.mjs); (4) the feint fix onto order.html if it holds the bars, then LONG3.",
   "last_working_commit": "369173f03",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
   "next_acceptance": "Each run judged against its bars; the feint correction on the page with the loop under 30% and the feint still in 3% of beats; his friend plays one whole online bout.",
   "awaiting_operator": [
-   "Your look: the two-sided strip, the gauges, the replay, drag and drop (v0.567.9)",
-   "Your first whole online bout on https://punchers-chance-test.onrender.com",
-   "The strip: his side left-to-right (as built) or mirrored?"
+   "Hand of cards: his play",
+   "Head moves: main page or drop the Head row",
+   "Q-345 tells: cut or try once more",
+   "Public push of v0.568.1-0.568.9"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -5408,7 +5409,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-27 03:11 board_sync",
+  "updated": "2026-11-27",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5585,35 +5586,67 @@
   },
   "working_now": [
    {
-    "title": "Kicks: the two versions never measured, with the limp spiral capped where it fires",
+    "title": "Your 'write the feint fix brief and measure it': three answers to the feint that opens the overhand, with the loop, the league's winning play and the Hearns film as bars",
     "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T13:05",
-    "run": "KICKFIX3",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-27T01:31",
+    "run": "FEINTFIX2"
    },
    {
-    "title": "Tells version 3 measured with bots, bars against the control: does the tell help a little, does finding his lie pay?",
+    "title": "Your 'Yes, measure it': a short opening beat each round (one moment, one action), measured against the page",
     "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T15:20",
-    "run": "TELLS3M",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-27T01:05",
+    "run": "SHORTBEAT1"
    },
    {
-    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
+    "title": "Kicks round 4: a checked low kick hurts the kicker more - the rest of the measure moved to the cloud (your PC ran out of memory beside your game)",
     "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-26T16:01",
-    "run": "LONG1",
-    "state": "LANDED - Claude collects"
+    "started": "2026-11-26T22:38",
+    "run": "KICKFIX4"
    },
    {
-    "title": "Long range, Kalli's pick: the cross a man walks onto as he steps in, and jabs that score 2 on a stepping man - counted on today's page first, then measured",
-    "who": "Arena (cloud, a second chat: costs your PC nothing)",
-    "started": "2026-11-26T16:06",
-    "run": "LONG2",
-    "state": "LANDED - Claude collects"
+    "title": "Your one-action version: one move a beat each, more beats - built as a trial page, measured, then a match Fable v Dola on it",
+    "who": "",
+    "started": "2026-11-27T03:31",
+    "run": "ONEACT1"
+   },
+   {
+    "title": "The two counters the famous exchanges miss: Marquez's timed right and Mayweather's check hook - measured on the balance checks and on the film scenes",
+    "who": "",
+    "started": "2026-11-27T05:05",
+    "run": "COUNTERS1"
    }
   ],
   "next": [
+   {
+    "id": "HAND1",
+    "who": "operator",
+    "title": "Your play: the hand of cards (v0.568.9) - guard switches on top, cards by limb colour, what does not reach folded away; ?ui=body keeps the old body view",
+    "after": ""
+   },
+   {
+    "id": "HEADMOVES1",
+    "who": "operator",
+    "title": "Head moves (slip, roll, lean back, slip in) onto the main page after measuring, or drop the Head row? (asked in chat)",
+    "after": ""
+   },
+   {
+    "id": "PUBLIC568",
+    "who": "operator",
+    "title": "Push v0.568.1-0.568.9 to the public test site? (a push restarts it and cuts bouts: your OK)",
+    "after": ""
+   },
+   {
+    "id": "COUNTERS1",
+    "who": "claude",
+    "title": "Marquez's timed right and Mayweather's check hook measured (Opus console worker, tab c5) - collect, then one toy page if a version holds",
+    "after": ""
+   },
+   {
+    "id": "ONEACT1",
+    "who": "claude",
+    "title": "One action a beat (Fable worker): one.html built, V1 1 of 9 bars, V2 3 of 9; Fable beat Dola on it; collect the result page",
+    "after": ""
+   },
    {
     "id": "ONLINE1",
     "who": "operator",
@@ -5625,12 +5658,6 @@
     "who": "operator",
     "title": "Your look (v0.567.9): the two-sided strip, round gauges, replay at the bell, drag a move onto a slot, links in the commentary",
     "after": ""
-   },
-   {
-    "id": "CLARITY1",
-    "who": "claude",
-    "title": "The screen explains less than the rules (three reviewers: 5, 5, 7): what each hand covers in each moment, the range named large, a guided first beat",
-    "after": "FEINTFIX2"
    },
    {
     "id": "GUARDSTANCE1",
@@ -5649,12 +5676,6 @@
     "who": "operator",
     "title": "The 'All in' comeback switch (built by mistake under the game's name): you said 'sounds fun if it is balanced properly' - it stays as a trial page; next: real players try it (you, then the playtester seats), and a ground version is designed before MMA",
     "after": ""
-   },
-   {
-    "id": "TELLS2PAGE",
-    "who": "claude",
-    "title": "The tell onto the page as a pose of his body + the word in the ring corner - brief ready, waits for a tells version that holds its bars and your yes",
-    "after": "TELLS4M"
    },
    {
     "id": "LONG2",
@@ -6130,6 +6151,22 @@
   },
   "done_recently": [
    {
+    "id": "TELLS5M",
+    "title": "Tells v5 measured: fails (5th round) - Q-345 keep or cut"
+   },
+   {
+    "id": "LOCALAI1",
+    "title": "Gemma (local model) plays on the match server, 1.5 s a beat; agents fight through the match server"
+   },
+   {
+    "id": "CLOCK1",
+    "title": "A 5 s beat clock and a 1-minute round clock on one.html (v0.568.3-0.568.4)"
+   },
+   {
+    "id": "CLARITY1",
+    "title": "Screen clarity: the range large, a guided first beat, the whole boxer in every strip moment, the strip lights what you pick (v0.568.1-0.568.8)"
+   },
+   {
     "id": "LEAGUE1",
     "who": "claude",
     "title": "The agents' league: 15 bouts, Claude (Opus) 13 points, Ziva 12 - every top seat names the feint as the broken plan",
@@ -6176,42 +6213,6 @@
     "who": "arena",
     "title": "Tells version 3 measured: 4 of 7 bars - the fakes are fair now, but obeying every tell wins too easily",
     "after": ""
-   },
-   {
-    "id": "KICKFIX3",
-    "who": "arena",
-    "title": "Kicks: two versions measured, both 5 of 9 bars; the limp spiral is gone, the low kick still lands too often",
-    "after": ""
-   },
-   {
-    "title": "Never still: a light bounce on the feet while you plan, at every range",
-    "who": "console worker (Opus, Code Mode), terminal tab bounce565",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The page's one failing bar: the jab fixed (the rear glove catches it), the overhand gets a lever that is not its price - three versions measured",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The jab and the overhand land too often, round 2: the jab is fixed in every version; the overhand and the feint die with any feint fix - no version goes on the page (JABLAND2)",
-    "who": "Arena",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "Never still: both men bounce lightly while you plan (BOUNCE1)",
-    "who": "console worker",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "The game is called Puncher's chance on every page and the board; the switch built under that name by mistake is 'All in' on a trial page",
-    "who": "Claude",
-    "when": "2026-11-26"
-   },
-   {
-    "title": "He never throws a beat that cannot do anything (push off after his back off, a feint with no punch): counted, then filtered",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "when": "2026-11-26"
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6300,64 +6301,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Action strip + preview (C520)",
-     "who": "claude"
-    },
-    {
-     "text": "Help box in plain words (C521)",
-     "who": "claude"
-    },
-    {
-     "text": "Tells v3 measured: 4 of 7 bars",
-     "who": "claude"
-    },
-    {
-     "text": "Long, Kalli's pick: none",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown inside the ring",
-     "who": "claude"
-    },
-    {
-     "text": "Cascadeur 2026.3 installed",
-     "who": "claude"
-    },
-    {
-     "text": "Ziva plan cancelled (till 19 Dec)",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown heal measured: keep it",
-     "who": "claude"
-    },
-    {
-     "text": "Pick your moment: wait.html built",
-     "who": "claude"
-    },
-    {
-     "text": "Knockdown v real fights counted",
-     "who": "claude"
-    },
-    {
-     "text": "Pick your moment: late step holds",
-     "who": "claude"
-    },
-    {
-     "text": "Inside 0.55 m + glide renders in",
-     "who": "agent"
-    },
-    {
-     "text": "Sharp choice: overhand only",
-     "who": "agent"
-    },
-    {
-     "text": "Clinch v3 measured: none",
-     "who": "agent"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Tells v4 measured: 4 of 7 bars",
      "who": "agent"
     },
@@ -6412,13 +6355,51 @@
     {
      "text": "Pick fix + drag onto a slot",
      "who": "claude"
-    },
+    }
+   ],
+   "done_session": [
     {
-     "text": "Round gauges",
+     "text": "Range named large (0.568.1)",
      "who": "claude"
     },
     {
-     "text": "Replay at the bell",
+     "text": "Guided first beat (0.568.2)",
+     "who": "claude"
+    },
+    {
+     "text": "5 s beat clock, one.html",
+     "who": "claude"
+    },
+    {
+     "text": "1-min round clock (0.568.4)",
+     "who": "claude"
+    },
+    {
+     "text": "Gemma plays live, 1.5 s/beat",
+     "who": "claude"
+    },
+    {
+     "text": "Strip: whole boxer each moment",
+     "who": "claude"
+    },
+    {
+     "text": "Strip lights what you pick",
+     "who": "claude"
+    },
+    {
+     "text": "Hand of cards (0.568.9)",
+     "who": "claude"
+    },
+    {
+     "text": "Fable beat Dola, one action",
+     "who": "agent"
+    },
+    {
+     "text": "Tells v5: fails, Q-345",
+     "who": "agent"
+    },
+    {
+     "text": "Agents on the match server",
      "who": "claude"
     }
    ],
@@ -6470,6 +6451,18 @@
     {
      "text": "Your friend's first online bout",
      "who": "operator"
+    },
+    {
+     "text": "Your one-action version (Fable)",
+     "who": "claude"
+    },
+    {
+     "text": "Counters: Marquez, Mayweather",
+     "who": "agent"
+    },
+    {
+     "text": "One action a beat (Fable)",
+     "who": "agent"
     }
    ],
    "next": [
@@ -6962,19 +6955,23 @@
      "who": "claude"
     },
     {
-     "text": "Tells v5: last round (Arena)",
-     "who": "agent"
-    },
-    {
      "text": "Feint fix: Kalli + Dola ideas",
      "who": "agent"
     },
     {
-     "text": "Clarity: cover per moment, range",
-     "who": "claude"
+     "text": "Head moves: main page or drop?",
+     "who": "operator"
+    },
+    {
+     "text": "Your play: hand of cards",
+     "who": "operator"
+    },
+    {
+     "text": "Public push: 0.568.1-9",
+     "who": "operator"
     }
    ],
-   "session": "S567"
+   "session": "S568"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

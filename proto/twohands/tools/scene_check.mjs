@@ -1,19 +1,25 @@
 // SCENE_CHECK (S567): each famous exchange in scenes.js played on the page's own rules - does our game say what the ring said?
-//   node proto/twohands/tools/scene_check.mjs [scene id]
+//   node proto/twohands/tools/scene_check.mjs [scene id] [tweak=<file.json>]
+//   COUNTERS1 (S568): tweak= plays the exchanges on a balance.mjs tweak (its "src" patches, N, ACT); the tweak's optional
+//   "scenes": { "<scene id>": { "<beat, 1 first>": { "blue": {..}, "red": {..} } } } replaces a man's switches on that beat
+//   (an order may then name 'wait'). No tweak= : the output is the same as before, byte for byte.
 import fs from 'node:fs';
 import path from 'node:path';
 import { load } from './rules.mjs';
 const here = path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 const SCENES = new Function(fs.readFileSync(path.join(here, '..', 'scenes.js'), 'utf8') + '\nreturn RS_SCENES;')();
-const R0 = load(1), { N, ACT, RNG } = R0;
+const twArg = process.argv.slice(2).find((a) => a.startsWith('tweak=')), sceneArg = process.argv.slice(2).find((a) => !a.startsWith('tweak='));
+const TW = twArg ? JSON.parse(fs.readFileSync(twArg.slice(6), 'utf8')) : null, BAL = TW ? await import('./balance.mjs') : null, loadR = (seed) => (TW ? BAL.loadTweaked(seed, TW, null) : load(seed));
+if (TW) for (const [id, bs] of Object.entries(TW.scenes || {})) { const sc = SCENES.find((s) => s.id === id); if (!sc) throw new Error('tweak: no scene ' + id); for (const [n, o] of Object.entries(bs)) Object.assign(sc.beats[Number(n) - 1], o); }
+const R0 = loadR(1), { N, ACT, RNG } = R0;
 const mk = (R, p) => { const m = R.plan0(); if (p.clinch) { m.clinch = true; return m; } const L = p.lead || 'high', H = p.rear || 'high';
   if (L === 'high' || L === 'low') m.hl = L; else m.lead = L; if (H === 'high' || H === 'low') m.hr = H; else m.rear = H; m.feet = p.feet || 'hold';
-  const acts = [...(m.feet !== 'hold' ? ['feet'] : []), ...(m.lead ? ['lead'] : []), ...(m.rear ? ['rear'] : [])], want = (p.order || '').split(',').filter((x) => acts.includes(x)); m.ord = [...want, ...acts.filter((x) => !want.includes(x))]; return m; };
+  const acts = [...(TW && (p.order || '').split(',').includes('wait') ? ['wait'] : []), ...(m.feet !== 'hold' ? ['feet'] : []), ...(m.lead ? ['lead'] : []), ...(m.rear ? ['rear'] : [])], want = (p.order || '').split(',').filter((x) => acts.includes(x)); m.ord = [...want, ...acts.filter((x) => !want.includes(x))]; return m; };
 let ok = 0, all = 0;
-for (const sc of SCENES.filter((s) => !process.argv[2] || s.id === process.argv[2])) {
+for (const sc of SCENES.filter((s) => !sceneArg || s.id === sceneArg)) {
   const F = [R0.man(N.hp), R0.man(N.hp)]; for (const k of [0, 1]) { F[k].hp = sc.hp[k]; F[k].st = sc.st[k]; if (sc.ropes) F[k].ropes = sc.ropes[k]; }
   const T = { f: F, range: sc.range, t: N.beats }; console.log(`\n== ${sc.title} (${sc.bout}) - ${sc.blue} is blue, ${sc.red} is red; starts at ${RNG[sc.range]}`);
-  sc.beats.forEach((b, i) => { const R = load(100 + i), plans = [mk(R, b.blue), mk(R, b.red)], cost = plans.map((p) => R.cost(p)), st0 = [F[0].st, F[1].st], named = (s) => String(s).replace(/\byou\b/gi, sc.blue).replace(/\bhe\b/gi, sc.red).replace(/\byour\b/gi, sc.blue + "'s").replace(/\bhis\b/gi, sc.red + "'s").replace(/\bhim\b/gi, sc.red);
+  sc.beats.forEach((b, i) => { const R = loadR(100 + i), plans = [mk(R, b.blue), mk(R, b.red)], cost = plans.map((p) => R.cost(p)), st0 = [F[0].st, F[1].st], named = (s) => String(s).replace(/\byou\b/gi, sc.blue).replace(/\bhe\b/gi, sc.red).replace(/\byour\b/gi, sc.blue + "'s").replace(/\bhis\b/gi, sc.red + "'s").replace(/\bhim\b/gi, sc.red);
     console.log(` beat ${i + 1} at ${RNG[T.range]}. REAL: ${b.real}`); console.log(`   ${sc.blue}: ${R.planWords(plans[0])} (${cost[0]} of ${st0[0]} stamina)   ${sc.red}: ${R.planWords(plans[1])} (${cost[1]} of ${st0[1]} stamina)`);
     const pay = [0, 1].map((k) => cost[k] <= st0[k]); const ev = R.resolve(T, plans.map((p) => ({ ...p }))); R.endBeat(T);
     for (const e of ev) console.log(`     ${e.m != null ? 'moment ' + (e.m + 1) + ' ' : ''}${e.k === 0 ? sc.blue : e.k === 1 ? sc.red : ''}: ${named(e.a || e.t)}${e.o ? ' - ' + named(e.o) : ''}`);

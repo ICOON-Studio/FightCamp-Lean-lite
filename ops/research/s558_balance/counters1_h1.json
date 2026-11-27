@@ -1,0 +1,21 @@
+{
+  "_note": "COUNTERS1 H1 (Mayweather, the check hook - bonus only): a LEAD HOOK thrown after your own back off in the same beat keeps its pull counter (+1) even when his step in cuts you off (today the cut off switches it off).",
+  "src": [
+    [
+      "{ d = -1; pulled[0] = pulled[1] = 0; }",
+      "{ d = -1; for (const k of [0, 1]) pulled[k] = pulled[k] && P[k].lead === 'hook' && P[k].ord.indexOf('lead') > i ? 2 : 0; }"
+    ],
+    [
+      "wasDrawn = drawn[sh.k] === 1;",
+      "wasDrawn = drawn[sh.k] === 1, chk = pulled[sh.k] === 2 && sh.id === 'hook';"
+    ],
+    [
+      "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+      "const pull = pulled[sh.k] === 1 || chk, dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);"
+    ],
+    [
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${pull ? ' - off the pull, +1' : ''}",
+      "lands${openNow[sh.k] ? ' as a counter' : ''}${chk ? ' - a check hook: off the pull as he cuts you off, +1' : pull ? ' - off the pull, +1' : ''}"
+    ]
+  ]
+}

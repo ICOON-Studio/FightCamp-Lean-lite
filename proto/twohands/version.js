@@ -4,6 +4,13 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.568.9', date: '2026-11-27', items: [
+    'A hand of cards replaces clicking your boxer: two guard switches on top (lead arm and rear arm, High or Low), then your moves as cards - blue for the lead arm, red for the rear arm, green for the feet. Click a card or drag it onto a moment under the ring. Moves that cannot reach fold away under "Doesn’t reach", so the hand stays small when kicks and knees arrive. The old body view is still there with ?ui=body.'] },
+  { v: '0.568.8', date: '2026-11-27', items: [
+    'The strip lights up what you are choosing: open a hand or the feet, or point at one of its moves, and that part glows gold on the strip - its card, or its words in every moment (rear low, stay put). A pick flashes once and stays lit until you fight the beat.',
+    'A back off at Long (no room to move) now says "stay put (no room)" on the strip, not "backed off".'] },
+  { v: '0.568.7', date: '2026-11-27', items: [
+    'On the strip, a moment with no action now reads in bold "Guarding", with your hands and "stay put" when you hold your ground, so every choice you made shows there.'] },
   { v: '0.568.6', date: '2026-11-27', items: [
     'The strip shows your whole boxer in each of the three moments: a moment with no action reads "guarding" with where your hands are and that your feet stay still, and an action card also lists your other hand and feet. Point at a slot to see what each held hand stops.'] },
   { v: '0.568.5', date: '2026-11-27', items: [
