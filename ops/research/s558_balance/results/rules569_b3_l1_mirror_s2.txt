@@ -1,0 +1,19 @@
+mix v the same man (no style): wins 46%, draws 2%, stops him 8%, is stopped 7%; knockdowns a bout 1.0 v 1.1; health taken a bout 20.8 v 20.5; beats at Inside / Mid / Long 29% / 39% / 32%; clinches a bout 1.3; rounds level on points 13%, 70% of them given on ground
+  you a beat: back off 33%, step in 32%, lead held low 30%, feet hold 28%, rear held high 24%, Cross 23%, Body cross 22%, Body jab 20%, rear held low 16%, lead held high 10%, Lead hook 7%, Jab 7%, clinch 7%, Body hook 6%, Feint 5%, Lead uppercut 5%, Rear uppercut 4%, Overhand 4%, Push off 3% | punches in a plan: none 12%, one 65%, two 17%
+  your punches (thrown a bout: lands / blocked / misses): Body cross 3.7: 50% / 22% / 28%, Cross 3.7: 37% / 30% / 33%, Body jab 3.4: 66% / 30% / 4%, Jab 1.2: 59% / 35% / 6%, Lead hook 1.2: 44% / 45% / 10%, Body hook 1.0: 63% / 26% / 11%, Lead uppercut 0.8: 47% / 15% / 38%, Rear uppercut 0.7: 56% / 5% / 39%, Overhand 0.7: 77% / 0% / 23%
+  he  a beat: back off 33%, step in 32%, feet hold 31%, lead held low 31%, rear held high 25%, Cross 24%, Body cross 21%, Body jab 20%, rear held low 18%, lead held high 12%, Lead hook 8%, Jab 7%, Body hook 5%, Feint 5%, Rear uppercut 5%, Lead uppercut 5%, Push off 5%, clinch 3%, Overhand 3% | punches in a plan: none 16%, one 63%, two 17%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 4.0: 39% / 27% / 34%, Body cross 3.4: 51% / 25% / 24%, Body jab 3.3: 60% / 35% / 5%, Lead hook 1.3: 37% / 41% / 21%, Jab 1.2: 63% / 31% / 6%, Body hook 0.9: 66% / 24% / 11%, Lead uppercut 0.8: 61% / 8% / 31%, Rear uppercut 0.8: 54% / 11% / 35%, Overhand 0.5: 80% / 5% / 15%
+  your order, of the beats with one to choose (65%): first rear 17%, feet 56%, lead 27%
+RULES569_METRICS {"n":84,"beats":1491,"att":[1209,1201],"sur":[0,0],"exAt":[[1209,0,0],[1201,0,0]],"ended":[0,0],"two":[[247,0,0],[258,0,0]],"cant":[0,0],"stEnd":911,"stEndN":478,"stBeat":13841,"stBeatN":2982,"clicks":[3176,3199],"cards":[2652,2624],"hts":[524,575],"pw":{"beats":0,"hit":0,"block":0,"miss":0,"beaten":0,"other":0,"wideHit":0},"lk":{"tiredBeat":0,"softBeat":0,"ropedBeat":0,"capBeat":2064,"tiredHit":0,"hcap":314,"leak":0,"roped":0,"tiredB":0,"hcapB":285,"leakB":0,"ropedB":0,"anyB":285},"stH":[0,135,267,393,798,475,303,280,331,0],"gH":[0,0,0,0,0,6,2976,0]}
+  (84 bouts, 830 s)
+BARS 8 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 29%, Mid 39%, Long 32%
+  PASS no switch is a must (none in over 40% of beats): back off 33%, step in 32%, Cross 23%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Overhand lands 78%, short 20%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 15%, draws 2%, knockdowns 2.1
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 17%, none 14%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.3
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 65%, most often first 56%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 48%
+EXIT 0

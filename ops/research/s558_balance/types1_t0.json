@@ -1,0 +1,32 @@
+{
+  "_note": "TYPES1 T0 (S571): the control - today's rules, the four card types only LABELLED (N.tyOff 1), so the type mix of today's solved play can be counted. Every rule effect is off; a play run must equal the page's. docs/TYPES1_RESULT.md.",
+  "N": {
+    "tyOff": 1
+  },
+  "src": [
+    [
+      "function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });",
+      "/* TYPES1 (S571, the owner's four card types; a probe, not the page): each beat a plan is ATTACK (A), COUNTER (C), FEINT (F), DEFEND (D) or none ('': a clinch, a lone push off, holding on the ropes). C = his first punch comes in a LATER moment than the other man's first commit (punch, feint or step in), or in the same moment as his step in. F = a feint before any punch, or a step in with no punch. D = no punch and no feint, hands home, stay put (off the ropes) or back off. Attack beats Feint, Feint beats Counter, Counter beats Attack: the loser of the triangle lands nothing (A over F: the feint draws nothing either; C over A: the counter is +N.counter; F over C: the feinter +1 stamina, the counterer -2). Nothing lands on a Defender; Defend = +1 stamina and, standing still, one ropes mark. N.tyOff: labels only (the control). N.ty2: the reads - a Counter only beats an Attack whose first punch reaches; the same Feint two beats running loses its win over Counter. */\nfunction tyOf1(S, P) { const f = S.f, mo = (p, test) => (p.clinch || !p.ord ? -1 : p.ord.findIndex(test));\n  const pun = (p) => mo(p, (sl) => (sl === 'lead' || sl === 'rear') && p[sl] && ACT[p[sl]].d), fei = (p) => mo(p, (sl) => sl === 'lead' && p.lead === 'feint'), stp = (p) => mo(p, (sl) => sl === 'feet' && p.feet === 'in');\n  const commit = (p) => Math.min(...[pun(p), fei(p), stp(p)].map((x) => (x < 0 ? 9 : x)));\n  const ty = [0, 1].map((k) => { const p = P[k], q = P[1 - k]; if (p.clinch) return ''; const mp = pun(p), mf = fei(p);\n    if (mp < 0) return mf >= 0 || p.feet === 'in' ? 'F' : p.lead === 'push' ? '' : p.feet === 'back' || f[k].ropes < 2 ? 'D' : '';\n    if (mf >= 0 && mf < mp) return 'F';\n    const hc = q.clinch ? 9 : commit(q); return hc < 9 && (mp > hc || (mp === hc && stp(q) === hc)) ? 'C' : 'A'; });\n  const rAt = (i) => { let r = S.range; for (let j = 0; j <= i; j++) { const a = [P[0].ord[j], P[1].ord[j]]; let d = 0; for (const k of [0, 1]) if (a[k] === 'feet') d += P[k].feet === 'in' ? -1 : 1; if ([0, 1].some((k) => a[k] === 'feet' && P[k].feet === 'in') && [0, 1].some((k) => a[k] === 'feet' && P[k].feet === 'back')) d = -1; r = clamp(r + d, 1, 3); } return r; };\n  const reach1 = (k) => { const mp = pun(P[k]); return mp >= 0 && ACT[P[k][P[k].ord[mp]]].reach.includes(rAt(mp)); };\n  const beats3 = (a, b) => (a === 'A' && b === 'F') || (a === 'F' && b === 'C') || (a === 'C' && b === 'A');\n  const T = { ty, neg: [0, 0], cut: [0, 0], why: ['', ''], win: -1, bonus: [0, 0], fx: [], dfd: [0, 0] };\n  for (const k of [0, 1]) { const a = ty[k], b = ty[1 - k];\n    if (b === 'D' && a && a !== 'D') { T.neg[k] = 1; T.why[k] = (k ? 'you cover' : 'he covers') + ' up (Defend): nothing gets through'; continue; }\n    if (!beats3(a, b)) continue;\n    if (N.ty2 && a === 'C' && !reach1(1 - k)) continue;\n    if (N.ty2 && a === 'F' && f[k].tyLast === 'F') continue;\n    T.win = k; T.neg[1 - k] = 1; T.why[1 - k] = a === 'C' ? 'walks into the counter' : a === 'A' ? 'clipped while faking' : 'swings at air - it was a feint';\n    if (a === 'A') T.cut[1 - k] = 1; if (a === 'C') T.bonus[k] = 1; if (a === 'F') T.fx.push(k); }\n  for (const k of [0, 1]) { f[k].tyLast = ty[k]; if (ty[k] === 'D') T.dfd[k] = 1; }\n  if (N.tyOff) { T.neg = [0, 0]; T.cut = [0, 0]; T.bonus = [0, 0]; T.fx = []; T.dfd = [0, 0]; }\n  return T; }\nfunction tyApply1(S, P, T, opening) { const f = S.f;\n  for (const k of [0, 1]) { if (T.bonus[k]) opening[k] = 1; if (T.dfd[k]) { f[k].st = Math.min(f[k].cap, f[k].st + 1); if (P[k].feet === 'hold') { f[k].ropes++; f[k].gave = (f[k].gave || 0) + 1; } } }\n  for (const k of T.fx) { f[k].st = Math.min(f[k].cap, f[k].st + 1); f[1 - k].st = Math.max(0, f[1 - k].st - 2); } }\nfunction resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });"
+    ],
+    [
+      "if (P[k].lead || P[k].rear) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3); }",
+      "if (P[k].lead || P[k].rear) f[k].hist = [...(f[k].hist || []), { ...P[k] }].slice(-3); }\n  const TY = tyOf1(S, P);"
+    ],
+    [
+      "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0];",
+      "const opening = [0, 0], drawn = [0, 0], pulled = [0, 0]; tyApply1(S, P, TY, opening);"
+    ],
+    [
+      "if (downNow[sh.k]) continue;",
+      "if (downNow[sh.k]) continue; if (TY.neg[sh.k]) { say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: TY.why[sh.k] }); continue; }"
+    ],
+    [
+      "drawn[k] = 2;",
+      "drawn[k] = TY.cut[k] ? 0 : 2;"
+    ],
+    [
+      "if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown', o: 'both men wait' });",
+      "if (!ev.length) ev.push({ k: -1, t: 'flat', a: 'Nothing thrown', o: 'both men wait' }); ev.push({ k: -1, t: 'types', ty: TY.ty, win: TY.win });"
+    ]
+  ]
+}

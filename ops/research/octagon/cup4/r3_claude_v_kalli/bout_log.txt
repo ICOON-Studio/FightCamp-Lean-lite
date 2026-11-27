@@ -1,0 +1,17 @@
+Claude (Ray "Silk" Okafor) v Kalli (Jake "Long Night" Brennan), seed 32
+R1 E1: Claude plays Snap Jab; Kalli plays Snap Jab; Claude is faster (10.5 v 10); Claude lands 3 to the head (beats him to it); Claude takes the Lead
+R1 E2: Claude plays Straight Cross; Kalli plays Pull Counter Cross; Kalli Pull Counter Cross reads the Straight Cross: it misses; Kalli lands 7 to the head (counter); Kalli takes the Lead; range: mid -> long; Claude ROCKED (7 to the head): only Counter or Defend next exchange; Kalli has the Lead
+R1 E3: Claude plays Check Hook; Kalli plays Cut the Cage; range: long -> mid; Claude Check Hook whiffs: -2 stamina; Kalli Cut the Cage baits the counter; Claude pushed toward the fence: cage space 1
+R1 E4: Claude plays Tight High Guard; Kalli plays Snap Jab; Claude Tight High Guard takes the Snap Jab; Claude blocked - the Lead is stripped; Claude recovers 2 stamina; Kalli discards one card, draws one
+R1 E5: Claude plays Shoulder Roll & Feint; Kalli plays Tight High Guard; Claude next exchange: +1 speed; Kalli recovers 2 stamina
+R1 E6: Claude plays Pull Counter Cross; Kalli plays Slip & Cross; counter against counter: Claude is quicker (8 v 7) and takes the Lead; Kalli -1 stamina; Claude takes the Lead; range: mid -> long; END OF ROUND 1: judges 9-10 (damage + clean counters 3 v 8); total 9-10; ROUND 2: back to Long, the Lead neutral, stamina +5 / +6
+R2 E1: Claude plays Range Jab; Kalli plays Read Tendencies; Claude lands 2 to the head (caught him faking); Claude takes the Lead; Kalli discards one card, draws one
+R2 E2: Claude plays Range Jab; Kalli plays Check Hook; Kalli Check Hook whiffs: -2 stamina; Claude lands 2 to the head; Kalli discards one card, draws one; Kalli no card he can play at this range: a fresh hand (no stamina cost)
+R2 E3: Claude plays Step-In Jab; Kalli plays Step-In Jab; range: long -> close; Claude is faster (10 v 9); Claude lands 4 to the head (beats him to it); Claude combo stops before Straight Cross
+R2 E4: Claude plays Circle Out & Reset; Kalli plays Tight High Guard; both reset: the Lead is neutral; Claude recovers 0 stamina; Kalli recovers 2 stamina; range: close -> mid; Kalli discards one card, draws one
+R2 E5: Claude plays Ripping Liver Hook; Kalli plays Lead Left Hook; Claude is faster (7.5 v 7); Claude lands 6 to the body (beats him to it); Kalli Ripping Liver Hook: maximum stamina -2; Claude takes the Lead; Kalli discards one card, draws one
+R2 E6: Claude plays Tight High Guard; Kalli plays Snap Jab; Claude Tight High Guard takes the Snap Jab; Claude blocked - the Lead is stripped; Claude recovers 2 stamina; END OF ROUND 2: judges 10-8 (damage + clean counters 14 v 0); total 19-18; ROUND 3: back to Long, the Lead neutral, stamina +5 / +6; Kalli no card he can play at this range: a fresh hand (no stamina cost)
+R3 E1: Claude plays Range Jab; Kalli plays Range Jab; Claude is faster (9.5 v 9); Claude lands 2 to the head (beats him to it); Claude takes the Lead
+R3 E2: Claude plays Range Jab; Kalli plays Cut the Cage; range: long -> mid; Claude Range Jab is out of range at mid; Claude pushed toward the fence: cage space 2
+R3 E3: Claude plays Snap Jab; Kalli plays Snap Jab; Claude is faster (11 v 10); Claude lands 3 to the head (beats him to it); Claude COMBO: Straight Cross (+1 speed, +1 stamina); Claude lands 6 to the head (combo); Claude WINS by KO
+RESULT: Claude wins by KO in round 3

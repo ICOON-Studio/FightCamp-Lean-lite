@@ -1,0 +1,11 @@
+Kalli (Marco "Body Shop" Duarte) v Maria (Diego "The Metronome" Ruiz), seed 51
+R1 E1: Kalli plays Snap Jab; Maria plays Snap Jab; Maria is faster (10 v 9); Maria lands 3 to the head (beats him to it); Maria takes the Lead; Kalli discards one card, draws one; Maria discards one card, draws one
+R1 E2: Kalli plays Ripping Liver Hook; Maria plays Straight Cross; Maria is faster (9 v 6); Maria lands 5 to the head (beats him to it); Maria discards one card, draws one
+R1 E3: Kalli plays Elbows Down; Maria plays Straight Cross; Maria lands 5 to the head (to the head, over the elbows); Kalli recovers 1 stamina; Maria discards one card, draws one
+R1 E4: Kalli plays Slip & Cross; Maria plays Lead Left Hook; Kalli Slip & Cross reads the Lead Left Hook: it misses; Kalli lands 6 to the head (counter); Kalli takes the Lead; Maria ROCKED (6 to the head): only Counter or Defend next exchange; Kalli has the Lead; Maria discards one card, draws one
+R1 E5: Kalli plays Shoulder Roll & Feint; Maria plays Cover Up; Kalli next exchange: +1 speed; Maria recovers 0 stamina; Kalli discards one card, draws one; Maria discards one card, draws one
+R1 E6: Kalli plays Straight Cross; Maria plays Snap Jab; Maria's Snap Jab lands first but does not stop the Straight Cross: they trade; Maria lands 3 to the head (first); Kalli lands 4 to the head (through the jab, 2 less); Kalli discards one card, draws one; Maria discards one card, draws one; END OF ROUND 1: judges 9-10 (damage + clean counters 11 v 16); total 9-10; ROUND 2: back to Long, the Lead neutral, stamina +6 / +5
+R2 E1: Kalli plays Hold Ground; Maria plays Range Jab; Kalli parries the Range Jab at Long; Kalli recovers 0 stamina; Kalli discards one card, draws one; Maria discards one card, draws one
+R2 E2: Kalli plays Hold Ground; Maria plays Read Tendencies; Kalli recovers 0 stamina; Maria next exchange: +2 speed; Maria reads him: sees 2 of his cards, draws 2; Kalli discards one card, draws one; Maria discards one card, draws one; Maria no card he can play at this range: a fresh hand (no stamina cost)
+R2 E3: Kalli plays Range Jab; Maria plays Step-In Jab; range: long -> mid; Maria is faster (11 v 8); Maria lands 4 to the head (beats him to it); Maria takes the Lead; Maria WINS by KO; Kalli discards one card, draws one
+RESULT: Maria wins by KO in round 2

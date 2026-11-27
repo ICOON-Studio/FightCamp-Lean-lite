@@ -8,9 +8,9 @@ Updated 2026-11-27 by claude S294.
 
 ## Now
 
-**S568 — ?** *(S570 (Opus 5.5))*
+**S571 — ?** *(S570 (Opus 5.5))*
 
-S570: pages built from order.html (kick/head/one), the strip shows the guard, LAYERS0 done (holds + jab one man per picture, 0 jumps), the owner's Octagon Tactics as a boxing engine with cups (v3 fun 7.0 depth 7.25; target 8/7), v4 attributes + weight classes + a draft (cup round 1: Maria beat Claude 28-27, Kalli KO'd John).
+S571: strip v0.571.1 (Stay put is a strap, owner mark C522); Octagon v4 -> v4.6 over six cup rounds, every change measured on the bots first: stamina lock, rock loop, jab trade, Range Jab, body guard, clinch, half-power counters, more health; v4.5 round 6 fun 7.0 depth 7.0 (depth at target, fun 1 short); display bug fixed (true speeds); KICKFIX6 / RULES569 / TYPES1 running; LAYERS1 brief waits on his look (Q-S294-347).
 
 ## Next
 
@@ -459,3 +459,4 @@ LATER IN S500 (main 20f803461, after his two notes on the fight): (a) his "can y
 |  |  | **S568**  |  |  | *none yet* | S568 (Opus). The screen made clear on his words: the range large, a guided first beat, the HAND OF CARDS replacing picking by limb (his 'i like the B'), the strip LANES Lead/Rear/Feet in every moment ('i select stay put and nothing like that appears'), guard buttons that say what they stop ('both hands have the same options'). His FEINT RULE on the page (FEINTFIX2 G1, 8 of 9 bars on both seeds). Clocks on one.html (5 s beat, 1-minute round). Gemma, a local model, plays him live on the match server (1.5 s a beat). Measured: his one-action idea (faster per beat, not per round; a toy), the Marquez/Mayweather counters (none yet), the short opening beat (none), tells v5 (fails, Q-345). v0.568.1-12 not public yet. KICKFIX4 stalled at Arena (needs 'Keep working' in Browser 2). |
 |  |  | **S569**  |  |  | *none yet* | Tells cut, Head row dropped, public site v0.569.1 then v0.569.7; Stay put card, step and cross-short jumps fixed (jump recorder), strip big words + pictures, picture cards in the hand (blue alone), guard picture cards; Mixed Martial Cards read (distance = card words) and played (7/10, MMC_PLAYTEST_S569); LAYERS method finding (RECOIL1/PUSH1 stopped); workers KICKFIX5, COUNTERS2, RULES569 running; MMCTOY1 stopped (less balanced); briefs BUILD1, MMCPLAY1, LONG3 |
 |  |  | **S570**  |  |  | *none yet* | S570: pages built from order.html (kick/head/one), the strip shows the guard, LAYERS0 done (holds + jab one man per picture, 0 jumps), the owner's Octagon Tactics as a boxing engine with cups (v3 fun 7.0 depth 7.25; target 8/7), v4 attributes + weight classes + a draft (cup round 1: Maria beat Claude 28-27, Kalli KO'd John). |
+|  |  | **S571**  |  |  | *none yet* | S571: strip v0.571.1 (Stay put is a strap, owner mark C522); Octagon v4 -> v4.6 over six cup rounds, every change measured on the bots first: stamina lock, rock loop, jab trade, Range Jab, body guard, clinch, half-power counters, more health; v4.5 round 6 fun 7.0 depth 7.0 (depth at target, fun 1 short); display bug fixed (true speeds); KICKFIX6 / RULES569 / TYPES1 running; LAYERS1 brief waits on his look (Q-S294-347). |

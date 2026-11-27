@@ -1,0 +1,18 @@
+TYPES1 ops/research/s558_balance/types1_t2.json table=page n=12 seed=1: 282 s
+BARS 4 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 30%, Mid 38%, Long 32%
+  PASS no switch is a must (none in over 40% of beats): step in 34%, back off 32%, Feint 25%
+  FAIL no switch is dead (each in at least 3% of beats): Jab 2%, Lead hook 1%, Lead uppercut 1%, Body hook 1%, Rear uppercut 2%, clinch 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Body cross lands 15%, short 6%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 0%, draws 8%, knockdowns 0.0
+  FAIL one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 4%, none 54%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 0.7
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 45%, most often first 57%
+  FAIL the mirror is fair (wins 40-60% of decided bouts): 36%
+COMEBACK
+  FAIL the comeback (the man 4+ health behind after round 1 wins 15-30%): 0% - 0 of 1 bouts (0 drawn; 8% of bouts had that gap)
+HEALTH dealt a bout (both men) 20.58; wins 4 losses 7 draws 1; stoppages 0.0%; knockdowns a bout 0.00
+USE feint 24.5%, overhand 4.4%, back off 31.9%; stamina after a beat 6.50; on the ropes (2 marks) 20.4% of man-beats
+TYPES picked (of man-beats with a type event): A 14.7%, C 7.2%, F 36.3%, D 41.3%, - 0.5% (208 beats; clinch beats have none)
+TYPES won their beat (triangle) / lost it: A 9.8% / 6.6%, C 13.3% / 30.0%, F 6.0% / 4.0%
+TYPES matchups: DvF 28.4%, AvD 22.1%, DvD 15.9%, FvF 15.9%, CvF 9.6%, AvC 2.9%, AvF 2.9%, CvC 1.0%, -vD 0.5%, AvA 0.5%, -vA 0.5%

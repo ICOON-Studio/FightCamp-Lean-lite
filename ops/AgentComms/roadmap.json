@@ -3,12 +3,12 @@
  "updated": "2026-11-27",
  "author": "claude S294",
  "now": {
-  "id": "S568",
+  "id": "S571",
   "owner": "S570 (Opus 5.5)",
   "updated": "2026-11-27",
-  "summary": "S570: pages built from order.html (kick/head/one), the strip shows the guard, LAYERS0 done (holds + jab one man per picture, 0 jumps), the owner's Octagon Tactics as a boxing engine with cups (v3 fun 7.0 depth 7.25; target 8/7), v4 attributes + weight classes + a draft (cup round 1: Maria beat Claude 28-27, Kalli KO'd John).",
-  "next_action": "S571: (1) Octagon stamina fix (dead-hand swap by RANGE only, no reshuffle penalty on a swap, +1 for a spent man who does not attack), then finish the v4 cup (rounds 2-3: Claude v John, Kalli v Maria; Claude v Kalli, John v Maria) and read the verdicts against FUN 8 / DEPTH 7; (2) resume the paused workers (proc_pause.ps1 -Action resume 63064 6436 60420) or relaunch KICKFIX6 / RULES569; collect BUILD1; (3) LAYERS phase 1 (every family re-rendered with masks) to a seat; (4) TYPES1 / MMCPLAY1 / LONG3 when seats free.",
-  "last_working_commit": "369173f03",
+  "summary": "S571: strip v0.571.1 (Stay put is a strap, owner mark C522); Octagon v4 -> v4.6 over six cup rounds, every change measured on the bots first: stamina lock, rock loop, jab trade, Range Jab, body guard, clinch, half-power counters, more health; v4.5 round 6 fun 7.0 depth 7.0 (depth at target, fun 1 short); display bug fixed (true speeds); KICKFIX6 / RULES569 / TYPES1 running; LAYERS1 brief waits on his look (Q-S294-347).",
+  "next_action": "S572: (1) Octagon cup round 7 on v4.6 (Claude v Maria silk/snapshot, John v Kalli truck/longnight) - fun needs 8, depth 7 reached; flags measured on pool_sim first, switched only between rounds; (2) collect RULES569 (tab c1), TYPES1 (tab c2), KICKFIX6 (resume from its result page if its chains died); (3) LAYERS phase 1 (TASK_LAYERS1.md) when he answers Q-S294-347; (4) BUILD1 round 4, MMCPLAY1, LONG3.",
+  "last_working_commit": "cd81597cd",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
   "next_acceptance": "Each run judged against its bars; the feint correction on the page with the loop under 30% and the feint still in 3% of beats; his friend plays one whole online bout.",
@@ -16,7 +16,8 @@
    "Hand of cards: his play",
    "Head moves: main page or drop the Head row",
    "Q-345 tells: cut or try once more",
-   "Public push of v0.568.1-0.568.9"
+   "Public push of v0.568.1-0.568.9",
+   "Q-S294-347: look at 127.0.0.1:8797/order.html?layers=1 - start one-man pictures for every move?"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2508,6 +2509,12 @@
    "date": "2026-11-27",
    "model": "Opus 5.5",
    "summary": "S570: pages built from order.html (kick/head/one), the strip shows the guard, LAYERS0 done (holds + jab one man per picture, 0 jumps), the owner's Octagon Tactics as a boxing engine with cups (v3 fun 7.0 depth 7.25; target 8/7), v4 attributes + weight classes + a draft (cup round 1: Maria beat Claude 28-27, Kalli KO'd John)."
+  },
+  {
+   "id": "S571",
+   "date": "2026-11-27",
+   "model": "Opus 5.5",
+   "summary": "S571: strip v0.571.1 (Stay put is a strap, owner mark C522); Octagon v4 -> v4.6 over six cup rounds, every change measured on the bots first: stamina lock, rock loop, jab trade, Range Jab, body guard, clinch, half-power counters, more health; v4.5 round 6 fun 7.0 depth 7.0 (depth at target, fun 1 short); display bug fixed (true speeds); KICKFIX6 / RULES569 / TYPES1 running; LAYERS1 brief waits on his look (Q-S294-347)."
   }
  ],
  "blocked_on_operator": [],
@@ -5426,7 +5433,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-27 20:10 board_sync",
+  "updated": "2026-11-27 21:41 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5603,22 +5610,10 @@
   },
   "working_now": [
    {
-    "title": "His rule ideas measured: the exchange that gets dearer first, then one Guard action, the power switch, bars that affect each other (health caps stamina), combined moves",
-    "who": "Fable 5.2 console worker (PC, tab c11)",
-    "started": "2026-11-27T16:25",
-    "run": "RULES569"
-   },
-   {
     "title": "Your Breachway idea: the fighter's body as a ship - discipline cards on each body part are your deck, pools from 50 toward 100; design, a small probe, two critics at 8+",
     "who": "Opus 5.5 console worker (PC, tab c1)",
     "started": "2026-11-27T18:20",
     "run": "BUILD1"
-   },
-   {
-    "title": "The kicks measured on the rebuilt kick page (it now has the feint fix): the control + F6, the winner onto the page",
-    "who": "Opus 5.5 console worker (PC, tab c2)",
-    "started": "2026-11-27T19:50",
-    "run": "KICKFIX6"
    }
   ],
   "next": [
@@ -6174,6 +6169,16 @@
   },
   "done_recently": [
    {
+    "title": "The kicks measured on the rebuilt kick page (it now has the feint fix): the control + F6, the winner onto the page",
+    "who": "Opus 5.5 console worker (PC, tab c2)",
+    "when": "2026-11-27"
+   },
+   {
+    "title": "His rule ideas measured: the exchange that gets dearer first, then one Guard action, the power switch, bars that affect each other (health caps stamina), combined moves",
+    "who": "Fable 5.2 console worker (PC, tab c11)",
+    "when": "2026-11-27"
+   },
+   {
     "title": "Kicks balance finished today: F4 (the teep covers the lead leg), up to three more fixes, then the winner on kick.html",
     "who": "Fable 5.2 console worker (PC, tab c6)",
     "when": "2026-11-27"
@@ -6221,18 +6226,6 @@
     "id": "PROGP4",
     "who": "arena",
     "title": "Upgrade pairs for each punch: none passes on two seeds",
-    "after": ""
-   },
-   {
-    "id": "LONG1",
-    "who": "arena",
-    "title": "Long range, two measures: none",
-    "after": ""
-   },
-   {
-    "id": "TELLS4M",
-    "who": "claude",
-    "title": "Tells version 4 measured: 4 of 7 bars - obeying every tell blind is worth far less now, spotting his fake still pays nothing",
     "after": ""
    }
   ],
@@ -6322,64 +6315,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "Tells cut (Q-345)",
-     "who": "claude"
-    },
-    {
-     "text": "Head row dropped (0.569.1)",
-     "who": "claude"
-    },
-    {
-     "text": "Public site at 0.569.1",
-     "who": "claude"
-    },
-    {
-     "text": "KICKFIX4: F1/F3 5 of 9",
-     "who": "claude"
-    },
-    {
-     "text": "Stay put card on strip (0.569.2)",
-     "who": "claude"
-    },
-    {
-     "text": "Cross-short jump fixed (0.569.3)",
-     "who": "claude"
-    },
-    {
-     "text": "Steps drawn from own spot (.4)",
-     "who": "claude"
-    },
-    {
-     "text": "Jump recorder (jump_rec)",
-     "who": "claude"
-    },
-    {
-     "text": "MMC distance rules read",
-     "who": "claude"
-    },
-    {
-     "text": "Animated cards (0.569.5)",
-     "who": "claude"
-    },
-    {
-     "text": "MMC played, rated 7/10",
-     "who": "claude"
-    },
-    {
-     "text": "Picture cards + guard cards (.8)",
-     "who": "claude"
-    },
-    {
-     "text": "Strip pictures (0.569.9)",
-     "who": "claude"
-    },
-    {
-     "text": "Public site v0.569.7",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "Head + one pages built from main",
      "who": "claude"
     },
@@ -6413,6 +6348,56 @@
     },
     {
      "text": "Octagon v4: attributes+classes",
+     "who": "claude"
+    },
+    {
+     "text": "Tells cut (Q-345)",
+     "who": "claude"
+    },
+    {
+     "text": "Head row dropped (0.569.1)",
+     "who": "claude"
+    },
+    {
+     "text": "Public site at 0.569.1",
+     "who": "claude"
+    },
+    {
+     "text": "KICKFIX4: F1/F3 5 of 9",
+     "who": "claude"
+    },
+    {
+     "text": "Stay put card on strip (0.569.2)",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "Strip: Stay put is a strap (571.1)",
+     "who": "claude"
+    },
+    {
+     "text": "Octagon stamina lock fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Strip: Stay put is a strap",
+     "who": "claude"
+    },
+    {
+     "text": "Cup v4 r2: Claude KO John",
+     "who": "claude"
+    },
+    {
+     "text": "Octagon v4.6: six cup rounds",
+     "who": "claude"
+    },
+    {
+     "text": "v4.5 r6: depth 7.0 at target",
+     "who": "claude"
+    },
+    {
+     "text": "True speeds shown (display bug)",
      "who": "claude"
     }
    ],
@@ -6479,6 +6464,10 @@
     },
     {
      "text": "KICKFIX6 (paused for his game)",
+     "who": "claude"
+    },
+    {
+     "text": "KICKFIX6 + RULES569 resumed",
      "who": "claude"
     }
    ],
@@ -6994,9 +6983,21 @@
     {
      "text": "Octagon stamina fix, then cup v4",
      "who": "claude"
+    },
+    {
+     "text": "Cup r3 on v4.1 (no re-rock)",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r7 on v4.6: fun to 8",
+     "who": "claude"
+    },
+    {
+     "text": "LAYERS1 after his look",
+     "who": "claude"
     }
    ],
-   "session": "S570"
+   "session": "S571"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

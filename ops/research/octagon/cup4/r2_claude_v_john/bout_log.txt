@@ -1,0 +1,10 @@
+Claude ("Iron" Ike Mbeki) v John (Lin "Ghost" Hayes), seed 22
+R1 E1: Claude plays Read Tendencies; John plays Snap Jab; John lands 3 to the head (caught him faking); John takes the Lead
+R1 E2: Claude plays Pull Counter Cross; John plays Pull Counter Cross; counter against counter: John is quicker (9 v 8) and takes the Lead; Claude -1 stamina; range: mid -> long; John discards one card, draws one; Claude no card he can play at this range: a fresh hand (no stamina cost)
+R1 E3: Claude plays Cut the Cage; John plays Check Hook; range: long -> mid; John Check Hook whiffs: -2 stamina; Claude Cut the Cage baits the counter; John pushed toward the fence: cage space 0; Claude takes the Lead
+R1 E4: Claude plays Shoulder Roll & Feint; John plays Snap Jab; John lands 3 to the head (caught him faking); John takes the Lead
+R1 E5: Claude plays Slip & Cross; John plays Straight Cross; Claude Slip & Cross reads the Straight Cross: it misses; Claude lands 7 to the head (counter); Claude takes the Lead; John ROCKED (7 to the head): only Counter or Defend next exchange; he has the Lead
+R1 E6: Claude plays Hold Ground; John plays Cover Up; both reset: the Lead is neutral; Claude recovers 0 stamina; John recovers 0 stamina; John discards one card, draws one; END OF ROUND 1: judges 10-9 (damage + clean counters 8 v 6); total 10-9; ROUND 2: back to Long, the Lead neutral, stamina +5 / +5
+R2 E1: Claude plays Overhand Right; John plays Read Tendencies; range: long -> mid; Claude lands 8 to the head (caught him faking); John pushed back a range; Claude takes the Lead; range: mid -> long; John ROCKED (8 to the head): only Counter or Defend next exchange; he has the Lead; John discards one card, draws one
+R2 E2: Claude plays Overhand Right; John plays Cover Up; range: long -> mid; Claude lands 4 to the head (half through the cover-up); John pushed back a range; John recovers 0 stamina; range: mid -> long; Claude WINS by KO
+RESULT: Claude wins by KO in round 2

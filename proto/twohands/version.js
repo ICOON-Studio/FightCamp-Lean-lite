@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.571.1', date: '2026-11-27', items: [
+    'Stay put has no slot of its own any more: it showed the same guard and picture as the GUARD moment beside it - two cards, one meaning. Your feet holding their ground lasts the whole beat, so it is now one green strap under the three moments: FEET, ALL BEAT: STAY PUT. The three moments are all your hands.'] },
   { v: '0.570.4', date: '2026-11-27', items: [
     'Dragging a move onto slot 2 or 3 when the slots before it are empty: the move still plays first (a beat has no empty moments), but the slot you dropped it on now says so and where it went, instead of moving it silently. Put another move in slot 1 first and it lands where you drop it.'] },
   { v: '0.570.3', date: '2026-11-27', items: [

@@ -14,6 +14,7 @@
   const css = document.createElement('style');
   css.textContent = '#lines .seq,#lines>.lab:has(+ .seq),#seqwords{display:none}' +
     '#strip{display:flex;gap:.45rem;align-items:stretch;flex:none}' +
+    '#feetall{margin-right:.8rem;font-size:.72rem;line-height:1.1;font-weight:700;letter-spacing:.06em;color:#1D9E75;border:1px solid #1D9E75;border-radius:.4rem;padding:0 .5rem;display:flex;align-items:center;gap:.35rem;background:rgba(29,158,117,.1)}#feetall b{color:#bff0dc}#feetall i{width:.45rem;height:.45rem;border-radius:50%;background:#1D9E75}#feetall.sel{box-shadow:0 0 0 2px var(--gold)}' +
     '#strip .slot{position:relative;width:14rem;min-height:4.3rem;border-radius:.55rem;border:1px dashed var(--line2);padding:.3rem .55rem .35rem 2rem;display:flex;flex-direction:column;justify-content:center;gap:.08rem;font-size:.82rem;line-height:1.2}' +
     '#strip .slot .no{position:absolute;left:.45rem;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:700;color:var(--muted);opacity:.7}' +
     '#strip .slot.full{border:1px solid var(--gold);background:#2a2116;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}#strip .slot.full .no{color:var(--gold);opacity:1}' +
@@ -64,13 +65,13 @@
      or its words in every moment it covers (lead low, stay put). A row opened or a move pointed at lights it; a pick flashes
      it and it stays lit until the next beat. Read in the capture phase, before the click redraws the strip. */
   let focus = null, flashAt = 0, focusBeat = '';
-  const partOf = (el) => { const r = el.closest && el.closest('button[data-k^="0:"]'), sw = el.closest && el.closest('.sw[data-g]'), sl = el.closest && el.closest('#strip .slot.full[data-sl]');
+  const partOf = (el) => { const r = el.closest && el.closest('button[data-k^="0:"]'), sw = el.closest && el.closest('.sw[data-g]'), sl = el.closest && el.closest('#strip .slot.full[data-sl], #feetall');
     return r ? r.dataset.k.slice(2) : sw ? sw.dataset.g : sl ? sl.dataset.sl : null; };
   document.addEventListener('click', (e) => { const p = partOf(e.target); if (p && ['lead', 'rear', 'feet'].includes(p)) { focus = p; focusBeat = round + ':' + beat; if (e.target.closest('.sw')) flashAt = Date.now(); setTimeout(mark, 0); } }, true);   /* opening a row does not redraw the strip: mark it after the click */
   document.addEventListener('mouseover', (e) => { const sw = e.target.closest && e.target.closest('.sw[data-g]'); if (sw && ['lead', 'rear', 'feet'].includes(sw.dataset.g) && sw.dataset.g !== focus) { focus = sw.dataset.g; focusBeat = round + ':' + beat; mark(); } });
   function mark() { const el = document.getElementById('strip'); if (!el) return; for (const x of el.querySelectorAll('.sel')) x.classList.remove('sel', 'flash');
     if (!focus || focusBeat !== round + ':' + beat) return; const fl = Date.now() - flashAt < 1200;
-    for (const x of el.querySelectorAll(`.slot.full[data-sl="${focus}"], .pt[data-p="${focus}"]`)) { x.classList.add('sel'); if (fl) x.classList.add('flash'); } }
+    for (const x of [...el.querySelectorAll(`.slot.full[data-sl="${focus}"], .pt[data-p="${focus}"]`), ...document.querySelectorAll(`#feetall[data-sl="${focus}"]`)]) { x.classList.add('sel'); if (fl) x.classList.add('flash'); } }
   /* S568 THE LANES (owner, with a screenshot: "i select stay put andnothing like thatappears onthe strip i cant understand
      what i am doing wrong"): each moment shows three labelled rows, one per limb, in the hand's card colours - Lead, Rear,
      Feet - so every choice sits on the strip in its own row: the guards, Stay put, and the move in the moment it happens.
@@ -102,15 +103,15 @@
       rows.push(`<span class="ln3${actor === h ? ' act' : ''}"><i style="background:${LANE[h][1]}"></i><em>${LANE[h][0]}</em><span class="pt" data-p="${h}">${v}</span></span>`); }
     if (m && m.sl !== 'wait') rows.push(`<span class="ln3x">${m.line}${m.open ? ` <span class="no2">· open: ${m.open.toLowerCase()}</span>` : ''}</span>`);
     return rows.join(''); }
-  function strip() { const old = document.getElementById('strip'); if (old) old.remove(); if (phase !== 'plan' || P.clinch) { stop(); return; }
+  function strip() { const old = document.getElementById('strip'); if (old) old.remove(); { const f = document.getElementById('feetall'); if (f) f.remove(); } if (phase !== 'plan' || P.clinch) { stop(); return; }
     const ms = moments(), n = Math.max(3, ms.length), el = document.createElement('div'); el.id = 'strip';
     el.innerHTML = '<span class="hd">This beat</span>' + Array.from({ length: n }, (x, i) => { const m = ms[i];
-      if (!m && i === ms.length && P.feet === 'hold') return `<div class="slot full static hold" data-sl="feet" data-tip="Stay put: your feet hold your ground all beat. It takes no moment of its own, so your hands keep every moment."><span class="no">${i + 1}</span>${lanes(i, { sl: 'feet', name: 'Stay put', line: 'holds your ground all beat' })}</div>`;   /* S569 (owner: "stay put still has no card on the strip"): Stay put is a card in the first free slot, like every pick */
       if (!m) { const L = limbs(i, null); return `<div class="slot empty" data-tip="${L.tip}"><span class="no">${i + 1}</span>${lanes(i, null)}</div>`; }
       const tip = m.sl === 'wait' ? 'An empty moment before your step. Switch it off with the button beside the strip.' : `${NTH[i]} moment: ${m.name}. Drag the card to another slot to change when it happens (a click: one slot earlier).\nYour ${NTH[i]} moment meets his ${NTH[i]} moment.`;
       return `<div class="slot full${m.sl === 'wait' ? ' wait' : ''}" data-sl="${m.sl}" data-tip="${tip}"><span class="no">${i + 1}</span>${lanes(i, m)}</div>`; }).join('');
     el.innerHTML += hisSide(false);
     lines.insertBefore(el, lines.firstChild);
+    { const o = document.getElementById('feetall'); if (o) o.remove(); if (P.feet === 'hold') { el.insertAdjacentHTML('afterend', '<div id="feetall" data-sl="feet" data-tip="Stay put: your feet hold your ground the whole beat. It is not a moment of its own, so it has no slot: your hands keep all three moments."><i></i>FEET, ALL BEAT: <b>STAY PUT</b></div>'); } }   /* S571 (owner, a mark on the S570 strip: "WHY 2 CARDS DO THE SAME THING ?"): Stay put sat in moment 2 showing the same guard words and picture as the GUARD in moment 3 - two cards, one meaning. Stay put takes no moment, so it leaves the slots and becomes one strap under them, first on the row below the strip (it costs no height: the 1080 screen keeps every chip), for the whole beat */
     /* S569 (owner: "make animations show here too instead of buttons"): each moment shows your boxer doing it - the same
        looping picture as its card (hand_ui.js cardAnim) - under its big word; the limb rows move into the tooltip */
     if (window.cardAnim) [...el.querySelectorAll('.slot')].forEach((sl, i) => { const m = ms[i], who = sl.dataset.sl;
@@ -178,7 +179,7 @@
   function hisSide(live) { const src = live ? nowHis : lastHis, tip = live ? '' : ` data-tip="His three moments. They stay hidden until the beat is fought: what you see here is what he did LAST beat."`;
     return `<span class="vs">${live ? 'NOW' : 'VS'}</span><span class="hisrow"${tip}>` + [0, 1, 2].map((i) => `<div class="hslot${src[i] ? ' shown' + (live ? '' : ' old') : ''}" data-m="${i}"><span class="no">${i + 1}</span>${src[i] || (live ? '<i>?</i>' : `<i>${lastHis.length ? 'nothing' : '?'}</i>`)}</div>`).join('') + '</span>'; }
   // the beat is being fought: your three moments stay (no dragging), his are hidden and fill as each moment plays
-  function playStrip() { const old = document.getElementById('strip'); if (old) old.remove(); if (P.clinch) return; const ms = moments(), el = document.createElement('div'); el.id = 'strip'; nowHis = []; mineNow = ms;
+  function playStrip() { const old = document.getElementById('strip'); if (old) old.remove(); { const f = document.getElementById('feetall'); if (f) f.remove(); } if (P.clinch) return; const ms = moments(), el = document.createElement('div'); el.id = 'strip'; nowHis = []; mineNow = ms;
     el.innerHTML = '<span class="hd">This beat</span>' + [0, 1, 2].map((i) => { const m = ms[i]; return m ? `<div class="slot full static" data-m="${i}"><span class="no">${i + 1}</span><b>${m.name}</b><span class="res flat">&hellip;</span></div>` : `<div class="slot empty" data-m="${i}"><span class="no">${i + 1}</span><i>nothing</i></div>`; }).join('') + hisSide(true);
     lines.insertBefore(el, lines.firstChild); }
   /* called by the page for every action of the beat: once when it starts (done = false: the slot lights and, for him, shows WHAT he does) and once when its result is known (done = true: lands, blocked, missed - at the moment the picture shows it) */

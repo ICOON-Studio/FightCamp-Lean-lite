@@ -1,4 +1,28 @@
-## METHOD (S569, fight pictures; S570 update): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump. LAYERS (one man per picture, the page owns each spot) is APPROVED (S570: he bought Cascadeur Indie + the Animo pack) and phase 0 is DONE (holds + jab, 0 jumps, docs/LAYERS0_RESULT.md, ?layers=1). No new patch layer on the two-man pictures; the next fight-picture work is LAYERS phase 1.
+## METHOD (S569, fight pictures; S570 update; S571: LAYERS1 brief ready, waits on his look): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump. LAYERS (one man per picture, the page owns each spot) is APPROVED (S570: he bought Cascadeur Indie + the Animo pack) and phase 0 is DONE (holds + jab, 0 jumps, docs/LAYERS0_RESULT.md, ?layers=1). No new patch layer on the two-man pictures; the next fight-picture work is LAYERS phase 1.
+
+# S572 handover (written 2026-11-27, S571 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S571_DIGEST.md`.
+
+## S572: DO THESE FIRST
+1. OCTAGON CUP ROUND 7 on v4.6 (ON in fighters_v4.mjs; never played): Claude (silk) v Maria (snapshot), John (truck) v
+   Kalli (longnight). `node ops/Tools/versus_by_message.mjs E:/FightCamp/tmp/octcup4/r7_<a>_v_<b> a=<seat>:<via>
+   b=<seat>:grok game=octagon v4=1 pa=<id> pb=<id> seed=7x` (run_in_background); Claude plays with a scratchpad
+   oct.sh (seal = `versus_oct.mjs plan <bout> who=a card=..`, wait until `n` changes, then `show`) and writes
+   <dir>/VERSUS_CLAUDE.md (format: ops/research/octagon/cup4/r6_claude_v_kalli). Means so far: v4.5 r6 fun 7.0 depth
+   7.0 (depth AT target). FUN needs 8. Every change: a TUNE flag OFF, pool_sim n=40 (keep 40-60%), then ON between
+   rounds - never mid-bout (the engine is re-read every exchange). Next asks in S571_DIGEST "Not done".
+2. COLLECT: RULES569 (tab c1, docs/RULES569_RESULT.md), TYPES1 (tab c2, docs/TYPES1_RESULT.md), KICKFIX6 (its two
+   chains ran as background bash of S571 - if gone, resume from docs/KICKFIX6_RESULT.md commands; results in
+   ops/research/s558_balance/results/kickfix6_*.txt).
+3. LAYERS phase 1 APPROVED (owner S571: "Yes, do all moves"): launch ops/research/TASK_LAYERS1.md as a console worker
+   FIRST THING if ArcheAge is closed (renders need the PC without the game; it was open at the end of S571, RAM 90%).
+4. BUILD1 round 4 (a hurt part must actually take cards in the probe) when a seat frees; MMCPLAY1, LONG3.
+
+## Rules learned in S571 (also in memory)
+- Agents finish far more bouts than the bots (87% v 48%): a bot finish band is no target for agent fun; watch bout length in the cup.
+- The cup's v4 help printed no v2/v3 rules until S571 - check `versus_oct.mjs help v4=1` after every rule change.
+- A display that leaves out a bonus the rules use (NOW speed) reads as unfairness to players - one function for both.
 
 # S571 handover (written 2026-11-27, S570 - Opus 5.5)
 

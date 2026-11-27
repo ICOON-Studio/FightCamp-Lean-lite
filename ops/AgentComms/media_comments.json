@@ -4026,6 +4026,14 @@
       "at": "2026-11-26T15:32:57Z",
       "seen_by_claude": true,
       "addressed": "cited by bf7a755a4 2026-11-26"
+    },
+    {
+      "id": "C522",
+      "path": "media:_sent/2026-11-27_1812_strip_shows_your_guard_v0_570_2/strip_guard_v3.png",
+      "text": "MARKUP: 1 marks -> Feedback/2026-11-27-01/README.md",
+      "at": "2026-11-27T16:19:00Z",
+      "seen_by_claude": true,
+      "addressed": "cited by 6582df8c6 2026-11-27"
     }
   ]
 }
