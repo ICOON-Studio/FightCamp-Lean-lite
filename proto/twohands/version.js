@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.568.12', date: '2026-11-27', items: [
+    'Your feint rule: a hand that feints guards nothing until its feint. The strip shows that hand as "open - feint coming", and the feint-then-overhand trick wins less often. The balance checks hold (8 of 9 on both test runs; the page had 7 and 8).'] },
   { v: '0.568.11', date: '2026-11-27', items: [
     'The two arms no longer look the same: each guard button says what it stops (lead High - jab and cross, lead Low - body punches, rear High - hook and overhand, rear Low - uppercuts), and the strip rows say what each held hand blocks.'] },
   { v: '0.568.10', date: '2026-11-27', items: [

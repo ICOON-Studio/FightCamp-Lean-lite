@@ -25352,6 +25352,20 @@
    "status": "done",
    "brief": "ops/research/TASK_ONEACT1.md",
    "note": "S568: collected - faster per beat, not per round; V1 collapses (1/9), V2 = one.html 3/9; the feint loop gone; a toy for the pace, not the next main page"
+  },
+  {
+   "id": "FEINTFIX2",
+   "status": "done",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-27T01:31",
+   "eta": "4-6 h",
+   "title": "Your 'write the feint fix brief and measure it': three answers to the feint that opens the overhand, with the loop, the league's winning play and the Hearns film as bars",
+   "brief": "ops/research/TASK_FEINTFIX2.md",
+   "branch": "arena/95892a39-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21a26-5a3a-7109-b2cd-316e95892a39",
+   "reconciled": "2026-11-27 09:10 board_reconcile: PR #476 open - collect it",
+   "note": "S568: collected; G1 on order.html (v0.568.12), 8/9 both seeds; G2/G3/G12/G13 not taken"
   }
  ],
  "KNOWBUILD1": {

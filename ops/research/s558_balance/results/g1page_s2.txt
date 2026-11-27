@@ -1,0 +1,17 @@
+mix v the same man (no style): wins 49%, draws 0%, stops him 10%, is stopped 13%; knockdowns a bout 1.3 v 1.2; health taken a bout 21.7 v 21.2; beats at Inside / Mid / Long 31% / 36% / 33%; clinches a bout 1.2; rounds level on points 8%, 83% of them given on ground
+  you a beat: back off 33%, lead held low 33%, step in 32%, feet hold 29%, Cross 24%, Body cross 24%, rear held high 21%, Body jab 17%, rear held low 15%, lead held high 9%, Jab 8%, Lead hook 8%, Lead uppercut 6%, clinch 6%, Body hook 5%, Feint 5%, Rear uppercut 5%, Overhand 4%, Push off 3% | punches in a plan: none 13%, one 60%, two 21%
+  your punches (thrown a bout: lands / blocked / misses): Cross 4.0: 39% / 28% / 33%, Body cross 4.0: 47% / 28% / 25%, Body jab 3.0: 64% / 32% / 3%, Jab 1.5: 62% / 35% / 3%, Lead hook 1.4: 42% / 39% / 19%, Lead uppercut 1.0: 59% / 20% / 21%, Body hook 0.9: 55% / 38% / 7%, Rear uppercut 0.7: 47% / 12% / 42%, Overhand 0.6: 77% / 11% / 11%
+  he  a beat: back off 34%, lead held low 34%, step in 32%, feet hold 30%, Cross 24%, Body cross 24%, rear held high 22%, Body jab 16%, rear held low 16%, lead held high 9%, Jab 9%, Lead hook 8%, Feint 6%, Lead uppercut 6%, Rear uppercut 5%, Overhand 5%, Body hook 4%, Push off 4%, clinch 4% | punches in a plan: none 14%, one 64%, two 19%
+  his  punches (thrown a bout: lands / blocked / misses): Body cross 3.9: 43% / 26% / 30%, Cross 3.8: 42% / 24% / 34%, Body jab 2.8: 65% / 31% / 4%, Jab 1.5: 64% / 33% / 2%, Lead hook 1.3: 34% / 54% / 13%, Lead uppercut 0.9: 59% / 16% / 25%, Rear uppercut 0.8: 55% / 13% / 33%, Overhand 0.7: 77% / 8% / 15%, Body hook 0.7: 57% / 32% / 12%
+  your order, of the beats with one to choose (65%): first rear 16%, lead 29%, feet 55%
+  (84 bouts, 535 s)
+BARS 8 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 31%, Mid 36%, Long 33%
+  PASS no switch is a must (none in over 40% of beats): back off 34%, step in 32%, Cross 24%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Overhand lands 77%, short 13%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 23%, draws 0%, knockdowns 2.4
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 20%, none 13%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.2
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 65%, most often first 55%
+  PASS the mirror is fair (wins 40-60% of decided bouts): 49%

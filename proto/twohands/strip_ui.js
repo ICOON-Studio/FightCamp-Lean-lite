@@ -79,6 +79,7 @@
       if (P.clinch) v = h === 'feet' ? 'clinch' : 'tied up';
       else if (actor === h) v = `<b>${m.name}</b>`;
       else if (h === 'feet') { const at = P.ord.indexOf('feet'), moved = clampR(range + feetStep()) !== range; v = at >= 0 && at < i ? (moved ? ({ in: 'stepped in', back: 'backed off' }[P.feet] || P.feet) : 'stay put (no room)') : 'Stay put'; }
+      else if (h === 'lead' && P.lead === 'feint' && P.ord.indexOf('lead') > i) v = '<span class="no2">open - feint coming</span>';   /* S568 G1 (his rule): the feinting hand guards nothing before its feint */
       else { const pos = P[h] ? 'high' : h === 'lead' ? P.hl : P.hr, ln = typeof COVER !== 'undefined' ? COVER[pos][h === 'lead' ? 0 : 1] : ''; v = ln ? 'blocks ' + ({ straight: 'jab/cross', side: 'hooks', under: 'uppercuts', body: 'body' }[ln] || (THREAT[ln] || ln).replace(/^His /, '')) : 'guard ' + pos; }   /* short words: a strip moment is narrow */   /* S568: what the held hand blocks, not just high / low */
       rows.push(`<span class="ln3${actor === h ? ' act' : ''}"><i style="background:${LANE[h][1]}"></i><em>${LANE[h][0]}</em><span class="pt" data-p="${h}">${v}</span></span>`); }
     if (m && m.sl !== 'wait') rows.push(`<span class="ln3x">${m.line}${m.open ? ` <span class="no2">· open: ${m.open.toLowerCase()}</span>` : ''}</span>`);

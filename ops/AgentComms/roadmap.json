@@ -7,7 +7,7 @@
   "owner": "claude",
   "updated": "2026-11-27",
   "summary": "S568 (Opus): clarity (range large, guided first beat, the whole boxer on the strip, the strip lights what you pick), the hand of cards replaces the body view (v0.568.9), a 5 s beat clock + 1-minute round clock on the one-action page, Gemma (local model) plays live on the match server; workers: ONEACT1 (Fable, one action a beat; Fable beat Dola on it), COUNTERS1 (Opus, Marquez and Mayweather counters); TELLS5M fails (Q-345).",
-  "next_action": "S569: (1) collect COUNTERS1 (docs/COUNTERS1_RESULT.md) and ONEACT1 (docs/ONEACT1_RESULT.md), and the three Arena runs FEINTFIX2 (95892a39, G1 cuts the loop to 35/53/37%, G2/G3 on top), SHORTBEAT1 (2a3d0ae3), KICKFIX4 (b9de29e2, on F4); (2) his answers: the hand of cards, head moves onto the main page or drop the Head row, Q-345 tells, the public push of v0.568.1-9; (3) RESTART FOUR SERVICES in terminal tabs: page server, gate, match server, and Gemma (node proto/twohands/site/match_llm_bot.mjs); (4) the feint fix onto order.html if it holds the bars, then LONG3.",
+  "next_action": "S569: (1) collect COUNTERS1 (docs/COUNTERS1_RESULT.md) and ONEACT1 (docs/ONEACT1_RESULT.md), and KICKFIX4 (arena/b9de29e2); FEINTFIX2 G1 is ON the page (v0.568.12), SHORTBEAT1 none, COUNTERS1 none, ONEACT1 a toy; (2) his answers: the hand of cards, head moves onto the main page or drop the Head row, Q-345 tells, the public push of v0.568.1-9; (3) RESTART FOUR SERVICES in terminal tabs: page server, gate, match server, and Gemma (node proto/twohands/site/match_llm_bot.mjs); (4) LONG3; restart the live match server so it uses the feint rule.",
   "last_working_commit": "369173f03",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
@@ -5409,7 +5409,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-27",
+  "updated": "2026-11-27 09:10 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5589,31 +5589,14 @@
     "title": "Your 'write the feint fix brief and measure it': three answers to the feint that opens the overhand, with the loop, the league's winning play and the Hearns film as bars",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-27T01:31",
-    "run": "FEINTFIX2"
-   },
-   {
-    "title": "Your 'Yes, measure it': a short opening beat each round (one moment, one action), measured against the page",
-    "who": "Arena (cloud: costs your PC nothing)",
-    "started": "2026-11-27T01:05",
-    "run": "SHORTBEAT1"
+    "run": "FEINTFIX2",
+    "state": "LANDED - Claude collects"
    },
    {
     "title": "Kicks round 4: a checked low kick hurts the kicker more - the rest of the measure moved to the cloud (your PC ran out of memory beside your game)",
     "who": "Arena (cloud: costs your PC nothing)",
     "started": "2026-11-26T22:38",
     "run": "KICKFIX4"
-   },
-   {
-    "title": "Your one-action version: one move a beat each, more beats - built as a trial page, measured, then a match Fable v Dola on it",
-    "who": "",
-    "started": "2026-11-27T03:31",
-    "run": "ONEACT1"
-   },
-   {
-    "title": "The two counters the famous exchanges miss: Marquez's timed right and Mayweather's check hook - measured on the balance checks and on the film scenes",
-    "who": "",
-    "started": "2026-11-27T05:05",
-    "run": "COUNTERS1"
    }
   ],
   "next": [
@@ -6401,6 +6384,22 @@
     {
      "text": "Agents on the match server",
      "who": "claude"
+    },
+    {
+     "text": "Short opening beat: none",
+     "who": "agent"
+    },
+    {
+     "text": "Counters: none yet, hook nearest",
+     "who": "agent"
+    },
+    {
+     "text": "One action: faster/beat, 3 of 9",
+     "who": "agent"
+    },
+    {
+     "text": "Feint fix G1 on the page (.12)",
+     "who": "claude"
     }
    ],
    "now": [
@@ -6441,28 +6440,12 @@
      "who": "claude"
     },
     {
-     "text": "Feint fix: 3 answers (Arena)",
-     "who": "agent"
-    },
-    {
-     "text": "Short opening beat (Arena)",
-     "who": "agent"
-    },
-    {
      "text": "Your friend's first online bout",
      "who": "operator"
     },
     {
      "text": "Your one-action version (Fable)",
      "who": "claude"
-    },
-    {
-     "text": "Counters: Marquez, Mayweather",
-     "who": "agent"
-    },
-    {
-     "text": "One action a beat (Fable)",
-     "who": "agent"
     }
    ],
    "next": [
@@ -6937,10 +6920,6 @@
     {
      "text": "Your play: wait.html (late step)",
      "who": "operator"
-    },
-    {
-     "text": "Feint fix: bars, then the page",
-     "who": "claude"
     },
     {
      "text": "Tells v4: a blind cover costs",

@@ -3,10 +3,14 @@
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S568_DIGEST.md`.
 
 ## S569: DO THESE FIRST
-1. COLLECT the two Arena runs still going at the handover: FEINTFIX2 (arena/95892a39: G1 'the feinting hand does not guard'
-   is HIS correction - it goes on order.html if it holds the bars; then the best of G2 / G3 / G12 on top if it fixes the
-   loop) and KICKFIX4 (arena/b9de29e2). Arm `python -u ops/Tools/arena_watch.py 180 FEINTFIX2=95892a39 KICKFIX4=b9de29e2:docs/KICKFIX4_RESULT_ARENA.md`.
-   KICKFIX4's result page still carries the S567 PC worker's BLOCKED line: judge it by its pull request / commits.
+1. FEINTFIX2 IS DONE AND ON THE PAGE (v0.568.12): G1 'a feinting hand guards nothing before its feint' (his correction),
+   8 of 9 bars on both seeds on the page's own rebuilt table; G2/G3/G12/G13 not taken (they kill the overhand, the feint
+   or the Hearns film). The loop is still 35/53/37% (bar 30): a next feint round only with a new idea. COLLECT KICKFIX4
+   (arena/b9de29e2): arm `python -u ops/Tools/arena_watch.py 180 KICKFIX4=b9de29e2:docs/KICKFIX4_RESULT_ARENA.md`; its
+   result page still carries the S567 BLOCKED line - judge it by its commits / pull request. IT WENT SILENT at 04:14 UTC on
+   2026-11-27 (189+ min, last commit 'E3 table and N=56 seed=1 volume baseline'): open its Arena chat (Browser 2,
+   chat id b9de29e2) and send 'Keep working' - an Arena chat that ended its turn with runs queued does nothing. The LIVE match server (8796)
+   was started before the feint fix: restart it (and Gemma) so online play uses the new rule.
 2. RESTART FOUR SERVICES in terminal tabs (they die with the session): page server `python proto/cardgame/serve.py 8797 twohands`,
    the gate `powershell -NoProfile -ExecutionPolicy Bypass -File proto/twohands/site/run_gate.ps1`, the match server
    `node proto\twohands\site\match_server.mjs`, and GEMMA `node proto\twohands\site\match_llm_bot.mjs` (the local AI he plays).
