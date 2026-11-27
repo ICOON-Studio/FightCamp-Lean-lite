@@ -1,0 +1,2 @@
+RULES_TEST 37 passed
+PAGE_PLAY_TEST 4 passed
