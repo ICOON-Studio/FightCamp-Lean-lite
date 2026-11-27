@@ -26,26 +26,6 @@
    "branch": "arena/b9de29e2-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21992-2f19-7c38-be3d-258cb9de29e2",
    "note": "S567: the PC worker stopped for low memory with ArcheAge open (F1 survives N=12, F2 fails: low kick 91%); the rest moved to Arena. Its result page starts with the BLOCKED line: judge by the pull request, not arena_watch"
-  },
-  "ONEACT1": {
-   "id": "ONEACT1",
-   "who": "Fable console worker (PC, tab c1)",
-   "title": "Your one-action version: one move a beat each, more beats - built as a trial page, measured, then a match Fable v Dola on it",
-   "started": "2026-11-27T03:31",
-   "eta": "4-6 h",
-   "status": "running",
-   "brief": "ops/research/TASK_ONEACT1.md",
-   "note": "S568: owner 'assign a fable worker for it and then test it fable vs dola'"
-  },
-  "COUNTERS1": {
-   "id": "COUNTERS1",
-   "who": "Opus console worker (PC, tab c5)",
-   "title": "The two counters the famous exchanges miss: Marquez's timed right and Mayweather's check hook - measured on the balance checks and on the film scenes",
-   "started": "2026-11-27T05:05",
-   "eta": "3-5 h",
-   "status": "running",
-   "brief": "ops/research/TASK_COUNTERS1.md",
-   "note": "S568: owner 'measure the two ideas for marquez and mayweather'"
   }
  },
  "codex_budget": {

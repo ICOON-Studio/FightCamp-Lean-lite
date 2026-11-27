@@ -25332,6 +25332,26 @@
    "branch": "arena/2a3d0ae3-fightcamp-lean-lite",
    "issue": "https://arena.ai/agent/01a21a0e-d3ad-7a41-9a55-2a722a3d0ae3",
    "note": "S568: collected - none (openings collapse to the two jabs; seed 2 loses a bar)"
+  },
+  {
+   "id": "COUNTERS1",
+   "who": "Opus console worker (PC, tab c5)",
+   "title": "The two counters the famous exchanges miss: Marquez's timed right and Mayweather's check hook - measured on the balance checks and on the film scenes",
+   "started": "2026-11-27T05:05",
+   "eta": "3-5 h",
+   "status": "done",
+   "brief": "ops/research/TASK_COUNTERS1.md",
+   "note": "S568: collected - none on the page; H2 check hook nearest (lands 98-100% when it fires, seed 1 loses a bar), M/M2 timed counter makes waiting at Long a habit"
+  },
+  {
+   "id": "ONEACT1",
+   "who": "Fable console worker (PC, tab c1)",
+   "title": "Your one-action version: one move a beat each, more beats - built as a trial page, measured, then a match Fable v Dola on it",
+   "started": "2026-11-27T03:31",
+   "eta": "4-6 h",
+   "status": "done",
+   "brief": "ops/research/TASK_ONEACT1.md",
+   "note": "S568: collected - faster per beat, not per round; V1 collapses (1/9), V2 = one.html 3/9; the feint loop gone; a toy for the pace, not the next main page"
   }
  ],
  "KNOWBUILD1": {
