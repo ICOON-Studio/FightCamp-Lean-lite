@@ -1,0 +1,13 @@
+{
+ "_note": "FEINTFIX2 G12 = G1 + G2 (S567): the feinting hand does not guard first, and a slow punch that lands only because the feint drew his hand does 2 less (never under 1).",
+ "src": [
+  [
+   "const cov = [0, 1].map((k) => { const c = {}; if (f[k].g <= 0) return c; if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];",
+   "const cov = [0, 1].map((k) => { const c = {}; if (f[k].g <= 0) return c; const leadAway = act[k] === 'lead' || (P[k].lead === 'feint' && P[k].ord.indexOf('lead') > i); if (!leadAway) c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];"
+  ],
+  [
+   "const pull = pulled[sh.k], dmg = a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0);",
+   "const pull = pulled[sh.k], dmg = Math.max(1, a.d + (openNow[sh.k] ? N.counter : 0) + (pull ? 1 : 0) - (wasDrawn && cov[v][a.line] && a.sp === 3 ? 2 : 0));"
+  ]
+ ]
+}

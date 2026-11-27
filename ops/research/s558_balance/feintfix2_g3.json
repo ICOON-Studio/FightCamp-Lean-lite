@@ -1,0 +1,9 @@
+{
+ "_note": "FEINTFIX2 G3 (S567) - A MAN WHO THROWS NOTHING DOES NOT BITE (John and the Claude player): if the other man holds BOTH hands this beat (no punch, no feint, no push; feet free), the feint draws nothing.",
+ "src": [
+  [
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { drawn[k] = 2; say(k, { m: i, t: 'flat', a: 'feints', o: 'the next punch cannot be covered' }); }",
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { const hv = 1 - k, holds = !P[hv].lead && !P[hv].rear; drawn[k] = holds ? 0 : 2; say(k, { m: i, t: 'flat', a: 'feints', o: holds ? 'he holds both hands and does not bite - nothing is drawn' : 'the next punch cannot be covered' }); }"
+  ]
+ ]
+}

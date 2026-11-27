@@ -1,0 +1,7 @@
+FEINTFIX2 G13 opus (no clinch) + feint cross: own table, n=60
+CLINCH no clinch v The Jabber: wins 5%, loses 90%, draws 5% | his clinches a bout 0.2
+CLINCH no clinch v The Slugger: wins 5%, loses 95%, draws 0% | his clinches a bout 0.3
+CLINCH no clinch v The Body Snatcher: wins 3%, loses 95%, draws 2% | his clinches a bout 0.4
+CLINCH feint cross v The Jabber: wins 10%, loses 85%, draws 5% | his clinches a bout 0.1 | my clinches a bout 4.0, 95% of them tie him up
+CLINCH feint cross v The Slugger: wins 22%, loses 68%, draws 10% | his clinches a bout 0.2 | my clinches a bout 7.5, 90% of them tie him up
+CLINCH feint cross v The Body Snatcher: wins 15%, loses 70%, draws 15% | his clinches a bout 0.2 | my clinches a bout 6.7, 93% of them tie him up

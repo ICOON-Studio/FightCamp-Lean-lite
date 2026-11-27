@@ -1,0 +1,17 @@
+FEINTFIX2 G1 film: scene_check feint_overhand with tweak=feintfix2_g1.json
+
+== The jab to the body that hides the right hand (Hearns v Duran, 1984, round 2) - Hearns is blue, Duran is red; starts at Mid
+ beat 1 at Mid. REAL: Hearns jabs to the body; Duran drops his lead hand to stop it.
+   Hearns: 1 Body jab - rear hand high (1 of 7 stamina)   Duran: no action - lead hand low, rear hand high (0 of 5 stamina)
+     moment 1 Hearns: Body jab - blocked by Duran's lead hand, held low
+   MATCH: no punch of Hearns lands
+   after: Hearns health 16, stamina 8; Duran health 4, stamina 8; range Mid
+ beat 2 at Mid. REAL: Hearns shows the same body jab and throws the right hand over the lowered guard. Duran falls on his face.
+   Hearns: 1 Feint, 2 Overhand (4 of 8 stamina)   Duran: no action - lead hand low, rear hand high (0 of 8 stamina)
+     moment 1 Hearns: feints - the next punch cannot be covered
+     moment 2 Hearns: Overhand - lands (the feint drew Duran's hand): -4 health, 2 points
+   MATCH: Hearns's Overhand lands
+   MATCH: Duran goes down
+   after: Hearns health 16, stamina 5; Duran health 0, stamina 8; range Mid
+
+SCENE_CHECK 3 of 3 match the ring

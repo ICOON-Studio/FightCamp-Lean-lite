@@ -1,0 +1,4 @@
+FEINTFIX2 G0 feint cross: page table, n=60 (step in, feint, cross, then clinch Inside)
+CLINCH feint cross v The Jabber: wins 18%, loses 73%, draws 8% | his clinches a bout 0.4 | my clinches a bout 4.0, 95% of them tie him up
+CLINCH feint cross v The Slugger: wins 42%, loses 38%, draws 20% | his clinches a bout 0.5 | my clinches a bout 7.5, 91% of them tie him up
+CLINCH feint cross v The Body Snatcher: wins 30%, loses 62%, draws 8% | his clinches a bout 0.6 | my clinches a bout 6.4, 94% of them tie him up

@@ -1,0 +1,7 @@
+FEINTFIX2 regression (page and rules untouched):
+== rules_test
+RULES_TEST 37 passed
+== page_play_test order.html
+PAGE_PLAY_TEST 4 passed
+== scene_check (no tweak)
+SCENE_CHECK 10 of 14 match the ring

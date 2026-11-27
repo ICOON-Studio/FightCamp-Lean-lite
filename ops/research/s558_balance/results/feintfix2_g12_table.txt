@@ -1,0 +1,8 @@
+FEINTFIX2 G12 table: balance.mjs table tweak=feintfix2_g12.json out=vt_feintfix2/feintfix2_g12.vt.json jobs=2
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.125; having given ground twice v none: -0.456; Mid 0.442; Inside 0.48
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 1.069; having given ground twice v none: -0.607; Mid 1.51; Inside 1.447
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 1.131; having given ground twice v none: -0.313; Mid 1.615; Inside 1.471
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.19; having given ground twice v none: -0.283; Mid 1.652; Inside 1.506
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.204; having given ground twice v none: -0.285; Mid 1.653; Inside 1.52
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.202; having given ground twice v none: -0.285; Mid 1.649; Inside 1.52
+BALANCE_TABLE wrote ops/research/s558_balance/vt_feintfix2/feintfix2_g12.vt.json in 913 s

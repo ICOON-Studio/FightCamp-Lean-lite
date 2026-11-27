@@ -1,0 +1,4 @@
+FEINTFIX2 G1 loop: own table, n=60 (step in, feint, overhand, then clinch)
+CLINCH loop v The Jabber: wins 35%, loses 57%, draws 8% | his clinches a bout 0.1 | my clinches a bout 4.7, 92% of them tie him up
+CLINCH loop v The Slugger: wins 53%, loses 33%, draws 13% | his clinches a bout 0.2 | my clinches a bout 7.2, 90% of them tie him up
+CLINCH loop v The Body Snatcher: wins 37%, loses 47%, draws 17% | his clinches a bout 0.2 | my clinches a bout 6.0, 88% of them tie him up

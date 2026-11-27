@@ -1,0 +1,20 @@
+FEINTFIX2 G3 counts: own table, n=84, seed=2, jobs=2 (probe_feint replay)
+mix v the same man (no style): wins 58%, draws 6%, stops him 13%, is stopped 6%; knockdowns a bout 1.3 v 1.0; health taken a bout 21.8 v 20.3; beats at Inside / Mid / Long 32% / 37% / 30%; clinches a bout 1.2; rounds level on points 12%, 61% of them given on ground
+  you a beat: back off 35%, lead held low 33%, step in 33%, feet hold 28%, Cross 24%, Body cross 23%, rear held high 22%, Body jab 18%, rear held low 17%, lead held high 10%, Lead hook 9%, Jab 7%, Lead uppercut 6%, Rear uppercut 6%, Body hook 6%, clinch 5%, Push off 3%, Feint 3%, Overhand 3% | punches in a plan: none 14%, one 60%, two 21%
+  your punches (thrown a bout: lands / blocked / misses): Cross 3.9: 43% / 27% / 30%, Body cross 3.8: 50% / 27% / 22%, Body jab 3.1: 63% / 35% / 1%, Lead hook 1.4: 37% / 45% / 18%, Jab 1.2: 69% / 30% / 1%, Lead uppercut 1.0: 56% / 22% / 22%, Rear uppercut 1.0: 51% / 12% / 37%, Body hook 1.0: 58% / 31% / 11%, Overhand 0.5: 43% / 30% / 27%
+  he  a beat: lead held low 36%, back off 36%, step in 33%, feet hold 27%, Body cross 25%, Cross 24%, rear held high 23%, Body jab 16%, rear held low 15%, lead held high 8%, Lead hook 8%, Jab 8%, Lead uppercut 6%, Rear uppercut 6%, Body hook 5%, clinch 5%, Push off 4%, Feint 3%, Overhand 3% | punches in a plan: none 15%, one 59%, two 22%
+  his  punches (thrown a bout: lands / blocked / misses): Body cross 4.1: 51% / 27% / 22%, Cross 3.9: 35% / 28% / 37%, Body jab 2.8: 62% / 35% / 3%, Lead hook 1.3: 31% / 53% / 16%, Jab 1.3: 65% / 33% / 3%, Lead uppercut 1.0: 55% / 20% / 25%, Body hook 0.9: 61% / 33% / 7%, Rear uppercut 0.9: 53% / 16% / 31%, Overhand 0.4: 54% / 14% / 31%
+  your order, of the beats with one to choose (67%): first feet 55%, lead 28%, rear 17%
+  (84 bouts, 446 s)
+BARS 7 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 32%, Mid 37%, Long 30%
+  PASS no switch is a must (none in over 40% of beats): back off 35%, step in 33%, Body cross 24%
+  PASS no switch is dead (each in at least 3% of beats): none under 3%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 67%, short 2%
+  PASS bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 19%, draws 6%, knockdowns 2.3
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 21%, none 15%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 1.2
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 67%, most often first 55%
+  FAIL the mirror is fair (wins 40-60% of decided bouts): 62%
+FEINT_COUNTS {"pair":{"cross":{"thrown":51,"landed":45},"over":{"thrown":38,"landed":23},"rbody":{"thrown":1,"landed":1}},"caught":{"lbody":2,"rbody":9,"rup":1,"bjab":4,"lup":2,"cross":5,"over":1,"jab":1},"wasted":{}}
+FEINT_EXTRA {"after":{"cross":{"landed":45,"dmg":144},"over":{"landed":23,"dmg":100},"rbody":{"landed":1,"dmg":2}},"bothHeld":[202,220],"noLand":559,"rounds":251,"beats":1483}

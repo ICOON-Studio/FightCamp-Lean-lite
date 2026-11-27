@@ -1,0 +1,13 @@
+{
+ "_note": "FEINTFIX2 G13 = G1 + G3 (S567): the feinting hand does not guard first, and a man who holds both hands does not bite.",
+ "src": [
+  [
+   "const cov = [0, 1].map((k) => { const c = {}; if (f[k].g <= 0) return c; if (act[k] !== 'lead') c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];",
+   "const cov = [0, 1].map((k) => { const c = {}; if (f[k].g <= 0) return c; const leadAway = act[k] === 'lead' || (P[k].lead === 'feint' && P[k].ord.indexOf('lead') > i); if (!leadAway) c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];"
+  ],
+  [
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { drawn[k] = 2; say(k, { m: i, t: 'flat', a: 'feints', o: 'the next punch cannot be covered' }); }",
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { const hv = 1 - k, holds = !P[hv].lead && !P[hv].rear; drawn[k] = holds ? 0 : 2; say(k, { m: i, t: 'flat', a: 'feints', o: holds ? 'he holds both hands and does not bite - nothing is drawn' : 'the next punch cannot be covered' }); }"
+  ]
+ ]
+}
