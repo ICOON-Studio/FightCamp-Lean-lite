@@ -1,0 +1,56 @@
+Card_ID,Name,Discipline,Type,Color,Speed,Stamina_Cost,Range_Position,Target,Damage,Tags,Effect
+BOX-01,Step-In Jab,Boxing,Attack,Red,8,1,Long -> Mid,Head,2,"[Pre-Move In 1], [Chain +1]","Close distance to Mid Range, deal 2 Head DMG, claim Initiative on hit."
+BOX-02,Straight Cross,Boxing,Attack,Red,7,2,Mid,Head,3,[Chain +1],Fast straight punch in the pocket. +1 DMG if following a Jab.
+BOX-03,Overhand Right,Boxing,Attack,Red,4,3,Long -> Mid,Head,5,"[Pre-Move In 1], [Heavy]",Loops over jabs. 1 Chip DMG on block. Triggers Rocked if unblocked.
+BOX-04,Lead Left Hook,Boxing,Attack,Red,6,2,Mid / Close,Head,4,[Heavy],Short arc power shot. Deals 1 Chip DMG + 1 STM drain on block.
+BOX-05,Liver Hook,Boxing,Attack,Red,6,2,Mid / Close,Body,3,[Body Cap -1],Permanently reduces opponent Max Stamina Cap by 1 on clean hit.
+BOX-06,Rear Uppercut,Boxing,Attack,Red,5,2,Close,Head,4,"[Heavy], [Anti-Takedown]",Deals +2 bonus DMG if opponent plays a Takedown or Level Change.
+BOX-07,Slip & Counter Jab,Boxing,Counter,Blue,9,1,Mid,Head,2,"[Reactive Counter], [Chain +1]","Negates Mid Attack, deals 2 DMG, steals Initiative. 0 whiff penalty."
+BOX-08,Pull Counter Cross,Boxing,Counter,Blue,9,3,Mid,Head,5,[Power Counter],"Negates Mid Attack, deals 5 Head DMG. Lose 2 STM if baited by Feint."
+BOX-09,Check Left Hook,Boxing,Counter,Blue,8,2,Mid -> Long,Head,3,"[Reactive Counter], [Post-Move Out 1]","Negates advancing Attack, deals 3 DMG, pivots out to Long Range."
+BOX-10,Shoulder Twitch Feint,Boxing,Feint,Yellow,8,0,Long / Mid,None,0,[Cage Push +1],"Beats Counter & Defend. Steals Initiative, pushes opponent 1 step to Cage."
+BOX-11,Double Jab Feint,Boxing,Feint,Yellow,7,1,Long -> Mid,None,0,"[Pre-Move In 1], [Cage Push +1]",Closes to Mid Range safely. Next Attack in chain gains +1 DMG.
+BOX-12,High Guard & Shell,Boxing,Defend,Green,6,0,Any,None,0,[Long Tax +1],"Blocks Attack (1 Chip vs Heavy), recovers +1 STM. Costs 1 STM at Long."
+MTK-01,Inside Calf Kick,Muay Thai,Attack,Red,7,2,Long / Mid,Legs,2,[Leg Injury -1],Inflicts -1 Speed penalty on opponent for the rest of the round.
+MTK-02,Push Kick (Teep),Muay Thai,Attack,Red,7,1,Long / Mid,Body,2,[Post-Move Out 1],Deals 2 Body DMG and pushes Range 1 step outward (Close->Mid->Long).
+MTK-03,Switch Body Kick,Muay Thai,Attack,Red,5,3,Long,Body,4,"[Heavy], [Body Cap -1]",Heavy roundhouse to ribs. Reduces Max Stamina Cap by 1 on hit.
+MTK-04,Question Mark Kick,Muay Thai,Attack,Red,5,3,Long,Head,5,[Heavy],Bypasses low-guard counters. Deals 5 Head DMG; 1 Chip on block.
+MTK-05,Step-In Elbow,Muay Thai,Attack,Red,6,2,Mid -> Close,Head,3,"[Pre-Move In 1], [Cut Risk]",Closes to Close Range. Opens an Eye Cut (reveals 1 opponent card).
+MTK-06,Flying Knee,Muay Thai,Attack,Red,4,4,Long -> Close,Head,6,"[Pre-Move In 2], [Heavy]",Jumps 2 zones into Close Range. Massive 6 DMG; -2 STM if blocked.
+MTK-07,Shin Check,Muay Thai,Counter,Blue,9,1,Long / Mid,Legs,2,[Reactive Counter],"Negates Kicks, reflects 2 Leg DMG (-1 SPD). 0 whiff penalty."
+MTK-08,Catch & Sweep Kick,Muay Thai,Counter,Blue,8,2,Long / Mid,Legs,3,[Reactive Counter],"Negates Body/Head Kick, trips opponent for 3 DMG + Initiative."
+MTK-09,Knee on Entry,Muay Thai,Counter,Blue,8,3,Mid / Close,Head,5,[Power Counter],Negates Takedowns & Step-In Attacks for 5 DMG. -2 STM on whiff.
+MTK-10,Low-Kick Fake,Muay Thai,Feint,Yellow,8,0,Long,None,0,[Cage Push +1],Beats Counter & Defend at Long Range. Steals Initiative + Cage Push.
+MTK-11,Thai Plum Clinch,Muay Thai,Takedown,Purple,6,2,Close,None,0,"[Guard Break], [Clinch Entry]",Bypasses High Guard. Transitions fight to Clinch on Grappling Track.
+MTK-12,Long Guard & Frame,Muay Thai,Defend,Green,6,0,Mid / Close,None,0,[Post-Move Out 1],"Blocks Attack, recovers +1 STM, and exits 1 Range zone outward."
+WRS-01,Blast Double-Leg,Wrestling,Takedown,Purple,6,3,Long -> Mid,None,2,"[Pre-Move In 1], [Guard Break]",Bypasses High Guard. Moves to Closed Guard (or Side Control if +2 SPD).
+WRS-02,Low Single-Leg,Wrestling,Takedown,Purple,7,2,Long / Mid,None,1,[Guard Break],Fast ankle pick. Beats High Guard & Feints; moves to Closed Guard.
+WRS-03,Cage Drag Takedown,Wrestling,Takedown,Purple,5,2,Close / Clinch,None,2,"[Guard Break], [Cage Bonus]",Moves to Half Guard. Gains +2 Speed if opponent Cage Space is 0-1.
+WRS-04,Harai Goshi Hip Toss,Wrestling,Takedown,Purple,5,3,Close / Clinch,Body,3,"[Guard Break], [Heavy]",Throws directly into Side Control and deals 3 Body DMG.
+WRS-05,Inside Trip,Wrestling,Takedown,Purple,7,2,Clinch,None,2,"[Guard Break], [Chain +1]",Trips from Clinch into Half Guard while keeping Top Initiative.
+WRS-06,Mat Return Slam,Wrestling,Attack,Red,6,2,Clinch,Body,3,[Top Heavy],Slams escaping opponent back to Closed Guard for 3 Body DMG.
+WRS-07,Heavy Sprawl,Wrestling,Counter,Blue,9,1,Long / Mid,None,2,[Reactive Counter],"Stuffs any Takedown, deals 2 Body DMG, takes Top Initiative."
+WRS-08,Whizzer & Overhook,Wrestling,Counter,Blue,8,2,Close / Clinch,None,2,[Reactive Counter],Reverses Clinch/Takedown attempts and claims Clinch Initiative.
+WRS-09,Level-Change Fake,Wrestling,Feint,Yellow,8,1,Long -> Mid,None,0,"[Pre-Move In 1], [Cage Push +1]",Baits Sprawls & Uppercuts. Closes distance and steals Initiative.
+WRS-10,Granby Roll Escape,Wrestling,Defend,Green,7,1,Ground (Bottom),None,0,[Active Escape],Escapes Closed/Half Guard back to Mid Range Stand-Up.
+BJJ-01,Knee-Slice Pass,BJJ,Attack,Red,6,2,Closed / Half Guard,None,0,"[Guard Pass], [Chain +1]",Advances position 1 step closer to Mount/Back Control.
+BJJ-02,Toreando Bullfight Pass,BJJ,Attack,Red,7,2,Closed Guard,None,0,[Guard Pass],Fast speed pass directly into Side Control if unblocked.
+BJJ-03,Berimbolo Back Take,BJJ,Attack,Red,5,3,Half / Closed Guard,None,0,[Back Take],Advanced inversion that transitions directly to Back Control.
+BJJ-04,Rear-Naked Choke,BJJ,Submission,Purple,5,3,Back Control,Stamina,5,[Submission],Drains 5 STM immediately (full power). Submits target at 0 STM.
+BJJ-05,Armbar from Guard/Mount,BJJ,Submission,Purple,6,3,Closed Guard / Mount,Stamina,4,"[Submission], [Positional Gate]",Drains 4 STM (-2 in Closed Guard unless target <50% STM).
+BJJ-06,Triangle Choke,BJJ,Submission,Purple,6,2,Closed Guard (Bottom),Stamina,4,"[Submission], [Positional Gate]",Drains 4 STM (-2 unless target <50% STM). Traps posture on hit.
+BJJ-07,Mounted Guillotine,BJJ,Submission,Purple,7,3,Clinch / Mount,Stamina,5,"[Submission], [Positional Gate]",Drains 5 STM (-2 in Clinch unless target <50% STM).
+BJJ-08,Inside Heel Hook,BJJ,Submission,Purple,5,3,Closed / Half Guard,Legs,4,"[Submission], [Leg Injury -1]",Drains 3 STM + deals 4 Leg DMG (-1 SPD). Bypasses Positional Gate.
+BJJ-09,Scissor Sweep,BJJ,Counter,Blue,7,2,Closed / Half Guard,None,0,"[Active Sweep], [Reactive Counter]",Reverses Top Pass/Strike into Top Half Guard + Initiative.
+BJJ-10,Upa Trap & Roll,BJJ,Counter,Blue,6,2,Mount (Bottom),None,0,"[Active Sweep], [Reactive Counter]",Reverses Mount directly into Top Closed Guard.
+BJJ-11,Guard Pull,BJJ,Feint,Yellow,7,1,Close / Clinch,None,0,[Guard Pull],Safely pulls opponent into your Closed Guard with Bottom Initiative.
+BJJ-12,Frame & Shrimp Escape,BJJ,Defend,Green,7,1,Side / Mount (Bottom),None,0,[Active Escape],Recovers from Side Control/Mount back to Closed Guard + 1 STM.
+GNP-01,Hammerfist Barrage,Ground & Pound,Attack,Red,6,2,Half / Side / Mount,Head,3,"[Top Heavy], [Chain +1]",Deals 3 Head DMG from top control; drains 1 STM if blocked.
+GNP-02,Crucifix Elbows,Ground & Pound,Attack,Red,5,3,Side / Mount / Back,Head,5,"[Heavy], [Cut Risk]",Devastating top elbows. 5 Head DMG + opens Eye Cut.
+FIQ-01,Cut the Cage,Fight IQ,Feint,Yellow,7,1,Long -> Mid,None,0,"[Pre-Move In 1], [Cage Push +2]",Closes distance and pushes opponent 2 steps toward the Cage Wall.
+FIQ-02,Circle Out & Reset,Fight IQ,Defend,Green,8,1,Close -> Mid / Mid -> Long,None,0,[Post-Move Out 1],Escapes 1 Range zone outward and restores +1 Cage Space.
+FIQ-03,Read Tendencies,Fight IQ,Feint,Yellow,9,0,Any,None,0,[Draw +1],Beats Counter/Defend. Draw 1 card and reveal 1 card in opponent hand.
+FIQ-04,Deep Breath & Pace,Fight IQ,Defend,Green,5,0,Long / Guard,None,0,[Long Tax +1],Recover +3 Stamina. (Costs 1 STM if used at Long Range).
+SYS-01,Signature Stance Guard,System,Defend,Green,5,0,Any (Stance Slot),None,0,"[Permanent Slot], [Long Tax +1]",Always available outside hand. Blocks Attack (or escapes 1 pos on mat).
+SYS-02,Bruised Shin (Curse),Curse,Curse,Gray,1,1,Hand Deadweight,None,0,[Injury Curse],Unplayable dead card in hand. Spend 1 STM to discard at end of turn.
+SYS-03,Concussion Fog (Curse),Curse,Curse,Gray,1,0,Hand Deadweight,None,0,[Injury Curse],"While in hand, your maximum Combo Chain length is reduced by 1."

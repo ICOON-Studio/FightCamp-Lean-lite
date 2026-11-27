@@ -26,14 +26,14 @@
   },
   "TYPES1": {
    "id": "TYPES1",
-   "status": "running",
+   "status": "done",
    "seat": "claude",
    "agent": "Opus 5.5 console worker (PC, tab c2)",
    "started": "2026-11-27T22:55",
    "eta": "4-8 h",
    "title": "Your four card types (Attack / Counter / Feint / Defend) measured on Puncher's chance",
    "brief": "ops/research/TASK_TYPES1.md",
-   "note": "S571"
+   "note": "TYPES1 DONE (docs/TYPES1_RESULT.md): every version fails the trial gate - as written the safe card wins; Defend needs a cost"
   },
   "KICKFIX6": {
    "id": "KICKFIX6",
@@ -45,6 +45,17 @@
    "title": "Kicks on the rebuilt kick.html: the control and F6 tables",
    "brief": "ops/research/TASK_KICKFIX6.md",
    "note": "S571 resumed; if the chains died with the session, resume from docs/KICKFIX6_RESULT.md"
+  },
+  "LAYERS1": {
+   "id": "LAYERS1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "opus 5.5 console worker (pc, tab c1 of S572)",
+   "started": "2026-11-27T23:45",
+   "eta": "6-10 h",
+   "title": "One man per picture: every move re-rendered with masks (cross first)",
+   "brief": "ops/research/TASK_LAYERS1.md",
+   "note": "cross family passes (0 jumps where both runs layered); continuing family by family"
   }
  },
  "codex_budget": {

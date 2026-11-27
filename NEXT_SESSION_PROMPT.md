@@ -1,4 +1,34 @@
 ## METHOD (S569, fight pictures; S570 update; S571: LAYERS1 brief ready, waits on his look): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump. LAYERS (one man per picture, the page owns each spot) is APPROVED (S570: he bought Cascadeur Indie + the Animo pack) and phase 0 is DONE (holds + jab, 0 jumps, docs/LAYERS0_RESULT.md, ?layers=1). No new patch layer on the two-man pictures; the next fight-picture work is LAYERS phase 1.
+## METHOD (S572, Octagon): the owner's own rules are the line. v5.x (his v2.0 rulebook + v2 cards, proto/octagon/cards_v5.mjs, `v5=1`) is the CUP version; his v2.6 (ops/research/octagon/v26, the synchronized CSV + PDF) is built SEPARATELY as v6 (owner S572: "keep the current version and work seperately on the new rules leave the league design after we balnce the fights"). No league / campaign / relic / boss work before the fights are balanced. Every rule change: a TUNE switch OFF, pool_sim n=40 (40-60%), ON only between cup rounds.
+
+# S573 handover (written 2026-11-28, S572 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S572_DIGEST.md`.
+
+## S573: DO THESE FIRST
+1. OCTAGON CUP ROUND 13 on v5.3 (ON in cards_v5.mjs): `node ops/Tools/versus_by_message.mjs E:/FightCamp/tmp/octcup4/r13_<a>_v_<b>
+   a=<seat>:<via> b=<seat>:grok game=octagon v5=1 pa=<id> pb=<id> seed=13x` (Claude a=claude:worker, plays with a scratchpad
+   oct.sh: seal with `versus_oct.mjs plan <bout> who=a card=..`, wait until `n` changes, `show`). Means: r10 7.25/7.0,
+   r11 7.75/7.25 (best), r12 7.5/7.0 - FUN 8 is the target. Open asks: two Close attacks per deck (Pressure and Out-Fighter
+   ran dry at Close), guard v guard should cost something (Kalli), Pull Counter too strong an opener (John).
+2. v6 = his v2.6 fight rules + his v2.6 boxing cards (BOX-01..12, FIQ-01..04, SYS-01 Signature Stance Guard - always
+   available; Desperation Surge; non-stacking speed cap) as proto/octagon/cards_v6.mjs + `v6=1`, never touching v5. Watch:
+   Shoulder Twitch Feint and Low-Kick Fake cost 0 and beat Counter AND Defend; Initiative +2 (on v5 the bots put
+   Pressure at 57-64% with +2). Bots first, then one cup round on v6 beside v5.3.
+3. COLLECT: LAYERS1 (tab c1 of S572; cross family passed, docs/LAYERS1_RESULT.md), RULES569 (tab c1 of S571, no result page
+   yet), KICKFIX6 (two balance chains since 22:43, tables building; results in ops/research/s558_balance/results/kickfix6_*.txt).
+4. Board: Q-S294-348 (C: drive 8 GB: AMD usage log + Ollama installers - his files, never delete without his yes);
+   Q-S294-349 (v2.6 career layer: answered in chat "leave the league design after we balance the fights" - close it);
+   Q-S294-350 (which v2.6 list: his synchronized files agree - close it).
+5. BUILD1 round 4, MMCPLAY1, LONG3 when a seat frees.
+
+## Rules learned in S572 (also in memory)
+- His Chrome: never open tabs in his window; if Chrome is needed, a NEW window for Claude's tabs.
+- Bots never hold twice (holdTax read 0 change) and finish 10% where agents finish ~50%: some rules only the cup can show.
+- A say(v, ...) line prints the defender's name first - check log grammar after every new rule line.
+- Check his design files card by card against each other before building (v2.6 came in three rounds: real names, blank
+  card pages, CSV and PDF with different cards, then a synchronized pair).
+
 
 # S572 handover (written 2026-11-27, S571 - Opus 5.5)
 

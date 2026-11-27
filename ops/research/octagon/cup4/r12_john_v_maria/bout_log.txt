@@ -1,0 +1,20 @@
+John (Sonny "Snapshot" Vale) v Maria ("Iron" Ike Mbeki), seed 122
+R1 E1: John plays Tight High Guard; Maria plays Cut Off the Cage; range: mid -> close; Maria's Cut Off the Cage breaks John's Tight High Guard; John recovers 2 stamina; John pushed toward the fence: cage space 0; Maria takes the Lead
+R1 E2: John plays Philly Shell Roll; Maria plays Left Hook to Liver; John Philly Shell Roll takes the Left Hook to Liver; Maria lands 1 to the body (chip through the block); John the block costs 1 stamina; John blocked - the Lead is stripped; John recovers 1 stamina
+R1 E3: John plays Elbows Down; Maria plays Short Uppercut; Maria lands 7 to the head (to the head, over the elbows); John recovers 1 stamina; Maria takes the Lead; John ROCKED (7 to the head): only Counter or Defend next exchange; Maria has the Lead
+R1 E4: John plays Clinch & Hold; Maria plays Tight High Guard; both reset: the Lead is neutral; John recovers 0 stamina; Maria recovers 2 stamina
+R1 E5: John plays Hold Ground; Maria plays Left Hook to Liver; Maria lands 7 to the body (nothing covered it); John Left Hook to Liver: maximum stamina -2; John recovers 0 stamina; Maria takes the Lead
+R1 E6: John plays Hold Ground; Maria plays Elbows Down; both reset: the Lead is neutral; John recovers 0 stamina; Maria recovers 1 stamina; END OF ROUND 1: judges John 7, Maria 10 (damage + clean counters 0 v 15); total John 7, Maria 10; ROUND 2: back to Long, the Lead neutral, stamina +4 / +5
+R2 E1: John plays Range Jab; Maria plays Cut Off the Cage; range: long -> mid; John lands 2 to the head (caught him faking); John takes the Lead
+R2 E2: John plays Straight Cross; Maria plays Stiff Flicker Jab; Maria's Stiff Flicker Jab lands first but does not stop the Straight Cross: they trade; Maria lands 2 to the head (first); John lands 3 to the head (through the jab, 2 less)
+R2 E3: John plays Philly Shell Roll; Maria plays Hold Ground; both reset: the Lead is neutral; John recovers 1 stamina; Maria recovers 0 stamina
+R2 E4: John plays Read Tendencies; Maria plays Read Tendencies; feint battle: both draw 1, the Lead is neutral; John next exchange: +2 speed; John reads him: sees 2 of his cards, draws 1; Maria next exchange: +2 speed; Maria reads him: sees 2 of his cards, draws 1
+R2 E5: John plays Stiff Flicker Jab; Maria plays Shoulder Feint & Level Shift; range: mid -> close; John Stiff Flicker Jab is out of range at close; Maria next exchange: +1 speed; John pushed toward the fence: cage space 1
+R2 E6: John plays Lead Check Hook; Maria plays Short Uppercut; John Lead Check Hook whiffs: it costs nothing, the Lead goes; Maria lands 6 to the head; Maria takes the Lead; John ROCKED (6 to the head): only Counter or Defend next exchange; Maria has the Lead; END OF ROUND 2: judges John 9, Maria 10 (damage + clean counters 5 v 8); total John 16, Maria 20; ROUND 3: back to Long, the Lead neutral, stamina +4 / +5
+R3 E1: John plays Stiff Flicker Jab; Maria plays Range Jab; John is faster (10 v 8); John lands 2 to the head (beats him to it); John takes the Lead
+R3 E2: John plays Range Jab; Maria plays Hold Ground; Maria parries the Range Jab at Long; Maria recovers 0 stamina
+R3 E3: John plays Shoulder Feint & Level Shift; Maria plays Step-In Jab; range: long -> close; Maria lands 3 to the head (caught him faking); Maria takes the Lead
+R3 E4: John plays Lead Check Hook; Maria plays Tight High Guard; John Lead Check Hook: nothing to counter; John Lead Check Hook whiffs: it costs nothing, the Lead goes; Maria recovers 2 stamina; John no card he can play at this range: a fresh hand (no stamina cost)
+R3 E5: John plays Circle Out & Reset; Maria plays Lead Check Hook; Maria Lead Check Hook: nothing to counter; Maria Lead Check Hook whiffs: it costs nothing, the Lead goes; John recovers 0 stamina; range: close -> mid
+R3 E6: John plays Hold Ground; Maria plays Straight Cross; Maria lands 5 to the head (nothing covered it); John recovers 0 stamina; Maria takes the Lead; Maria WINS by KO; John spent, he does not attack: +1 stamina
+RESULT: Maria wins by KO in round 3

@@ -1,0 +1,13 @@
+Claude (Sonny "Snapshot" Vale) v Maria (Tomas "The Truck" Kowal), seed 101
+R1 E1: Claude plays Stiff Flicker Jab; Maria plays Cut Off the Cage; range: mid -> close; Claude Stiff Flicker Jab is out of range at close; Claude pushed toward the fence: cage space 0
+R1 E2: Claude plays Circle Out & Reset; Maria plays Left Hook to Liver; Claude Circle Out & Reset takes the Left Hook to Liver; Maria lands 1 to the body (chip through the block); Claude the block costs 1 stamina; Claude blocked - the Lead is stripped; Claude recovers 0 stamina; range: close -> mid
+R1 E3: Claude plays Slip & Counter Cross; Maria plays Stiff Flicker Jab; Claude Slip & Counter Cross reads the Stiff Flicker Jab: it misses; Claude lands 4 to the head (counter); Claude takes the Lead
+R1 E4: Claude plays Stiff Flicker Jab; Maria plays Tight High Guard; Maria Tight High Guard takes the Stiff Flicker Jab; Maria blocked - the Lead is stripped; Maria recovers 2 stamina; Claude COMBO: Straight Cross (+1 speed, +1 stamina); Maria reacts: Tight High Guard; Maria blocks the combo, the Lead is stripped
+R1 E5: Claude plays Shoulder Feint & Level Shift; Maria plays Left Hook to Liver; range: mid -> close; Maria lands 7 to the body (caught him faking); Claude Left Hook to Liver: maximum stamina -2; Maria takes the Lead
+R1 E6: Claude plays Philly Shell Roll; Maria plays Short Uppercut; Claude Philly Shell Roll takes the Short Uppercut; Maria lands 1 to the head (chip through the block); Claude the block costs 1 stamina; Claude blocked - the Lead is stripped; Claude recovers 1 stamina; END OF ROUND 1: judges 9-10 (damage + clean counters 5 v 9); total 9-10; ROUND 2: back to Long, the Lead neutral, stamina +4 / +4
+R2 E1: Claude plays Range Jab; Maria plays Stiff Flicker Jab; Maria is faster (9 v 8); Maria lands 2 to the head (beats him to it); Maria takes the Lead
+R2 E2: Claude plays Hold Ground; Maria plays Range Jab; Claude parries the Range Jab at Long; Claude recovers 0 stamina
+R2 E3: Claude plays Read Tendencies; Maria plays Overhand Right; range: long -> mid; Maria lands 8 to the head (caught him faking); Maria takes the Lead; Claude ROCKED (8 to the head): only Counter or Defend next exchange; Maria has the Lead
+R2 E4: Claude plays Clinch & Hold; Maria plays Read Tendencies; Claude recovers 0 stamina; Maria next exchange: +2 speed; Maria reads him: sees 2 of his cards, draws 1
+R2 E5: Claude plays Hold Ground; Maria plays Straight Cross; Maria lands 7 to the head (nothing covered it); Claude recovers 0 stamina; Maria WINS by KO; Claude spent, he does not attack: +1 stamina
+RESULT: Maria wins by KO in round 2

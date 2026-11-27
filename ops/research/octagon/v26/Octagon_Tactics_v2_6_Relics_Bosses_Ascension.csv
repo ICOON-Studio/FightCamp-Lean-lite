@@ -1,0 +1,29 @@
+Category,ID,Name,Subcategory_Tier,Rules_Effect
+Relic,REL-01,Iron Chin Mouthguard,Common,Raises single-hit Rocked Threshold by +2 DMG and grants +2 Max Head HP.
+Relic,REL-02,Precision Hand Wraps,Common,All Boxing Attack cards gain +1 Speed on the first exchange of every round.
+Relic,REL-03,Thai Liniment Oil,Common,Immune to the first Leg Injury (-1 SPD) penalty each fight; Calf Kicks deal +1 DMG.
+Relic,REL-04,Sambo Wrestling Shoes,Uncommon,Takedown cards ignore 1 point of opponent Speed advantage and gain [Chain +1].
+Relic,REL-05,Black Belt Gi Patch,Uncommon,BJJ Submissions ignore 1 point of Positional Gate penalty from Closed Guard.
+Relic,REL-06,Altitude Mask,Uncommon,+3 Max Stamina Cap and +1 extra Stamina recovery between rounds.
+Relic,REL-07,Corner Ice Bag,Common,Heal 3 Head DMG and 2 Body DMG automatically between Rounds 1-2 and 2-3.
+Relic,REL-08,Counter-Puncher's Stopwatch,Rare,Reactive Counters deal +2 bonus DMG and draw 1 card when they negate an Attack.
+Relic,REL-09,Cage-General Spurs,Rare,"Whenever you push an opponent to 0 Cage Space, deal 2 Body DMG and steal Initiative."
+Relic,REL-10,Adrenaline Syringe,Rare,Desperation Surge at 0 Stamina costs 0 Self-Body DMG once per round.
+Relic,REL-11,Championship Gold Buckle,Boss,"+1 to all Attributes (Reach, Reflexes, Chin, Cardio, Grappling) during Boss fights."
+Relic,REL-12,Hall of Fame Tape,Boss,Signature Stance Guard also recovers +2 Stamina whenever it successfully blocks an Attack.
+Boss,BOSS-01,Act I Boss: 'The Gatekeeper' Marcus Vance,Pressure Brawler,Heavy Hands: Round 2+ Red Attacks gain +1 Chip DMG on block. | Reward: $150 + Act I Relic
+Boss,BOSS-02,Act I Boss: 'Viper' Elena Rostova,Technical Sniper,Distance Trap: Round 2+ Long-Range Defends cost +1 extra STM for opponent. | Reward: $150 + Act I Relic
+Boss,BOSS-03,Act II Boss: Magomed 'The Bear' Aliev,Dagestani Grinder,Relentless Chain: Round 2+ Takedowns gain +1 Speed and +1 STM drain on hit. | Reward: $300 + 2nd Relic Slot
+Boss,BOSS-04,Act II Boss: Rafael 'Boa' Silva,Submission Ace,Submission Trap: Round 2+ Positional Gate penalty is reduced by 1. | Reward: $300 + 2nd Relic Slot
+Boss,BOSS-05,Act III Co-Main: 'The Prodigy' Kenji Sato,Hybrid Striker/BJJ,Film Study: Your most-played card color in Round 1 costs +1 STM in Round 2. | Reward: $500 + Boss Relic
+Boss,BOSS-06,Final Boss: Undisputed Champion Alexei Volkov,All-Rounder Champion,Championship IQ: Adapts to your Round 1 most-played color (+1 STM) AND gains +1 Speed on all Counters. | Reward: Undisputed Belt + Ascension Unlock
+Ascension,ASC-01,Ascension 1: Contender Standard,Tier 1,Base tournament difficulty. AI uses standard 20-card archetype decks.
+Ascension,ASC-02,Ascension 2: Tough Judges,Tier 2,Tied rounds on damage are automatically scored 10-9 in favor of the AI.
+Ascension,ASC-03,Ascension 3: Rough Weight Cut,Tier 3,Start every fight with -2 Max Stamina Cap.
+Ascension,ASC-04,Ascension 4: Elite Scouting,Tier 4,All Act II and Act III opponents start with 2 Elite (+) upgraded cards.
+Ascension,ASC-05,Ascension 5: Scar Tissue,Tier 5,Start every fight with a minor Eye Cut (1 random card in hand is revealed).
+Ascension,ASC-06,Ascension 6: Purse Squeeze,Tier 6,Fight Purse rewards reduced by 20%; Film Study card removal costs +$25.
+Ascension,ASC-07,Ascension 7: Championship Pace,Tier 7,Opponent recovery between rounds increased by +2 Stamina.
+Ascension,ASC-08,Ascension 8: Armed Champions,Tier 8,All Act Bosses enter the cage equipped with 1 active Championship Relic.
+Ascension,ASC-09,Ascension 9: Brutal Attrition,Tier 9,Lingering Injury Curses require 2 Camp Actions (or $100) to heal at Physio.
+Ascension,ASC-10,Ascension 10: Hall of Fame Legend,Tier 10,Final Boss starts Round 1 with Initiative Token and 2 active Relics.

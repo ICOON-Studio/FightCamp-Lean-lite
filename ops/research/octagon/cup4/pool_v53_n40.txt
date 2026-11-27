@@ -1,0 +1,9 @@
+POOL_SIM 2240 bouts, finishes 9% (middleweight target 40-50%), comebacks 21%, both idle 0.0% of exchanges, locked bouts (3+ idle in a row) 0.0%, rocks 0.54 a bout, rocked twice in a row 0.0% of rocks, push-backs 0.00 a bout
+  truck      58%  (press)
+  bodyshop   57%  (press)
+  silk       54%  (out)
+  iron       52%  (press)
+  metronome  47%  (out)
+  longnight  47%  (out)
+  snapshot   44%  (counter)
+  ghost      40%  (counter)
