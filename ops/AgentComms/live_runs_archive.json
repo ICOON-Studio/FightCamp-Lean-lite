@@ -25366,6 +25366,19 @@
    "issue": "https://arena.ai/agent/01a21a26-5a3a-7109-b2cd-316e95892a39",
    "reconciled": "2026-11-27 09:10 board_reconcile: PR #476 open - collect it",
    "note": "S568: collected; G1 on order.html (v0.568.12), 8/9 both seeds; G2/G3/G12/G13 not taken"
+  },
+  {
+   "id": "KICKFIX4",
+   "status": "landed",
+   "seat": "arena",
+   "agent": "Arena (cloud: costs your PC nothing)",
+   "started": "2026-11-26T22:38",
+   "eta": "4-6 h",
+   "title": "Kicks round 4: a checked low kick hurts the kicker more - the rest of the measure moved to the cloud (your PC ran out of memory beside your game)",
+   "brief": "ops/research/TASK_KICKFIX4.md",
+   "branch": "arena/b9de29e2-fightcamp-lean-lite",
+   "issue": "https://arena.ai/agent/01a21992-2f19-7c38-be3d-258cb9de29e2",
+   "note": "S567: the PC worker stopped for low memory with ArcheAge open (F1 survives N=12, F2 fails: low kick 91%); the rest moved to Arena. Its result page starts with the BLOCKED line: judge by the pull request, not arena_watch | S569: collected F1/F3/E3 from the lite branch (7dd51f129); Arena hit its daily limit before F4 was pushed -> KICKFIX5"
   }
  ],
  "KNOWBUILD1": {

@@ -4,6 +4,12 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.569.3', date: '2026-11-27', items: [
+    'Your cross thrown from Long (it falls short) no longer moves him: he was drawn a step back for that clip and jumped back to his spot after it. He now stays where he stands and only leans away from the glove.'] },
+  { v: '0.569.2', date: '2026-11-27', items: [
+    'Stay put is a card on the strip: it sits in the first free slot, bold, "holds your ground all beat", and the Stay put card in your hand carries that slot number like every other pick. It still takes no moment of its own: your hands keep every moment.'] },
+  { v: '0.569.1', date: '2026-11-27', items: [
+    'The Head row is gone from the old body view (?ui=body) on the main page: no head moves here, and the guard switches already say what each held hand stops. Head moves stay on head.html.'] },
   { v: '0.568.12', date: '2026-11-27', items: [
     'Your feint rule: a hand that feints guards nothing until its feint. The strip shows that hand as "open - feint coming", and the feint-then-overhand trick wins less often. The balance checks hold (8 of 9 on both test runs; the page had 7 and 8).'] },
   { v: '0.568.11', date: '2026-11-27', items: [

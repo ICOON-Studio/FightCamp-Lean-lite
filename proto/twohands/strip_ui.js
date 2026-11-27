@@ -87,6 +87,7 @@
   function strip() { const old = document.getElementById('strip'); if (old) old.remove(); if (phase !== 'plan' || P.clinch) { stop(); return; }
     const ms = moments(), n = Math.max(3, ms.length), el = document.createElement('div'); el.id = 'strip';
     el.innerHTML = '<span class="hd">This beat</span>' + Array.from({ length: n }, (x, i) => { const m = ms[i];
+      if (!m && i === ms.length && P.feet === 'hold') return `<div class="slot full static hold" data-sl="feet" data-tip="Stay put: your feet hold your ground all beat. It takes no moment of its own, so your hands keep every moment."><span class="no">${i + 1}</span>${lanes(i, { sl: 'feet', name: 'Stay put', line: 'holds your ground all beat' })}</div>`;   /* S569 (owner: "stay put still has no card on the strip"): Stay put is a card in the first free slot, like every pick */
       if (!m) { const L = limbs(i, null); return `<div class="slot empty" data-tip="${L.tip}"><span class="no">${i + 1}</span>${lanes(i, null)}</div>`; }
       const tip = m.sl === 'wait' ? 'An empty moment before your step. Switch it off with the button beside the strip.' : `${NTH[i]} moment: ${m.name}. Drag the card to another slot to change when it happens (a click: one slot earlier).\nYour ${NTH[i]} moment meets his ${NTH[i]} moment.`;
       return `<div class="slot full${m.sl === 'wait' ? ' wait' : ''}" data-sl="${m.sl}" data-tip="${tip}"><span class="no">${i + 1}</span>${lanes(i, m)}</div>`; }).join('');
@@ -94,7 +95,7 @@
     lines.insertBefore(el, lines.firstChild);
     mark();
     for (const c of lines.querySelectorAll(':scope > .ln.open')) if (/open in moment \d/.test(c.textContent)) c.remove();   /* each card says what its own moment leaves open: the chips keep what is open or covered the whole beat */
-    const cards = [...el.querySelectorAll('.slot.full')], slots = [...el.querySelectorAll('.slot')];
+    const cards = [...el.querySelectorAll('.slot.full:not(.hold)')], slots = [...el.querySelectorAll('.slot')];
     for (const b of cards) { let dragged = false;
       b.onclick = () => { if (dragged) return; const i = P.ord.indexOf(b.dataset.sl); if (i > 0) { const o = [...P.ord]; [o[i - 1], o[i]] = [o[i], o[i - 1]]; P.ord = o; plan(); } };
       b.onpointerdown = (e) => { if (cards.length < 2 || e.button > 0) return; const x0 = e.clientX, others = cards.filter((c) => c !== b), mids = others.map((c) => { const r = c.getBoundingClientRect(); return r.left + r.width / 2; });

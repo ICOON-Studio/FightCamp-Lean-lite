@@ -35,6 +35,7 @@
     const cards = document.createElement('div'); cards.id = 'cards'; const far = document.createElement('div'); far.id = 'farcards';
     for (const b of all) { if (b.classList.contains('home')) continue; b.style.borderTopColor = COL[b.dataset.g] || COL.clinch; (b.classList.contains('far') || (b.dataset.g === 'clinch' && range > 1) ? far : cards).appendChild(b); }   /* the clinch works Inside only */
     brd.prepend(hd, gb, cards);
+    { const hb = cards.querySelector('.sw[data-g="feet"][data-id="hold"]'); if (hb && P.feet === 'hold' && !P.clinch && !hb.querySelector('.n')) hb.insertAdjacentHTML('beforeend', `<span class="n">${P.ord.length + 1}</span>`); }   /* S569: Stay put carries the number of its strip slot, like every picked card */
     if (far.children.length) { const fb = document.createElement('details'); fb.id = 'farbox'; fb.open = farOpen; fb.innerHTML = `<summary>Doesn't reach (${far.children.length})</summary>`; fb.appendChild(far); fb.ontoggle = () => { farOpen = fb.open; }; brd.appendChild(fb); } }
   function init() { const plan0 = plan; plan = function () { plan0(); lay(); }; if (phase === 'plan') lay(); }
   if (document.readyState === 'complete') init(); else addEventListener('load', init);
