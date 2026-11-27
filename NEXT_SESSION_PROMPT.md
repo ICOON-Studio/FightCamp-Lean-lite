@@ -14,9 +14,9 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
    v4=1 pa=<fighter> pb=<fighter>`; Claude plays with scratchpad oct.sh-style seal / wait / show. Report the means
    against FUN 8 / DEPTH 7 (v3 was 7.0 / 7.25). The counter that answers nothing costs 2 STAYS (owner: "this stays of
    course its very good even better i think than what mmc does").
-2. WORKERS: KICKFIX6 (tab c2) and RULES569 were PAUSED while he played - their node runs are SUSPENDED: resume with
-   `powershell -File ops/Tools/proc_pause.ps1 -Id <pid> -Action resume` for 63064, 6436, 60420 (check they still exist),
-   or relaunch from ops/research/TASK_KICKFIX6.md / TASK_RULES569.md. BUILD1 (tab c1) was on its round-3 probe.
+2. WORKERS: KICKFIX6 and RULES569 were STOPPED at the end of S570 to free memory (owner: "Yes, free it" while he played):
+   relaunch both from ops/research/TASK_KICKFIX6.md and TASK_RULES569.md (their committed results show where they were).
+   BUILD1 (tab c1) was on its round-3 probe - collect it.
 3. LAYERS phase 1 (docs/LAYERS0_RESULT.md): every family re-rendered with `layers=1` masks, one render at a time, to a
    seat; his look at http://127.0.0.1:8797/order.html?layers=1 first.
 4. Queue: TYPES1 (his four card types inside Puncher's chance), MMCPLAY1, LONG3 (Arena, Browser 2).

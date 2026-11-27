@@ -4,14 +4,14 @@
  "runs": {
   "RULES569": {
    "id": "RULES569",
-   "status": "waiting",
+   "status": "done",
    "seat": "claude",
    "agent": "Fable 5.2 console worker (PC, tab c11)",
    "started": "2026-11-27T16:25",
    "eta": "6-10 h",
    "title": "His rule ideas measured: the exchange that gets dearer first, then one Guard action, the power switch, bars that affect each other (health caps stamina), combined moves",
    "brief": "ops/research/TASK_RULES569.md",
-   "note": "owner S569 | S570: PAUSED while the owner played (node runs suspended: resume with proc_pause.ps1)"
+   "note": "owner S569 | S570: PAUSED while the owner played (node runs suspended: resume with proc_pause.ps1) | STOPPED end of S570 to free memory (owner: 'Yes, free it'); relaunch S571"
   },
   "BUILD1": {
    "id": "BUILD1",
@@ -26,14 +26,14 @@
   },
   "KICKFIX6": {
    "id": "KICKFIX6",
-   "status": "waiting",
+   "status": "done",
    "seat": "claude",
    "agent": "Opus 5.5 console worker (PC, tab c2)",
    "started": "2026-11-27T19:50",
    "eta": "3-5 h",
    "title": "The kicks measured on the rebuilt kick page (it now has the feint fix): the control + F6, the winner onto the page",
    "brief": "ops/research/TASK_KICKFIX6.md",
-   "note": "S570, ONERULES1 step 3 | S570: PAUSED while the owner played (node runs suspended: resume with proc_pause.ps1)"
+   "note": "S570, ONERULES1 step 3 | S570: PAUSED while the owner played (node runs suspended: resume with proc_pause.ps1) | STOPPED end of S570 to free memory (owner: 'Yes, free it'); relaunch S571"
   }
  },
  "codex_budget": {
