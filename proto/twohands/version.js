@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.569.9', date: '2026-11-27', items: [
+    'The strip shows each moment as a picture: under its big word (FEINT, PUNCH, STAY PUT, GUARD...) your boxer does that move on a loop. What each hand and the feet do in that moment is in the tooltip.'] },
+  { v: '0.569.8', date: '2026-11-27', items: [
+    'The guard switches are picture cards too: one row of four - Lead high, Lead low, Rear high, Rear low - each showing your boxer holding that guard, with what it stops under it.'] },
   { v: '0.569.7', date: '2026-11-27', items: [
     'Your hand is picture cards: each card loops its move with your boxer alone (the other man cut away), small enough that every card fits - the ones that do not reach from here are dimmed at the end. The cost is on the top corner, the damage on the picture, the reach under the name. Point at a card for its words; the moving picture is the card itself now.'] },
   { v: '0.569.6', date: '2026-11-27', items: [

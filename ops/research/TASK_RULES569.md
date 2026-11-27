@@ -24,7 +24,13 @@ ops/research/WORKER_S566.md (commit by pathspec, no questions, watchdog before e
    damage through; low health -> stamina comes back slower; no ground left (on the ropes) -> no back off and the guard
    costs more. At most four links. Each shown on the page where the bar is (a tooltip line on the gauge: "low: your
    punches do -1").
-Versions: R1 = 1 alone; R2 = 1+2; R3 = 1+2+3. Stop at the first that fails its trial and say which idea broke it.
+4. COMBINED MOVES (owner S569: "would combining animations would be nice idea ?" / "drag one ontop of another to
+   create the blend of them"): dropping one card on another makes ONE move in ONE moment - the step-in jab, the pull
+   counter (back off + hook), the feint-and-cross - with its own cost and effect (cheaper than the two apart? harder to
+   read? say why). At most four combinations, each a real boxing combination (Mixed Martial Cards' Combo cards are the
+   reference). Each needs its own frame run (a render, not a blend of two runs): list them for the render queue; the
+   probe can run on the rules with the nearer single run as a stand-in picture.
+Versions: R1 = 1 alone; R2 = 1+2; R3 = 1+2+3; R4 = R3 + 4 (only if R3 holds its bars). Stop at the first that fails its trial and say which idea broke it.
 
 ## Do
 1. Tweaks ops/research/s558_balance/rules569_r1.json (r2, r3), `src` pairs exact text; a toy page proto/twohands/rules.html

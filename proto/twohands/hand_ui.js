@@ -47,7 +47,8 @@
      exist, the picture is cropped on blue (img/anim/card_crop.json, tools/card_crop.py) and fades out before the other man. */
   let CROP = {}; fetch('img/anim/card_crop.json').then((r) => r.json()).then((j) => { CROP = j || {}; }).catch(() => {});
   const pcss = document.createElement('style');
-  pcss.textContent = '#handgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.22rem}#handgrid>#cards,#handgrid>#farcards{display:contents!important}#farcards .sw.pc{border-style:dashed}' +
+  pcss.textContent = '#guardbar.pcg{grid-template-columns:repeat(4,1fr)!important;gap:.22rem!important}#guardbar.pcg .sw.pc{height:5.5rem!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:stretch!important;padding:0!important;overflow:hidden;position:relative}#guardbar.pcg .sw.pc .cpic{align-self:stretch;width:100%;flex:none}#guardbar.pcg .sw.pc b{display:block!important;text-align:left;font-size:.66rem!important;padding:.08rem .25rem 0!important}#guardbar.pcg .sw.pc b small{font-size:.56rem!important;line-height:1.05;white-space:normal}' +
+    '#handgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.22rem}#handgrid>#cards,#handgrid>#farcards{display:contents!important}#farcards .sw.pc{border-style:dashed}' +
     '#cards .sw.pc,#farcards .sw.pc{display:flex!important;flex-direction:column;align-items:stretch;padding:0!important;min-height:0!important;height:4.85rem;border-radius:.45rem;overflow:hidden;position:relative}.sw.pc>*:not(.cpic):not(b):not(.c):not(.rg):not(.n){display:none!important}' +
     '.sw.pc .cpic{position:relative;height:3.25rem;overflow:hidden;background:radial-gradient(ellipse at 45% 65%,#2b3550,#15161b)}' +
     '.sw.pc .cpic canvas{position:absolute;pointer-events:none}' +
@@ -60,6 +61,7 @@
   const first = (...ns) => ns.find(has) || '';
   function runFor(b) { const g = b.dataset.g, id = b.dataset.id, r = typeof range === 'number' ? range : 3;
     if (g === 'clinch') return first('blue_clinch');
+    if (id === 'high' || id === 'low') return first(`blue_${g}_${id}_bob${suf(r)}`, `blue_${g}_${id}${suf(r)}`, `blue_${g}_${id}`);   /* S569 (owner: "why this is not a animated card , you have the poses ?"): the guard switches are picture cards too */
     if (g === 'feet') { if (id === 'in' || id === 'slipin') { const k = id === 'in' ? 'step_in' : 'slip_in'; return r > 1 ? first(`blue_${k}_r${r - 1}`) : first(`blue_${k}_r2`); }
       if (id === 'back') return first(r === 3 ? 'blue_back_off' : `blue_back_off_r${r + 1}`); if (id === 'hold') return first(`blue_guard_bob${suf(r)}`, `blue_guard${suf(r)}`); return ''; }
     if (id === 'feint') return first(`blue_feint${suf(r)}`, 'blue_feint'); if (id === 'push') return first('blue_push');
@@ -82,16 +84,24 @@
     im.src = 'img/anim/' + file; return cv; }
   const loops = [];
   function picCards() { loops.length = 0;
-    for (const b of document.querySelectorAll('#cards .sw, #farcards .sw')) { const run = runFor(b); if (!run) continue;
+    for (const b of document.querySelectorAll('#cards .sw, #farcards .sw, #guardbar .sw')) { const run = runFor(b); if (!run) continue;
       b.classList.add('pc'); let box = b.querySelector('.cpic');
       if (!box) { box = document.createElement('div'); box.className = 'cpic'; b.prepend(box); }
       const R = ANIM[run], c = CROP[run] || [300, 200, 480], fw = c[2] || 480, k = S * 480 / fw, W = b.clientWidth || 98;
       for (const f of R.files) blueOnly(f, c[0], k);
       loops.push({ box, R, c, k, W, i: 0, next: 0 }); } }
-  setInterval(() => { const now = performance.now(); for (const L of loops) { if (now < L.next) continue; const n = L.R.files.length, cv = blueOnly(L.R.files[L.i], L.c[0], L.k);
-      if (cv.dataset.ok) { if (L.box.firstChild !== cv) { L.box.replaceChildren(cv); } cv.style.left = Math.round(L.W * 0.26 - ((L.c[2] || 480) - L.c[0]) * L.k) + 'px'; cv.style.top = Math.round(3 - 84 * L.k) + 'px'; }
+  /* S569 (owner: "make animations show here too instead of buttons", on the strip): any page part can loop a run in a box */
+  const extra = [];
+  window.cardAnim = { run: (g, id) => runFor({ dataset: { g, id } }),
+    attach(box, run, pos) { if (!run || !has(run)) return false; const R = ANIM[run], c = CROP[run] || [300, 200, 480], k = S * 480 / (c[2] || 480);
+      for (const f of R.files) blueOnly(f, c[0], k); extra.push({ box, R, c, k, W: box.clientWidth || 100, pos: pos || 0.45, i: 0, next: 0 }); return true; } };
+  setInterval(() => { const now = performance.now(); for (let j = extra.length - 1; j >= 0; j--) if (!extra[j].box.isConnected) extra.splice(j, 1);
+    for (const L of loops.concat(extra)) { if (now < L.next) continue; const n = L.R.files.length, cv = blueOnly(L.R.files[L.i], L.c[0], L.k);
+      if (cv.dataset.ok) { if (L.box.firstChild !== cv) { L.box.replaceChildren(cv); L.W = L.box.clientWidth || L.W; } cv.style.left = Math.round(L.W * (L.pos || 0.26) - ((L.c[2] || 480) - L.c[0]) * L.k) + 'px'; cv.style.top = Math.round(3 - 84 * L.k) + 'px'; }
       const w = L.i + 1 < n ? Math.max(60, Math.min(260, (L.R.offs ? L.R.offs[L.i + 1] - L.R.offs[L.i] : 0.08) * 1000)) : 650; L.i = (L.i + 1) % n; L.next = now + w; } }, 40);
   const lay0 = lay; lay = function () { lay0(); const fb = document.getElementById('farbox');
+    { const gb = document.getElementById('guardbar'); if (gb) { gb.classList.add('pcg'); for (const l of gb.querySelectorAll('.gl')) l.remove();
+        for (const b of gb.querySelectorAll('.sw')) { const t = b.querySelector('b'), sm = t && t.querySelector('small'); if (t) t.innerHTML = `${b.dataset.g === 'lead' ? 'Lead' : 'Rear'} ${b.dataset.id === 'high' ? 'high' : 'low'}<small>${sm ? sm.textContent : ''}</small>`; } } }   /* one row of four guard cards: Lead high, Lead low, Rear high, Rear low */
     { const cards = document.getElementById('cards'); if (cards) { const g = document.createElement('div'); g.id = 'handgrid'; cards.before(g); g.appendChild(cards); if (fb) { const far = fb.querySelector('#farcards'); fb.remove(); if (far) g.appendChild(far); } } }   /* all cards in ONE grid, small: no fold; the ones that do not reach here are dimmed at the end */
     picCards(); if (!Object.keys(CROP).length || !has('blue_guard')) setTimeout(() => { if (phase === 'plan') picCards(); }, 900); };
   window.picCardState = () => [...document.querySelectorAll('.sw.pc')].map((b) => b.dataset.g + ':' + b.dataset.id + '=' + (b.querySelector('.cpic canvas') ? 'canvas' : 'none'));   /* read by the browser check */

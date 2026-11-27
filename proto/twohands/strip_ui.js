@@ -18,6 +18,7 @@
     '#strip .slot .no{position:absolute;left:.45rem;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:700;color:var(--muted);opacity:.7}' +
     '#strip .slot.full{border:1px solid var(--gold);background:#2a2116;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}#strip .slot.full .no{color:var(--gold);opacity:1}' +
     '#strip .slot.wait{border:1px dashed var(--gold);background:none}' +
+    '#strip .slot.anim .ln3,#strip .slot.anim .ln3x{display:none}#strip .slot .cpic{position:relative;height:3.3rem;overflow:hidden;border-radius:.35rem;background:radial-gradient(ellipse at 50% 65%,#2b3550,#15161b)}#strip .slot .cpic canvas{position:absolute;pointer-events:none}' +
     '#strip .vb{font-size:1.02rem;font-weight:800;letter-spacing:.07em;line-height:1.1;white-space:nowrap}#strip .vb small{font-size:.74rem;font-weight:600;letter-spacing:0;color:#e8dcc6}' +
     '#strip .slot b{font-size:1rem}#strip .slot i{font-style:normal;color:var(--muted)}#strip .slot .ok{color:#bfe6c3}#strip .slot .no2{color:#ffb3ad}' +
     '#strip .slot.empty{color:var(--muted)}' +
@@ -104,6 +105,13 @@
       return `<div class="slot full${m.sl === 'wait' ? ' wait' : ''}" data-sl="${m.sl}" data-tip="${tip}"><span class="no">${i + 1}</span>${lanes(i, m)}</div>`; }).join('');
     el.innerHTML += hisSide(false);
     lines.insertBefore(el, lines.firstChild);
+    /* S569 (owner: "make animations show here too instead of buttons"): each moment shows your boxer doing it - the same
+       looping picture as its card (hand_ui.js cardAnim) - under its big word; the limb rows move into the tooltip */
+    if (window.cardAnim) [...el.querySelectorAll('.slot')].forEach((sl, i) => { const m = ms[i], who = sl.dataset.sl;
+      const run = who === 'lead' || who === 'rear' ? cardAnim.run(who, P[who]) : who === 'feet' ? cardAnim.run('feet', P.feet === 'hold' || sl.classList.contains('hold') ? 'hold' : P.feet) : cardAnim.run('feet', 'hold');
+      const NL = String.fromCharCode(10), rows = [...sl.querySelectorAll('.ln3, .ln3x')].map((r) => r.innerText.replace(/\s+/g, ' ').trim()).join(NL);
+      if (!run) return; const box = document.createElement('div'); box.className = 'cpic'; const vb = sl.querySelector('.vb'); (vb || sl.firstChild).after(box);
+      sl.classList.add('anim'); sl.dataset.tip = (sl.dataset.tip ? sl.dataset.tip + NL : '') + rows; requestAnimationFrame(() => cardAnim.attach(box, run, 0.5)); });
     mark();
     for (const c of lines.querySelectorAll(':scope > .ln.open')) if (/open in moment \d/.test(c.textContent)) c.remove();   /* each card says what its own moment leaves open: the chips keep what is open or covered the whole beat */
     const cards = [...el.querySelectorAll('.slot.full:not(.hold)')], slots = [...el.querySelectorAll('.slot')];
