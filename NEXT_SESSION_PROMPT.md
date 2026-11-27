@@ -1,3 +1,32 @@
+# S569 handover (written 2026-11-27, S568 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S568_DIGEST.md`.
+
+## S569: DO THESE FIRST
+1. COLLECT the two Arena runs still going at the handover: FEINTFIX2 (arena/95892a39: G1 'the feinting hand does not guard'
+   is HIS correction - it goes on order.html if it holds the bars; then the best of G2 / G3 / G12 on top if it fixes the
+   loop) and KICKFIX4 (arena/b9de29e2). Arm `python -u ops/Tools/arena_watch.py 180 FEINTFIX2=95892a39 KICKFIX4=b9de29e2:docs/KICKFIX4_RESULT_ARENA.md`.
+   KICKFIX4's result page still carries the S567 PC worker's BLOCKED line: judge it by its pull request / commits.
+2. RESTART FOUR SERVICES in terminal tabs (they die with the session): page server `python proto/cardgame/serve.py 8797 twohands`,
+   the gate `powershell -NoProfile -ExecutionPolicy Bypass -File proto/twohands/site/run_gate.ps1`, the match server
+   `node proto\twohands\site\match_server.mjs`, and GEMMA `node proto\twohands\site\match_llm_bot.mjs` (the local AI he plays).
+3. HIS ANSWERS (ask the ones still open, short): his play of the hand of cards + lanes (v0.568.9-11); head moves onto the
+   main page (measured first) or drop the Head row; Q-345 tells (cut / try once more); the public push of v0.568.1-11
+   (ASK FIRST, a push cuts bouts); COUNTERS round two (the worker's fixes) or park; keep three moments or work on one
+   action (ONEACT1 said: a toy for the pace); the 1.9 GB AMD usage log on C: (his file; C: AMBER).
+4. Then LONG3 after the feint fix; INSIDE1 Phase 2 when his game is closed.
+
+## Rules learned in S568 (also in memory)
+- A local model is a real-time player only with think=false and num_ctx 8192 (Ollama's default context here is 262,144:
+  20 s a beat). It holds ~9.5 GB loaded: the watchdog went RED on memory - load it only during bouts.
+- Python heredocs eat backslashes: a `\b` became a backspace byte in ring_ui.js, `\n` a real line break. Patch scripts go
+  in a file (Write tool), or use the Edit tool; check with `od -c` when a regex is involved.
+- "Nothing appears" from him = the change is too small to see, not a cache: make the choice plain (its own row, its own
+  words), check it with real clicks in the browser and a full-size still before saying it is fixed.
+- A terminal tab's prompt line after a worker ends is a suggestion, never his words.
+
+# (below: the S568 handover as S567 wrote it)
+
 # S568 handover (written 2026-11-27, S567 - Fable 5.2)
 
 Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S567_DIGEST.md` (both parts).
