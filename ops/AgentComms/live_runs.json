@@ -6,12 +6,34 @@
    "id": "KICKFIX5",
    "status": "running",
    "seat": "claude",
-   "agent": "Fable 5.2 console worker (PC, tab c5)",
+   "agent": "Fable 5.2 console worker (PC, tab c6)",
    "started": "2026-11-27T11:55",
    "eta": "today",
    "title": "Kicks balance finished today: F4 (the teep covers the lead leg), up to three more fixes, then the winner on kick.html",
    "brief": "ops/research/TASK_KICKFIX5.md",
-   "note": "owner S569: 'put a fable console for kicks i want it finished today'"
+   "note": "owner S569: 'put a fable console for kicks i want it finished today'; stopped for memory with ArcheAge open, resumed 13:25 after he closed it"
+  },
+  "COUNTERS2": {
+   "id": "COUNTERS2",
+   "status": "running",
+   "seat": "claude",
+   "agent": "Opus 5.5 console worker (PC, tab c7)",
+   "started": "2026-11-27T13:25",
+   "eta": "3-5 h",
+   "title": "The check hook, round two: a high lead hand on the step in answers it",
+   "brief": "ops/research/TASK_COUNTERS2.md",
+   "note": "owner S569: 'Second round'"
+  },
+  "RECOIL1": {
+   "id": "RECOIL1",
+   "status": "running",
+   "seat": "claude",
+   "agent": "Opus 5.5 console worker (PC, tab c8)",
+   "started": "2026-11-27T13:26",
+   "eta": "3-5 h",
+   "title": "Re-render the punch runs so the man who is hit, blocks or dodges ends on his spot (no snap after a punch)",
+   "brief": "ops/research/TASK_RECOIL1.md",
+   "note": "owner S569: 'the fighter get displaced without moving'"
   }
  },
  "codex_budget": {
