@@ -1,0 +1,105 @@
+Dola v Ziva, seed 33
+--- round 1, beat 1, at Long
+Dola: 1 Jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 2, at Long
+Dola: 1 Jab - rear hand low
+Ziva: 1 Jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Ziva: Jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 3, at Long
+Dola: 1 Body jab - rear hand high
+Ziva: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Mid - Ziva steps in
+  moment 1 Dola: Body jab - lands (Ziva's lead hand was held high): -1 health, 1 point
+  moment 2 Ziva: feints - the next punch cannot be covered
+  moment 3 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 1, beat 4, at Mid
+Dola: 1 Back off, 2 Lead hook - rear hand high
+Ziva: 1 Feint, 2 Cross
+  moment 1 : Mid to Long - Dola back off
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 2 Dola: Lead hook - falls short at Long
+  moment 2 Ziva: Cross - falls short at Long
+--- round 1, beat 5, at Long
+Dola: 1 Jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 6, at Long
+Dola: 1 Body jab - rear hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Body jab): -1 health, 1 point
+BELL. The judges give the round Dola 9 - 10 Ziva.
+--- round 2, beat 1, at Long
+Dola: 1 Feint - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: feints - the next punch cannot be covered
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Feint): -1 health, 1 point
+--- round 2, beat 2, at Long
+Dola: 1 Jab - rear hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 2, beat 3, at Long
+Dola: 1 Feint - rear hand low
+Ziva: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Mid - Ziva steps in
+  moment 1 Dola: feints - the next punch cannot be covered
+  moment 2 Ziva: feints - the next punch cannot be covered
+  moment 3 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 2, beat 4, at Mid
+Dola: 1 Back off, 2 Lead hook - rear hand high
+Ziva: 1 Cross, 2 Lead hook
+  moment 1 : Mid to Long - Dola back off
+  moment 1 Ziva: Cross - falls short at Long
+  moment 2 Dola: Lead hook - falls short at Long
+  moment 2 Ziva: Lead hook - falls short at Long
+--- round 2, beat 5, at Long
+Dola: 1 Jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 2, beat 6, at Long
+Dola: 1 Body jab - rear hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Body jab): -1 health, 1 point
+BELL. The judges give the round Dola 9 - 10 Ziva.
+--- round 3, beat 1, at Long
+Dola: 1 Jab - rear hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 3, beat 2, at Long
+Dola: 1 Jab - rear hand low
+Ziva: 1 Step in, 2 Lead hook - rear hand high
+  moment 1 : Long to Mid - Ziva steps in
+  moment 1 Dola: Jab - blocked: Ziva's lead hand was still up (its Lead hook comes in moment 2)
+  moment 2 Ziva: Lead hook - lands as a counter (Dola's rear hand was held low): -4 health, 2 points
+  Dola GOES DOWN and gets up on 6 health.
+--- round 3, beat 3, at Mid
+Dola: 1 Back off - lead hand high, rear hand low
+Ziva: 1 Lead hook - rear hand high
+  moment 1 : Mid to Long - Dola back off
+  moment 1 Ziva: Lead hook - falls short at Long
+--- round 3, beat 4, at Long
+Dola: 1 Jab - rear hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 3, beat 5, at Long
+Dola: 1 Jab - rear hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 3, beat 6, at Long
+Dola: 1 Jab - rear hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 Dola: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+BELL. The judges give the round Dola 8 - 10 Ziva.
+Ziva WINS on the cards 30-26

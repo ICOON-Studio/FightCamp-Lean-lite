@@ -1,0 +1,90 @@
+Maria v Claude, seed 30
+--- round 1, beat 1, at Long
+Maria: no action - lead hand high, rear hand high
+Claude: 1 Step in, 2 Body cross - lead hand high
+  moment 1 : Long to Mid - Claude steps in
+  moment 2 Claude: Body cross - lands (Maria's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 2, at Mid
+Maria: 1 Cross - lead hand low
+Claude: 1 Body hook, 2 Cross
+  moment 1 Maria: Cross - lands (Claude's lead hand was out, throwing its Body hook): -3 health, 2 points
+  moment 1 Claude: Body hook - blocked by Maria's lead hand, held low
+  moment 2 Claude: Cross - lands (Maria's lead hand was held low): -3 health, 2 points
+--- round 1, beat 3, at Mid
+Maria: 1 Body cross - lead hand high
+Claude: 1 Lead hook - rear hand high
+  moment 1 Claude: Lead hook - lands (Maria's rear hand was out, throwing its Body cross): -3 health, 2 points
+  moment 1 Maria: Body cross - beaten to the punch: Claude's Lead hook is faster, landed first and stopped it
+--- round 1, beat 4, at Mid
+Maria: 1 Lead hook - rear hand high
+Claude: 1 Lead hook - rear hand high
+  moment 1 Maria: Lead hook - blocked by Claude's rear hand, held high
+  moment 1 Claude: Lead hook - blocked by Maria's rear hand, held high
+--- round 1, beat 5, at Mid
+Maria: 1 Body hook - rear hand high
+Claude: 1 Body hook - rear hand high
+  moment 1 Maria: Body hook - lands (Claude's lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 1 Claude: Body hook - lands (Maria's lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 6 for the rest of the bout
+--- round 1, beat 6, at Mid
+Maria: no action - lead hand low, rear hand high
+Claude: no action - lead hand low, rear hand high
+  : Nothing thrown - both men wait
+BELL. The judges give the round Maria 9 - 10 Claude.
+--- round 2, beat 1, at Long
+Maria: no action - lead hand low, rear hand high
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Long to Mid - Claude steps in
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands (the feint drew Claude's hand): -4 health, 2 points
+--- round 2, beat 2, at Mid
+Maria: 1 Lead hook - rear hand high
+Claude: 1 Jab, 2 Cross
+  moment 1 Maria: Lead hook - blocked: Claude's rear hand was still up (its Cross comes in moment 2)
+  moment 1 Claude: Jab - lands (Maria's lead hand was out, throwing its Lead hook): -1 health, 1 point
+  moment 2 Claude: Cross - blocked: Maria's lead hand was back up (its Lead hook was moment 1)
+--- round 2, beat 3, at Mid
+Maria: 1 Lead hook, 2 Cross
+Claude: no action - lead hand low, rear hand high
+  moment 1 Maria: Lead hook - blocked by Claude's rear hand, held high
+  moment 2 Maria: Cross - lands (Claude's lead hand was held low): -3 health, 2 points
+--- round 2, beat 4, at Mid
+Maria: 1 Jab - rear hand high
+Claude: 1 Feint, 2 Cross
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 Maria: Jab - lands (Claude's lead hand was out, throwing its Feint): -1 health, 1 point
+  moment 2 Claude: Cross - lands (the feint drew Claude's hand): -3 health, 2 points
+  Maria GOES DOWN and gets up on 6 health.
+--- round 2, beat 5, at Mid
+Maria: 1 Back off, 2 Body jab - rear hand high
+Claude: no action - lead hand high, rear hand high
+  moment 1 : Mid to Long - Maria back off
+  moment 2 Maria: Body jab - lands - off the pull, +1 (Claude's lead hand was held high): -2 health, 1 point
+--- round 2, beat 6, at Long
+Maria: 1 Body jab - rear hand high
+Claude: 1 Step in, 2 Feint, 3 Overhand
+  moment 1 : Long to Mid - Claude steps in
+  moment 1 Maria: Body jab - lands (Claude's lead hand was held high): -1 health, 1 point
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 3 Claude: Overhand - lands (the feint drew Claude's hand): -4 health, 2 points
+BELL. The judges give the round Maria 8 - 10 Claude.
+--- round 3, beat 1, at Long
+Maria: 1 Back off, 2 Body jab - rear hand high
+Claude: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Mid - Maria back off, Claude steps in and cuts Maria off
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 2 Maria: Body jab - lands (Claude's lead hand was out, throwing its Feint): -1 health, 1 point
+  moment 3 Claude: Cross - lands (the feint drew Claude's hand): -3 health, 2 points
+  Maria GOES DOWN and gets up on 4 health.
+--- round 3, beat 2, at Mid
+Maria: 1 Lead hook, 2 Cross
+Claude: 1 Step in, 2 Body cross - lead hand low
+  moment 1 : Mid to Inside - Claude steps in
+  moment 1 Maria: Lead hook - blocked: Claude's rear hand was still up (its Body cross comes in moment 2)
+  moment 2 Maria: Cross - lands (Claude's lead hand was held low): -3 health, 2 points
+  moment 2 Claude: Body cross - lands as a counter (Maria's lead hand was held high): -3 health, 1 point, stamina bar 5 for the rest of the bout
+--- round 3, beat 3, at Inside
+Maria: 1 Lead hook - rear hand high
+Claude: 1 Lead uppercut - rear hand high
+  moment 1 Maria: Lead hook - blocked by Claude's rear hand, held high
+  moment 1 Claude: Lead uppercut - lands as a counter (Maria's rear hand was held high): -4 health, 2 points
+Claude WINS - the referee stops it

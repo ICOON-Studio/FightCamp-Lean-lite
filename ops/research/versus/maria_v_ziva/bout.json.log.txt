@@ -1,0 +1,107 @@
+Maria v Ziva, seed 31
+--- round 1, beat 1, at Long
+Maria: 1 Jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Maria: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Maria's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 2, at Long
+Maria: 1 Step in, 2 Cross - lead hand low
+Ziva: 1 Jab - rear hand high
+  moment 1 : Long to Mid - Maria step in
+  moment 1 Ziva: Jab - lands (Maria's lead hand was held low): -1 health, 1 point
+  moment 2 Maria: Cross - blocked: Ziva's lead hand was back up (its Jab was moment 1)
+--- round 1, beat 3, at Mid
+Maria: 1 Lead hook - rear hand high
+Ziva: 1 Cross - lead hand high
+  moment 1 Maria: Lead hook - lands (Ziva's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 Ziva: Cross - beaten to the punch: Maria's Lead hook is faster, landed first and stopped it
+--- round 1, beat 4, at Mid
+Maria: 1 Feint, 2 Cross
+Ziva: 1 Feint, 2 Cross
+  moment 1 Maria: feints - the next punch cannot be covered
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 2 Maria: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+  moment 2 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 1, beat 5, at Mid
+Maria: 1 Back off, 2 Body jab - rear hand high
+Ziva: 1 Step in, 2 Lead hook - rear hand high
+  moment 1 : Mid to Inside - Maria back off, Ziva steps in and cuts Maria off
+  moment 2 Maria: Body jab - smothered - too close at Inside
+  moment 2 Ziva: Lead hook - blocked by Maria's rear hand, held high
+--- round 1, beat 6, at Inside
+Maria: 1 Lead uppercut - rear hand high
+Ziva: 1 Lead uppercut - rear hand high
+  moment 1 Maria: Lead uppercut - lands (Ziva's rear hand was held high): -3 health, 2 points
+  moment 1 Ziva: Lead uppercut - lands (Maria's rear hand was held high): -3 health, 2 points
+BELL. The judges give the round Maria 10 - 9 Ziva.
+--- round 2, beat 1, at Long
+Maria: 1 Body jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Maria: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Maria's lead hand was out, throwing its Body jab): -1 health, 1 point
+--- round 2, beat 2, at Long
+Maria: no action - lead hand low, rear hand high
+Ziva: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Mid - Ziva steps in
+  moment 2 Ziva: feints - the next punch cannot be covered
+  moment 3 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 2, beat 3, at Mid
+Maria: 1 Lead hook - rear hand high
+Ziva: 1 Step in, 2 Lead hook - rear hand high
+  moment 1 : Mid to Inside - Ziva steps in
+  moment 1 Maria: Lead hook - blocked by Ziva's rear hand, held high
+  moment 2 Ziva: Lead hook - blocked by Maria's rear hand, held high
+--- round 2, beat 4, at Inside
+Maria: 1 Lead uppercut - rear hand high
+Ziva: 1 Lead uppercut - rear hand high
+  moment 1 Maria: Lead uppercut - lands (Ziva's rear hand was held high): -3 health, 2 points
+  moment 1 Ziva: Lead uppercut - lands (Maria's rear hand was held high): -3 health, 2 points
+--- round 2, beat 5, at Inside
+Maria: 1 Lead uppercut - rear hand low
+Ziva: 1 Lead uppercut - rear hand low
+  moment 1 Maria: Lead uppercut - blocked by Ziva's rear hand, held low
+  moment 1 Ziva: Lead uppercut - blocked by Maria's rear hand, held low
+--- round 2, beat 6, at Inside
+Maria: 1 Lead hook - rear hand low
+Ziva: 1 Lead hook - rear hand low
+  moment 1 Maria: Lead hook - lands (Ziva's rear hand was held low): -3 health, 2 points
+  moment 1 Ziva: Lead hook - lands (Maria's rear hand was held low): -3 health, 2 points
+  Maria GOES DOWN and gets up on 6 health.
+BELL. The judges give the round Maria 8 - 10 Ziva.
+--- round 3, beat 1, at Long
+Maria: 1 Body jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Maria: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Maria's lead hand was out, throwing its Body jab): -1 health, 1 point
+  Ziva GOES DOWN and gets up on 6 health.
+--- round 3, beat 2, at Long
+Maria: 1 Back off - lead hand low, rear hand high
+Ziva: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Mid - Maria back off, Ziva steps in and cuts Maria off
+  moment 2 Ziva: feints - the next punch cannot be covered
+  moment 3 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 3, beat 3, at Mid
+Maria: 1 Lead hook - rear hand high
+Ziva: 1 Cross - lead hand high
+  moment 1 Maria: Lead hook - lands (Ziva's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 Ziva: Cross - beaten to the punch: Maria's Lead hook is faster, landed first and stopped it
+--- round 3, beat 4, at Mid
+Maria: 1 Lead hook - rear hand high
+Ziva: 1 Feint, 2 Cross
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 1 Maria: Lead hook - blocked: Ziva's rear hand was still up (its Cross comes in moment 2)
+  moment 2 Ziva: Cross - lands as a counter (the feint drew Ziva's hand): -4 health, 2 points
+  Maria GOES DOWN and gets up on 4 health.
+--- round 3, beat 5, at Mid
+Maria: 1 Feint, 2 Cross
+Ziva: 1 Feint, 2 Cross
+  moment 1 Maria: feints - the next punch cannot be covered
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 2 Maria: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+  moment 2 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+  Ziva GOES DOWN and gets up on 4 health.
+--- round 3, beat 6, at Mid
+Maria: 1 Cross - lead hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - lands (Maria's lead hand was held high): -1 health, 1 point
+Ziva WINS - the referee stops it

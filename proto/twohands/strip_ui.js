@@ -20,6 +20,11 @@
     '#strip .slot.wait{border:1px dashed var(--gold);background:none}' +
     '#strip .slot b{font-size:1rem}#strip .slot i{font-style:normal;color:var(--muted)}#strip .slot .ok{color:#bfe6c3}#strip .slot .no2{color:#ffb3ad}' +
     '#strip .slot.empty{color:var(--muted)}' +
+    /* S567, owner: "make the strip like rune colossieum , left side for left fighter and right side for the right fighter and the fill the slots when the beat is resolved time the actions for the result" */
+    '#strip .slot,#strip .hslot{width:11.6rem}#strip .hslot{position:relative;min-height:4.3rem;border-radius:.55rem;border:1px dashed var(--line2);padding:.3rem 2rem .35rem .55rem;display:flex;flex-direction:column;justify-content:center;gap:.08rem;font-size:.82rem;line-height:1.2;text-align:right;color:var(--muted)}' +
+    '#strip .hslot .no{position:absolute;right:.45rem;top:50%;transform:translateY(-50%);font-size:1.5rem;font-weight:700;color:var(--muted);opacity:.7}#strip .hslot b{font-size:1rem;color:#ffd0cb}#strip .hslot.shown{border:1px solid var(--red);background:#2a1614;color:#efe4d2}#strip .hslot.shown .no{color:var(--red);opacity:1}#strip .hslot.old{opacity:.5}' +
+    '#strip .hslot.playing,#strip .slot.now{border-color:#fff;box-shadow:0 0 .7rem rgba(255,255,255,.6)}#strip .vs{align-self:center;font-weight:800;letter-spacing:.1em;color:var(--muted);padding:0 .35rem;font-size:.8rem;text-align:center;line-height:1.2}#strip .hisrow{display:flex;flex-direction:row;gap:.45rem;align-items:stretch}#strip .res{font-weight:700}#strip .res.good{color:#bfe6c3}#strip .res.bad{color:#ffb3ad}#strip .res.flat{color:var(--muted)}' +
+    '#strip .slot.static{cursor:default}' +
     '.stops{display:block;font-weight:400;font-size:.78rem;color:#bfe6c3}' +
     '#strip .slot.drag{cursor:grabbing;z-index:3;opacity:.9;box-shadow:0 .3rem 1rem #000b}#strip .slot.gapL{box-shadow:-.3rem 0 0 var(--gold)}#strip .slot.gapR{box-shadow:.3rem 0 0 var(--gold)}' +
     '#strip .slot.playing{border-color:#7fe9ff;box-shadow:0 0 .7rem rgba(127,233,255,.75)}#strip .slot.playing .no{color:#7fe9ff}' +
@@ -45,6 +50,7 @@
       if (!m) return `<div class="slot empty"><span class="no">${i + 1}</span><i>${ms.length ? 'nothing' : i ? 'nothing' : 'both hands held, feet still'}</i></div>`;
       const tip = m.sl === 'wait' ? 'An empty moment before your step. Switch it off with the button beside the strip.' : `${NTH[i]} moment: ${m.name}. Drag the card to another slot to change when it happens (a click: one slot earlier).\nYour ${NTH[i]} moment meets his ${NTH[i]} moment.`;
       return `<div class="slot full${m.sl === 'wait' ? ' wait' : ''}" data-sl="${m.sl}" data-tip="${tip}"><span class="no">${i + 1}</span><b>${m.name}</b>${m.line}${m.open ? `<span class="no2">open: ${m.open.toLowerCase()}</span>` : ''}</div>`; }).join('');
+    el.innerHTML += hisSide(false);
     lines.insertBefore(el, lines.firstChild);
     for (const c of lines.querySelectorAll(':scope > .ln.open')) if (/open in moment \d/.test(c.textContent)) c.remove();   /* each card says what its own moment leaves open: the chips keep what is open or covered the whole beat */
     const cards = [...el.querySelectorAll('.slot.full')], slots = [...el.querySelectorAll('.slot')];
@@ -90,9 +96,26 @@
           const k = ev.type === 'pointerup' ? slotAt(ev.clientX, ev.clientY) : -1; if (k < 0) return plan(); const g = b.dataset.g, id = b.dataset.id; P.clinch = false; if (g === 'feet') P.feet = id; else P[g] = id;
           const o = ordOf(P).filter((sl) => sl !== g); o.splice(Math.min(k, o.length), 0, g); P.ord = o; plan(); if (window.bodyOverview) bodyOverview(); };
         addEventListener('pointermove', move); addEventListener('pointerup', end); addEventListener('pointercancel', end); }); } }
+  // ---- HIS SIDE of the strip, and the strip while a beat is fought
+  let lastHis = [], nowHis = [], mineNow = [];
+  const hisName = () => (typeof OPP !== 'undefined' && OPP ? OPP.n : 'him');
+  function hisSide(live) { const src = live ? nowHis : lastHis, tip = live ? '' : ` data-tip="His three moments. They stay hidden until the beat is fought: what you see here is what he did LAST beat."`;
+    return `<span class="vs">${live ? 'NOW' : 'VS'}</span><span class="hisrow"${tip}>` + [0, 1, 2].map((i) => `<div class="hslot${src[i] ? ' shown' + (live ? '' : ' old') : ''}" data-m="${i}"><span class="no">${i + 1}</span>${src[i] || (live ? '<i>?</i>' : `<i>${lastHis.length ? 'nothing' : '?'}</i>`)}</div>`).join('') + '</span>'; }
+  // the beat is being fought: your three moments stay (no dragging), his are hidden and fill as each moment plays
+  function playStrip() { const old = document.getElementById('strip'); if (old) old.remove(); if (P.clinch) return; const ms = moments(), el = document.createElement('div'); el.id = 'strip'; nowHis = []; mineNow = ms;
+    el.innerHTML = '<span class="hd">This beat</span>' + [0, 1, 2].map((i) => { const m = ms[i]; return m ? `<div class="slot full static" data-m="${i}"><span class="no">${i + 1}</span><b>${m.name}</b><span class="res flat">&hellip;</span></div>` : `<div class="slot empty" data-m="${i}"><span class="no">${i + 1}</span><i>nothing</i></div>`; }).join('') + hisSide(true);
+    lines.insertBefore(el, lines.firstChild); }
+  /* called by the page for every action of the beat: once when it starts (done = false: the slot lights and, for him, shows WHAT he does) and once when its result is known (done = true: lands, blocked, missed - at the moment the picture shows it) */
+  window.stripEvent = (e, done) => { const el = document.getElementById('strip'); if (!el || e.m == null) return; const m = e.m, punch = e.t === 'hit' || e.t === 'block' || e.t === 'miss';
+    const res = (mine) => (e.t === 'hit' ? `<span class="res ${mine ? 'good' : 'bad'}">lands &minus;${e.dmg}${e.down ? ' - DOWN' : ''}</span>` : e.t === 'block' ? `<span class="res ${mine ? 'bad' : 'good'}">blocked</span>` : e.t === 'miss' ? `<span class="res ${mine ? 'bad' : 'good'}">missed</span>` : `<span class="res flat">${e.t === 'range' ? e.a : (e.o || '').split(' - ')[0]}</span>`);
+    const sides = e.t === 'range' ? [/\byou\b/.test(e.o || '') ? 0 : -1, /\bhe\b/.test(e.o || '') ? 1 : -1].filter((k) => k >= 0) : e.k === 0 || e.k === 1 ? [e.k] : [];
+    for (const c of el.querySelectorAll('.now,.playing')) c.classList.remove('now', 'playing');
+    for (const k of sides) { if (k === 0) { const c = el.querySelector(`.slot[data-m="${m}"]`); if (!c) continue; c.classList.add('now'); if (done) { const r = c.querySelector('.res'); if (r) r.outerHTML = res(true); } }
+      else { const c = el.querySelector(`.hslot[data-m="${m}"]`); if (!c) continue; const name = e.t === 'range' ? (/he steps in/.test(e.o) ? 'Step in' : /he backs off/.test(e.o) ? 'Back off' : 'Moves') : punch || e.id ? e.a : (e.a || '').replace(/^./, (x) => x.toUpperCase());
+        nowHis[m] = `<b>${name}</b>${done ? res(false) : '<span class="res flat">&hellip;</span>'}`; c.className = 'hslot shown playing'; c.innerHTML = `<span class="no">${m + 1}</span>` + nowHis[m]; } } };
   const board1 = board, go2 = go;
-  board = function () { board1(); strip(); cardDrag(); };
-  go = function () { stop(); lastKey = ''; const el = document.getElementById('strip'); if (el) el.remove(); return go2(); };
+  board = function () { if (nowHis.length || mineNow.length) { lastHis = nowHis.map((h) => h && h.replace('&hellip;', '')); nowHis = []; mineNow = []; } board1(); strip(); cardDrag(); };
+  go = function () { stop(); lastKey = ''; if (!busy) playStrip(); return go2(); };   /* S567: the strip stays while the beat is fought */
   window.stripState = () => ({ slots: [...document.querySelectorAll('#strip .slot')].map((s) => s.textContent), playing, nowAt, ghost: (ghost.getAttribute('src') || '').split('/').pop(), on: ghost.classList.contains('on'), runs: phase === 'plan' && !P.clinch ? runsOf() : [] });   /* read by the browser check */
   if (typeof phase !== 'undefined' && phase === 'plan') strip();
 })();

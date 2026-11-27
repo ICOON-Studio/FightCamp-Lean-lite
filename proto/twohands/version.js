@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.567.9', date: '2026-11-27', items: [
+    'The strip under the ring has two sides now: your three moments on the left, his three on the right. His stay hidden until the beat is fought, then each one fills in as its moment plays, and every slot shows its result (lands, blocked, missed) at the instant the picture shows it. While you plan, his side shows what he did last beat, dimmed.' ] },
   { v: '0.567.8', date: '2026-11-27', items: [
     'Choosing a second move is clear now: after you pick a move the list of all your parts comes back, with the move in its row, so the next click is another hand or the feet. Each hand does one thing a beat, and the page says so.',
     'A move can be dragged from its list straight onto one of the three slots under the ring: it is chosen and put at that moment.',

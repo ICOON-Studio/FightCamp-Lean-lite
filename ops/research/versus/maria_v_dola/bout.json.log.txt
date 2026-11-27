@@ -1,0 +1,99 @@
+Maria v Dola, seed 30
+--- round 1, beat 1, at Long
+Maria: 1 Body jab - rear hand high
+Dola: 1 Jab - rear hand high
+  moment 1 Maria: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Dola: Jab - lands (Maria's lead hand was out, throwing its Body jab): -1 health, 1 point
+--- round 1, beat 2, at Long
+Maria: 1 Step in - lead hand high, rear hand high
+Dola: 1 Jab - rear hand low
+  moment 1 : Long to Mid - Maria step in
+  moment 1 Dola: Jab - blocked by Maria's lead hand, held high
+--- round 1, beat 3, at Mid
+Maria: 1 Body cross - lead hand high
+Dola: 1 Lead hook, 2 Cross
+  moment 1 Dola: Lead hook - lands (Maria's rear hand was out, throwing its Body cross): -3 health, 2 points
+  moment 1 Maria: Body cross - beaten to the punch: Dola's Lead hook is faster, landed first and stopped it
+  moment 2 Dola: Cross - blocked by Maria's lead hand, held high
+--- round 1, beat 4, at Mid
+Maria: 1 Lead hook - rear hand high
+Dola: 1 Body hook - rear hand high
+  moment 1 Maria: Lead hook - blocked by Dola's rear hand, held high
+  moment 1 Dola: Body hook - lands as a counter (Maria's lead hand was out, throwing its Lead hook): -3 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 5, at Mid
+Maria: 1 Cross - lead hand low
+Dola: 1 Cross - lead hand high
+  moment 1 Maria: Cross - blocked by Dola's lead hand, held high
+  moment 1 Dola: Cross - lands (Maria's lead hand was held low): -3 health, 2 points
+--- round 1, beat 6, at Mid
+Maria: 1 Back off - lead hand high, rear hand high
+Dola: 1 Body hook - rear hand high
+  moment 1 : Mid to Long - Maria back off
+  moment 1 Dola: Body hook - falls short at Long
+BELL. The judges give the round Maria 8 - 10 Dola.
+--- round 2, beat 1, at Long
+Maria: 1 Jab - rear hand high
+Dola: 1 Step in, 2 Jab - rear hand high
+  moment 1 : Long to Mid - Dola steps in
+  moment 1 Maria: Jab - blocked: Dola's lead hand was still up (its Jab comes in moment 2)
+  moment 2 Dola: Jab - blocked: Maria's lead hand was back up (its Jab was moment 1)
+--- round 2, beat 2, at Mid
+Maria: 1 Lead hook - rear hand high
+Dola: 1 Lead hook - rear hand high
+  moment 1 Maria: Lead hook - blocked by Dola's rear hand, held high
+  moment 1 Dola: Lead hook - blocked by Maria's rear hand, held high
+--- round 2, beat 3, at Mid
+Maria: 1 Cross - lead hand low
+Dola: 1 Cross - lead hand high
+  moment 1 Maria: Cross - blocked by Dola's lead hand, held high
+  moment 1 Dola: Cross - lands (Maria's lead hand was held low): -3 health, 2 points
+--- round 2, beat 4, at Mid
+Maria: 1 Body cross - lead hand high
+Dola: 1 Body hook - rear hand high
+  moment 1 Maria: Body cross - lands (Dola's lead hand was out, throwing its Body hook): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 1 Dola: Body hook - lands (Maria's lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+--- round 2, beat 5, at Mid
+Maria: 1 Back off, 2 Body jab - rear hand high
+Dola: 1 Lead uppercut - rear hand high
+  moment 1 : Mid to Long - Maria back off
+  moment 1 Dola: Lead uppercut - falls short at Long
+  moment 2 Maria: Body jab - lands as a counter - off the pull, +1 (Dola's lead hand was held high): -3 health, 1 point
+--- round 2, beat 6, at Long
+Maria: 1 Body jab - rear hand high
+Dola: 1 Jab - rear hand high
+  moment 1 Maria: Body jab - lands (Dola's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Dola: Jab - lands (Maria's lead hand was out, throwing its Body jab): -1 health, 1 point
+BELL. The judges give the round Maria 9 - 10 Dola.
+--- round 3, beat 1, at Long
+Maria: no action - lead hand high, rear hand high
+Dola: 1 Step in, 2 Jab - rear hand high
+  moment 1 : Long to Mid - Dola steps in
+  moment 2 Dola: Jab - blocked by Maria's lead hand, held high
+--- round 3, beat 2, at Mid
+Maria: 1 Back off, 2 Body jab - rear hand high
+Dola: 1 Lead uppercut - rear hand high
+  moment 1 : Mid to Long - Maria back off
+  moment 1 Dola: Lead uppercut - falls short at Long
+  moment 2 Maria: Body jab - lands as a counter - off the pull, +1 (Dola's lead hand was held high): -3 health, 1 point
+--- round 3, beat 3, at Long
+Maria: no action - lead hand high, rear hand high
+Dola: 1 Jab - rear hand low
+  moment 1 Dola: Jab - blocked by Maria's lead hand, held high
+--- round 3, beat 4, at Long
+Maria: no action - lead hand high, rear hand high
+Dola: 1 Step in, 2 Feint - rear hand low
+  moment 1 : Long to Mid - Dola steps in
+  moment 2 Dola: feints - the next punch cannot be covered
+--- round 3, beat 5, at Mid
+Maria: 1 Back off, 2 Body jab - rear hand high
+Dola: 1 Lead uppercut - rear hand high
+  moment 1 : Mid to Long - Maria back off
+  moment 1 Dola: Lead uppercut - falls short at Long
+  moment 2 Maria: Body jab - lands as a counter - off the pull, +1 (Dola's lead hand was held high): -3 health, 1 point
+--- round 3, beat 6, at Long
+Maria: no action - lead hand high, rear hand high
+Dola: 1 Step in, 2 Jab - rear hand low
+  moment 1 : Long to Mid - Dola steps in
+  moment 2 Dola: Jab - blocked by Maria's lead hand, held high
+BELL. The judges give the round Maria 10 - 9 Dola.
+Dola WINS on the cards 29-27

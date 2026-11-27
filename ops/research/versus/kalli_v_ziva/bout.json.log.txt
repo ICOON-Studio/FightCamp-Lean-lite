@@ -1,0 +1,101 @@
+Kalli v Ziva, seed 24
+--- round 1, beat 1, at Long
+Kalli: 1 Jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Kalli: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 2, at Long
+Kalli: no action - lead hand low, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - blocked by Kalli's lead hand, held low
+--- round 1, beat 3, at Long
+Kalli: 1 Jab - rear hand high
+Ziva: 1 Jab - rear hand high
+  moment 1 Kalli: Jab - lands (Ziva's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Ziva: Jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 4, at Long
+Kalli: 1 Step in - lead hand high, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 : Long to Mid - Kalli step in
+  moment 1 Ziva: Body jab - lands (Kalli's lead hand was held high): -1 health, 1 point
+--- round 1, beat 5, at Mid
+Kalli: 1 Cross - lead hand low
+Ziva: 1 Body cross - lead hand high
+  moment 1 Kalli: Cross - blocked by Ziva's lead hand, held high
+  moment 1 Ziva: Body cross - blocked by Kalli's lead hand, held low
+--- round 1, beat 6, at Mid
+Kalli: 1 Lead hook - rear hand low
+Ziva: 1 Cross - lead hand high
+  moment 1 Kalli: Lead hook - lands (Ziva's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 Ziva: Cross - beaten to the punch: Kalli's Lead hook is faster, landed first and stopped it
+BELL. The judges give the round Kalli 10 - 9 Ziva.
+--- round 2, beat 1, at Long
+Kalli: no action - lead hand low, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - blocked by Kalli's lead hand, held low
+--- round 2, beat 2, at Long
+Kalli: 1 Step in, 2 Lead hook - rear hand high
+Ziva: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Inside - Kalli step in, Ziva steps in
+  moment 2 Ziva: feints - the next punch cannot be covered
+  moment 2 Kalli: Lead hook - blocked: Ziva's rear hand was still up (its Cross comes in moment 3)
+  moment 3 Ziva: Cross - lands as a counter (the feint drew Ziva's hand): -4 health, 2 points
+--- round 2, beat 3, at Inside
+Kalli: 1 Lead hook, 2 Rear uppercut
+Ziva: 1 Feint, 2 Cross
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 1 Kalli: Lead hook - blocked: Ziva's rear hand was still up (its Cross comes in moment 2)
+  moment 2 Ziva: Cross - lands as a counter (the feint drew Ziva's hand): -4 health, 2 points
+  moment 2 Kalli: Rear uppercut - beaten to the punch: Ziva's Cross is faster, landed first and stopped it
+--- round 2, beat 4, at Inside
+Kalli: clinch
+Ziva: 1 Lead uppercut - rear hand high
+  Kalli: ties Ziva up - no punch lands - the referee breaks them at Mid, +2 stamina
+--- round 2, beat 5, at Mid
+Kalli: 1 Back off - lead hand high, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 : Mid to Long - Kalli back off
+  moment 1 Ziva: Body jab - lands (Kalli's lead hand was held high): -1 health, 1 point
+--- round 2, beat 6, at Long
+Kalli: no action - lead hand low, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - blocked by Kalli's lead hand, held low
+BELL. The judges give the round Kalli 8 - 10 Ziva.
+--- round 3, beat 1, at Long
+Kalli: 1 Step in, 2 Cross - lead hand low
+Ziva: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Inside - Kalli step in, Ziva steps in
+  moment 2 Ziva: feints - the next punch cannot be covered
+  moment 2 Kalli: Cross - lands (Ziva's lead hand was out, throwing its Feint): -3 health, 2 points
+  moment 3 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 3, beat 2, at Inside
+Kalli: clinch
+Ziva: 1 Push off, 2 Cross
+  Kalli: tries to clinch - shoved off
+  moment 1 Ziva: pushes off - a shove with the lead glove on Kalli's chest: Kalli are back at Mid
+  moment 2 Ziva: Cross - blocked by Kalli's lead hand, held high
+--- round 3, beat 3, at Mid
+Kalli: 1 Lead hook - rear hand high
+Ziva: 1 Feint, 2 Cross
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 1 Kalli: Lead hook - blocked: Ziva's rear hand was still up (its Cross comes in moment 2)
+  moment 2 Ziva: Cross - lands as a counter (the feint drew Ziva's hand): -4 health, 2 points
+  Kalli GOES DOWN and gets up on 6 health.
+--- round 3, beat 4, at Mid
+Kalli: 1 Body jab, 2 Body cross
+Ziva: 1 Body jab - rear hand high
+  moment 1 Kalli: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (Kalli's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 2 Kalli: Body cross - lands (Ziva's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 3, beat 5, at Mid
+Kalli: 1 Lead hook, 2 Body cross
+Ziva: 1 Cross - lead hand low
+  moment 1 Kalli: Lead hook - lands (Ziva's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 Ziva: Cross - beaten to the punch: Kalli's Lead hook is faster, landed first and stopped it
+  moment 2 Kalli: Body cross - blocked by Ziva's lead hand, held low
+--- round 3, beat 6, at Mid
+Kalli: 1 Lead hook - rear hand high
+Ziva: no action - lead hand high, rear hand high
+  moment 1 Kalli: Lead hook - blocked by Ziva's rear hand, held high
+BELL. The judges give the round Kalli 9 - 10 Ziva.
+Ziva WINS on the cards 29-27

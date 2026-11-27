@@ -30,7 +30,7 @@
   },
   "LONG1": {
    "id": "LONG1",
-   "status": "running",
+   "status": "landed",
    "seat": "arena",
    "agent": "Arena (cloud: costs your PC nothing)",
    "started": "2026-11-26T16:01",
@@ -38,7 +38,8 @@
    "title": "Long range is a corridor: a jab that stops a man stepping in, and a lead hand held high as a fence - both measured before anything is built",
    "brief": "ops/research/TASK_LONG1.md",
    "branch": "arena/cba93bd0-fightcamp-lean-lite",
-   "issue": "https://arena.ai/agent/01a21828-826b-7d4c-97e8-e175cba93bd0"
+   "issue": "https://arena.ai/agent/01a21828-826b-7d4c-97e8-e175cba93bd0",
+   "reconciled": "2026-11-27 02:40 board_reconcile: PR #472 open - collect it"
   },
   "LONG2": {
    "id": "LONG2",
@@ -414,13 +415,13 @@
  },
  "VERSUS1": {
   "id": "VERSUS1",
-  "status": "running",
+  "status": "landed",
   "seat": "kalli",
   "agent": "League runner + the Claude Opus player (two terminal tabs on your PC: light)",
   "started": "2026-11-26T23:40",
   "eta": "several hours (15 matches)",
   "title": "Your ask: the agents' league - Kalli, John, Maria, Antigravity, Dola and Claude (Opus) each fight every other once; the table is ops/research/versus/LEAGUE.md",
-  "note": "node ops/Tools/league.mjs run (resumable); table: node ops/Tools/league.mjs table"
+  "note": "S567: league finished, 15 bouts, six seats - Claude (Opus) 13 pts, Ziva 12, Dola 9, John 7, Maria 3, Kalli 0; mean verdict scores fun 7.4, depth 6.8, clarity 7.2, variety 6.0; every top seat names the feint as the broken plan"
  },
  "SHORTBEAT1": {
   "id": "SHORTBEAT1",

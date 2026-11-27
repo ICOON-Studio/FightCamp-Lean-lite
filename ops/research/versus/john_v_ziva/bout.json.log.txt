@@ -1,0 +1,99 @@
+John v Ziva, seed 28
+--- round 1, beat 1, at Long
+John: 1 Body jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 John: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (John's lead hand was out, throwing its Body jab): -1 health, 1 point
+--- round 1, beat 2, at Long
+John: no action - lead hand low, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - blocked by John's lead hand, held low
+--- round 1, beat 3, at Long
+John: 1 Step in - lead hand low, rear hand high
+Ziva: 1 Jab - rear hand high
+  moment 1 : Long to Mid - John step in
+  moment 1 Ziva: Jab - lands (John's lead hand was held low): -1 health, 1 point
+--- round 1, beat 4, at Mid
+John: 1 Feint, 2 Cross
+Ziva: 1 Cross - lead hand high
+  moment 1 John: feints - the next punch cannot be covered
+  moment 1 Ziva: Cross - lands (John's lead hand was out, throwing its Feint): -3 health, 2 points
+  moment 2 John: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 1, beat 5, at Mid
+John: 1 Cross - lead hand high
+Ziva: 1 Feint, 2 Cross
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 1 John: Cross - lands (Ziva's lead hand was out, throwing its Feint): -3 health, 2 points
+  moment 2 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 1, beat 6, at Mid
+John: 1 Lead hook, 2 Cross
+Ziva: 1 Feint, 2 Cross
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 1 John: Lead hook - blocked: Ziva's rear hand was still up (its Cross comes in moment 2)
+  moment 2 John: Cross - blocked: Ziva's lead hand was back up (its Feint was moment 1)
+  moment 2 Ziva: Cross - lands as a counter (the feint drew Ziva's hand): -4 health, 2 points
+BELL. The judges give the round John 9 - 10 Ziva.
+--- round 2, beat 1, at Long
+John: 1 Body jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 John: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (John's lead hand was out, throwing its Body jab): -1 health, 1 point
+--- round 2, beat 2, at Long
+John: no action - lead hand low, rear hand high
+Ziva: 1 Jab - rear hand high
+  moment 1 Ziva: Jab - lands (John's lead hand was held low): -1 health, 1 point
+--- round 2, beat 3, at Long
+John: 1 Jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 John: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (John's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 2, beat 4, at Long
+John: 1 Back off, 2 Body jab - rear hand high
+Ziva: 1 Jab - rear hand high
+  moment 1 : stays Long - John back off - already at Long, nowhere further
+  moment 1 Ziva: Jab - blocked: John's lead hand was still up (its Body jab comes in moment 2)
+  moment 2 John: Body jab - lands as a counter - off the pull, +1 (Ziva's lead hand was held high): -3 health, 1 point
+--- round 2, beat 5, at Long
+John: 1 Body jab - rear hand high
+Ziva: 1 Step in, 2 Feint, 3 Cross
+  moment 1 : Long to Mid - Ziva steps in
+  moment 1 John: Body jab - lands (Ziva's lead hand was held high): -1 health, 1 point
+  moment 2 Ziva: feints - the next punch cannot be covered
+  moment 3 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+  John GOES DOWN and gets up on 6 health.
+--- round 2, beat 6, at Mid
+John: 1 Feint, 2 Cross
+Ziva: no action - lead hand high, rear hand high
+  moment 1 John: feints - the next punch cannot be covered
+  moment 2 John: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+BELL. The judges give the round John 9 - 10 Ziva.
+--- round 3, beat 1, at Long
+John: 1 Body jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 John: Body jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (John's lead hand was out, throwing its Body jab): -1 health, 1 point
+--- round 3, beat 2, at Long
+John: 1 Jab - rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 John: Jab - lands (Ziva's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Ziva: Body jab - lands (John's lead hand was out, throwing its Jab): -1 health, 1 point
+  Ziva GOES DOWN and gets up on 6 health.
+--- round 3, beat 3, at Long
+John: no action - lead hand low, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - blocked by John's lead hand, held low
+--- round 3, beat 4, at Long
+John: no action - lead hand low, rear hand high
+Ziva: 1 Jab - rear hand high
+  moment 1 Ziva: Jab - lands (John's lead hand was held low): -1 health, 1 point
+--- round 3, beat 5, at Long
+John: 1 Jab - rear hand high
+Ziva: 1 Jab - rear hand high
+  moment 1 John: Jab - lands (Ziva's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Ziva: Jab - lands (John's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 3, beat 6, at Long
+John: no action - lead hand high, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - lands (John's lead hand was held high): -1 health, 1 point
+BELL. The judges give the round John 10 - 9 Ziva.
+Ziva WINS on the cards 29-28

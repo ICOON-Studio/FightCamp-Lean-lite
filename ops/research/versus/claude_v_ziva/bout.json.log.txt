@@ -1,0 +1,96 @@
+Claude v Ziva, seed 34
+--- round 1, beat 1, at Long
+Claude: 1 Step in, 2 Body cross - lead hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 : Long to Mid - Claude step in
+  moment 1 Ziva: Body jab - lands (Claude's lead hand was held high): -1 health, 1 point
+  moment 2 Claude: Body cross - lands (Ziva's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 2, at Mid
+Claude: 1 Feint, 2 Cross
+Ziva: 1 Body cross - lead hand low
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 Ziva: Body cross - lands (Claude's lead hand was out, throwing its Feint): -2 health, 1 point, stamina bar 7 for the rest of the bout
+  moment 2 Claude: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 1, beat 3, at Mid
+Claude: 1 Lead hook - rear hand high
+Ziva: 1 Feint, 2 Cross
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 1 Claude: Lead hook - blocked: Ziva's rear hand was still up (its Cross comes in moment 2)
+  moment 2 Ziva: Cross - lands as a counter (the feint drew Ziva's hand): -4 health, 2 points
+--- round 1, beat 4, at Mid
+Claude: 1 Feint, 2 Cross
+Ziva: 1 Feint, 2 Cross
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 2 Claude: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+  moment 2 Ziva: Cross - lands (the feint drew Ziva's hand): -3 health, 2 points
+--- round 1, beat 5, at Mid
+Claude: 1 Step in, 2 Lead hook - rear hand high
+Ziva: 1 Feint, 2 Cross
+  moment 1 : Mid to Inside - Claude step in
+  moment 1 Ziva: feints - the next punch cannot be covered
+  moment 2 Claude: Lead hook - lands (Ziva's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 2 Ziva: Cross - beaten to the punch: Claude's Lead hook is faster, landed first and stopped it
+--- round 1, beat 6, at Inside
+Claude: no action - lead hand high, rear hand high
+Ziva: 1 Body jab - rear hand high
+  moment 1 Ziva: Body jab - smothered - too close at Inside
+BELL. The judges give the round Claude 10 - 9 Ziva.
+--- round 2, beat 1, at Long
+Claude: 1 Step in, 2 Body cross - lead hand low
+Ziva: 1 Body jab - rear hand high
+  moment 1 : Long to Mid - Claude step in
+  moment 1 Ziva: Body jab - blocked by Claude's lead hand, held low
+  moment 2 Claude: Body cross - lands as a counter (Ziva's lead hand was held high): -3 health, 1 point, stamina bar 6 for the rest of the bout
+--- round 2, beat 2, at Mid
+Claude: 1 Feint, 2 Overhand
+Ziva: 1 Cross - lead hand low
+  moment 1 Claude: feints - the next punch cannot be covered
+  moment 1 Ziva: Cross - lands (Claude's lead hand was out, throwing its Feint): -3 health, 2 points
+  moment 2 Claude: Overhand - lands (the feint drew Ziva's hand): -4 health, 2 points
+  Ziva GOES DOWN and gets up on 6 health.
+--- round 2, beat 3, at Mid
+Claude: 1 Lead hook - rear hand high
+Ziva: 1 Cross - lead hand low
+  moment 1 Claude: Lead hook - lands (Ziva's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 Ziva: Cross - beaten to the punch: Claude's Lead hook is faster, landed first and stopped it
+--- round 2, beat 4, at Mid
+Claude: 1 Lead hook - rear hand high
+Ziva: 1 Back off, 2 Body jab - rear hand high
+  moment 1 : Mid to Long - Ziva backs off
+  moment 1 Claude: Lead hook - falls short at Long
+  moment 2 Ziva: Body jab - lands as a counter - off the pull, +1 (Claude's lead hand was held high): -3 health, 1 point
+--- round 2, beat 5, at Long
+Claude: 1 Step in, 2 Body cross - lead hand low
+Ziva: 1 Back off, 2 Body jab - rear hand high
+  moment 1 : Long to Mid - Ziva backs off, Claude step in and cut Ziva off
+  moment 2 Ziva: Body jab - blocked by Claude's lead hand, held low
+  moment 2 Claude: Body cross - lands as a counter (Ziva's lead hand was out, throwing its Body jab): -3 health, 1 point, stamina bar 5 for the rest of the bout
+  Ziva GOES DOWN and gets up on 4 health.
+--- round 2, beat 6, at Mid
+Claude: no action - lead hand low, rear hand high
+Ziva: 1 Overhand - lead hand high
+  moment 1 Ziva: Overhand - blocked by Claude's rear hand, held high
+BELL. The judges give the round Claude 10 - 8 Ziva.
+--- round 3, beat 1, at Long
+Claude: 1 Step in, 2 Feint, 3 Overhand
+Ziva: 1 Step in, 2 Cross - lead hand high
+  moment 1 : Long to Inside - Claude step in, Ziva steps in
+  moment 2 Claude: feints - the next punch cannot be covered
+  moment 2 Ziva: Cross - lands (Claude's lead hand was out, throwing its Feint): -3 health, 2 points
+  Claude GOES DOWN and gets up on 6 health.
+--- round 3, beat 2, at Inside
+Claude: clinch
+Ziva: 1 Lead uppercut - rear hand high
+  Claude: ties Ziva up - no punch lands - the referee breaks them at Mid, +2 stamina
+--- round 3, beat 3, at Mid
+Claude: 1 Lead hook, 2 Body cross
+Ziva: 1 Lead hook - rear hand high
+  moment 1 Claude: Lead hook - blocked by Ziva's rear hand, held high
+  moment 1 Ziva: Lead hook - blocked: Claude's rear hand was still up (its Body cross comes in moment 2)
+  moment 2 Claude: Body cross - lands as a counter (Ziva's lead hand was held high): -3 health, 1 point, stamina bar 4 for the rest of the bout
+--- round 3, beat 4, at Mid
+Claude: 1 Body jab - rear hand high
+Ziva: 1 Cross, 2 Lead hook
+  moment 1 Claude: Body jab - lands (Ziva's lead hand was held high): -1 health, 1 point
+Claude WINS - the referee stops it

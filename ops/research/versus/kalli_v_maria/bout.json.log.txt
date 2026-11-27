@@ -1,0 +1,94 @@
+Kalli v Maria, seed 21
+--- round 1, beat 1, at Long
+Kalli: 1 Jab - rear hand low
+Maria: 1 Body jab - rear hand high
+  moment 1 Kalli: Jab - lands (Maria's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Maria: Body jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+--- round 1, beat 2, at Long
+Kalli: no action - lead hand low, rear hand low
+Maria: 1 Step in - lead hand high, rear hand low
+  moment 1 : Long to Mid - Maria steps in
+--- round 1, beat 3, at Mid
+Kalli: 1 Lead hook - rear hand low
+Maria: 1 Lead hook, 2 Cross
+  moment 1 Kalli: Lead hook - blocked: Maria's rear hand was still up (its Cross comes in moment 2)
+  moment 1 Maria: Lead hook - lands (Kalli's rear hand was held low): -3 health, 2 points
+  moment 2 Maria: Cross - blocked: Kalli's lead hand was back up (its Lead hook was moment 1)
+--- round 1, beat 4, at Mid
+Kalli: no action - lead hand high, rear hand high
+Maria: 1 Lead hook - rear hand high
+  moment 1 Maria: Lead hook - blocked by Kalli's rear hand, held high
+--- round 1, beat 5, at Mid
+Kalli: 1 Jab - rear hand high
+Maria: 1 Body jab, 2 Body cross
+  moment 1 Kalli: Jab - lands (Maria's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Maria: Body jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 Maria: Body cross - lands (Kalli's lead hand was held high): -2 health, 1 point, stamina bar 7 for the rest of the bout
+--- round 1, beat 6, at Mid
+Kalli: 1 Cross - lead hand low
+Maria: no action - lead hand high, rear hand high
+  moment 1 Kalli: Cross - blocked by Maria's lead hand, held high
+BELL. The judges give the round Kalli 9 - 10 Maria.
+--- round 2, beat 1, at Long
+Kalli: 1 Body jab - rear hand high
+Maria: 1 Body jab - rear hand high
+  moment 1 Kalli: Body jab - lands (Maria's lead hand was out, throwing its Body jab): -1 health, 1 point
+  moment 1 Maria: Body jab - lands (Kalli's lead hand was out, throwing its Body jab): -1 health, 1 point
+--- round 2, beat 2, at Long
+Kalli: no action - lead hand low, rear hand high
+Maria: 1 Step in - lead hand low, rear hand high
+  moment 1 : Long to Mid - Maria steps in
+--- round 2, beat 3, at Mid
+Kalli: 1 Jab - rear hand high
+Maria: 1 Jab, 2 Cross
+  moment 1 Kalli: Jab - lands (Maria's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 1 Maria: Jab - lands (Kalli's lead hand was out, throwing its Jab): -1 health, 1 point
+  moment 2 Maria: Cross - blocked: Kalli's lead hand was back up (its Jab was moment 1)
+--- round 2, beat 4, at Mid
+Kalli: 1 Cross - lead hand high
+Maria: 1 Body cross - lead hand high
+  moment 1 Kalli: Cross - blocked by Maria's lead hand, held high
+  moment 1 Maria: Body cross - lands (Kalli's lead hand was held high): -2 health, 1 point, stamina bar 6 for the rest of the bout
+--- round 2, beat 5, at Mid
+Kalli: 1 Lead hook - rear hand low
+Maria: 1 Body cross - lead hand high
+  moment 1 Kalli: Lead hook - lands (Maria's rear hand was out, throwing its Body cross): -3 health, 2 points
+  moment 1 Maria: Body cross - beaten to the punch: Kalli's Lead hook is faster, landed first and stopped it
+--- round 2, beat 6, at Mid
+Kalli: no action - lead hand low, rear hand high
+Maria: 1 Lead hook - rear hand high
+  moment 1 Maria: Lead hook - blocked by Kalli's rear hand, held high
+BELL. The judges give the round Kalli 10 - 9 Maria.
+--- round 3, beat 1, at Long
+Kalli: no action - lead hand low, rear hand high
+Maria: 1 Step in, 2 Jab - rear hand high
+  moment 1 : Long to Mid - Maria steps in
+  moment 2 Maria: Jab - lands (Kalli's lead hand was held low): -1 health, 1 point
+--- round 3, beat 2, at Mid
+Kalli: 1 Lead hook - rear hand low
+Maria: 1 Jab, 2 Cross
+  moment 1 Kalli: Lead hook - blocked: Maria's rear hand was still up (its Cross comes in moment 2)
+  moment 1 Maria: Jab - lands (Kalli's lead hand was out, throwing its Lead hook): -1 health, 1 point
+  moment 2 Maria: Cross - blocked: Kalli's lead hand was back up (its Lead hook was moment 1)
+--- round 3, beat 3, at Mid
+Kalli: 1 Cross - lead hand high
+Maria: 1 Lead hook - rear hand high
+  moment 1 Maria: Lead hook - lands (Kalli's rear hand was out, throwing its Cross): -3 health, 2 points
+  moment 1 Kalli: Cross - beaten to the punch: Maria's Lead hook is faster, landed first and stopped it
+--- round 3, beat 4, at Mid
+Kalli: 1 Back off - lead hand high, rear hand high
+Maria: 1 Lead hook - rear hand high
+  moment 1 : Mid to Long - Kalli back off
+  moment 1 Maria: Lead hook - falls short at Long
+--- round 3, beat 5, at Long
+Kalli: no action - lead hand high, rear hand low
+Maria: 1 Step in, 2 Body jab - rear hand high
+  moment 1 : Long to Mid - Maria steps in
+  moment 2 Maria: Body jab - lands (Kalli's lead hand was held high): -1 health, 1 point
+--- round 3, beat 6, at Mid
+Kalli: 1 Back off - lead hand low, rear hand high
+Maria: 1 Body jab - rear hand high
+  moment 1 : Mid to Long - Kalli back off
+  moment 1 Maria: Body jab - blocked by Kalli's lead hand, held low
+BELL. The judges give the round Kalli 8 - 10 Maria.
+Maria WINS on the cards 29-27
