@@ -24,10 +24,12 @@ function bouts(R, who, opp, n) { const { N, ACT, plan0, man, cost, resolve, endB
         note(0, mine); note(1, his);
         const hp = [S.f[0].hp, S.f[1].hp], st = S.f.map(m => m.st);
         if (i === 0) { const ps = [mine, his], a = ps.map(p => p.clinch ? 1 : Number(!!p.lead) + Number(!!p.rear) + Number(p.feet !== 'hold'));
+          if (workerData.tweak?._note?.startsWith('SHORTBEAT1') && ps.some((p, k) => p.clinch || a[k] > 1 || (p.lead && !ACT[p.lead].d))) throw new Error('illegal feel-out choice');
           o.open.rounds++; for (let k = 0; k < 2; k++) { o.open.acts[a[k]]++; const key = R.planWords(ps[k]); o.open.plans[key] = (o.open.plans[key] || 0) + 1; const action = ps[k].clinch ? 'clinch' : R.ordOf(ps[k]).map(slot => slot === 'feet' ? ps[k].feet : ps[k][slot]).join('>') || 'hold'; o.open.actions[action] = (o.open.actions[action] || 0) + 1; }
           if (a[0] === 0 && a[1] === 0) o.open.bothHold++;
           const steps = ps.map(p => !p.clinch && p.feet === 'in'); if (steps[0] !== steps[1]) stepper = steps[0] ? 0 : 1; }
         const ev = resolve(S, [{ ...mine }, { ...his }]);
+        if (i === 0 && workerData.tweak?._note?.startsWith('SHORTBEAT1') && ev.some(e => e.m > 0)) throw new Error('opening exceeded one moment');
         const damage = hp[0] - S.f[0].hp + hp[1] - S.f[1].hp;
         o.open.roundDamage += damage;
         if (i === 0) { o.open.range[S.range]++; o.open.dmg += damage; o.open.spent += st[0] - S.f[0].st + st[1] - S.f[1].st; }
