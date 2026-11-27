@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.570.1', date: '2026-11-27', items: [
+    'The head-movement page (head.html) and the one-action page (one.html) now play by the main page\'s rules: the feint fix (a feinting lead hand guards nothing before its feint) and the pull counter (back off, and your next punch that beat lands +1) reach them. They are built from the main page now, so every later rule fix reaches them too. The kicks page follows when its measurement finishes.'] },
   { v: '0.569.10', date: '2026-11-27', items: [
     'A new trial page, mmc.html (the main page is unchanged): two places instead of three - Outside and the pocket. The jab is long range (no counter off it, and it stops his clinch). A back off from the pocket ends the beat and gives him the lead. The feint is a mode of a lead-hand punch: the small feint on its card.'] },
   { v: '0.569.9', date: '2026-11-27', items: [

@@ -1,0 +1,20 @@
+COMMAND: node --import <wt_tmp/RULES569/measure.mjs> proto/twohands/tools/balance.mjs play tweak=ops/research/s558_balance/rules569_r5c.json table=<wt_tmp/RULES569/r5c.vt.json> seed=1 n=12 jobs=1
+mix v the same man (no style): wins 25%, draws 0%, stops him 0%, is stopped 0%; knockdowns a bout 0.4 v 1.0; health taken a bout 15.0 v 20.4; beats at Inside / Mid / Long 25% / 40% / 35%; clinches a bout 0.9; rounds level on points 14%, 100% of them given on ground
+  you a beat: back off 40%, step in 31%, lead held low 30%, rear held high 28%, feet hold 25%, Body cross 23%, Cross 22%, Body jab 17%, rear held low 15%, lead held high 13%, Jab 9%, Lead hook 7%, Push off 6%, Body hook 6%, Overhand 5%, Feint 5%, clinch 4%, Lead uppercut 3%, Rear uppercut 2% | punches in a plan: none 22%, one 54%, two 20%
+  your punches (thrown a bout: lands / blocked / misses): Body cross 3.8: 33% / 37% / 30%, Cross 3.4: 37% / 29% / 34%, Body jab 2.9: 57% / 40% / 3%, Jab 1.7: 75% / 25% / 0%, Lead hook 1.1: 38% / 46% / 15%, Body hook 0.9: 55% / 27% / 18%, Overhand 0.8: 56% / 22% / 22%, Lead uppercut 0.5: 33% / 33% / 33%, Rear uppercut 0.3: 0% / 25% / 75%
+  he  a beat: lead held low 41%, back off 40%, step in 34%, rear held high 26%, Cross 25%, feet hold 23%, Body cross 20%, Body jab 19%, rear held low 18%, lead held high 11%, Jab 7%, Lead hook 6%, Rear uppercut 5%, Push off 4%, Feint 4%, Body hook 4%, Overhand 3%, clinch 3%, Lead uppercut 2% | punches in a plan: none 24%, one 56%, two 17%
+  his  punches (thrown a bout: lands / blocked / misses): Cross 4.2: 50% / 24% / 26%, Body cross 3.4: 41% / 27% / 32%, Body jab 3.3: 70% / 23% / 8%, Jab 1.2: 71% / 29% / 0%, Lead hook 1.0: 67% / 25% / 8%, Rear uppercut 0.9: 45% / 0% / 55%, Body hook 0.7: 63% / 25% / 13%, Overhand 0.3: 100% / 0% / 0%, Lead uppercut 0.3: 33% / 0% / 67%
+  your order, of the beats with one to choose (67%): first rear 18%, lead 29%, feet 53%
+RULES569_METRICS {"n":12,"beats":216,"att":[160,158],"sur":[40,34],"exAt":[[126,28,6],[127,28,3]],"ended":[50,58],"two":[[39,4,1],[29,7,0]],"cant":[0,0],"stEnd":166,"stEndN":72,"stBeat":2445,"stBeatN":432,"clicks":[486,464],"cards":[390,377],"hts":[96,87]}
+  (12 bouts, 168 s)
+BARS 4 of 9 pass
+  PASS every range is fought at (each 15-55% of beats): Inside 25%, Mid 40%, Long 35%
+  FAIL no switch is a must (none in over 40% of beats): back off 40%, step in 32%, Cross 23%
+  FAIL no switch is dead (each in at least 3% of beats): Lead uppercut 2%
+  FAIL every punch lands 30-65% of the time and falls short at most 40%: Jab lands 74%, short 0%; Overhand lands 69%, short 15%; Rear uppercut lands 33%, short 60%
+  FAIL bouts end both ways (stoppages 10-40%, draws at most 20%, 0.5-2.5 knockdowns a bout): stoppages 0%, draws 0%, knockdowns 1.4
+  PASS one punch, two punches and holding all have their beats (two 15-45%, none 5-25%): two 19%, none 23%
+  PASS the clinch is a rescue, not a habit (at most 2 a bout): 0.9
+  PASS the order is a choice (no slot first in over 60% of ordered beats; an order to choose in 40%+ of beats): ordered 67%, most often first 53%
+  FAIL the mirror is fair (wins 40-60% of decided bouts): 25%
+EXIT 0

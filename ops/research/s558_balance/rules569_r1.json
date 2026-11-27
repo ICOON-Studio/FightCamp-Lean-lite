@@ -1,0 +1,49 @@
+{
+ "_note": "RULES569 R1 (S569, owner: 'what if we may a guard 1 action like both hands up and hands do not punch at the same time and move some things into the rules instead of having them as actions'): the four guard switches are gone. A hand that is not punching is back in its STANCE guard by itself - the lead glove in front of the chin (stops his jab and cross), the rear glove by the cheek (stops his lead hook and overhand); the body and the uppercut line are what a stance leaves open. GUARD UP is one card (in the lead-hand lane; it takes both hands for its moment, costs 1 stamina and the lead hand does not rest): every line is covered from its moment until his next action - alone in a beat, the whole beat. A feint still draws it. A punch blocked by the stance wears the guard bar (1, or 2 for a punch of 3 or more); a punch blocked by Guard up wears nothing. The two hands never punch in the same moment (already so: one action a moment). This is variant a2, the best of ten screened at n=12 (docs/RULES569_RESULT.md has the ten).",
+ "src": [
+  [
+   "const N = { ",
+   "const N = { drain: 1, shell: 1, "
+  ],
+  [
+   "Stops his clinch.' },",
+   "Stops his clinch.' },\n  guard: { n: 'Guard up', h: 0, st: 1, guard: 1, t: 'Both gloves high, elbows in: every punch is blocked from this moment until your next action. Takes both hands for its moment. A feint still draws it.' },   /* RULES569 R1: the guard is ONE action */"
+  ],
+  [
+   "const LO = [{ lead: null, hl: 'high' }, { lead: null, hl: 'low' }, ...['jab', 'bjab', 'hook', 'lup', 'lbody', 'feint', 'push'].map(",
+   "const LO = [{ lead: null, hl: 'high' }, ...['jab', 'bjab', 'hook', 'lup', 'lbody', 'feint', 'push', 'guard'].map("
+  ],
+  [
+   "const RO = [{ rear: null, hr: 'high' }, { rear: null, hr: 'low' }, ...[",
+   "const RO = [{ rear: null, hr: 'high' }, ...["
+  ],
+  [
+   "function resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });",
+   "/* RULES569 R1: no guard switches. A hand that is not punching is back in its STANCE guard by itself: the lead glove in front of the chin, the rear glove by the cheek. Guard up (one card, the lead-hand lane, both hands) is a shell: every line, from its moment until his next action. */\nconst STANCE = { lead: [\"straight\"], rear: [\"side\"] };\nconst shell = (p, i) => { if (p.clinch || p.lead !== 'guard') return false; const j = p.ord.indexOf('lead'); return j >= 0 && (i === j || (i > j && p.ord.length === j + 1 && (N.shell === 1 || (N.shell === 2 && i === j + 1)))); };\nfunction resolve(S, P) { const ev = [], f = S.f, say = (k, o) => ev.push({ k, ...o });"
+  ],
+  [
+   "if (!leadAway) c[COVER[P[k].hl][0]] = 1; if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];",
+   "if (!leadAway) for (const l of STANCE.lead) c[l] = 1; if (act[k] !== 'rear') for (const l of STANCE.rear) c[l] = 1; if (shell(P[k], i)) { for (const l in LINE) c[l] = 1; c.shell = 1; } return c; }), stun = [0, 0];"
+  ],
+  [
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { drawn[k] = 2;",
+   "for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'guard') say(k, { m: i, t: 'flat', a: 'guards up', o: 'both gloves high, elbows in' });\n    for (const k of [0, 1]) if (act[k] === 'lead' && P[k].lead === 'feint') { drawn[k] = 2;"
+  ],
+  [
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: (P[v][sl] ?",
+   "say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, shell: cov[v].shell || 0, o: cov[v].shell ? `blocked by ${v ? 'his' : 'your'} Guard up` + (D.g <= 0 ? ' - GUARD BROKEN' : '') : (P[v][sl] ?"
+  ],
+  [
+   "`${v ? 'his' : 'your'} ${sl} hand was held ${heightOf(P[v], sl)}`;",
+   "`${v ? 'his' : 'your'} stance guard does not cover that line (${LINE[a.line]})`;"
+  ],
+  [
+   "D.g = Math.max(0, D.g - (a.d >= 3 ? 1 : 0));",
+   "D.g = Math.max(0, D.g - (cov[v].shell ? 0 : N.drain ? (a.d >= 3 ? 2 : 1) : (a.d >= 3 ? 1 : 0)));"
+  ],
+  [
+   "const W = { st: 0.25, cap: 0.6, guard: 0.15,",
+   "const W = { st: 0.25, cap: 0.6, guard: 0.3,"
+  ]
+ ]
+}

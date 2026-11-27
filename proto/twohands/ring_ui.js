@@ -175,7 +175,8 @@
     if (hits.length >= 2 && hits.some((e) => e.k === 0) && hits.some((e) => e.k === 1)) return [2, pick([`They're trading in there! Both men landing.`, `Toe to toe! Neither one wants to give an inch.`])];
     if (big) return [0, pick([`${nm(big.k)} lands the ${big.a.toLowerCase()}.`, `Clean ${big.a.toLowerCase()} from ${nm(big.k)}, ${big.dmg} off.`])];
     if (blocks.length) { const b = blocks[0]; return [1, pick([`Good defence. ${nm(1 - b.k)} had the hand right where the ${b.a.toLowerCase()} was going.`, `Blocked. ${nm(b.k)} is going to have to find another way in.`])]; }
-    if (miss.length) { const m = miss[0]; return [0, /short/.test(m.o || '') ? `${nm(m.k)} falls short with the ${m.a.toLowerCase()}. Wrong range for it.` : `Too close for the ${m.a.toLowerCase()}, smothered.`]; }
+    if (miss.length) { const m = miss[0], hm = /^(slipped|rolled under|leaned back)/.exec(m.o || '');   /* S570: a head move's miss (head.html) is said as one - it read 'Too close ... smothered' at Long */
+      return [hm ? 1 : 0, hm ? `${nm(1 - m.k)} ${{ slipped: 'slips', 'rolled under': 'rolls under', 'leaned back': 'leans back from' }[hm[1]]} the ${m.a.toLowerCase()}. Nothing there.` : /short/.test(m.o || '') ? `${nm(m.k)} falls short with the ${m.a.toLowerCase()}. Wrong range for it.` : `Too close for the ${m.a.toLowerCase()}, smothered.`]; }
     if (ev.some((e) => e.t === 'range')) return [0, pick([`Footwork now. They're at ${RNG[range]}.`, `Feeling each other out, ${RNG[range]} range.`])];
     return [2, pick([`Both men waiting. Somebody has to let his hands go.`, `A lot of looking, not a lot of punching.`])]; }
   function say(who, text) { call.innerHTML = `<b>${CREW[who].n}</b> ${text}`; call.className = 'w' + who + ' on'; light.style.setProperty('--x', CREW[who].at + '%'); light.className = 'on'; }

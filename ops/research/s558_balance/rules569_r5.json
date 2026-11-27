@@ -1,0 +1,41 @@
+{
+ "_note": "RULES569 R5 (S569, owner: 'Yes, measure it'): the exchange that gets dearer, alone on today's page. A man's punching beats in a row are counted (ex); a punching beat costs +1 stamina on the 2nd in a row and +2 from the 3rd (N.dearMax 2: stamina is 8 and comes back 1-3 a beat, so a +3 would be a wall, not a price). A beat with no punch, or a beat with a back off, ends the exchange (ex = 0; the back-off beat itself still pays). A clinch is a beat with no punch: it resets. The solver values a count left over at W.ex 0.2 health (about one stamina at W.st 0.25, four times in five). 'Hands the lead to the other man' has no carrier on today's page (no lead rule): left out. docs/RULES569_RESULT.md.",
+ "src": [
+  [
+   "const N = { hp: 18, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6,",
+   "const N = { dear: 1, dearMax: 2, dearClinch: 0, hp: 18, st: 8, rec: 1, hold: 1, guard: 6, grec: 1, rounds: 3, beats: 6,"
+  ],
+  [
+   "kd: 0, ropes: 0, held: 0, kept: 0, last: null });",
+   "kd: 0, ropes: 0, held: 0, kept: 0, ex: 0, last: null });"
+  ],
+  [
+   "FEET[p.feet].st + (p.clinch ? 1 : 0);",
+   "FEET[p.feet].st + (p.clinch ? 1 : 0);\n/* RULES569 R5: the exchange that gets dearer. m.ex = the beats in a row this man has punched; a punching beat costs +1 stamina for each (at most N.dearMax). A beat with no punch or with a back off ends the exchange. */\nconst punches = (p) => !p.clinch && !!((p.lead && ACT[p.lead].d) || p.rear), dear = (m, p) => (N.dear && punches(p) ? N.dear * Math.min(m.ex || 0, N.dearMax) : 0); cost.dear = dear;"
+  ],
+  [
+   "f[k].st -= cost(P[k]); f[k].last = { ...P[k] };",
+   "if (S.t === N.beats) f[k].ex = 0; f[k].st -= cost(P[k]) + dear(f[k], P[k]); f[k].ex = P[k].clinch && N.dearClinch ? (f[k].ex || 0) : punches(P[k]) && P[k].feet !== 'back' ? (f[k].ex || 0) + 1 : 0; f[k].last = { ...P[k] };"
+  ],
+  [
+   "if (cost(c0) > me.st || (feet === 'back'",
+   "if (cost(c0) + dear(me, c0) > me.st || (feet === 'back'"
+  ],
+  [
+   "guess = cost(yours) <= you.st ? yours",
+   "guess = cost(yours) + dear(you, yours) <= you.st ? yours"
+  ],
+  [
+   "const T = { range: S.range, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);",
+   "const T = { range: S.range, t, f: S.f.map((m) => ({ ...m, hist: [] })) }; resolve(T, [{ ...a }, { ...b }]); endBeat(T);"
+  ],
+  [
+   "+ (t > 1 ? W.kept * (y.kept - x.kept) : 0) + rest; }",
+   "+ (t > 1 ? W.kept * (y.kept - x.kept) + W.ex * (Math.min(y.ex || 0, N.dearMax) - Math.min(x.ex || 0, N.dearMax)) : 0) + rest; }"
+  ],
+  [
+   "const W = { st: 0.25, cap: 0.6, guard: 0.15, ropes: 0.25, kept: 0.3 };",
+   "const W = { st: 0.25, cap: 0.6, guard: 0.15, ropes: 0.25, kept: 0.3, ex: 0.2 };"
+  ]
+ ]
+}

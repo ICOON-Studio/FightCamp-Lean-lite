@@ -1,0 +1,5 @@
+COMMAND: node <wt_tmp/RULES569/loop.mjs> n=60 who=loop tweak=ops/research/s558_balance/rules569_r5d.json table=<r5c.vt.json: a screen>
+CLINCH loop v The Jabber: wins 33%, loses 53%, draws 13% | his clinches a bout 0.3 | my clinches a bout 4.1, 90% of them tie him up | a bout: feint+overhand 5.3, feint+cross 1.6, hook 2.6, nothing 3.5, surcharge paid 4.0
+CLINCH loop v The Slugger: wins 35%, loses 53%, draws 12% | his clinches a bout 0.2 | my clinches a bout 6.6, 91% of them tie him up | a bout: feint+overhand 5.4, feint+cross 1.1, hook 1.9, nothing 2.7, surcharge paid 4.3
+CLINCH loop v The Body Snatcher: wins 13%, loses 73%, draws 13% | his clinches a bout 0.2 | my clinches a bout 6.3, 89% of them tie him up | a bout: feint+overhand 4.2, feint+cross 1.6, hook 2.8, nothing 2.4, surcharge paid 5.1
+EXIT 0

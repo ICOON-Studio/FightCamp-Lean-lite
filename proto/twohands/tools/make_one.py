@@ -100,7 +100,7 @@ HOW_NEW = "<b>A beat is one exchange.</b> Both men's feet move first, then both 
 
 
 def main() -> None:
-    s = io.open(SRC, encoding="utf-8", newline="").read()
+    s = io.open(SRC, encoding="utf-8", newline="").read().replace("\r\n", "\n")   # S570: the checkout may hand order.html over as CRLF
     tw = json.load(io.open(TWEAK, encoding="utf-8"))
 
     def rep(a: str, b: str, what: str) -> None:

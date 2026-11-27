@@ -6,7 +6,7 @@
       "const N = { one: 1, hp: 18, st: 8, rec: 1, hold: 0, guard: 6, grec: 1, rounds: 3, beats: 12,"
     ],
     [
-      "t: 'Draws his hands: the punch you throw in the next moment cannot be covered.'",
+      "t: 'Draws his hands: the punch you throw in the next moment cannot be covered. Your lead hand guards nothing until the feint.'",
       "t: 'Draws his hands: the punch you throw NEXT BEAT cannot be covered. He sees the feint.'"
     ],
     [

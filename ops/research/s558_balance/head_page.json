@@ -1,0 +1,87 @@
+{
+ "note": "Generate ops/research/s558_balance/head_page.json: the HEADMOVE1 / HEADPICS1 rules + page bits of head.html as text pairs\non order.html. Source: head.html as of 369173f03 (unchanged since), diffed against order.html of the same commit; drift\n(head.html missing order.html's later work: the S560 pull counter) is NOT carried - the head page gets order's rules.",
+ "src": [
+  [
+   "<title>Puncher's chance</title>",
+   "<title>Puncher's chance - Head movement (rules probe)</title>"
+  ],
+  [
+   "title=\"The order you click is the order you throw.",
+   "title=\"The head holds the head moves. The order you click is the order you throw."
+  ],
+  [
+   "// S555: THIS PAGE IS THE SOURCE",
+   "// HEADMOVE1 (S559): THE HEAD-MOVEMENT COPY OF RING SWITCHES (boxing). Owner S559 on the Boxing Movement Lab shorts and the\n// ghost step: \"do youthinkwe should add the head ?\" then \"Yes, measure it\". The body-movement switch (the FEET switch)\n// gains four head moves; each takes its moment of the beat like a step:\n//   slip     his straight punches (jab, cross) miss in that moment\n//   roll     under his hooks (lead hook, overhand); an uppercut in that moment catches him rolling into it: +1\n//   pull     lean back: his straight punches and hooks miss at Mid or Long - unless the range closed in that moment\n//   slipin   a step in with a slip (the short man closing on the tall one): one place closer AND his straight punches miss\n// A punch made to miss makes the other man's later punches counters (+1), as a block or a miss does today.\n// Rules changed from order.html are marked HEADMOVE1. No head-movement pictures exist yet (the page falls back to the guard).\n// S555: THIS PAGE IS THE SOURCE"
+  ],
+  [
+   "pull counter: +1 if it lands.' } };",
+   "pull counter: +1 if it lands.' },\n  // HEADMOVE1: the head moves, each in its moment\n  slip: { n: 'Slip', st: 1, t: 'The head off the line: his jab and cross miss in that moment.' },\n  roll: { n: 'Roll', st: 1, t: 'Under his hook and overhand in that moment - but an uppercut catches you rolling into it (+1).' },\n  pull: { n: 'Lean back', st: 1, t: 'Out of reach of his straight punches and hooks at Mid or Long - not if he closes the range in that moment.' },\n  slipin: { n: 'Slip in', st: 2, t: 'Step in with a slip: one place closer, and his jab and cross miss in that moment.' } };"
+  ],
+  [
+   "const stepRun = (o) => { const m = /you (step in|back off)/.exec(o) || /he (steps in|backs off)/.exec(o); return m ? (m[0][0] === 'y' ? 'blue_' : 'red_') + (/in$/.test(m[1]) ? 'step_in' : 'back_off') : ''; };",
+   "const stepRun = (o) => { const m = /you (step in|slip in|back off)/.exec(o) || /he (steps in|slips in|backs off)/.exec(o); return m ? (m[0][0] === 'y' ? 'blue_' : 'red_') + (/^slip/.test(m[1]) ? 'slip_in' : /in$/.test(m[1]) ? 'step_in' : 'back_off') : ''; };   /* HEADPICS1 (S561): a slip in has its own run */"
+  ],
+  [
+   "const runOf = (e) => { const col = e.k ? 'red' : 'blue'; if (e.t === 'hit' || e.t === 'block' || e.t === 'miss') return `${col}_${ACT[e.id].run || ACT[e.id].pic}_${e.t === 'hit' ? 'landed' : e.t === 'block' ? 'blocked' : 'missed'}`;",
+   "const runOf = (e) => { const col = e.k ? 'red' : 'blue'; if (e.t === 'hit' || e.t === 'block' || e.t === 'miss') { const base = `${col}_${ACT[e.id].run || ACT[e.id].pic}_`, hm = e.t === 'miss' && /^(slipped|rolled under|leaned back)/.exec(e.o || ''), hr = hm ? base + { slipped: 'slipped', 'rolled under': 'rolled', 'leaned back': 'leaned' }[hm[1]] : '';   /* HEADPICS1 (S561): a punch a head move made miss is SEEN missing that way; no such run on disk = the plain miss */\n    return hr && ANIM[hr] ? hr : base + (e.t === 'hit' ? 'landed' : e.t === 'block' ? 'blocked' : 'missed'); }"
+  ],
+  [
+   "  if (e.t === 'range') { const run = stepRun(e.o || ''), to = / to (Inside|Mid|Long)$/.exec(e.a || ''), rr = run && to ? `${run}_r${{ Inside: 1, Mid: 2, Long: 3 }[to[1]]}` : ''; return ANIM[rr] ? rr : run; }   /* a step is drawn ending on the range it reaches */ if (e.t === 'flat' && e.k >= 0 && !e.id) return /^feint/.test(e.a) ? `${col}_feint` : /^push/.test(e.a) ? `${col}_push` : ''; return ''; };",
+   "  if (e.t === 'range') { const run = stepRun(e.o || ''), to = / to (Inside|Mid|Long)$/.exec(e.a || ''), at = (r) => { const rr = r && to ? `${r}_r${{ Inside: 1, Mid: 2, Long: 3 }[to[1]]}` : ''; return ANIM[rr] ? rr : r; }, got = at(run); return /_slip_in$/.test(run) && !ANIM[got] ? at(run.replace('slip_in', 'step_in')) : got; }   /* a step is drawn ending on the range it reaches */ if (e.t === 'flat' && e.k >= 0 && !e.id) return /^feint/.test(e.a) ? `${col}_feint` : /^push/.test(e.a) ? `${col}_push` : ''; return ''; };"
+  ],
+  [
+   "if (act[k] === 'feet') { if (P[k].feet === 'in') { d--;",
+   "if (act[k] === 'feet' && ['in', 'slipin', 'back'].includes(P[k].feet)) { if (P[k].feet !== 'back') { d--;"
+  ],
+  [
+   "if ([0, 1].some((k) => act[k] === 'feet' && P[k].feet === 'in') && [0, 1].some((k) => act[k] === 'feet' && P[k].feet === 'back'))",
+   "if ([0, 1].some((k) => act[k] === 'feet' && (P[k].feet === 'in' || P[k].feet === 'slipin')) && [0, 1].some((k) => act[k] === 'feet' && P[k].feet === 'back'))"
+  ],
+  [
+   "filter((k) => act[k] === 'feet').map((k) => (k ? 'he ' : 'you ') + (P[k].feet === 'in' ? 'step' + (k ? 's' : '') + ' in' : 'back'",
+   "filter((k) => act[k] === 'feet' && ['in', 'slipin', 'back'].includes(P[k].feet)).map((k) => (k ? 'he ' : 'you ') + (P[k].feet === 'in' ? 'step' + (k ? 's' : '') + ' in' : P[k].feet === 'slipin' ? 'slip' + (k ? 's' : '') + ' in' : 'back'"
+  ],
+  [
+   "find((k) => act[k] === 'feet' && P[k].feet === 'in' && act[1 - k]",
+   "find((k) => act[k] === 'feet' && (P[k].feet === 'in' || P[k].feet === 'slipin') && act[1 - k]"
+  ],
+  [
+   "    const shots = []; for (const k of [0, 1])",
+   "    const dodge = [0, 1].map((k) => (act[k] === 'feet' && ['slip', 'roll', 'pull', 'slipin'].includes(P[k].feet) ? P[k].feet : null)), closed = S.range < r0;   // HEADMOVE1: the head move of this moment\n    const shots = []; for (const k of [0, 1])"
+  ],
+  [
+   "        if (cov[v][a.line] && !wasDrawn) {",
+   "        { const dv = dodge[v], why = (dv === 'slip' || dv === 'slipin') && a.line === 'straight' ? 'slipped' : dv === 'roll' && a.line === 'side' ? 'rolled under' : dv === 'pull' && !closed && S.range >= 2 && (a.line === 'straight' || a.line === 'side') ? 'leaned back out of reach' : '';   /* HEADMOVE1 */\n          if (why) { say(sh.k, { m: i, t: 'miss', id: sh.id, a: a.n, o: `${why}: ${v ? 'he' : 'you'} made it miss` }); opening[v] = 1; continue; } }\n        if (cov[v][a.line] && !wasDrawn) {"
+  ],
+  [
+   "+ (pull ? 1 : 0); pulled[sh.k] = 0;",
+   "+ (pull ? 1 : 0) + (dodge[v] === 'roll' && a.line === 'under' ? 1 : 0); pulled[sh.k] = 0;   /* HEADMOVE1: caught rolling into the uppercut */"
+  ],
+  [
+   "for (const feet of ['in', 'hold', 'back']) { const c0 = { ...plan0(), ...lo, ...ro, feet };",
+   "for (const feet of ['in', 'hold', 'back', 'slip', 'roll', 'pull', 'slipin']) { const c0 = { ...plan0(), ...lo, ...ro, feet };   // HEADMOVE1"
+  ],
+  [
+   "(feet === 'in' && me.kept)) continue;",
+   "((feet === 'in' || feet === 'slipin') && me.kept)) continue;"
+  ]
+ ],
+ "what": [
+  "title",
+  "top line tooltip",
+  "header comment",
+  "FEET: the head moves",
+  "stepRun: slip in",
+  "runOf: made to miss by a head move",
+  "range picture: slip in run",
+  "a slip in is a step in",
+  "cut off: slip in too",
+  "movers: steps only",
+  "cut off words",
+  "dodge",
+  "made it miss",
+  "rolled into the uppercut",
+  "plans: head moves",
+  "plans: kept out"
+ ]
+}

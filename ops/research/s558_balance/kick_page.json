@@ -1,0 +1,147 @@
+{
+ "note": "Generate ops/research/s558_balance/kick_page.json: the KICKBOX1 rules + page bits of kick.html as text pairs on order.html.\nSource: kick.html as of 369173f03 (unchanged since), diffed against order.html of the same commit; drift (kick.html missing\norder.html's later work: the pull counter, STEPFIX1, the range words) is NOT carried - the kick page gets order's rules.",
+ "src": [
+  [
+   "<title>Puncher's chance</title>",
+   "<title>Puncher's chance - Kickboxing (rules probe)</title>"
+  ],
+  [
+   "// S555: THIS PAGE IS THE SOURCE",
+   "// KICKBOX1 (S559): THE KICKBOXING COPY OF RING SWITCHES. Owner S559: \"i more interested in the mechanics and how kicks will be\n// balanced . Should we make muaithai or kickboxer fighters and then balance between the 2 of them and vs a boxer\" - then\n// \"Yes, kickboxer first\": kickboxer v kickboxer balanced first (K-1 rules: punches and kicks, no elbows; knees later), then\n// the boxer as a STYLE inside these rules (no kicks, no check), then Muay Thai. One art against itself first (owner S549).\n// The kicks live on the FEET switch (still three switches a beat): a kick uses your legs, so that beat you do not step.\n// Numbers from our research (ops/research/G134_KICKBOXING_LEG_KICK_SHARE.md, J57): K-1 kicks are ~41% of landed strikes,\n// kicks land ~60% and punches ~26%, legs take 15-21% of landed, a low kick lands ~40%, a limp after 8-12 clean thigh\n// kicks, a kick knockdown is rare. Rules changed from order.html are marked KICKBOX1. Kick pictures: teep and low kick (KICKTAKE1, S559); body and head kick not yet.\n// S555: THIS PAGE IS THE SOURCE"
+  ],
+  [
+   "capMin: 4, wide: 5 };   // rec:",
+   "capMin: 4, wide: 5, limp: 4, checkHurt: 1 };   // KICKBOX1: limp = landed low kicks to a limp (8-12 in a K-1 fight, scaled to 18 beats); checkHurt = a checked low kick hurts the kicker   // rec:"
+  ],
+  [
+   "pic: 'body_cross' },\n",
+   "pic: 'body_cross' },\n  // KICKBOX1: the kicks (h: 2 = the legs, on the feet switch). A kick reaches further than a punch (Long and Mid) and is jammed\n  // Inside. rearLeg: the rear arm swings down for balance in that moment, so the rear hand blocks nothing then. teep: a landed\n  // teep pushes him one place back (range control). A low kick goes at the LEG line: only a check stops it.\n  teep: { n: 'Teep', h: 2, st: 1, d: 1, sp: 2, reach: [2, 3], line: 'body', teep: 1, pic: 'teep' },\n  low: { n: 'Low kick', h: 2, st: 2, d: 2, sp: 2, reach: [2, 3], line: 'leg', rearLeg: 1, pic: 'low_kick' },\n  bodyk: { n: 'Body kick', h: 2, st: 3, d: 3, sp: 3, reach: [2, 3], line: 'body', body: 1, rearLeg: 1, pic: 'body_kick' },\n  headk: { n: 'Head kick', h: 2, st: 3, d: 5, sp: 3, reach: [2, 3], line: 'side', rearLeg: 1, pic: 'head_kick' },\n"
+  ],
+  [
+   "body: 'Body' };",
+   "body: 'Body', leg: 'Legs' };"
+  ],
+  [
+   "body: 'His body punches' };",
+   "body: 'His body punches and kicks', leg: 'His low kicks' };"
+  ],
+  [
+   "body: 'his body jab, body hook and body cross' };",
+   "body: 'his body jab, body hook, body cross, teep and body kick', leg: 'his low kick' };"
+  ],
+  [
+   "body: 'body punch' };",
+   "body: 'body punch', leg: 'low kick' };"
+  ],
+  [
+   "pull counter: +1 if it lands.' } };",
+   "pull counter: +1 if it lands.' },\n  // KICKBOX1: the leg switches. A check is held all beat like a hand (not a moment): it stops his low kicks and his own shin\n  // takes the damage. A kick takes a moment of the beat, like a step.\n  check: { n: 'Check', st: 1, t: 'Your lead leg ready all beat: his low kick is stopped and hurts him. You do not move.' },\n  teep: { n: 'Teep', st: 1, t: 'A push kick to the body, Long or Mid: it lands and he is one place further away. A lead hand held low catches it.' },\n  low: { n: 'Low kick', st: 2, t: 'Rear shin to his thigh, Long or Mid. Only a check stops it; four that land and he limps (no back off). Your rear hand drops in that moment.' },\n  bodyk: { n: 'Body kick', st: 3, t: 'Slow, to the ribs: shortens his stamina bar. A lead hand held low CATCHES it and you lose the rest of the beat. Your rear hand drops.' },\n  headk: { n: 'Head kick', st: 3, t: 'Slow, the knockout kick, Long or Mid. His rear hand held high blocks it. Your rear hand drops in that moment.' } };"
+  ],
+  [
+   "const OPPS = [\n",
+   "const OPPS = [\n  { n: 'The Dutch Kicker', t: 'Punches to set up the low kick: jab, cross, then the rear shin to your thigh. Checks yours.', hp: 18, read: 0.6, like: ['jab', 'cross', 'low', 'check'], lean: 0.4, skill: 0.6 },\n  { n: 'The Teep Man', t: 'Keeps you at Long with the teep and the body kick; head kick when you walk in.', hp: 17, read: 0.6, like: ['teep', 'bodyk', 'headk', 'back'], lean: 0.4, skill: 0.6 },\n  { n: 'The Boxer', t: 'A boxer under kickboxing rules: never kicks, never checks. Walks you down with hooks and crosses.', hp: 19, read: 0.6, like: ['in', 'hook', 'cross', 'over', 'lbody'], lean: 0.4, skill: 0.6, noKick: 1 },\n];\nconst OPPS_BOXING = [\n"
+  ],
+  [
+   "const slotOf = (line) => (line === 'straight'",
+   "const slotOf = (line) => (line === 'leg' ? 'feet' : line === 'straight'"
+  ],
+  [
+   "kept: 0, last: null });",
+   "kept: 0, last: null, legs: 0 });   // KICKBOX1 legs: low kicks landed on him this bout"
+  ],
+  [
+   "p.feet !== 'hold' : !!p[sl]);",
+   "p.feet !== 'hold' && p.feet !== 'check' : !!p[sl]);   // KICKBOX1: a check is held all beat, not thrown in a moment"
+  ],
+  [
+   "drawn = [0, 0], pulled = [0, 0];",
+   "drawn = [0, 0], pulled = [0, 0], caught = [0, 0];   // KICKBOX1 caught: his kick was caught - he does nothing more this beat"
+  ],
+  [
+   "const act = [P[0].ord[i], P[1].ord[i]];",
+   "const act = [0, 1].map((k) => (caught[k] ? undefined : P[k].ord[i]));"
+  ],
+  [
+   "if (act[k] === 'feet') { if (P[k].feet === 'in') { d--;",
+   "if (act[k] === 'feet' && (P[k].feet === 'in' || P[k].feet === 'back')) { if (P[k].feet === 'in') { d--;"
+  ],
+  [
+   "filter((k) => act[k] === 'feet').map((k) => (k ? 'he ' : 'you ')",
+   "filter((k) => act[k] === 'feet' && (P[k].feet === 'in' || P[k].feet === 'back')).map((k) => (k ? 'he ' : 'you ')"
+  ],
+  [
+   "a: ACT[P[k][sl]] }); }\n",
+   "a: ACT[P[k][sl]] }); else if (sl === 'feet' && ACT[P[k].feet] && ACT[P[k].feet].d) shots.push({ k, id: P[k].feet, a: ACT[P[k].feet], kick: 1 }); }   // KICKBOX1: a kick is a shot of its moment\n"
+  ],
+  [
+   "if (act[k] !== 'rear') c[COVER[P[k].hr][1]] = 1; return c; }), stun = [0, 0];",
+   "if (act[k] !== 'rear' && !(act[k] === 'feet' && ACT[P[k].feet] && ACT[P[k].feet].rearLeg)) c[COVER[P[k].hr][1]] = 1; if (P[k].feet === 'check') c.leg = 1; return c; }), stun = [0, 0];   // KICKBOX1: a rear-leg kick drops the rear hand in its moment; a check covers the leg all beat"
+  ],
+  [
+   "        if (cov[v][a.line] && !wasDrawn) {",
+   "        if (cov[v][a.line] && !wasDrawn && a.line === 'leg') { A.hp -= N.checkHurt; say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: `checked: ${v ? 'his' : 'your'} shin was up - ${sh.k ? 'his' : 'your'} own shin takes ${N.checkHurt}` }); opening[v] = 1; continue; }   // KICKBOX1\n        if (cov[v][a.line] && !wasDrawn && sh.kick && a.line === 'body' && P[v].hl === 'low' && act[v] !== 'lead') { caught[sh.k] = 1; say(sh.k, { m: i, t: 'block', id: sh.id, a: a.n, o: `CAUGHT: ${v ? 'his' : 'your'} lead hand held low trapped the leg - ${sh.k ? 'he does' : 'you do'} nothing more this beat` }); opening[v] = 1; continue; }   // KICKBOX1\n        if (cov[v][a.line] && !wasDrawn) {"
+  ],
+  [
+   "if (a.keep && N.keep) D.kept = 1;\n",
+   "if (a.keep && N.keep) D.kept = 1; if (a.line === 'leg') D.legs = (D.legs || 0) + 1; if (a.teep) S.range = Math.min(3, S.range + 1);   // KICKBOX1: a leg mark; a teep pushes him back\n"
+  ],
+  [
+   "const why = D.g <= 0 ? 'guard broken' : wasDrawn ? 'the feint drew his hand' : act[v] === sl",
+   "const why = a.line === 'leg' ? `${v ? 'his' : 'your'} lead leg was planted, no check${D.legs >= N.limp ? ' - LIMPING, no back off' : ''}` : D.g <= 0 ? 'guard broken' : wasDrawn ? 'the feint drew his hand' : sl === 'rear' && act[v] === 'feet' && ACT[P[v].feet] && ACT[P[v].feet].rearLeg ? `${v ? 'his' : 'your'} rear hand dropped as ${v ? 'he' : 'you'} kicked` : act[v] === sl"
+  ],
+  [
+   "kept: 0.3 };",
+   "kept: 0.3, leg: 0.5 };   // KICKBOX1 leg: a leg mark (a limp at N.limp takes his back off away)"
+  ],
+  [
+   "function plansFor(S, k) {",
+   "const FEETS = ['in', 'hold', 'back', 'check', 'teep', 'low', 'bodyk', 'headk'];   // KICKBOX1; me.noKick = the boxer, a style inside these rules (no kick, no check)\nfunction plansFor(S, k) {"
+  ],
+  [
+   "for (const feet of ['in', 'hold', 'back']) { const c0 = { ...plan0(), ...lo, ...ro, feet };",
+   "for (const feet of FEETS) { const c0 = { ...plan0(), ...lo, ...ro, feet };   // KICKBOX1: the kicks and the check are feet switches"
+  ],
+  [
+   "(feet === 'back' && me.ropes >= 2) || (feet === 'in' && me.kept)) continue;",
+   "(feet === 'back' && (me.ropes >= 2 || (me.legs || 0) >= N.limp)) || (feet === 'in' && me.kept) || (me.noKick && !['in', 'hold', 'back'].includes(feet))) continue;"
+  ],
+  [
+   "return (y0.hp - y.hp) - (x0.hp - x.hp) + W.cap",
+   "return (y0.hp - y.hp) - (x0.hp - x.hp) + W.leg * (((y.legs || 0) - (y0.legs || 0)) - ((x.legs || 0) - (x0.legs || 0))) + W.cap"
+  ],
+  [
+   "`Needs 1 stamina.` : ''); }).join('')}",
+   "`Needs 1 stamina.` : '', 0, ft.d && ft.reach ? rg(ft, range) : ''); }).join('')}"
+  ]
+ ],
+ "what": [
+  "title",
+  "header comment",
+  "N: limp, checkHurt",
+  "ACT: the four kicks",
+  "line names",
+  "his lines",
+  "his lines (moments)",
+  "stop words",
+  "FEET: check + kicks",
+  "opponents: three kickboxers",
+  "slotOf leg",
+  "man: legs",
+  "active: check",
+  "caught",
+  "caught: no more this beat",
+  "a kick is not a step",
+  "movers: steps only",
+  "kick shots",
+  "cover: rear leg, check",
+  "checked + caught",
+  "leg marks, teep",
+  "why words",
+  "W leg",
+  "FEETS",
+  "plans: kicks",
+  "plans: limp, the boxer",
+  "score: legs",
+  "feet switch: kick range"
+ ]
+}

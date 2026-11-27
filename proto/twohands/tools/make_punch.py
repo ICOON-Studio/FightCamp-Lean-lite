@@ -32,7 +32,7 @@ TWEAK = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "ops/research/s558_ba
 
 
 def main() -> None:
-    s = io.open(SRC, encoding="utf-8", newline="").read()
+    s = io.open(SRC, encoding="utf-8", newline="").read().replace("\r\n", "\n")   # S570: the checkout may hand order.html over as CRLF
     tw = json.load(io.open(TWEAK, encoding="utf-8"))
 
     def rep(a: str, b: str, what: str) -> None:
