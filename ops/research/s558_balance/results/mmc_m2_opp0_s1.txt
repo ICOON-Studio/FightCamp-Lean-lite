@@ -1,0 +1,14 @@
+mix v The Jabber: wins 87%, draws 0%, stops him 56%, is stopped 4%; knockdowns a bout 2.4 v 0.6; health taken a bout 25.5 v 16.3; beats at Inside / Mid / Long 0% / 68% / 32%; clinches a bout 0.9; rounds level on points 8%, 81% of them given on ground
+  you a beat: feet hold 49%, step in 36%, rear held low 31%, Body jab 28%, lead held low 22%, Body cross 20%, Rear uppercut 18%, rear held high 14%, Lead hook 12%, Jab 12%, Lead uppercut 11%, back off 10%, Cross 7%, lead held high 5%, clinch 5%, Overhand 5%, Body hook 5% | punches in a plan: none 13%, one 46%, two 36%
+  your punches (thrown a bout: lands / blocked / misses): Body jab 4.1: 85% / 15% / 0%, Body cross 2.9: 70% / 11% / 19%, Rear uppercut 2.5: 71% / 10% / 19%, Jab 1.5: 64% / 36% / 0%, Lead hook 1.2: 48% / 35% / 17%, Lead uppercut 1.2: 64% / 15% / 21%, Cross 1.0: 43% / 27% / 30%, Body hook 0.7: 80% / 11% / 9%, Overhand 0.7: 67% / 27% / 5%
+  he  a beat: feet hold 39%, Jab 38%, step in 34%, rear held low 28%, back off 24%, Cross 23%, rear held high 20%, lead held low 18%, Body cross 14%, Body jab 14%, lead held high 8%, Lead uppercut 8%, Rear uppercut 7%, Lead hook 7%, Body hook 4%, Overhand 3%, clinch 3% | punches in a plan: none 14%, one 47%, two 36%
+  his  punches (thrown a bout: lands / blocked / misses): Jab 3.5: 60% / 40% / 0%, Cross 2.9: 45% / 40% / 15%, Body cross 2.0: 59% / 14% / 27%, Body jab 1.8: 78% / 22% / 0%, Rear uppercut 1.0: 48% / 34% / 18%, Lead hook 0.8: 43% / 38% / 19%, Lead uppercut 0.6: 60% / 30% / 10%, Body hook 0.5: 78% / 17% / 5%, Overhand 0.4: 52% / 33% / 15%
+  your order, of the beats with one to choose (53%): first feet 41%, lead 50%, rear 9%
+  (84 bouts, 746 s)
+MMC_COUNT beats 1377 (16.4 a bout), rounds 248
+MMC_COUNT a beat STARTS Outside 43.4%, in the pocket 56.6%; ENDS Outside 31.7%, pocket 68.3%; clinches a bout 0.9 (tried 1.3, met by a jab or shoved off 0.4)
+MMC_COUNT the jab (head, thrown for real) in 15.7% of a man's beats, the body jab 18.1%
+MMC_COUNT the feint: 15.6% of punches chosen (6.0 a bout); bitten 68.1%, called 31.9% (310 / 145; 53 never thrown: beat ended or he was hit first)
+MMC_COUNT create distance ends 23.6% of beats (1.31 a round; both men at once 16); a step in cut a back off off 0.7 a bout; step ins a bout 11.5, from Outside 7.7
+MMC_COUNT the lead after a beat: nobody 23.6%, you 43.6%, he 32.8%; changes a round 1.71; beats in a row with the same lead 2.48
+MMC_COUNT landed punches 18.6 a bout, as a counter 16.1%, as a step-in counter 10.3%; a man starts a beat off rhythm in 10.6% of beats

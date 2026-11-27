@@ -1,0 +1,65 @@
+#### H4 (counters2_h4.json)
+== The counter right as he steps in (Marquez v Pacquiao IV, 2012, round 6, the last second) - Marquez is blue, Pacquiao is red; starts at Long
+ beat 1 at Long. REAL: Pacquiao feints and jabs from range; Marquez gives ground and blocks.
+   Marquez: 1 Back off - lead hand high, rear hand high (1 of 6 stamina)   Pacquiao: 1 Jab - rear hand high (1 of 6 stamina)
+     moment 1 : stays Long - Marquez back off - already at Long, nowhere further
+     moment 1 Pacquiao: Jab - blocked by Marquez's lead hand, held high
+   MATCH: no punch of Pacquiao lands
+   after: Marquez health 9, stamina 8; Pacquiao health 7, stamina 7; range Long
+ beat 2 at Long. REAL: Pacquiao steps in behind a jab. Marquez plants his feet and throws the right hand over it: Pacquiao is out.
+   Marquez: 1 Overhand - lead hand low (3 of 8 stamina)   Pacquiao: 1 Step in, 2 Jab - rear hand high (2 of 7 stamina)
+     moment 1 : Long to Mid - Pacquiao steps in
+     moment 1 Marquez: Overhand - blocked by Pacquiao's rear hand, held high
+     moment 2 Pacquiao: Jab - lands as a counter (Marquez's lead hand was held low): -2 health, 1 point
+   MISMATCH: Marquez's Overhand lands
+   MISMATCH: Pacquiao goes down
+   after: Marquez health 7, stamina 7; Pacquiao health 7, stamina 7; range Mid
+
+== Covering on the ropes until he is spent (Ali v Foreman, 1974, round 8) - Ali is blue, Foreman is red; starts at Inside
+ beat 1 at Inside. REAL: Ali on the ropes, gloves high. Foreman swings a hook and a body shot into the guard.
+   Ali: no action - lead hand low, rear hand high (0 of 6 stamina)   Foreman: 1 Overhand, 2 Body hook (5 of 6 stamina)
+     moment 1 Foreman: Overhand - blocked by Ali's rear hand, held high
+     moment 2 Foreman: Body hook - blocked by Ali's lead hand, held low
+   MATCH: no punch of Foreman lands
+   after: Ali health 10, stamina 8; Foreman health 6, stamina 2; range Inside
+ beat 2 at Inside. REAL: Foreman, arm-weary, pushes a slow right. Ali covers again.
+   Ali: no action - lead hand high, rear hand high (0 of 8 stamina)   Foreman: 1 Cross - lead hand high (2 of 2 stamina)
+     moment 1 Foreman: Cross - blocked by Ali's lead hand, held high
+   MATCH: no punch of Foreman lands
+   MATCH: Foreman is at 2 stamina or less
+   after: Ali health 10, stamina 8; Foreman health 6, stamina 2; range Inside
+ beat 3 at Inside. REAL: Ali comes off the ropes: a right hand, a left hook, a right hand. Foreman, reaching and spent, goes down.
+   Ali: 1 Cross, 2 Lead hook (4 of 8 stamina)   Foreman: 1 Push off - rear hand low (1 of 2 stamina)
+     moment 1 Foreman: pushes off - a shove with the lead glove on Ali's chest: Ali are back at Mid
+     moment 1 Ali: Cross - lands (Foreman's lead hand was out, throwing its Push off): -3 health, 2 points
+     moment 2 Ali: Lead hook - lands (Foreman's rear hand was held low): -3 health, 2 points
+   MATCH: Ali's punch lands
+   MATCH: Foreman goes down
+   after: Ali health 10, stamina 5; Foreman health 0, stamina 3; range Mid
+
+== The jab to the body that hides the right hand (Hearns v Duran, 1984, round 2) - Hearns is blue, Duran is red; starts at Mid
+ beat 1 at Mid. REAL: Hearns jabs to the body; Duran drops his lead hand to stop it.
+   Hearns: 1 Body jab - rear hand high (1 of 7 stamina)   Duran: no action - lead hand low, rear hand high (0 of 5 stamina)
+     moment 1 Hearns: Body jab - blocked by Duran's lead hand, held low
+   MATCH: no punch of Hearns lands
+   after: Hearns health 16, stamina 8; Duran health 4, stamina 8; range Mid
+ beat 2 at Mid. REAL: Hearns shows the same body jab and throws the right hand over the lowered guard. Duran falls on his face.
+   Hearns: 1 Feint, 2 Overhand (4 of 8 stamina)   Duran: no action - lead hand low, rear hand high (0 of 8 stamina)
+     moment 1 Hearns: feints - the next punch cannot be covered
+     moment 2 Hearns: Overhand - lands (the feint drew Duran's hand): -4 health, 2 points
+   MATCH: Hearns's Overhand lands
+   MATCH: Duran goes down
+   after: Hearns health 16, stamina 5; Duran health 0, stamina 8; range Mid
+
+== The check hook (Mayweather v Hatton, 2007, round 10) - Mayweather is blue, Hatton is red; starts at Mid
+ beat 1 at Mid. REAL: Hatton rushes in swinging a left hook. Mayweather pivots off and lands the lead hook as he comes: Hatton goes into the post.
+   Mayweather: 1 Back off, 2 Lead hook - rear hand high (3 of 7 stamina)   Hatton: 1 Step in, 2 Lead hook - rear hand high (3 of 4 stamina)
+     moment 1 : Mid to Inside - Mayweather back off, Hatton steps in and cuts Mayweather off
+     moment 2 Mayweather: Lead hook - lands - a check hook: off the pull as Hatton cuts Mayweather off (Hatton turned into it, Hatton's lead hand was out swinging and the rear could not cover the angle): -3 health, 2 points
+     moment 2 Hatton: Lead hook - blocked by Mayweather's rear hand, held high
+   MATCH: Mayweather's Lead hook lands
+   MATCH: no punch of Hatton lands
+   MISMATCH: Hatton goes down
+   after: Mayweather health 15, stamina 6; Hatton health 2, stamina 3; range Inside
+
+SCENE_CHECK 11 of 14 match the ring
