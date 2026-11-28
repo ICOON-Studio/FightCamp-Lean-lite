@@ -1,0 +1,9 @@
+POOL_SIM 2240 bouts, tells 1.25 a bout, staggers 1.40, cuts 1.43, doctor stops 4%, finishes 21% (middleweight target 40-50%), comebacks 20%, both idle 0.0% of exchanges, locked bouts (3+ idle in a row) 0.0%, rocks 0.47 a bout, rocked twice in a row 0.0% of rocks, push-backs 0.00 a bout
+  truck      59%  (press)
+  snapshot   56%  (counter)
+  iron       55%  (press)
+  bodyshop   54%  (press)
+  silk       49%  (out)
+  ghost      48%  (counter)
+  metronome  43%  (out)
+  longnight  37%  (out)

@@ -47,6 +47,13 @@ export function useV6(opt = {}) {
     stance: 1, surge: 1, neutral1: 1, capOne: 1, tellColor: 1, pocket: 1,                                    // his v2.7 rules (S573)
     holdCard: 0, longJab: 0, elbows: 0, rockClinch: 0, wallClinch: 0, cover: 0, ctrDuel: 0, pressPre: 0, rockSafe: 0, ctrRefund: 0, openSoft: 0, holdReads: 0, holdParry: 0, feelMeets: 0,   // our cup extras OFF
   });
+  const S574 = { gapStop: 2, resetTax: 2, fakeJab: 1, stickMove: 1, circleMid: 1 };
+  const circleMid = () => { CARDS.circle3 = { ...CARDS.circle3, legal: ['mid', 'close'], t: 'Mid or Close (v6.7). Blocks an attack, steps out one range, +2 cage space. Loses to a Feint.' }; };
+  /* S574 lite=1 (owner: "focus on balance first then fun and depth also try my version too"): his v2.7 exactly as written plus the
+     FEWEST changes that balance it on the bots (pure: Truck 66-70%, Iron 64-67%, out-fighters 32-37%): half the power bonus, the
+     Range Jab at Long and Mid (a punch that does not step in; it meets a man stepping in from Long), and the five S574 switches below
+     - bots n=200 x 3 seeds 40-58%, finishes 13%. ops/research/octagon/s574/grid4.txt */
+  if (opt.lite) { Object.assign(TUNE, { powHalf: 1, longJab: 1, feelMeets: 1, feelMid: 1 }, S574); CARDS.feel = { ...CARDS.feel, legal: ['long', 'mid'], t: 'Always there at Long or Mid: a pawing jab - 1 to the head. Does not step in; it meets a man stepping in from Long.' }; circleMid(); return; }
   if (opt.pure) return;   // pure=1: v2.7 exactly as written - bots: Iron 69-77%, Truck 74%, out-fighters 31-35% (Pressure runs away)
   /* v6.1 (S573, owner: "check if 2.7 is missing anything from the version that rate 7/8 ... and see if you can fix it"): v2.7 lacks
      what the cup added to v5 (7.5-7.75 fun). Measured on the bots, n=20 each (docs/OCTAGON_V6_RESULT.md): Initiative +1 alone 31-68%;
@@ -59,4 +66,11 @@ export function useV6(opt = {}) {
   /* v6.5 STATUSES (owner S573: 'add statuses and debugs like staggered or stunned, keg injured, cut etc' + 'a rocked man should give something up'): STAGGERED (2 under his rock line, or a rock the rules blocked: -1 speed, no stepping in next exchange - the legs), ROCKED +1 to the judges, CUT (his v2.7 Eye Cut, opened by clean STRAIGHT punches of 2+ - the 2nd opens it, each one after widens it; shows one card of his hand every exchange; the doctor stops it at 5), WINDED (body at half: Defends give 1 less back). Bots n=40: heavy cuts (4+) put Truck 60-62%; sharp cuts 2 with the doctor at 3 stopped 39%, at 4 15%, at 5 4% (35-57%), at 7 never */
   /* v6.6 (cup r17 on v6.5: fun 8/7/7/7 = 7.25, depth 7.0): the live judges' score on the screen (Kalli r12, r13, r15, r17) - display only; a Stance Guard repeat costs 2, not 1 (John, Kalli, Maria r17: the man ahead stalled round 3 behind guards) - bots 37-59% */
   Object.assign(TUNE, { liveScore: 1, status: 1, cutSharp: 2, cutStop: 5, readCards: 1, feelTax: +(opt.feelTax ?? 1), cutClose: +(opt.cutClose ?? 1), stanceTax: +(opt.stanceTax ?? 2), lead: 1, powHalf: 1, openSoft: 1, ctrRefund: 1, holdCard: 1, longJab: 1, elbows: 1, holdParry: 1, feelMeets: 1, cover: 1, rockClinch: 1, rockSafe: 1, wallClinch: 1 });
+  /* v6.7 (S574, the v6.6 balance rating - all four seats 6/10, Out-Fighter 4): John's 2+ speed faster stops the slower punch (gapStop),
+     Kalli's a neutral reset costs the man ahead on the cards 1 stamina (resetTax 2), Maria's a step-in punch that catches a feint lands
+     the damage but not the range (fakeJab), and the out-fighter's way out: a landed Step-In Jab steps straight back to Long (stickMove,
+     out-fighters only) and Circle Out works at Mid too (circleMid). Bots n=200 x 3 seeds: v6.6 37-60% -> 42-58% (Long Night 37 -> 42,
+     Metronome 40 -> 45, Truck 59 -> 54); the reset tax and the feint fix do not move the bots (they never stall or farm feints) -
+     those two are for the agents. ops/research/octagon/s574/grid.txt, grid2.txt */
+  if (!opt.v66) { Object.assign(TUNE, S574); circleMid(); }
 }

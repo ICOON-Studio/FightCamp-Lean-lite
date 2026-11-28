@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.572.3', date: '2026-11-28', items: [
+    'With ?layers=1 steps in, back offs, the feint, the push and the clinch are two separate men too. Fix: a man who stepped no longer jumps a step too far on the last picture of his step (and back again).'] },
   { v: '0.572.2', date: '2026-11-28', items: [
     'With ?layers=1 every punch is now two separate men: jab, body jab, cross, both hooks, the overhand, body hook, body cross and both uppercuts, at every range they land at. Each man stays on his own spot between moves; only the short body cross (red) and the short rear uppercut at Mid (red) still show the old picture.'] },
   { v: '0.572.1', date: '2026-11-28', items: [

@@ -80,3 +80,14 @@ a body Inside. How far the page puts the two men from where the render had them 
 offsets): body jab 0.02-0.03 m, body cross 0.02-0.05, overhand 0.03-0.07, body hook 0.06-0.09, lead hook 0.06-0.09,
 uppercuts 0.08-0.10. That is the anchor reading the guard stance a little differently run to run (the feet span); the
 exact fix is the renderer writing each man's true root per frame (next, below).
+
+## Family b: steps in, back offs, feint, push, clinch (pics2d_anim_more.gd layers=1)
+21 runs, 152 frames, every frame masked, 0 gate failures (the slip in, the side pushes and the check come from the head
+and kick tools: families c and d).
+Gate, 8 random bouts: first read 11 jumps, 3 where both runs are layered - red's back off from Mid and blue's step in
+jumped ~0.4 m on their LAST picture. Cause (layers_ui.js): the page's run player calls done() while the last picture is
+still up, and done() moves the stepper's spot to the end of his step at once; the layers read the spot again on that
+picture and counted the step twice. Fix: each man's spot is read once, when a run starts. After: 8 bouts, 507 pictures,
+65 boundaries, 11 jumps, **0 where both runs are layered**; every one of the 11 touches the short cross or the short body
+cross (red), the two runs that fail the picture gate and keep their old two-man picture.
+Regression: anim_check PASS, page_play_test 4 passed.

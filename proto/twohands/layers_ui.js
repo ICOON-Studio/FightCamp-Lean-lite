@@ -28,13 +28,17 @@
   /* the blend between two runs (fighting games blend clips): where a run ends a little off its first frame (a bob's sway,
      a blocked jab left forward), the next run would start back on the spot - a jump. The gap is carried over and eased
      out over the next frames (x0.45 a frame: under 10% after three pictures). */
-  const last = { red: null, blue: null }, carry = { red: 0, blue: 0 }; let lastRun = '';
+  const last = { red: null, blue: null }, carry = { red: 0, blue: 0 }; let lastRun = '', runM = null;
   function draw() {
     if (!L || !CANON) return;
     const f = (im.getAttribute('src') || '').split('/').pop(), at = FILE[f];
     const rows = at && ['red', 'blue'].map((s) => L.runs[`${at[0]}_${s}`]);
     if (!rows || !rows[0] || !rows[1]) { for (const e of lay) e.style.display = 'none'; im.classList.remove('pic-off'); last.red = last.blue = null; lastRun = ''; return; }
-    const k = at[1], ppm = (L.camera.px_per_m || 152.4) * (st.clientHeight * 1.26 / (L.camera.web_px || 480)), m = inM(), fresh = at[0] !== lastRun; lastRun = at[0];
+    const k = at[1], ppm = (L.camera.px_per_m || 152.4) * (st.clientHeight * 1.26 / (L.camera.web_px || 480)), fresh = at[0] !== lastRun; lastRun = at[0];
+    /* LAYERS1 (S572): the spots are read ONCE, when a run starts. The page's run player calls its done() while the last
+       picture is still up, and done() moves the stepper's spot to the end of his step at once: read again on that last
+       picture, the step was counted twice (a back off drew red 126 px too far on its last frame, then snapped back). */
+    if (fresh || !runM) runM = inM(); const m = runM;
     ['red', 'blue'].forEach((side, i) => { const row = rows[i], e = lay[i], r0 = row.root[0], rk = row.root[Math.min(k, row.root.length - 1)];
       if (r0 == null || rk == null) { e.style.display = 'none'; return; }
       const spot = side === 'red' ? CANON.red + m.red : CANON.blue - m.blue;   /* picture metres: red comes in toward +x, blue toward -x */
