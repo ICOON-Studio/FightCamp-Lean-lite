@@ -9498,9 +9498,63 @@
    "answer": "Yes, do all moves",
    "note": null,
    "answered_at": null,
-   "seen_by_claude": false,
+   "seen_by_claude": true,
    "status": "answered",
    "answered_via": "chat S571"
+  },
+  {
+   "id": "Q-S294-348",
+   "asked": "2026-11-27T22:08:30.609761+00:00",
+   "session": "S294",
+   "text": "C: is down to 8.8 GB free. Delete the AMD usage log and the two Ollama installers (about 6 GB)?",
+   "options": [
+    "Yes, delete all three",
+    "Only the AMD log",
+    "No, leave them"
+   ],
+   "attach": [
+    "AgentComms/board_attach/Q-S294-348_0_cdrive_s572.md"
+   ],
+   "answer": "Yes, delete all three",
+   "note": null,
+   "answered_at": "2026-11-27T22:09:18Z",
+   "seen_by_claude": true,
+   "comment_only": false
+  },
+  {
+   "id": "Q-S294-349",
+   "asked": "2026-11-27T22:41:22.254330+00:00",
+   "session": "S294",
+   "text": "Octagon v2.6 career layer (ladder, relics, bosses): its own game, or the fight inside FightCamp's career?",
+   "options": [
+    "Its own game",
+    "Inside FightCamp",
+    "Decide later"
+   ],
+   "attach": [
+    "AgentComms/board_attach/Q-S294-349_0_v26_scope.md"
+   ],
+   "answer": "After the fights are balanced (owner S572 chat)",
+   "note": "owner S572: 'leave the league design after we balnce the fights'",
+   "answered_at": "2026-11-27T23:19:01Z",
+   "seen_by_claude": true
+  },
+  {
+   "id": "Q-S294-350",
+   "asked": "2026-11-27T22:47:03.367959+00:00",
+   "session": "S294",
+   "text": "Octagon v2.6: your fixed PDF and the CSV list different boxing cards. Which is the master?",
+   "options": [
+    "The fixed PDF",
+    "The CSV"
+   ],
+   "attach": [
+    "AgentComms/board_attach/Q-S294-350_0_v26_cards.md"
+   ],
+   "answer": "The synchronized CSV + PDF (they agree)",
+   "note": "closed by Claude S573: his synchronized pair lists the same cards",
+   "answered_at": "2026-11-27T23:19:01Z",
+   "seen_by_claude": true
   }
  ]
 }

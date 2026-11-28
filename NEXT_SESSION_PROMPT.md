@@ -1,5 +1,28 @@
 ## METHOD (S569, fight pictures; S570 update; S571: LAYERS1 brief ready, waits on his look): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump. LAYERS (one man per picture, the page owns each spot) is APPROVED (S570: he bought Cascadeur Indie + the Animo pack) and phase 0 is DONE (holds + jab, 0 jumps, docs/LAYERS0_RESULT.md, ?layers=1). No new patch layer on the two-man pictures; the next fight-picture work is LAYERS phase 1.
-## METHOD (S572, Octagon): the owner's own rules are the line. v5.x (his v2.0 rulebook + v2 cards, proto/octagon/cards_v5.mjs, `v5=1`) is the CUP version; his v2.6 (ops/research/octagon/v26, the synchronized CSV + PDF) is built SEPARATELY as v6 (owner S572: "keep the current version and work seperately on the new rules leave the league design after we balnce the fights"). No league / campaign / relic / boss work before the fights are balanced. Every rule change: a TUNE switch OFF, pool_sim n=40 (40-60%), ON only between cup rounds.
+## METHOD (S572, Octagon; S573 update): the owner's own rules are the line. v5.4 (his v2.0 rulebook, `v5=1`) and v6.3 (his v2.7 Director's Cut + the cup's fixes, proto/octagon/cards_v6.mjs, `v6=1`; `pure=1` = v2.7 as written) are both kept; the cup now plays v6 (owner S573 sent v2.7 and asked to fix what it misses from the 7/8 version). No league / campaign / relic / boss work before the fights are balanced. Every rule change: a TUNE switch OFF, pool_sim n=40 (40-60%), ON only between cup rounds.
+
+# S574 handover (written 2026-11-28, S573 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S573_DIGEST.md` and
+`docs/OCTAGON_V6_RESULT.md`.
+
+## S574: DO THESE FIRST
+1. OCTAGON CUP ROUND 17 on v6.4 (fun 8 is the target; r15 v6.2 7.5 - best on v6, r16 v6.3 7.0). `node ops/Tools/versus_by_message.mjs
+   E:/FightCamp/tmp/octcup4/r17_<a>_v_<b> a=<seat>:<via> b=<seat>:grok game=octagon v6=1 pa=<id> pb=<id> seed=17x`; Claude plays
+   with a scratchpad oct6.sh (plan; exit 3 = WAIT for your tell - `show` until "TELL: his card", then choose). Pairings not yet
+   played on v6: Claude v John, Kalli v Maria.
+2. Measured and left OFF (bots 37-61%): heavyTrade (a heavy punch trades through a faster straight - John r15, Claude r16; Maria
+   r16 wants the opposite: the fast jab should keep the slow puncher off) and stanceTax=2. Open asks: Pull Counter 5 -> 4
+   (Kalli r13 + r15, Maria r16: one counter decides a round; the 6 = his 5 + the +1 reflex bonus), a rocked man gives something
+   up (Maria r15, Claude r16), a live round score (Kalli r12, r13, r15), the always-there cards still half of all plays (r16).
+3. COLLECT: LAYERS1 (worker tab of S572; paused itself for his ArcheAge at 01:30 on 28 Nov), RULES569 (chain_p2), KICKFIX6.
+4. BUILD1 round 4, MMCPLAY1, LONG3 when a seat frees.
+
+## Rules learned in S573 (also in memory)
+- A bot pool cannot see a safe card being overplayed (the Stance Guard was played 9 of 18 by two agents; the bots never did):
+  a free always-there card needs a cost from the start.
+- Check an always-there (virtual) card everywhere the hand is checked: legality, combos, discard (two bugs this session).
+- The tell's log line is read by BOTH men: name who sees whose colour.
 
 # S573 handover (written 2026-11-28, S572 - Opus 5.5)
 

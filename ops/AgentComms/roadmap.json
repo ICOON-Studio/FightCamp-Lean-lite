@@ -3,12 +3,12 @@
  "updated": "2026-11-28",
  "author": "claude S294",
  "now": {
-  "id": "S572",
-  "owner": "S571 (Opus 5.5)",
+  "id": "S573",
+  "owner": "S573 (Opus 5.5)",
   "updated": "2026-11-28",
-  "summary": "S572: LAYERS1 launched (owner: 'Yes, do all moves'), the cross family passes its gate; Octagon cup rounds 7-12: v4.7-v4.9 (r7-r9 fun 6.25-6.5), then the owner's v2.0 rulebook + v2 cards as v5 (r10 fun 7.25 depth 7.0), v5.1 (r11 fun 7.75 depth 7.25 - best), v5.2 (r12 fun 7.5 depth 7.0), v5.3 ON (two bug fixes); every change on the bots first (40-58%). Owner sent v2.6 (synchronized CSV + PDF agree, saved as master in ops/research/octagon/v26): build it SEPARATELY as v6, keep v5.x for the cup, league/campaign design after the fights are balanced. TYPES1 DONE (his four types fail on Puncher's chance as written: Defend needs a cost).",
-  "next_action": "S573: (1) Octagon cup round 13 on v5.3 (fun 8 is the target: r11 7.75, r12 7.5) - pairings not yet played: Claude v Maria, John v Kalli on new fighters; asks open: two Close attacks per deck, the Stance Guard idea, guard v guard costs something; (2) v6 = the owner's v2.6 fight rules + his v2.6 boxing cards as proto/octagon/cards_v6.mjs (`v6=1`), SEPARATE from v5 (owner S572), bots first, then one cup round on it beside v5.3; (3) collect LAYERS1 (tab c1 of S572), RULES569 (tab c1 of S571), KICKFIX6 (two chains, tables building); (4) Q-S294-348 (C: drive), Q-S294-350 (which v2.6 card list - answered by his synchronized files: the CSV (1) + synchronized PDF agree); (5) BUILD1 round 4, MMCPLAY1, LONG3.",
-  "last_working_commit": "279a28e90",
+  "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15.",
+  "next_action": "S574: (1) Octagon cup round 17 on v6.4 (fun 8 target; v6 best r15 7.5) - Claude v John, Kalli v Maria; (2) next rule candidates measured: Pull Counter 5 -> 4, a rocked man gives something up, live round score, the slow puncher v the fast jab (John/Claude v Maria - a real tension); (3) collect LAYERS1 (paused for his game), RULES569, KICKFIX6; (4) BUILD1 round 4, MMCPLAY1, LONG3.",
+  "last_working_commit": "5c2eda7e6",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
   "next_acceptance": "Each run judged against its bars; the feint correction on the page with the loop under 30% and the feint still in 3% of beats; his friend plays one whole online bout.",
@@ -2521,6 +2521,12 @@
    "date": "2026-11-28",
    "model": "Opus 5.5",
    "summary": "S572: LAYERS1 launched (owner: 'Yes, do all moves'), the cross family passes its gate; Octagon cup rounds 7-12: v4.7-v4.9 (r7-r9 fun 6.25-6.5), then the owner's v2.0 rulebook + v2 cards as v5 (r10 fun 7.25 depth 7.0), v5.1 (r11 fun 7.75 depth 7.25 - best), v5.2 (r12 fun 7.5 depth 7.0), v5.3 ON (two bug fixes); every change on the bots first (40-58%). Owner sent v2.6 (synchronized CSV + PDF agree, saved as master in ops/research/octagon/v26): build it SEPARATELY as v6, keep v5.x for the cup, league/campaign design after the fights are balanced. TYPES1 DONE (his four types fail on Puncher's chance as written: Defend needs a cost)."
+  },
+  {
+   "id": "S573",
+   "date": "2026-11-28",
+   "model": "Opus 5.5",
+   "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15."
   }
  ],
  "blocked_on_operator": [],
@@ -5439,7 +5445,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-27 23:40 board_sync",
+  "updated": "2026-11-28 01:10 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5630,12 +5636,6 @@
    {
     "title": "One man per picture: every move re-rendered with masks (cross first)",
     "who": "opus 5.5 console worker (pc, tab c1 of S572)",
-    "started": "2026-11-27T23:45",
-    "run": "LAYERS1"
-   },
-   {
-    "title": "One man per picture, phase 1: every move re-rendered with masks (cross passed, next families)",
-    "who": "Opus 5.5 console worker (PC, tab c1 of S572)",
     "started": "2026-11-27T23:45",
     "run": "LAYERS1"
    }
@@ -6193,6 +6193,11 @@
   },
   "done_recently": [
    {
+    "title": "Your four card types (Attack / Counter / Feint / Defend) measured on Puncher's chance",
+    "who": "Opus 5.5 console worker (PC, tab c2)",
+    "when": "2026-11-28"
+   },
+   {
     "title": "Octagon v5 = your v2.0 rulebook and cards: cup fun 7.25 -> 7.75, depth 7.0-7.25",
     "who": "claude"
    },
@@ -6240,24 +6245,6 @@
     "id": "LEAGUE1",
     "who": "claude",
     "title": "The agents' league: 15 bouts, Claude (Opus) 13 points, Ziva 12 - every top seat names the feint as the broken plan",
-    "after": ""
-   },
-   {
-    "id": "MATCHSERVER",
-    "who": "claude",
-    "title": "A match server and Play online in the game, on your tailnet and public on Render",
-    "after": ""
-   },
-   {
-    "id": "SCENES1",
-    "who": "claude",
-    "title": "Four famous exchanges played on our rules and checked on film: 10 of 14 match the ring",
-    "after": ""
-   },
-   {
-    "id": "PROGP4",
-    "who": "arena",
-    "title": "Upgrade pairs for each punch: none passes on two seeds",
     "after": ""
    }
   ],
@@ -6347,6 +6334,22 @@
   "map": {
    "done_earlier": [
     {
+     "text": "Cup r7-r9: v4.7-v4.9",
+     "who": "claude"
+    },
+    {
+     "text": "Octagon v5: owner's v2.0 book",
+     "who": "claude"
+    },
+    {
+     "text": "Octagon v5: cup fun 7.75 (r11)",
+     "who": "claude"
+    },
+    {
+     "text": "TYPES1: Defend needs a cost",
+     "who": "claude"
+    },
+    {
      "text": "Strip: Stay put is a strap (571.1)",
      "who": "claude"
     },
@@ -6385,39 +6388,27 @@
     {
      "text": "Cascadeur Indie bought (owner)",
      "who": "claude"
-    },
-    {
-     "text": "Strip shows the guard (0.570.2)",
-     "who": "claude"
-    },
-    {
-     "text": "Kick/head/one built from main",
-     "who": "claude"
-    },
-    {
-     "text": "LAYERS0: holds+jab, 0 jumps",
-     "who": "claude"
-    },
-    {
-     "text": "Octagon cup 1: Gemma+Claude",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "Cup r7-r9: v4.7-v4.9",
+     "text": "C: drive cleared (your yes)",
      "who": "claude"
     },
     {
-     "text": "Octagon v5: owner's v2.0 book",
+     "text": "Cup r13 v5.3: fun 7.5",
      "who": "claude"
     },
     {
-     "text": "Octagon v5: cup fun 7.75 (r11)",
+     "text": "v6 = your v2.7 + your Tell",
      "who": "claude"
     },
     {
-     "text": "TYPES1: Defend needs a cost",
+     "text": "v6.1: what 2.7 missed, fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r14-r16 on v6: best 7.5",
      "who": "claude"
     }
    ],
@@ -7017,21 +7008,21 @@
      "who": "claude"
     },
     {
-     "text": "Cup r13 on v5.3: fun to 8",
+     "text": "Cup r17 on v6.4: fun to 8",
      "who": "claude"
     },
     {
-     "text": "v6: your v2.6 rules, separate",
+     "text": "Pull Counter 5->4, rocked rule",
      "who": "claude"
     }
    ],
-   "session": "S572"
+   "session": "S573"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
- "last_working_commit": "369173f03",
- "next_action": "S573: (1) Octagon cup round 13 on v5.3 (fun 8 is the target: r11 7.75, r12 7.5) - pairings not yet played: Claude v Maria, John v Kalli on new fighters; asks open: two Close attacks per deck, the Stance Guard idea, guard v guard costs something; (2) v6 = the owner's v2.6 fight rules + his v2.6 boxing cards as proto/octagon/cards_v6.mjs (`v6=1`), SEPARATE from v5 (owner S572), bots first, then one cup round on it beside v5.3; (3) collect LAYERS1 (tab c1 of S572), RULES569 (tab c1 of S571), KICKFIX6 (two chains, tables building); (4) Q-S294-348 (C: drive), Q-S294-350 (which v2.6 card list - answered by his synchronized files: the CSV (1) + synchronized PDF agree); (5) BUILD1 round 4, MMCPLAY1, LONG3.",
+ "last_working_commit": "5c2eda7e6",
+ "next_action": "S574: (1) Octagon cup round 17 on v6.4 (fun 8 target; v6 best r15 7.5) - Claude v John, Kalli v Maria; (2) next rule candidates measured: Pull Counter 5 -> 4, a rocked man gives something up, live round score, the slow puncher v the fast jab (John/Claude v Maria - a real tension); (3) collect LAYERS1 (paused for his game), RULES569, KICKFIX6; (4) BUILD1 round 4, MMCPLAY1, LONG3.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

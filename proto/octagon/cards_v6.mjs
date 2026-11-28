@@ -1,0 +1,60 @@
+// OCTAGON v6 (S573): the owner's v2.7 Director's Cut (ops/research/octagon/v27/Octagon_Tactics_v2_7_Directors_Cut_Print_And_Play.pdf,
+// text in v27_text.txt) - boxing only: BOX-01..12 + FIQ-01..04 + SYS-01 with HIS numbers. Built SEPARATELY from v5 (owner S572:
+// "keep the current version and work seperately on the new rules"); v2.7 replaces v2.6 for this line (he sent it S573).
+// His v2.7 rules on: Signature Stance Guard always there, Desperation Surge, the 5-category matrix (Counter v Counter / Counter v
+// Defend / Defend v Defend = neutral reset, both +1 stamina), Initiative +2 speed with the non-stacking speed cap, heavy chip,
+// Long tax, reactive whiffs free / power counters -2, Economy of Motion, Pocket Armor, Deep Breath only if unhit, [Tell: Color]
+// (owner S573: the feint shows the colour of his NEXT card) and [Tell: Name] (Read Tendencies).
+// Our cup extras are OFF here (Hold Ground, Range Jab, Elbows Down, Clinch & Hold, rock rules) - his rules are the line.
+// CALL = our reading where his card or rule is silent or does not fit the engine.
+import { CARDS, PROFILES, TUNE } from './engine.mjs';
+import { useV4, POOL, STYLES, profileOf } from './fighters_v4.mjs';
+
+export const V6_CARDS = {
+  jab:      { id: 'BOX-01', n: 'Step-In Jab', type: 'A', spd: 8, st: 1, legal: ['long'], pre: 1, zone: 'head', dmg: 2, chain: 1, straight: 1, t: 'Long -> Mid. 2 to the head, claims the Lead on a hit. [Chain +1].' },
+  cross3:   { id: 'BOX-02', n: 'Straight Cross', type: 'A', spd: 7, st: 2, legal: ['mid'], zone: 'head', dmg: 3, chain: 1, straight: 1, afterJab: 1, t: 'Mid. 3 to the head, +1 after a Jab (in a combo) or a Double Jab Feint. [Chain +1].' },
+  overhand: { id: 'BOX-03', n: 'Overhand Right', type: 'A', spd: 4, st: 3, legal: ['long'], pre: 1, zone: 'head', dmg: 5, t: 'Long -> Mid. HEAVY: 5 to the head; 1 chip + 1 stamina through a block.' },
+  lhook3:   { id: 'BOX-04', n: 'Lead Left Hook', type: 'A', spd: 6, st: 2, legal: ['mid', 'close'], zone: 'head', dmg: 4, hook: 1, t: 'Mid or Close. HEAVY: 4 to the head; 1 chip + 1 stamina through a block.' },
+  liver3:   { id: 'BOX-05', n: 'Liver Hook', type: 'A', spd: 6, st: 2, legal: ['mid', 'close'], zone: 'body', dmg: 3, hook: 1, capCut: 1, t: 'Mid or Close. 3 to the body; his maximum stamina -1 on a clean hit.' },
+  upper3:   { id: 'BOX-06', n: 'Rear Uppercut', type: 'A', spd: 5, st: 2, legal: ['close'], zone: 'head', dmg: 4, hook: 1, t: 'Close. HEAVY: 4 to the head.' },
+  slip3:    { id: 'BOX-07', n: 'Slip & Counter Jab', type: 'C', spd: 9, st: 1, legal: ['mid'], dmg: 2, answers: 'mid', reactive: 1, chain: 1, t: 'Mid. REACTIVE counter: answers any attack landing at Mid - it misses, you land 2 and take the Lead. A whiff costs nothing more.' },
+  pull3:    { id: 'BOX-08', n: 'Pull Counter Cross', type: 'C', spd: 9, st: 3, legal: ['mid'], dmg: 5, answers: 'mid', t: 'Mid. POWER counter: answers any attack landing at Mid - it misses, you land 5. A whiff or a feint costs 2 stamina more.' },
+  lchk:     { id: 'BOX-09', n: 'Check Left Hook', type: 'C', spd: 8, st: 2, legal: ['mid'], dmg: 3, answers: 'advancing', post: -1, reactive: 1, t: 'Mid. REACTIVE counter: answers a man stepping in - it misses, you land 3 and pivot out to Long. A whiff costs nothing more.' },
+  twitch:   { id: 'BOX-10', n: 'Shoulder Twitch Feint', type: 'F', spd: 8, st: 0, legal: ['long', 'mid'], cageCut: 1, tell: 'color', t: 'Long or Mid. FEINT: beats a Counter and a Defend - you take the Lead, he is pushed 1 toward the cage, and TELL: next exchange you see the colour of his card before you choose. Loses to an Attack.' },
+  djab:     { id: 'BOX-11', n: 'Double Jab Feint', type: 'F', spd: 7, st: 1, legal: ['long'], pre: 1, cageCut: 1, t: 'Long -> Mid. FEINT, steps in safely: beats a Counter and a Defend, he is pushed 1 toward the cage; your next Straight Cross +1. Loses to an Attack.' },
+  guard:    { id: 'BOX-12', n: 'High Guard & Shell', type: 'D', spd: 6, st: 0, legal: ['long', 'mid', 'close'], covers: 'any', rec: 1, t: 'Any range. Blocks an attack (a HEAVY one still chips 1 and costs you 1 stamina), +1 stamina; costs 1 at Long. Loses to a Feint.' },
+  cutc:     { id: 'FIQ-01', n: 'Cut the Cage', type: 'F', spd: 7, st: 1, legal: ['long'], pre: 1, cageCut: 2, t: 'Long -> Mid. FEINT: beats a Counter and a Defend, he is pushed 2 toward the cage, you take the Lead. Loses to an Attack.' },
+  circle3:  { id: 'FIQ-02', n: 'Circle Out & Reset', type: 'D', spd: 8, st: 1, legal: ['close'], covers: 'any', rec: 0, post: -1, cageGain: 2, t: 'Close. Blocks an attack, steps out to Mid, +2 cage space. Loses to a Feint.' },
+  read3:    { id: 'FIQ-03', n: 'Read Tendencies', type: 'F', spd: 9, st: 0, legal: ['long', 'mid', 'close'], read: 1, chain: 0, t: 'Any range. FEINT: beats a Counter and a Defend; TELL: you see ONE card of his hand (v6.4, his v2.7 card), draw 1, take the Lead. Loses to an Attack.' },
+  breath:   { id: 'FIQ-04', n: 'Deep Breath & Pace', type: 'D', spd: 6, st: 0, legal: ['long', 'mid'], covers: 'none', rec: 3, recUnhit: 1, t: 'Long or Mid. +3 stamina if he does not hit you (it blocks nothing); costs 1 at Long. Loses to a Feint.' },
+  stance:   { id: 'SYS-01', n: 'Signature Stance Guard', type: 'D', spd: 5, st: 0, legal: ['long', 'mid', 'close'], covers: 'any', rec: 0, virtual: 1, t: 'ALWAYS THERE (outside your hand): blocks an attack (a HEAVY one still chips 1); no stamina back; free the first time in a round, then +1 stamina a use (v6.2); +1 more at Long. Loses to a Feint.' },
+};
+// 20 cards, at most 2 of a card; every deck keeps at least two Close attacks (cup r12-r13). CALL: the decks are ours (his PDF lists cards, not boxing decks)
+export const V6_DECKS = {
+  out:     { jab: 2, cross3: 2, lhook3: 1, liver3: 1, slip3: 2, lchk: 2, twitch: 2, djab: 1, guard: 2, circle3: 2, read3: 2, breath: 1 },
+  press:   { jab: 1, cross3: 2, overhand: 2, lhook3: 2, liver3: 2, upper3: 2, pull3: 1, twitch: 1, djab: 1, guard: 2, cutc: 2, read3: 1, breath: 1 },
+  counter: { jab: 1, cross3: 2, lhook3: 1, liver3: 1, slip3: 2, pull3: 2, lchk: 2, twitch: 2, guard: 2, circle3: 1, read3: 2, breath: 2 },
+};
+export const deckSize = (d) => Object.values(d).reduce((x, y) => x + y, 0);
+
+export function useV6(opt = {}) {
+  useV4();
+  Object.assign(CARDS, V6_CARDS);
+  for (const st of Object.keys(V6_DECKS)) STYLES[st].deck = () => V6_DECKS[st];
+  for (const id of Object.keys(POOL)) PROFILES[id] = profileOf(id);
+  Object.assign(TUNE, {
+    feintDef: 1, chip: 1, chipPress: 1, longTax: 1, ctrSplit: 1, econ: 1, taxReset: 1, fix572: 1, lead: 2, hp: 1,   // his v2.0 rules kept in v2.7; chipPress = Pocket Armor's +1 chip
+    stance: 1, surge: 1, neutral1: 1, capOne: 1, tellColor: 1, pocket: 1,                                    // his v2.7 rules (S573)
+    holdCard: 0, longJab: 0, elbows: 0, rockClinch: 0, wallClinch: 0, cover: 0, ctrDuel: 0, pressPre: 0, rockSafe: 0, ctrRefund: 0, openSoft: 0, holdReads: 0, holdParry: 0, feelMeets: 0,   // our cup extras OFF
+  });
+  if (opt.pure) return;   // pure=1: v2.7 exactly as written - bots: Iron 69-77%, Truck 74%, out-fighters 31-35% (Pressure runs away)
+  /* v6.1 (S573, owner: "check if 2.7 is missing anything from the version that rate 7/8 ... and see if you can fix it"): v2.7 lacks
+     what the cup added to v5 (7.5-7.75 fun). Measured on the bots, n=20 each (docs/OCTAGON_V6_RESULT.md): Initiative +1 alone 31-68%;
+     + the always-there cards 37-67%; + the rocked/pinned man's outs 35-66%; + all of v5's cup fixes 34-62%; Pocket Armor or the
+     +1 chip off changed little; HALF THE POWER BONUS was the missing piece (the v2.7 punches are cheaper, so POWER paid every
+     exchange): all of it 41-58%, n=40 37-59%, finishes 40% (v5.4: 9%). */
+  if (+(opt.feelMid ?? 1)) { TUNE.feelMid = 1; CARDS.feel = { ...CARDS.feel, legal: ['long', 'mid'], t: 'Always there at Long or Mid (v6.2): a pawing jab - 1 to the head, keeps him honest. Does not step in.' }; }   /* v6.2 (cup r14, Kalli + Claude: whole hands with no punch at Mid) */
+  /* v6.3 (cup r15 on v6.2: fun 8/7/7/8 = 7.5, depth 7.0; Range Jab + Stance Guard half of all plays - Kalli, John, Claude; the Pressure man never reached Close - John): a Range Jab straight after a Range Jab costs 1 more; a Cut the Cage that beats a Defend walks him to Close - bots 39-57% */
+  /* v6.4 (cup r16 on v6.3: fun 7.0, depth 6.75; John + Kalli: two cards shown + the Lead set up a free power counter): Read Tendencies shows ONE card, as his v2.7 card says - bots unchanged (they do not use the read) */
+  Object.assign(TUNE, { readCards: 1, feelTax: +(opt.feelTax ?? 1), cutClose: +(opt.cutClose ?? 1), stanceTax: +(opt.stanceTax ?? 1), lead: 1, powHalf: 1, openSoft: 1, ctrRefund: 1, holdCard: 1, longJab: 1, elbows: 1, holdParry: 1, feelMeets: 1, cover: 1, rockClinch: 1, rockSafe: 1, wallClinch: 1 });
+}

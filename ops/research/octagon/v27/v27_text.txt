@@ -1,0 +1,629 @@
+OCTAGON TACTICS V2.7 — DIRECTOR'S CUT RULEBOOK &
+CARDS
+Complete Print-and-Play Edition: Synchronized with the v2.7 Master Card Database (55 Cards) and 24 Championship Relics.
+1. CORE COMBAT LOOP & VICTORY CONDITIONS
+Match Format: 3 Rounds (5 Rounds for Boss Bouts) of 6 Simultaneous Exchanges each.
+Win Conditions: KO/TKO (Head Damage reaches Max Head HP 10 + Chin), Submission (Stamina reduced to 0 by a
+Submission card), or Judges' Decision (10-Point Must system based on total damage, knockdowns, and control).
+Hand & Signature Stance Slot: Draw 4 cards each exchange. Every fighter also has SYS-01 (Signature Stance Guard)
+permanently available outside their hand so you never brick on an all-Attack draw.
+Desperation Surge: At 0 Stamina, you may play any Defend or Active Escape card for 0 STM by taking 2 Self-Body
+Damage.
+2. THE 5-CATEGORY RESOLUTION MATRIX
+Your Card vs. Attack (Red) vs. Counter (Blue) vs. Feint (Yellow) vs. Defend (Green)
+Attack
+(Red)
+Higher Speed lands first &
+interrupts (Tie: Reach → Reflex
+→ Both hit).
+LOSE: Attack negated; take
+full Counter DMG + Initiative
+shift.
+WIN: Deal full DMG and
+claim Initiative (+2 SPD).
+BLOCKED: 0 DMG (Heavy
+Attacks 4+ DMG deal 1 Chip +
+1 STM drain).
+Counter
+(Blue)
+WIN: Negate Attack, deal
+bonus DMG, claim Initiative.
+Neutral Reset (both recover
++1 STM).
+LOSE: Whiff. Yield Initiative
+(Power Counters lose 2
+STM).
+Neutral Reset (both recover +1
+STM).
+Feint
+(Yellow)
+LOSE: Take full Attack DMG. WIN: Bait Counter, steal
+Initiative, trigger [Tell]
+reads.
+Neutral Reset. WIN: Break passive guard,
+steal Initiative, apply [Cage
+Push +1].
+Defend
+(Green)
+WIN: Block Attack + recover
+STM ([Long Tax +1] at
+Long Range).
+Neutral Reset. LOSE: Lose Initiative +
+pushed 1 step toward Cage
+Wall.
+Neutral Reset (both recover +1
+STM).
+v2.7 Director's Cut Balance Rules:
+Non-Stacking Modifier Cap: Only the single highest Speed bonus and single highest Speed penalty apply per exchange.
+Counter-Initiative Bonus: Counter (Blue) cards gain +1 Speed when played against an opponent holding the Initiative
+Token.
+Referee Stand-Up: If 2 consecutive ground exchanges produce zero positional advancement and <2 total damage/drain,
+the referee resets both fighters to Mid Range in Neutral.
+Takedown Guard Break & Positional Gates: Takedowns bypass standard High Guards (requiring Sprawl or Anti-
+Takedown Counters). Submissions from Clinch/Closed Guard suffer -2 Drain unless the defender is below 50% Stamina.
+3. STAND-UP RANGE, GRAPPLING TRACK & LOCALIZED INJURIES
+Stand-Up Range Track: Long Range (Kicks, Lunging Jabs) ↔ Mid Range (Boxing, Reactive Takedowns) ↔ Close Range
+(Elbows, Knees, Clinch Entries). [Pre-Move In] shifts Range before strikes; [Post-Move Out] shifts after.
+Grappling Position Track: Clinch → Closed Guard → Half Guard / Side Control → Mount / Back Control. Bottom fighters
+must play [Active Escape] or [Active Sweep] cards to escape.
+Localized Injuries: Head DMG triggers Rocked (stunned for 1 exchange) and Eye Cuts (reveals 1 hand card). Body DMG
+reduces Max Stamina Cap. Leg DMG applies -1 Speed and increases movement costs.
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+• 
+=====PAGE
+4. TOURNAMENT-BALANCED FIGHTER ARCHETYPES (V2.7)
+Archetype & Relic Reach Reflex Chin Cardio Grapple Signature Passive Ability
+Pressure Brawler
+Starts with: REL-01 (Iron Chin
+Mouthguard)
+72" 6 9 20 5 Pocket Armor: -1 incoming DMG in Close Range; +1 Chip
+DMG on blocked Heavy Attacks.
+Technical Sniper
+Starts with: REL-08 (Counter-
+Puncher's Stopwatch)
+76" 9 7 21 4 Economy of Motion: First Counter whiff each round refunds 2
+Stamina; +1 SPD on Counter vs Initiative.
+Dagestani Grinder
+Starts with: REL-04 (Sambo
+Wrestling Shoes)
+71" 7 8 24 9 Top Heavy: Takedowns gain [Guard Break]; opponent ground
+Escapes/Sweeps cost +1 Stamina.
+Submission Ace
+Starts with: REL-05 (Black Belt Gi
+Patch)
+73" 7 6 20 10 Mat Wizard: Ignore 1 Positional Gate penalty; bottom Sweeps
+cost -1 Stamina.
+=====PAGE
+Common Common
+Common Uncommon
+Uncommon Uncommon
+Common Rare
+Rare Rare
+Boss Boss
+Rare Uncommon
+Uncommon Rare
+Common Uncommon
+Common Uncommon
+Rare Uncommon
+Boss Boss
+5. CHAMPIONSHIP RELICS REFERENCE (REL-01 TO REL-24)
+REL-01: Iron Chin Mouthguard
+Raises single-hit Rocked Threshold by +2 DMG and grants +2 Max Head
+HP.
+REL-02: Precision Hand Wraps
+All Boxing Attack cards gain +1 Speed on the first exchange of every
+round.
+REL-03: Thai Liniment Oil
+Immune to the first Leg Injury (-1 SPD) penalty each fight; Calf Kicks deal
++1 DMG.
+REL-04: Sambo Wrestling Shoes
+Takedown cards ignore 1 point of opponent Speed advantage and gain
+[Chain +1].
+REL-05: Black Belt Gi Patch
+BJJ Submissions ignore 1 point of Positional Gate penalty from Closed
+Guard.
+REL-06: Altitude Mask
++3 Max Stamina Cap and +1 extra Stamina recovery between rounds.
+REL-07: Corner Ice Bag
+Heal 3 Head DMG and 2 Body DMG automatically between Rounds 1-2
+and 2-3.
+REL-08: Counter-Puncher's Stopwatch
+Reactive Counters deal +2 bonus DMG and draw 1 card when they
+negate an Attack.
+REL-09: Cage-General Spurs
+Whenever you push an opponent to 0 Cage Space, deal 2 Body DMG and
+steal Initiative.
+REL-10: Adrenaline Syringe
+Desperation Surge at 0 Stamina costs 0 Self-Body DMG once per round.
+REL-11: Championship Gold Buckle
++1 to all Attributes (Reach, Reflexes, Chin, Cardio, Grappling) during Boss
+fights.
+REL-12: Hall of Fame Tape
+Signature Stance Guard also recovers +2 Stamina whenever it
+successfully blocks an Attack.
+REL-13: Flow State Metronome
+Every 3rd card played in a Combo Chain costs 0 Stamina and deals +2
+bonus DMG.
+REL-14: Shadowboxer's Mirror
+Playing 2 Feints in the same round deals 3 automatic Head DMG and
+draws 1 card.
+REL-15: Kinetic Ankle Wraps
+Whenever you shift Range twice in one round, gain +2 Stamina and
+Initiative.
+REL-16: Vampire's Mouthpiece
+Every 3 Stamina drained by your Submissions heals 1 Head and 1 Body
+DMG.
+REL-17: Iron Neck Harness
+Reduces incoming Eye Cut and Rocked duration by 1 exchange; +1 Chin.
+REL-18: Cornerman's Stopwatch
+Triggering a Referee Stand-Up grants you immediate Initiative and +2
+Stamina.
+REL-19: Blood-Sport Vaseline
+Immune to Eye Cut hand reveals; Opponent Grappling passes cost +1
+Stamina.
+REL-20: Octagon Canvas Cleats
+Ignore the Long-Range Distance Tax (+1 STM) on your first Defend each
+round.
+REL-21: Sniper's Rangefinder
+Cards with [Tell] tags also grant +2 Speed to your next Attack or Counter.
+REL-22: Brawler's Heavy Bag
+All [Heavy] Attacks deal +1 additional Chip Damage even when blocked.
+REL-23: Grinder's Weight Cut
+Start every fight with Initiative and opponent at 1 Cage Space; -2 Max
+Stamina.
+REL-24: Apex Predator Belt
+Elite (+) upgraded cards in your deck gain +1 Speed and +1 Damage.
+=====PAGE
+6. COMPLETE 55-CARD PRINT-AND-PLAY DECK (CUT ALONG BORDERS)
+BOX-01 ATTACK
+Step-In Jab
+BOXING
+SPD: 8 STM: 1 DMG: 2 DMG
+Zone: Long -> Mid | Target: Head
+[Pre-Move In 1], [Chain +1]
+Close to Mid Range, deal 2 Head DMG, claim
+Initiative on hit.
+BOX-02 ATTACK
+Straight Cross
+BOXING
+SPD: 7 STM: 2 DMG: 3 DMG
+Zone: Mid | Target: Head
+[Chain +1]
+Fast straight punch in the pocket. +1 DMG if
+following a Jab.
+BOX-03 ATTACK
+Overhand Right
+BOXING
+SPD: 4 STM: 3 DMG: 5 DMG
+Zone: Long -> Mid | Target: Head
+[Pre-Move In 1], [Heavy]
+Loops over jabs. 1 Chip DMG on block. Triggers
+Rocked if unblocked.
+BOX-04 ATTACK
+Lead Left Hook
+BOXING
+SPD: 6 STM: 2 DMG: 4 DMG
+Zone: Mid / Close | Target: Head
+[Heavy]
+Short arc power shot. Deals 1 Chip DMG + 1 STM
+drain on block.
+BOX-05 ATTACK
+Liver Hook
+BOXING
+SPD: 6 STM: 2 DMG: 3 DMG
+Zone: Mid / Close | Target: Body
+[Body Cap -1]
+Permanently reduces opponent Max Stamina Cap by
+1 on clean hit.
+BOX-06 ATTACK
+Rear Uppercut
+BOXING
+SPD: 5 STM: 2 DMG: 4 DMG
+Zone: Close | Target: Head
+[Heavy], [Anti-Takedown]
+Deals +2 bonus DMG if opponent plays a Takedown
+or Level Change.
+BOX-07 COUNTER
+Slip & Counter Jab
+BOXING
+SPD: 9 STM: 1 DMG: 2 DMG
+Zone: Mid | Target: Head
+[Reactive Counter], [Chain +1]
+Negates Mid Attack, deals 2 DMG, steals Initiative.
++1 SPD vs Initiative.
+BOX-08 COUNTER
+Pull Counter Cross
+BOXING
+SPD: 9 STM: 3 DMG: 5 DMG
+Zone: Mid | Target: Head
+[Power Counter]
+Negates Mid Attack, deals 5 Head DMG. Lose 2
+STM if baited by Feint.
+BOX-09 COUNTER
+Check Left Hook
+BOXING
+SPD: 8 STM: 2 DMG: 3 DMG
+Zone: Mid -> Long | Target: Head
+[Reactive Counter], [Post-Move Out 1]
+Negates advancing Attack, deals 3 DMG, pivots out
+to Long Range.
+=====PAGE
+BOX-10 FEINT
+Shoulder Twitch Feint
+BOXING
+SPD: 8 STM: 0 DMG: 0 DMG
+Zone: Long / Mid | Target: None
+[Cage Push +1], [Tell: Color]
+Beats Counter & Defend. Steals Initiative, pushes
+Cage, reveals 1 card color.
+BOX-11 FEINT
+Double Jab Feint
+BOXING
+SPD: 7 STM: 1 DMG: 0 DMG
+Zone: Long -> Mid | Target: None
+[Pre-Move In 1], [Cage Push +1]
+Closes to Mid Range safely. Next Attack in chain
+gains +1 DMG.
+BOX-12 DEFEND
+High Guard & Shell
+BOXING
+SPD: 6 STM: 0 DMG: 0 DMG
+Zone: Any | Target: Self
+[Long Tax +1]
+Blocks Attack (1 Chip vs Heavy), recovers +1 STM.
+Costs 1 STM at Long.
+MTK-01 ATTACK
+Inside Calf Kick
+MUAY THAI
+SPD: 7 STM: 1 DMG: 2 DMG
+Zone: Long / Mid | Target: Legs
+[Leg Injury +1]
+Inflicts Leg Injury (-1 SPD cap on opponent
+movement/attacks).
+MTK-02 ATTACK
+Lead Teep Kick
+MUAY THAI
+SPD: 7 STM: 1 DMG: 2 DMG
+Zone: Mid -> Long | Target: Body
+[Post-Move Out 1]
+Pushes opponent back to Long Range and halts
+advancing combos.
+MTK-03 ATTACK
+Switch Body Kick
+MUAY THAI
+SPD: 5 STM: 2 DMG: 4 DMG
+Zone: Long / Mid | Target: Body
+[Heavy], [Body Cap -1]
+Heavy roundhouse to ribs. 1 Chip DMG on block; -1
+Max STM on hit.
+MTK-04 ATTACK
+Question Mark Kick
+MUAY THAI
+SPD: 5 STM: 3 DMG: 5 DMG
+Zone: Long | Target: Head
+[Heavy], [Feint-Entry]
+Fakes low, strikes high. Ignores Reactive Counters; 1
+Chip on block.
+MTK-05 ATTACK
+Spinning Back Elbow
+MUAY THAI
+SPD: 6 STM: 3 DMG: 5 DMG
+Zone: Close | Target: Head
+[Heavy], [Cut Risk]
+Devastating close-range elbow. Inflicts Eye Cut
+(reveals 1 hand card).
+MTK-06 ATTACK
+Flying Knee
+MUAY THAI
+SPD: 4 STM: 4 DMG: 6 DMG
+Zone: Long -> Close | Target: Head
+[Pre-Move In 2], [Heavy]
+Leaps straight to Close Range. +2 DMG vs
+Takedowns; -2 STM if blocked.
+MTK-07 COUNTER
+Shin Check & Return
+MUAY THAI
+SPD: 8 STM: 1 DMG: 2 DMG
+Zone: Long / Mid | Target: Legs
+[Reactive Counter]
+Negates Kick attacks and deals 2 Leg DMG back to
+the kicker.
+MTK-08 COUNTER
+Catch Kick & Sweep
+MUAY THAI
+SPD: 7 STM: 2 DMG: 3 DMG
+Zone: Long / Mid | Target: Body
+[Power Counter], [Trip]
+Catches body/leg kick, sweeps opponent, claims
+Initiative.
+MTK-09 COUNTER
+Step-In Knee Counter
+MUAY THAI
+SPD: 8 STM: 3 DMG: 5 DMG
+Zone: Mid / Close | Target: Body
+[Power Counter], [Anti-Takedown]
+Intercepts advancing punches or takedowns for 5
+Body DMG.
+=====PAGE
+MTK-10 FEINT
+Low-Kick Feint
+MUAY THAI
+SPD: 8 STM: 0 DMG: 0 DMG
+Zone: Long / Mid | Target: None
+[Cage Push +1], [Tell: Color]
+Draws shin check, steals Initiative, reveals 1
+opponent card color.
+MTK-11 GRAPPLE
+Thai Plum Clinch Grab
+MUAY THAI
+SPD: 6 STM: 2 DMG: 1 DMG
+Zone: Close | Target: Clinch
+[Transition: Clinch]
+Transitions fight from Close Range into dominant
+Thai Clinch.
+MTK-12 DEFEND
+Long Guard & Frame
+MUAY THAI
+SPD: 6 STM: 1 DMG: 0 DMG
+Zone: Mid -> Long | Target: Self
+[Post-Move Out 1]
+Blocks Attack and frames out to Long Range.
+Recovers +1 STM.
+WRS-01 GRAPPLE
+Blast Double-Leg
+WRESTLING
+SPD: 6 STM: 3 DMG: 2 DMG
+Zone: Long / Mid | Target: Ground
+[Guard Break], [Transition: Guard]
+Bypasses High Guard; takes fight to Closed Guard
+with Top Control.
+WRS-02 GRAPPLE
+Cage-Drag Single-Leg
+WRESTLING
+SPD: 7 STM: 2 DMG: 1 DMG
+Zone: Mid / Close | Target: Ground
+[Guard Break], [Cage Bonus]
+Bypasses High Guard. +2 SPD if opponent is at 0–1
+Cage Space.
+WRS-03 GRAPPLE
+Body-Lock Takedown
+WRESTLING
+SPD: 5 STM: 3 DMG: 2 DMG
+Zone: Close / Clinch | Target: Ground
+[Guard Break], [Transition: Half]
+Lands directly in Half Guard / Side Control with Top
+Control.
+WRS-04 GRAPPLE
+Inside Trip (Ouchi Gari)
+WRESTLING
+SPD: 7 STM: 2 DMG: 2 DMG
+Zone: Close / Clinch | Target: Ground
+[Guard Break], [Chain +1]
+Fast Judo trip from clinch or pocket; lands in Closed
+Guard.
+WRS-05 COUNTER
+Hip Toss (Harai Goshi)
+WRESTLING
+SPD: 7 STM: 3 DMG: 4 DMG
+Zone: Close / Clinch | Target: Ground
+[Power Counter], [Transition: Side]
+Counters aggressive clinch/pocket attack into Side
+Control + 4 DMG.
+WRS-06 GRAPPLE
+Mat Return & Ride
+WRESTLING
+SPD: 6 STM: 2 DMG: 1 DMG
+Zone: Ground (Top) | Target: Position
+[Top Heavy], [Stall Reset]
+Prevents opponent stand-up, drains 2 STM, resets
+Referee Stand-Up count.
+WRS-07 FEINT
+Level-Change Feint
+WRESTLING
+SPD: 8 STM: 1 DMG: 0 DMG
+Zone: Long -> Mid | Target: None
+[Pre-Move In 1], [Tell: Name]
+Fakes takedown shot; reveals exact name of 1 card
+in opponent hand.
+WRS-08 DEFEND
+Heavy Sprawl
+WRESTLING
+SPD: 8 STM: 1 DMG: 0 DMG
+Zone: Long / Mid | Target: Self
+[Anti-Takedown], [Long Tax +1]
+Stuffs any Takedown, drains 3 STM from shooter,
+claims Initiative.
+WRS-09 DEFEND
+Underhook Pummel
+WRESTLING
+SPD: 7 STM: 1 DMG: 0 DMG
+Zone: Clinch | Target: Self
+[Clinch Control]
+Denies opponent clinch transitions and recovers +2
+Stamina.
+=====PAGE
+WRS-10 DEFEND
+Granby Roll Escape
+WRESTLING
+SPD: 7 STM: 2 DMG: 0 DMG
+Zone: Ground (Bot) | Target: Standup
+[Active Escape]
+Escapes Side Control/Guard back to Mid Range
+Stand-Up.
+BJJ-01 GRAPPLE
+Knee-Slice Guard Pass
+BJJ
+SPD: 6 STM: 2 DMG: 1 DMG
+Zone: Closed Guard | Target: Side Control
+[Advance +1], [Stall Reset]
+Passes Closed Guard into Side Control; resets
+Referee Stand-Up count.
+BJJ-02 GRAPPLE
+Toreando Pass to Mount
+BJJ
+SPD: 5 STM: 3 DMG: 1 DMG
+Zone: Half / Side | Target: Mount
+[Advance +1], [Top Heavy]
+Passes Half/Side Control directly into Full Mount.
+BJJ-03 GRAPPLE
+Berimbolo Back Take
+BJJ
+SPD: 7 STM: 3 DMG: 0 DMG
+Zone: Guard / Half | Target: Back Control
+[Advance +2]
+Inverts to take opponent's Back Control with hooks
+in.
+BJJ-04 COUNTER
+Scissor Sweep
+BJJ
+SPD: 7 STM: 2 DMG: 1 DMG
+Zone: Closed Guard | Target: Top Guard
+[Active Sweep], [Reactive Counter]
+Reverses Top Ground attack/pass, flipping into Top
+Control.
+BJJ-05 COUNTER
+Butterfly Elevator Sweep
+BJJ
+SPD: 6 STM: 2 DMG: 2 DMG
+Zone: Half Guard | Target: Side Control
+[Active Sweep], [Power Counter]
+Counters Top pressure to sweep directly into Side
+Control.
+BJJ-06 GRAPPLE
+Rear-Naked Choke
+BJJ
+SPD: 6 STM: 3 DMG: 5 Drain
+Zone: Back Control | Target: Submission
+[Submission]
+Drains 5 STM (wins fight if STM hits 0). Unblockable
+by High Guard.
+BJJ-07 GRAPPLE
+Armbar from Guard/Mount
+BJJ
+SPD: 6 STM: 3 DMG: 4 Drain
+Zone: Guard / Mount | Target: Submission
+[Submission], [Positional Gate]
+Drains 4 STM (-2 if Closed Guard & target >=50%
+STM). Inflicts Limb DMG.
+BJJ-08 GRAPPLE
+Triangle Choke
+BJJ
+SPD: 7 STM: 2 DMG: 4 Drain
+Zone: Closed Guard | Target: Submission
+[Submission], [Positional Gate]
+Fast choke off bottom (-2 drain if target >=50%
+STM).
+BJJ-09 COUNTER
+Guillotine Choke
+BJJ
+SPD: 8 STM: 3 DMG: 4 Drain
+Zone: Mid / Clinch | Target: Submission
+[Submission], [Anti-Takedown]
+Counters Takedown entries directly into a standing/
+guard choke.
+BJJ-10 GRAPPLE
+Inside Heel Hook
+BJJ
+SPD: 7 STM: 3 DMG: 5 Drain
+Zone: Guard / Half | Target: Submission
+[Submission], [Leg Injury +2]
+Devastating leg lock; inflicts +2 Leg Injury even if
+escaped.
+BJJ-11 FEINT
+Pull Guard Setup
+BJJ
+SPD: 7 STM: 1 DMG: 0 DMG
+Zone: Mid / Close | Target: Closed Guard
+[Transition: Guard]
+Safely pulls opponent into Closed Guard; steals
+Initiative.
+=====PAGE
+BJJ-12 DEFEND
+Shrimp & Hip Escape
+BJJ
+SPD: 7 STM: 1 DMG: 0 DMG
+Zone: Ground (Bot) | Target: Guard / Stand
+[Active Escape]
+Moves back 1 Grappling step (Mount -> Half ->
+Guard -> Stand-Up).
+GNP-01 ATTACK
+Hammerfist Barrage
+GNP / IQ
+SPD: 6 STM: 2 DMG: 3 DMG
+Zone: Ground (Top) | Target: Head
+[Chain +1], [Stall Reset]
+Rapid top strikes; +2 DMG from Mount or Back
+Control.
+GNP-02 ATTACK
+Crucifix Hellbows
+GNP / IQ
+SPD: 5 STM: 3 DMG: 5 DMG
+Zone: Side / Mount | Target: Head
+[Heavy], [Cut Risk]
+Heavy downward elbows; 1 Chip DMG on block and
+inflicts Eye Cut.
+FIQ-01 FEINT
+Cut the Cage
+GNP / IQ
+SPD: 7 STM: 1 DMG: 0 DMG
+Zone: Long -> Mid | Target: None
+[Pre-Move In 1], [Cage Push +2]
+Corners opponent by 2 Cage spaces and claims
+Initiative.
+FIQ-02 DEFEND
+Circle Out & Reset
+GNP / IQ
+SPD: 8 STM: 1 DMG: 0 DMG
+Zone: Close -> Mid | Target: Self
+[Post-Move Out 1], [Cage Escape]
+Escapes Close Range and restores +2 Cage Space.
+FIQ-03 FEINT
+Read Tendencies
+GNP / IQ
+SPD: 9 STM: 0 DMG: 0 DMG
+Zone: Any | Target: None
+[Tell: Name], [Draw +1]
+Reveals 1 exact card in opponent hand, draws 1
+card, gains Initiative.
+FIQ-04 DEFEND
+Deep Breath & Pace
+GNP / IQ
+SPD: 6 STM: 0 DMG: 0 DMG
+Zone: Long / Mid | Target: Self
+[Long Tax +1]
+Recovers +3 Stamina if unhit. Costs 1 STM at Long
+Range.
+SYS-01 DEFEND
+Signature Stance Guard
+SYSTEM
+SPD: 5 STM: 0 DMG: 0 DMG
+Zone: Any | Target: Self
+[Always Available]
+Permanent Stance Slot card outside hand. Blocks
+Attack (1 Chip vs Heavy).
+SYS-02 CURSE
+Curse: Bruised Shin
+SYSTEM
+SPD: 1 STM: 1 DMG: 0 DMG
+Zone: Any | Target: Self
+[Unplayable Dead Draw]
+Lingering leg injury. Occupies 1 hand slot until
+healed at Physio.
+SYS-03 CURSE
+Curse: Concussion Fog
+SYSTEM
+SPD: 1 STM: 1 DMG: 0 DMG
+Zone: Any | Target: Self
+[Unplayable Dead Draw]
+Lingering head trauma. Occupies 1 hand slot until
+healed at Physio.
+=====PAGE
