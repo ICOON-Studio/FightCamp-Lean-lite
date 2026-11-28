@@ -7,7 +7,7 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
 `docs/OCTAGON_V6_RESULT.md` (section "S574").
 
 ## S575: DO THESE FIRST
-(after this page was first written, S574 also ran cup r21: v6.9 Kalli v John 7.0/6.5 - r20's 8/8 did not hold; LITE Claude v Maria 7.0/7.0 - up from 6.5/5.5; comboHalf, cutOnce (v6.9), circleFeint now ON. Start with cup r22 on BOTH; the open asks are in docs/OCTAGON_V6_RESULT.md "Cup round 21".)
+(after this page was first written, S574 also ran cup r21: v6.9 Kalli v John 7.0/6.5 - r20's 8/8 did not hold; LITE Claude v Maria 7.0/7.0 - up from 6.5/5.5; comboHalf, cutOnce (v6.9), circleFeint now ON. Start with cup r22 on BOTH. OWNER (S574, twice): "can you plesae rate the balance and stop judgiung the fun" - every cup brief asks BALANCE + the three style scores FIRST, and every report to him gives only those (no fun/depth numbers); the open asks are in docs/OCTAGON_V6_RESULT.md "Cup round 21".)
 0. FIRST (owner S574: "focus on balance first then fun and depth also try my version too"): LITE (his v2.7 + the fewest
    fixes, `v6=1 lite=1`) to fun 8 / depth 8 like v6.9. Cup r21 on LITE (the Range Jab repeat tax is ON since r20 - not yet
    played). Open asks (r20): the man ahead guards out the last two exchanges (John, Maria); the cut shows a card EVERY
