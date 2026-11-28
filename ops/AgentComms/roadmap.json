@@ -3,21 +3,18 @@
  "updated": "2026-11-28",
  "author": "claude S294",
  "now": {
-  "id": "S573",
-  "owner": "S573 (Opus 5.5)",
+  "id": "S575",
+  "owner": "S575 (Opus 5.5)",
   "updated": "2026-11-28",
-  "summary": "S574 (owner: 'focus on balance first then fun and depth also try my version too'): Octagon v6.7 -> v6.9, 15 switches from the seats' balance asks (2+ speed stops, reset tax on a guarding leader, start at Long, stick and move, Circle Out at Mid, Check Hook at Long, feint beats guard = judges' point, counters score 2, heavy trades through a jab ...); LITE = his v2.7 as written + the fewest fixes (as written Pressure 65-70%). Balance ratings from all four seats: v6.6 6.0 -> v6.7 7.75 -> v6.9 8.0 (every style 'just right'); LITE 6.75 -> 7.25. Cup r18-r20: r20 v6.9 fun 8 depth 8 (the first), LITE r20 6.5/5.5 (paw-and-guard at Long; Range Jab repeat tax now in LITE). His Stance Guard has no repeat rule in his file - ours (his words: 'i don recall putting a rule on that'). His UI art kit kept; his card-art idea (gritty ink, rim light by card colour) queued for after balance. docs/OCTAGON_V6_RESULT.md S574. Then cup r21: v6.9 Kalli v John 7.0/6.5 (r20's 8/8 did not hold), LITE Claude v Maria 7.0/7.0 (up from 6.5/5.5); comboHalf + cutOnce + circleFeint ON (v6.9 bots 46-53%).",
-  "next_action": "S575: (0) cup r22 on BOTH (v6.9 and LITE) with comboHalf + cutOnce (v6.9) + circleFeint - neither version has held fun 8 / depth 8 across seats yet (v6.9 r20 8/8, r21 7.0/6.5; LITE r21 7.0/7.0). Open asks: Pressure cannot close at Long and every round opens there (John: start where the last round ended, or a Step-In Guard card), Hold Ground parry as a free stall (Kalli), say what the Stance Guard covers (Maria), counter v counter at Mid a free reset (Claude). Each: TUNE switch OFF, pool_sim n=200 x 3 seeds, ON between rounds. (1) collect LAYERS1, RULES569, TYPES1, KICKFIX6; (2) his card art (ink + rim light) after balance; BUILD1 r4, MMCPLAY1, LONG3.",
-  "last_working_commit": "743a5d479",
+  "summary": "S575 (Opus 5.5): owner picked OURS, v6.9 (Q-S294-351: balance r22+r23 v6.9 6.25 v LITE 4.5; Pressure 3-4 from three seats). Pressure from his four answers, ON in v6.9: Walk Him Down (always there at Long, free, blocks head, steps to Mid, a feint gets nothing, cuts off the ring 1 room), Check Hook is the answer (walkCheck), body shots drain 2, +2 stamina between rounds; also roundKeep 2, holdTwice, ctrCtr, pressWalk, heavyGap, fakeFwd ON; tieStraight measured OFF (Truck 61-62%). Bots 43-56%. fight.html built from his approved mockup (hand under the ring, damage = speed size, ropes, Lead, tell, flipped cards in the panels, the move arrow, status warnings from status_fx.js, fighters play each exchange). Board page buttons: only the fight and What changed. v0.575.1 -> 0.575.12.",
+  "next_action": "S576: (0) COLLECT cup r24 John (Truck) v Kalli (Snapshot), v6.9 balance=1 (E:/FightCamp/tmp/octcup4/r24_john_v_kalli, ran in the background at S575 end); REPLAY Claude (Metronome) v Maria (Body Shop): stopped at the handover, folder r24_claude_v_maria_stopped - start fresh at r24_claude_v_maria seed=242. Bar: Pressure 5 (just right) from the seats with his rules; if still 3-4 the ready lever is tieStraight (OFF, Truck 61-62% on bots). (1) KICKBOXING on v6.9 (owner: 'Cup check, then kicks'): ask him how a kickboxer fights (like the Pressure questions), build kick cards + their effects into status_fx.js, bots, cup.",
+  "last_working_commit": "629f96580",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
-  "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
+  "incomplete_blocked": "Cup r24: John v Kalli running in the background at handover; Claude v Maria stopped (replay). No Godot code changed: no export. fight.html checked by auto-play (18 exchanges to a stoppage, no console errors) and headless screenshots; the owner has played it and steered the HUD.",
   "next_acceptance": "Each run judged against its bars; the feint correction on the page with the loop under 30% and the feint still in 3% of beats; his friend plays one whole online bout.",
   "awaiting_operator": [
-   "Hand of cards: his play",
-   "Head moves: main page or drop the Head row",
-   "Q-345 tells: cut or try once more",
-   "Public push of v0.568.1-0.568.9",
-   "Q-S294-347: look at 127.0.0.1:8797/order.html?layers=1 - start one-man pictures for every move?"
+   "Cup r24 result (balance with his Pressure rules)",
+   "Kickboxing questions (next session)"
   ]
  },
  "next": "S562: see NEXT_SESSION_PROMPT.md - collect four Arena runs, then the body view as the main page's way to pick (his Q-343).",
@@ -2533,6 +2530,12 @@
    "date": "2026-11-28",
    "model": "Opus 5.5",
    "summary": "S574 (owner: 'focus on balance first then fun and depth also try my version too'): Octagon v6.7 -> v6.9, 15 switches from the seats' balance asks (2+ speed stops, reset tax on a guarding leader, start at Long, stick and move, Circle Out at Mid, Check Hook at Long, feint beats guard = judges' point, counters score 2, heavy trades through a jab ...); LITE = his v2.7 as written + the fewest fixes (as written Pressure 65-70%). Balance ratings from all four seats: v6.6 6.0 -> v6.7 7.75 -> v6.9 8.0 (every style 'just right'); LITE 6.75 -> 7.25. Cup r18-r20: r20 v6.9 fun 8 depth 8 (the first), LITE r20 6.5/5.5 (paw-and-guard at Long; Range Jab repeat tax now in LITE). His Stance Guard has no repeat rule in his file - ours (his words: 'i don recall putting a rule on that'). His UI art kit kept; his card-art idea (gritty ink, rim light by card colour) queued for after balance. docs/OCTAGON_V6_RESULT.md S574. Then cup r21: v6.9 Kalli v John 7.0/6.5 (r20's 8/8 did not hold), LITE Claude v Maria 7.0/7.0 (up from 6.5/5.5); comboHalf + cutOnce + circleFeint ON (v6.9 bots 46-53%)."
+  },
+  {
+   "id": "S575",
+   "date": "2026-11-28",
+   "model": "Opus 5.5",
+   "summary": "S575 (Opus 5.5): owner picked OURS, v6.9 (Q-S294-351: balance r22+r23 v6.9 6.25 v LITE 4.5; Pressure 3-4 from three seats). Pressure from his four answers, ON in v6.9: Walk Him Down (always there at Long, free, blocks head, steps to Mid, a feint gets nothing, cuts off the ring 1 room), Check Hook is the answer (walkCheck), body shots drain 2, +2 stamina between rounds; also roundKeep 2, holdTwice, ctrCtr, pressWalk, heavyGap, fakeFwd ON; tieStraight measured OFF (Truck 61-62%). Bots 43-56%. fight.html built from his approved mockup (hand under the ring, damage = speed size, ropes, Lead, tell, flipped cards in the panels, the move arrow, status warnings from status_fx.js, fighters play each exchange). Board page buttons: only the fight and What changed. v0.575.1 -> 0.575.12."
   }
  ],
  "blocked_on_operator": [],
@@ -5451,7 +5454,7 @@
  },
  "plan": {
   "_rule": "THE OPS BOARD'S MAIN PAGE READS THIS (S157, operator: 'a detailed roadmap showing what is being worked, what is next, who agents are scheduled for what and who are running'). Plain words, no task jargon in titles. 'Running' is NOT listed here - the board derives it from live_runs.json (status running). Update this block at every landing, launch and handover. S164: the next session's first 15 minutes are an AGENT SWEEP (CLAUDE.md section 3) - `ship` refuses without a delegated run today.",
-  "updated": "2026-11-28 01:10 board_sync",
+  "updated": "2026-11-28 13:11 board_sync",
   "goal": "SCOPE S428 (operator: 'ok p[roceed with this plan'): FOUR FIGHTERS from the start (three boxers + one BJJ, four weight classes), amateur bouts with NO camp (a light fight week, 1 to 2 weeks out), the RANK shown on every fight (regional ladder first), then a small HOSTED CLUB SHOW; the full promotion waits until after the small living world. Each new mechanic: design map with its menu table, two fresh critics 7+ (ask him first: critics cost real money), then build. One playable .exe a week, judged by him. Details: ops/research/SCOPE_FOUR_FIGHTERS_S428.md.",
   "titles": {
    "Q213H": "Measure how far the steps between punches in the 3 failing combos push the boxer into his opponent",
@@ -5626,38 +5629,19 @@
    "KICKFIX4": "Kicks round 4: the limp spiral is capped (5 of 9 bars); next a checked low kick hurts more and the low kick keeps the rear hand up; waits for your Arena sign-in",
    "TELLS2PAGE": "The tell onto the page as a pose of his body + the word in the ring corner - brief ready, waits for a tells version that holds its bars and your yes"
   },
-  "working_now": [
-   {
-    "title": "Rules: the exchange gets dearer, Guard up as a card, full-power punches - resumed from its committed tables",
-    "who": "Opus 5.5 console worker (PC, tab c1)",
-    "started": "2026-11-27T22:47",
-    "run": "RULES569"
-   },
-   {
-    "title": "Kicks on the rebuilt kick.html: the control and F6 tables",
-    "who": "two balance chains (background bash of S571)",
-    "started": "2026-11-27T22:43",
-    "run": "KICKFIX6"
-   },
-   {
-    "title": "One man per picture: every move re-rendered with masks (cross first)",
-    "who": "opus 5.5 console worker (pc, tab c1 of S572)",
-    "started": "2026-11-27T23:45",
-    "run": "LAYERS1"
-   }
-  ],
+  "working_now": [],
   "next": [
    {
-    "id": "LAYERS0",
+    "id": "CUP24",
     "who": "claude",
-    "title": "One man per picture, phase 0 (Claude in session): the guard holds + the jab drawn as two separate men behind ?layers=1, the page keeps each man's spot; holds cut and on the page, jab renders with masks running",
+    "title": "Cup round 24 on ours (v6.9) with your Pressure rules: is Pressure just right now? (John v Kalli ran; Claude v Maria to replay)",
     "after": ""
    },
    {
-    "id": "TYPES1",
+    "id": "KICKV69",
     "who": "claude",
-    "title": "Your four card types (Attack / Counter / Feint / Defend) measured on the balance tool before anything is built - it caps the feint loop inside the rules; a seat when one frees",
-    "after": ""
+    "title": "Kickboxing on ours (v6.9): your answers on how a kickboxer fights, then his cards and effects",
+    "after": "CUP24"
    },
    {
     "id": "ONERULES1",
@@ -6199,6 +6183,21 @@
   },
   "done_recently": [
    {
+    "title": "You picked ours (v6.9); your Pressure fighter built from your four answers",
+    "who": "claude",
+    "when": "2026-11-28"
+   },
+   {
+    "title": "The fight page (fight.html) from your approved picture: cards, arrows, flipped cards, status warnings",
+    "who": "claude",
+    "when": "2026-11-28"
+   },
+   {
+    "title": "Cup r22 + r23 balance only: ours 6.25, LITE 4.5",
+    "who": "claude",
+    "when": "2026-11-28"
+   },
+   {
     "title": "Your four card types (Attack / Counter / Feint / Defend) measured on Puncher's chance",
     "who": "Opus 5.5 console worker (PC, tab c2)",
     "when": "2026-11-28"
@@ -6238,20 +6237,6 @@
    {
     "id": "LOCALAI1",
     "title": "Gemma (local model) plays on the match server, 1.5 s a beat; agents fight through the match server"
-   },
-   {
-    "id": "CLOCK1",
-    "title": "A 5 s beat clock and a 1-minute round clock on one.html (v0.568.3-0.568.4)"
-   },
-   {
-    "id": "CLARITY1",
-    "title": "Screen clarity: the range large, a guided first beat, the whole boxer in every strip moment, the strip lights what you pick (v0.568.1-0.568.8)"
-   },
-   {
-    "id": "LEAGUE1",
-    "who": "claude",
-    "title": "The agents' league: 15 bouts, Claude (Opus) 13 points, Ziva 12 - every top seat names the feint as the broken plan",
-    "after": ""
    }
   ],
   "scope_note": "S294: lean restart (E:\\FightCamp\\Lean\\docs\\RESTART_PLAN.md). Old roadmap items are parked until the weekly builds reach them.",
@@ -6340,64 +6325,6 @@
   "map": {
    "done_earlier": [
     {
-     "text": "C: drive cleared (your yes)",
-     "who": "claude"
-    },
-    {
-     "text": "Cup r13 v5.3: fun 7.5",
-     "who": "claude"
-    },
-    {
-     "text": "v6 = your v2.7 + your Tell",
-     "who": "claude"
-    },
-    {
-     "text": "v6.1: what 2.7 missed, fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Cup r14-r16 on v6: best 7.5",
-     "who": "claude"
-    },
-    {
-     "text": "Statuses: stagger, cut, rock",
-     "who": "claude"
-    },
-    {
-     "text": "Cup r7-r9: v4.7-v4.9",
-     "who": "claude"
-    },
-    {
-     "text": "Octagon v5: owner's v2.0 book",
-     "who": "claude"
-    },
-    {
-     "text": "Octagon v5: cup fun 7.75 (r11)",
-     "who": "claude"
-    },
-    {
-     "text": "TYPES1: Defend needs a cost",
-     "who": "claude"
-    },
-    {
-     "text": "Strip: Stay put is a strap (571.1)",
-     "who": "claude"
-    },
-    {
-     "text": "Octagon stamina lock fixed",
-     "who": "claude"
-    },
-    {
-     "text": "Strip: Stay put is a strap",
-     "who": "claude"
-    },
-    {
-     "text": "Cup v4 r2: Claude KO John",
-     "who": "claude"
-    }
-   ],
-   "done_session": [
-    {
      "text": "v6.7: 3 rating fixes + way out",
      "who": "claude"
     },
@@ -6427,6 +6354,56 @@
     },
     {
      "text": "Cup r21: lite 7.0/7.0",
+     "who": "claude"
+    },
+    {
+     "text": "C: drive cleared (your yes)",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r13 v5.3: fun 7.5",
+     "who": "claude"
+    },
+    {
+     "text": "v6 = your v2.7 + your Tell",
+     "who": "claude"
+    },
+    {
+     "text": "v6.1: what 2.7 missed, fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r14-r16 on v6: best 7.5",
+     "who": "claude"
+    },
+    {
+     "text": "Statuses: stagger, cut, rock",
+     "who": "claude"
+    }
+   ],
+   "done_session": [
+    {
+     "text": "You picked ours (v6.9)",
+     "who": "claude"
+    },
+    {
+     "text": "Pressure: your 4 answers built",
+     "who": "claude"
+    },
+    {
+     "text": "Fight page from your picture",
+     "who": "claude"
+    },
+    {
+     "text": "Cards: arrows for the step",
+     "who": "claude"
+    },
+    {
+     "text": "Status warnings, one table",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r22+r23: ours 6.25",
      "who": "claude"
     }
    ],
@@ -6480,27 +6457,11 @@
      "who": "agent"
     },
     {
-     "text": "RULES569: exchange dearer + more",
-     "who": "agent"
-    },
-    {
      "text": "BUILD1: body as a ship (worker)",
      "who": "claude"
     },
     {
-     "text": "Octagon v4 draft + cup",
-     "who": "claude"
-    },
-    {
-     "text": "KICKFIX6 (paused for his game)",
-     "who": "claude"
-    },
-    {
-     "text": "KICKFIX6 + RULES569 resumed",
-     "who": "claude"
-    },
-    {
-     "text": "LAYERS1: all moves (worker)",
+     "text": "Cup r24: Pressure with your rules",
      "who": "claude"
     }
    ],
@@ -7002,49 +6963,17 @@
      "who": "claude"
     },
     {
-     "text": "LAYERS phase 0: holds + jab",
-     "who": "claude"
-    },
-    {
-     "text": "LAYERS phase 1: all families",
-     "who": "claude"
-    },
-    {
-     "text": "Octagon stamina fix, then cup v4",
-     "who": "claude"
-    },
-    {
-     "text": "Cup r3 on v4.1 (no re-rock)",
-     "who": "claude"
-    },
-    {
-     "text": "Cup r7 on v4.6: fun to 8",
-     "who": "claude"
-    },
-    {
-     "text": "LAYERS1 after his look",
-     "who": "claude"
-    },
-    {
-     "text": "Pull Counter 5->4, rocked rule",
-     "who": "claude"
-    },
-    {
-     "text": "Card art: ink + rim light (yours)",
-     "who": "operator"
-    },
-    {
-     "text": "Cup r22: both versions to 8",
+     "text": "Kickboxing on ours: your answers",
      "who": "claude"
     }
    ],
-   "session": "S574"
+   "session": "S575"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "5c2eda7e6",
- "next_action": "S574: (0) measure the three balance fixes from the v6.6 rating (all 6/10, Out-Fighter 4): speed gap 2+ stops, reset costs the leader 1, Step-In Jab off a fake lands damage OR range; (1) cup round 18 on the result; (2) collect LAYERS1, RULES569, KICKFIX6; (3) BUILD1 round 4, MMCPLAY1, LONG3.",
+ "next_action": "S576: (0) COLLECT cup r24 John (Truck) v Kalli (Snapshot), v6.9 balance=1 (E:/FightCamp/tmp/octcup4/r24_john_v_kalli, ran in the background at S575 end); REPLAY Claude (Metronome) v Maria (Body Shop): stopped at the handover, folder r24_claude_v_maria_stopped - start fresh at r24_claude_v_maria seed=242. Bar: Pressure 5 (just right) from the seats with his rules; if still 3-4 the ready lever is tieStraight (OFF, Truck 61-62% on bots). (1) KICKBOXING on v6.9 (owner: 'Cup check, then kicks'): ask him how a kickboxer fights (like the Pressure questions), build kick cards + their effects into status_fx.js, bots, cup.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

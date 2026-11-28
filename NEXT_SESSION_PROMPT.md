@@ -1,5 +1,30 @@
 ## METHOD (S569, fight pictures; S570 update; S571: LAYERS1 brief ready, waits on his look): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump. LAYERS (one man per picture, the page owns each spot) is APPROVED (S570: he bought Cascadeur Indie + the Animo pack) and phase 0 is DONE (holds + jab, 0 jumps, docs/LAYERS0_RESULT.md, ?layers=1). No new patch layer on the two-man pictures; the next fight-picture work is LAYERS phase 1.
-## METHOD (S572, Octagon; S573 + S574 update): S574 owner: 'focus on balance first then fun and depth' - every rule change: a TUNE switch OFF, pool_sim n=200 x seeds 7/11/13 (40-60%), ON only between cup rounds; then a BALANCE rating from all four seats before fun/depth. v6.9 (ours) and LITE (`lite=1`, his v2.7 + the fewest fixes) are both kept. the owner's own rules are the line. v5.4 (his v2.0 rulebook, `v5=1`) and v6.3 (his v2.7 Director's Cut + the cup's fixes, proto/octagon/cards_v6.mjs, `v6=1`; `pure=1` = v2.7 as written) are both kept; the cup now plays v6 (owner S573 sent v2.7 and asked to fix what it misses from the 7/8 version). No league / campaign / relic / boss work before the fights are balanced. Every rule change: a TUNE switch OFF, pool_sim n=40 (40-60%), ON only between cup rounds.
+## METHOD (S572, Octagon; S573 + S574 + S575 update; S575: the owner picked OURS, v6.9 - LITE/pure stay in code, off the board; cup verdicts with balance=1): S574 owner: 'focus on balance first then fun and depth' - every rule change: a TUNE switch OFF, pool_sim n=200 x seeds 7/11/13 (40-60%), ON only between cup rounds; then a BALANCE rating from all four seats before fun/depth. v6.9 (ours) and LITE (`lite=1`, his v2.7 + the fewest fixes) are both kept. the owner's own rules are the line. v5.4 (his v2.0 rulebook, `v5=1`) and v6.3 (his v2.7 Director's Cut + the cup's fixes, proto/octagon/cards_v6.mjs, `v6=1`; `pure=1` = v2.7 as written) are both kept; the cup now plays v6 (owner S573 sent v2.7 and asked to fix what it misses from the 7/8 version). No league / campaign / relic / boss work before the fights are balanced. Every rule change: a TUNE switch OFF, pool_sim n=40 (40-60%), ON only between cup rounds.
+
+# S576 handover (written 2026-11-28, S575 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S575_DIGEST.md` and
+`docs/OCTAGON_V6_RESULT.md` (sections "S575").
+
+## S576: DO THESE FIRST
+0. COLLECT cup r24 (v6.9 with the owner's Pressure rules, balance only): John (Truck) v Kalli (Snapshot) ran in the
+   background - `E:/FightCamp/tmp/octcup4/r24a.out`, verdicts `r24_john_v_kalli/VERSUS_JOHN.md`, `VERSUS_KALLI.md`.
+   REPLAY Claude (Metronome) v Maria (Body Shop): `node ops/Tools/versus_by_message.mjs E:/FightCamp/tmp/octcup4/r24_claude_v_maria
+   a=claude:worker b=maria:grok game=octagon v6=1 pa=metronome pb=bodyshop seed=242 balance=1` (run_in_background); play with a
+   scratchpad copy of o22.sh (plan; wait until n changes; show) and write `<dir>/VERSUS_CLAUDE.md` with BALANCE + the three styles.
+   Bar: Pressure 5 ("just right"). If still 3-4, the ready lever is tieStraight (OFF; Truck 61-62% on the bots - trim it).
+   Report BALANCE only to the owner.
+1. KICKBOXING on v6.9 (owner: "Cup check, then kicks"): ask him how a kickboxer fights with AskUserQuestion (as S575 did
+   for Pressure: getting in, what makes him scary, stamina, the fair answer), build kick cards + their effects (each new
+   effect is a row in proto/twohands/status_fx.js), bots n=200 x 3 seeds, then a cup round with balance=1.
+2. The fight page (proto/twohands/fight.html, v0.575.12) is what he plays now; his notes steer it. Test with ?auto=N,
+   ?pick=<card>, ?alerts=stay and headless Edge screenshots (the browser pane is too small to judge the look).
+
+## Rules learned in S575 (also in memory)
+- On the fight page show only what the CARD does with your feet (one arrow: right = forward, left = back), never where
+  you stand - "the player will figure out where he ends up". No words on small visual elements.
+- A cup round's own driver needs Claude for via=worker: stop it (by PID) before a handover, never leave it to stall.
+- He decides between versions on balance numbers from all four seats; give the table and one recommendation.
 
 # S575 handover (written 2026-11-28, S574 - Opus 5.5)
 
