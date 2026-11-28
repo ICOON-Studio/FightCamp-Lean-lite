@@ -4,6 +4,27 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.575.12', date: '2026-11-28', items: [
+    'The fight: a big warning in the hurt man’s panel when a status hits - ROCKED, STAGGERED, CUT OVER THE EYE, CUT WIDER (one more and the doctor stops it), WORN DOWN, DRAINED, WINDED, ON THE ROPES, SPENT. Red = big loss now, gold = a lasting cost, blue = position. It pulses and stays 7 seconds; the tag stays after.',
+  ] },
+  { v: '0.575.11', date: '2026-11-28', items: [
+    'The fight: one arrow on a card that moves you - right arrow (gold) = it steps you forward, left arrow (blue) = it steps you back; no arrow = no step.',
+  ] },
+  { v: '0.575.10', date: '2026-11-28', items: [
+    'The fight: the strip shows only the card’s step, the same at any distance - feet walking right (gold) = it steps you in, feet walking left (blue) = it steps you back, two feet planted (grey) = no step. You work out where you end up.',
+  ] },
+  { v: '0.575.9', date: '2026-11-28', items: [
+    'The fight: no words on the move strip - his mark stands at the right end (red on your cards, blue on his), faint footprints where you stand now and solid ones where you land; how close the solid feet stand to his mark is the distance. Gold = stepping in, blue = backing up, grey = staying. Point at it for the words.',
+  ] },
+  { v: '0.575.8', date: '2026-11-28', items: [
+    'The fight: footprints instead of the boxes - steps going right (gold) when the card takes you closer, steps going left (blue) when it backs you up, two feet planted (grey) when you stay; beside them the distance you land at (to MID, to LONG, stay MID).',
+  ] },
+  { v: '0.575.7', date: '2026-11-28', items: [
+    'The fight: the distance bar has three equal boxes and the arrow sits between the two you move across (LONG -> MID, MID -> CLOSE, or back), so it reads from where to where.',
+  ] },
+  { v: '0.575.6', date: '2026-11-28', items: [
+    'The fight: under the arrow, a bar of the three distances LONG / MID / CLOSE - where you are now has a dashed outline, where you land is filled. The small L M C row on each card is now labelled "plays at": the distances the card can be played from.',
+  ] },
   { v: '0.575.5', date: '2026-11-28', items: [
     'The fight: arrows instead of words on the cards - a right arrow when the card takes you closer to him, a left arrow when it backs you up, with the range you land in under it; a flat bar when you stay. Point at the arrow for when the move does not happen.',
   ] },
