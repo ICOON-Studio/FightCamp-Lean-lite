@@ -4,8 +4,18 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.575.5', date: '2026-11-28', items: [
+    'The fight: arrows instead of words on the cards - a right arrow when the card takes you closer to him, a left arrow when it backs you up, with the range you land in under it; a flat bar when you stay. Point at the arrow for when the move does not happen.',
+  ] },
+  { v: '0.575.4', date: '2026-11-28', items: [
+    'The fight: when the cards flip, his card shows in his panel and yours in yours, each with where it takes you (ENDS AT MID / STAY AT LONG). After the exchange the range sign says whose card moved you, e.g. LONG -> MID, his Walk Him Down moved you.',
+  ] },
+  { v: '0.575.3', date: '2026-11-28', items: [
+    'The fight: every card says where it leaves you - a gold ENDS AT MID on a card that moves you, a grey STAY AT LONG on one that does not. Point at a card or pick it and the range sign in the ring shows LONG -> MID with when the move does not happen (a faster punch stops your step, a feint stops a Circle Out, his Check Hook stops Walk Him Down). His card can move you too.',
+  ] },
   { v: '0.575.2', date: '2026-11-28', items: [
     'New page: the fight (fight.html) - the v6.9 card fight in the Puncher’s chance look, as in the picture you approved. Your hand under the ring, damage and speed on every card, room to the ropes, the Lead, his tell; each exchange is played by the fighters in the ring at its range.',
+    'A KO or a stoppage ends with the loser going down in the ring. The ops board shows only the v6.9 fight and What changed (the old pages stay at their links).',
     'v6.9 Pressure fighter (your answers): Walk Him Down is free, a feint gets nothing from it, it cuts off the ring (1 room to the ropes each time); the Check Hook is the answer; his body shots drain 2 stamina; +2 stamina between rounds.',
   ] },
   { v: '0.575.1', date: '2026-11-28', items: [
