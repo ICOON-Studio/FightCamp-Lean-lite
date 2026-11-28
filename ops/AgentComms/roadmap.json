@@ -6,9 +6,9 @@
   "id": "S573",
   "owner": "S573 (Opus 5.5)",
   "updated": "2026-11-28",
-  "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15. Then (owner: 'add statuses ... staggered or stunned, keg injured, cut'): v6.5 statuses ON (Staggered, Rocked +1 judges, Cut + doctor at 5, Winded; bots 35-57%), cup r17 fun 7.25; v6.6 live judges' score + Stance repeat 2. v6 cup table from r14: Kalli 10, Claude 10, Maria 5, John 0.",
-  "next_action": "S574: (0) measure the three balance fixes from the v6.6 rating (all 6/10, Out-Fighter 4): speed gap 2+ stops, reset costs the leader 1, Step-In Jab off a fake lands damage OR range; (1) cup round 18 on the result; (2) collect LAYERS1, RULES569, KICKFIX6; (3) BUILD1 round 4, MMCPLAY1, LONG3.",
-  "last_working_commit": "5c2eda7e6",
+  "summary": "S574 (owner: 'focus on balance first then fun and depth also try my version too'): Octagon v6.7 -> v6.9, 15 switches from the seats' balance asks (2+ speed stops, reset tax on a guarding leader, start at Long, stick and move, Circle Out at Mid, Check Hook at Long, feint beats guard = judges' point, counters score 2, heavy trades through a jab ...); LITE = his v2.7 as written + the fewest fixes (as written Pressure 65-70%). Balance ratings from all four seats: v6.6 6.0 -> v6.7 7.75 -> v6.9 8.0 (every style 'just right'); LITE 6.75 -> 7.25. Cup r18-r20: r20 v6.9 fun 8 depth 8 (the first), LITE r20 6.5/5.5 (paw-and-guard at Long; Range Jab repeat tax now in LITE). His Stance Guard has no repeat rule in his file - ours (his words: 'i don recall putting a rule on that'). His UI art kit kept; his card-art idea (gritty ink, rim light by card colour) queued for after balance. docs/OCTAGON_V6_RESULT.md S574. Then cup r21: v6.9 Kalli v John 7.0/6.5 (r20's 8/8 did not hold), LITE Claude v Maria 7.0/7.0 (up from 6.5/5.5); comboHalf + cutOnce + circleFeint ON (v6.9 bots 46-53%).",
+  "next_action": "S575: (0) cup r22 on BOTH (v6.9 and LITE) with comboHalf + cutOnce (v6.9) + circleFeint - neither version has held fun 8 / depth 8 across seats yet (v6.9 r20 8/8, r21 7.0/6.5; LITE r21 7.0/7.0). Open asks: Pressure cannot close at Long and every round opens there (John: start where the last round ended, or a Step-In Guard card), Hold Ground parry as a free stall (Kalli), say what the Stance Guard covers (Maria), counter v counter at Mid a free reset (Claude). Each: TUNE switch OFF, pool_sim n=200 x 3 seeds, ON between rounds. (1) collect LAYERS1, RULES569, TYPES1, KICKFIX6; (2) his card art (ink + rim light) after balance; BUILD1 r4, MMCPLAY1, LONG3.",
+  "last_working_commit": "743a5d479",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
   "next_acceptance": "Each run judged against its bars; the feint correction on the page with the loop under 30% and the feint still in 3% of beats; his friend plays one whole online bout.",
@@ -2527,6 +2527,12 @@
    "date": "2026-11-28",
    "model": "Opus 5.5",
    "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15. Then (owner: 'add statuses ... staggered or stunned, keg injured, cut'): v6.5 statuses ON (Staggered, Rocked +1 judges, Cut + doctor at 5, Winded; bots 35-57%), cup r17 fun 7.25; v6.6 live judges' score + Stance repeat 2. v6 cup table from r14: Kalli 10, Claude 10, Maria 5, John 0."
+  },
+  {
+   "id": "S574",
+   "date": "2026-11-28",
+   "model": "Opus 5.5",
+   "summary": "S574 (owner: 'focus on balance first then fun and depth also try my version too'): Octagon v6.7 -> v6.9, 15 switches from the seats' balance asks (2+ speed stops, reset tax on a guarding leader, start at Long, stick and move, Circle Out at Mid, Check Hook at Long, feint beats guard = judges' point, counters score 2, heavy trades through a jab ...); LITE = his v2.7 as written + the fewest fixes (as written Pressure 65-70%). Balance ratings from all four seats: v6.6 6.0 -> v6.7 7.75 -> v6.9 8.0 (every style 'just right'); LITE 6.75 -> 7.25. Cup r18-r20: r20 v6.9 fun 8 depth 8 (the first), LITE r20 6.5/5.5 (paw-and-guard at Long; Range Jab repeat tax now in LITE). His Stance Guard has no repeat rule in his file - ours (his words: 'i don recall putting a rule on that'). His UI art kit kept; his card-art idea (gritty ink, rim light by card colour) queued for after balance. docs/OCTAGON_V6_RESULT.md S574. Then cup r21: v6.9 Kalli v John 7.0/6.5 (r20's 8/8 did not hold), LITE Claude v Maria 7.0/7.0 (up from 6.5/5.5); comboHalf + cutOnce + circleFeint ON (v6.9 bots 46-53%)."
   }
  ],
  "blocked_on_operator": [],
@@ -6334,6 +6340,30 @@
   "map": {
    "done_earlier": [
     {
+     "text": "C: drive cleared (your yes)",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r13 v5.3: fun 7.5",
+     "who": "claude"
+    },
+    {
+     "text": "v6 = your v2.7 + your Tell",
+     "who": "claude"
+    },
+    {
+     "text": "v6.1: what 2.7 missed, fixed",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r14-r16 on v6: best 7.5",
+     "who": "claude"
+    },
+    {
+     "text": "Statuses: stagger, cut, rock",
+     "who": "claude"
+    },
+    {
      "text": "Cup r7-r9: v4.7-v4.9",
      "who": "claude"
     },
@@ -6364,55 +6394,39 @@
     {
      "text": "Cup v4 r2: Claude KO John",
      "who": "claude"
-    },
-    {
-     "text": "Octagon v4.6: six cup rounds",
-     "who": "claude"
-    },
-    {
-     "text": "v4.5 r6: depth 7.0 at target",
-     "who": "claude"
-    },
-    {
-     "text": "True speeds shown (display bug)",
-     "who": "claude"
-    },
-    {
-     "text": "Head + one pages built from main",
-     "who": "claude"
-    },
-    {
-     "text": "COUNTERS2: check hook fails",
-     "who": "claude"
-    },
-    {
-     "text": "Cascadeur Indie bought (owner)",
-     "who": "claude"
     }
    ],
    "done_session": [
     {
-     "text": "C: drive cleared (your yes)",
+     "text": "v6.7: 3 rating fixes + way out",
      "who": "claude"
     },
     {
-     "text": "Cup r13 v5.3: fun 7.5",
+     "text": "Your v2.7 balanced: lite mode",
      "who": "claude"
     },
     {
-     "text": "v6 = your v2.7 + your Tell",
+     "text": "Cup r18: balance asks",
      "who": "claude"
     },
     {
-     "text": "v6.1: what 2.7 missed, fixed",
+     "text": "Balance #2: v6.7 7.75, lite 6.75",
      "who": "claude"
     },
     {
-     "text": "Cup r14-r16 on v6: best 7.5",
+     "text": "Cup r19 + v6.9: counter at Long",
      "who": "claude"
     },
     {
-     "text": "Statuses: stagger, cut, rock",
+     "text": "Balance #3: v6.9 8.0, lite 7.25",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r20: v6.9 fun 8 depth 8",
+     "who": "claude"
+    },
+    {
+     "text": "Cup r21: lite 7.0/7.0",
      "who": "claude"
     }
    ],
@@ -7016,11 +7030,15 @@
      "who": "claude"
     },
     {
-     "text": "Cup r18 on v6.6: fun to 8",
+     "text": "Card art: ink + rim light (yours)",
+     "who": "operator"
+    },
+    {
+     "text": "Cup r22: both versions to 8",
      "who": "claude"
     }
    ],
-   "session": "S573"
+   "session": "S574"
   }
  },
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",

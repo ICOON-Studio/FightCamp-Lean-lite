@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Puncher's Chance — Complete 10/10 UI & Art Kit</title><style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0c0e12; color: #f1f5f9; font-family: system-ui, -apple-system, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+nav { background: #141820; border-bottom: 2px solid #d4af37; padding: 12px 24px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.brand { font-weight: 900; letter-spacing: 1.5px; color: #fbbf24; font-size: 18px; text-transform: uppercase; }
+.links { display: flex; flex-wrap: wrap; gap: 8px; }
+.links a { color: #cbd5e1; text-decoration: none; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 4px; background: #1e2430; border: 1px solid #334155; }
+.links a:hover, .links a.active { background: #b45309; color: #fff; border-color: #fbbf24; }
+main { max-width: 1280px; margin: 24px auto; padding: 0 20px; width: 100%; }
+.art-frame { background: #141820; border: 2px solid #334155; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 32px rgba(0,0,0,0.6); }
+.art-frame img { width: 100%; height: auto; display: block; }
+.caption { padding: 16px 20px; background: #181d27; border-top: 1px solid #334155; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.caption h1 { font-size: 20px; color: #fbbf24; margin-bottom: 4px; }
+.caption p { font-size: 14px; color: #94a3b8; }
+.btn-row { display: flex; gap: 10px; }
+.btn { background: #d97706; color: #fff; text-decoration: none; font-weight: 800; padding: 8px 16px; border-radius: 4px; font-size: 13px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 20px; margin-top: 20px; }
+.card { background: #141820; border: 1px solid #334155; border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.15s; }
+.card:hover { transform: translateY(-3px); border-color: #fbbf24; }
+.card img { width: 100%; height: 210px; object-fit: cover; display: block; }
+.card-body { padding: 14px; }
+.card-body h3 { color: #fbbf24; font-size: 16px; margin-bottom: 6px; }
+.card-body p { color: #94a3b8; font-size: 13px; line-height: 1.4; }
+</style></head>
+<body>
+<nav><div class="brand">PUNCHER'S CHANCE • 10/10 UI & ART GALLERY</div><div class="links"><a href="00_Punchers_Chance_UI_Hub.html">Hub</a><a href="01_Main_Menu.html">Main Menu</a><a href="02_Fighter_Select.html">Fighter</a><a href="03_Career_Camp.html">Career Ladder</a><a href="04_Deckbuilder.html">Custom Deckbuilder</a><a href="05_Combat_HUD.html">Live Combat HUD</a><a href="06_Scorecard_Draft.html">Post-Fight Scorecard</a><a href="07_Pause_Codex_Settings.html">Pause, Fighter Codex</a></div></nav>
+<main>
+  <h1 style="color:#fbbf24;font-size:26px;margin-bottom:6px;">Puncher's Chance — Complete UI Menu & Concept Art Suite</h1>
+  <p style="color:#94a3b8;font-size:14px;">Click any screen below to inspect the full-resolution UI mockup and developer navigation flow. Raw PNG assets are located in the <code>/art/</code> folder.</p>
+  <div class="grid">
+<a class="card" href="01_Main_Menu.html">
+  <img src="art/01_Main_Menu.png" alt="Main Menu">
+  <div class="card-body"><h3>Main Menu</h3><p>Title hub for Puncher's Chance with Career Ladder, Exhibition Bout, Custom Deckbuilder, Fighter Codex, and Championship Rank status.</p></div>
+</a>
+<a class="card" href="02_Fighter_Select.html">
+  <img src="art/02_Fighter_Select.png" alt="Fighter & Ascension Select">
+  <div class="card-body"><h3>Fighter & Ascension Select</h3><p>Choose among Pressure Brawler, Technical Sniper, Dagestani Grinder, and Submission Ace, inspect passives/relics, and set Ascension Tier 1-10.</p></div>
+</a>
+<a class="card" href="03_Career_Camp.html">
+  <img src="art/03_Career_Camp.png" alt="Career Ladder & Fight Camp">
+  <div class="card-body"><h3>Career Ladder & Fight Camp</h3><p>12-Fight 3-Act promotion ladder paired with Fight Purse ($) spending across 6 Fight Camp upgrade nodes.</p></div>
+</a>
+<a class="card" href="04_Deckbuilder.html">
+  <img src="art/04_Deckbuilder.png" alt="Custom Deckbuilder">
+  <div class="card-body"><h3>Custom Deckbuilder</h3><p>Filter the 55-card pool by discipline/type, inspect color curves, remove starter cards down to the 16-card minimum, and validate your deck.</p></div>
+</a>
+<a class="card" href="05_Combat_HUD.html">
+  <img src="art/05_Combat_HUD.png" alt="Live Combat HUD & Tooltips">
+  <div class="card-body"><h3>Live Combat HUD & Tooltips</h3><p>Broadcast-grade fight screen showing the Range/Cage Space Track, Initiative (+2 SPD), Signature Stance Slot, Localized Injuries, and live-math tooltips.</p></div>
+</a>
+<a class="card" href="06_Scorecard_Draft.html">
+  <img src="art/06_Scorecard_Draft.png" alt="Post-Fight Scorecard & Draft">
+  <div class="card-body"><h3>Post-Fight Scorecard & Draft</h3><p>10-Point Must Judges' scorecard, stoppage details, Fight Purse payout, and 1-of-3 post-fight card draft.</p></div>
+</a>
+<a class="card" href="07_Pause_Codex_Settings.html">
+  <img src="art/07_Pause_Codex_Settings.png" alt="Pause, Fighter Codex & Settings">
+  <div class="card-body"><h3>Pause, Fighter Codex & Settings</h3><p>In-bout pause overlay with anatomical injury status, Quick Combat Triangle & Range reference, and Base64 Career Save/Load.</p></div>
+</a>
+<a class="card" href="art/08_Card_Types_Sheet.png" target="_blank">
+  <img src="art/08_Card_Types_Sheet.png" alt="Card Types Art Sheet">
+  <div class="card-body"><h3>Bonus: 4 Core Card Types Sheet</h3><p>High-res flat art mockup for Counter (Blue), Feint (Yellow), Defend (Green), and Grappling (Purple).</p></div>
+</a>
+<a class="card" href="art/09_Fighter_Archetypes_Sheet.png" target="_blank">
+  <img src="art/09_Fighter_Archetypes_Sheet.png" alt="Fighter Archetypes Sheet">
+  <div class="card-body"><h3>Bonus: 4 Fighter Archetype Cards</h3><p>High-res flat profile art for Pressure Brawler, Technical Sniper, Dagestani Grinder, and Submission Ace.</p></div>
+</a></div>
+</main>
+</body>
+</html>

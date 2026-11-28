@@ -1,5 +1,32 @@
 ## METHOD (S569, fight pictures; S570 update; S571: LAYERS1 brief ready, waits on his look): two men baked per picture + the page sliding the whole picture makes every clip that ends a few px off a jump. LAYERS (one man per picture, the page owns each spot) is APPROVED (S570: he bought Cascadeur Indie + the Animo pack) and phase 0 is DONE (holds + jab, 0 jumps, docs/LAYERS0_RESULT.md, ?layers=1). No new patch layer on the two-man pictures; the next fight-picture work is LAYERS phase 1.
-## METHOD (S572, Octagon; S573 update): the owner's own rules are the line. v5.4 (his v2.0 rulebook, `v5=1`) and v6.3 (his v2.7 Director's Cut + the cup's fixes, proto/octagon/cards_v6.mjs, `v6=1`; `pure=1` = v2.7 as written) are both kept; the cup now plays v6 (owner S573 sent v2.7 and asked to fix what it misses from the 7/8 version). No league / campaign / relic / boss work before the fights are balanced. Every rule change: a TUNE switch OFF, pool_sim n=40 (40-60%), ON only between cup rounds.
+## METHOD (S572, Octagon; S573 + S574 update): S574 owner: 'focus on balance first then fun and depth' - every rule change: a TUNE switch OFF, pool_sim n=200 x seeds 7/11/13 (40-60%), ON only between cup rounds; then a BALANCE rating from all four seats before fun/depth. v6.9 (ours) and LITE (`lite=1`, his v2.7 + the fewest fixes) are both kept. the owner's own rules are the line. v5.4 (his v2.0 rulebook, `v5=1`) and v6.3 (his v2.7 Director's Cut + the cup's fixes, proto/octagon/cards_v6.mjs, `v6=1`; `pure=1` = v2.7 as written) are both kept; the cup now plays v6 (owner S573 sent v2.7 and asked to fix what it misses from the 7/8 version). No league / campaign / relic / boss work before the fights are balanced. Every rule change: a TUNE switch OFF, pool_sim n=40 (40-60%), ON only between cup rounds.
+
+# S575 handover (written 2026-11-28, S574 - Opus 5.5)
+
+Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then `ops/research/S574_DIGEST.md` and
+`docs/OCTAGON_V6_RESULT.md` (section "S574").
+
+## S575: DO THESE FIRST
+(after this page was first written, S574 also ran cup r21: v6.9 Kalli v John 7.0/6.5 - r20's 8/8 did not hold; LITE Claude v Maria 7.0/7.0 - up from 6.5/5.5; comboHalf, cutOnce (v6.9), circleFeint now ON. Start with cup r22 on BOTH; the open asks are in docs/OCTAGON_V6_RESULT.md "Cup round 21".)
+0. FIRST (owner S574: "focus on balance first then fun and depth also try my version too"): LITE (his v2.7 + the fewest
+   fixes, `v6=1 lite=1`) to fun 8 / depth 8 like v6.9. Cup r21 on LITE (the Range Jab repeat tax is ON since r20 - not yet
+   played). Open asks (r20): the man ahead guards out the last two exchanges (John, Maria); the cut shows a card EVERY
+   exchange - once a round (John); Cut the Cage loses to the cheapest paw (John); the step-in jab should show itself (Maria).
+   Each: a TUNE switch OFF, pool_sim, ON between rounds; bots now v6.9 44-55%, LITE 46-57%.
+1. v6.9 cup r21 with the other two seats (r20 fun 8 / depth 8 was Claude + John only). Pairings: Kalli v John, Claude v
+   Maria. `node ops/Tools/versus_by_message.mjs E:/FightCamp/tmp/octcup4/r21_<a>_v_<b> a=<seat>:<via> b=<seat>:grok
+   game=octagon v6=1 [lite=1] pa=<id> pb=<id> seed=21x`; Claude plays with a scratchpad o21.sh (copy of
+   oct6.sh: plan / exit 3 = tell / show) and writes <dir>/VERSUS_CLAUDE.md. A balance ask goes by
+   `node ops/Tools/grokbot_direct.mjs send <seat> <file>`, collected by E:/FightCamp/tmp/octcup4/balance_ask/wait.py <dir>.
+2. COLLECT: LAYERS1 (worker, rendering on 28 Nov 03:00; family b committed 61da431ec), RULES569 (chain_p2), TYPES1
+   (docs/TYPES1_RESULT.md), KICKFIX6 (chains).
+3. His card art idea (S574: "gritty graphic-novel ink illustrations with bold rim lighting matching card color"; his UI kit:
+   ops/research/octagon/v27_uikit/) once he says the fights are balanced. BUILD1 round 4, MMCPLAY1, LONG3 when a seat frees.
+
+## Rules learned in S574 (also in memory)
+- Balance first means: rate BALANCE from every seat, not fun/depth, until he says otherwise.
+- His files are the line: check his card text before saying a rule is his (the Stance Guard repeat cost was ours).
+- Bots cannot see stalling or feint-farming: those fixes are measured by the agents; the bots only show they break nothing.
 
 # S574 handover (written 2026-11-28, S573 - Opus 5.5)
 

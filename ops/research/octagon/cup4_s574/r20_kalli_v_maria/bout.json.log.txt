@@ -1,0 +1,20 @@
+Kalli (Jake "Long Night" Brennan) v Maria (Sonny "Snapshot" Vale), seed 201
+R1 E1: Kalli plays Read Tendencies; Maria plays Check Left Hook; Maria Check Left Hook whiffs: no extra cost (only the card's own), the Lead goes; Kalli Read Tendencies baits the counter; Kalli reads him: sees 1 of his cards, draws 1; Kalli takes the Lead
+R1 E2: Kalli plays Range Jab; Maria plays Signature Stance Guard; Maria Signature Stance Guard takes the Range Jab; Maria blocked - the Lead is stripped; Maria recovers 0 stamina
+R1 E3: Kalli plays Range Jab; Maria plays High Guard & Shell; Maria High Guard & Shell takes the Range Jab; Maria blocked - the Lead is stripped; Maria recovers 1 stamina
+R1 E4: Kalli plays Deep Breath & Pace; Maria plays Signature Stance Guard; neutral reset: both +1 stamina, the Lead is neutral; Kalli recovers 3 stamina; Maria recovers 0 stamina
+R1 E5: Kalli plays Range Jab; Maria plays Shoulder Twitch Feint; Kalli lands 2 to the head (caught him faking); Kalli takes the Lead
+R1 E6: Kalli plays Range Jab; Maria plays Signature Stance Guard; Maria Signature Stance Guard takes the Range Jab; Maria blocked - the Lead is stripped; Maria recovers 0 stamina; END OF ROUND 1: judges Kalli 10, Maria 9 (damage + clean counters 2 v 0); total Kalli 10, Maria 9; ROUND 2: back to Long, the Lead neutral, stamina +6 / +4
+R2 E1: Kalli plays Range Jab; Maria plays Signature Stance Guard; Maria Signature Stance Guard takes the Range Jab; Maria blocked - the Lead is stripped; Maria recovers 0 stamina
+R2 E2: Kalli plays Range Jab; Maria plays Range Jab; Maria is faster (8.5 v 8); Maria lands 2 to the head (beats him to it); Maria takes the Lead
+R2 E3: Kalli plays High Guard & Shell; Maria plays Range Jab; Kalli High Guard & Shell takes the Range Jab; Kalli blocked - the Lead is stripped; Kalli recovers 1 stamina
+R2 E4: Kalli plays Signature Stance Guard; Maria plays Range Jab; Kalli Signature Stance Guard takes the Range Jab; Kalli blocked - the Lead is stripped; Kalli recovers 0 stamina
+R2 E5: Kalli plays High Guard & Shell; Maria plays Shoulder Twitch Feint; Maria's Shoulder Twitch Feint breaks Kalli's High Guard & Shell; Maria wins the exchange: +1 with the judges; Kalli recovers 1 stamina; Kalli pushed toward the fence: cage space 1; TELL for Maria: next exchange Kalli seals first and Maria is shown its colour (Red/Blue = Attack or Counter, Yellow/Green = Feint or Defend); Maria takes the Lead
+R2 E6: Kalli plays Range Jab; Maria plays Range Jab; Maria is faster (8.5 v 8); Maria lands 2 to the head (beats him to it); END OF ROUND 2: judges Kalli 9, Maria 10 (damage + clean counters 0 v 5); total Kalli 19, Maria 19; ROUND 3: back to Long, the Lead neutral, stamina +6 / +4
+R3 E1: Kalli plays Signature Stance Guard; Maria plays Range Jab; Kalli Signature Stance Guard takes the Range Jab; Kalli blocked - the Lead is stripped; Kalli recovers 0 stamina
+R3 E2: Kalli plays Step-In Jab; Maria plays Range Jab; range: long -> mid; Kalli is faster (9 v 8); Kalli lands 4 to the head (beats him to it); Kalli takes the Lead; Kalli jabs and steps straight back out: stick and move (-1 stamina); range: mid -> long
+R3 E3: Kalli plays Range Jab; Maria plays Signature Stance Guard; Maria Signature Stance Guard takes the Range Jab; Maria blocked - the Lead is stripped; Maria recovers 0 stamina
+R3 E4: Kalli plays Range Jab; Maria plays Range Jab; Maria is faster (8.5 v 8); Maria lands 2 to the head (beats him to it); Maria takes the Lead
+R3 E5: Kalli plays Signature Stance Guard; Maria plays Range Jab; Kalli Signature Stance Guard takes the Range Jab; Kalli blocked - the Lead is stripped; Kalli recovers 0 stamina
+R3 E6: Kalli plays Signature Stance Guard; Maria plays Range Jab; Kalli Signature Stance Guard takes the Range Jab; Kalli blocked - the Lead is stripped; Kalli recovers 0 stamina; END OF ROUND 3: judges Kalli 10, Maria 9 (damage + clean counters 4 v 2); total Kalli 29, Maria 28; Kalli WINS on points 29-28
+RESULT: Kalli wins by DECISION 29-28
