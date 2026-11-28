@@ -173,3 +173,27 @@ land at half (comboHalf, both; v6.9 bots 46-53%, LITE 44-57%); a feint broke a C
 (circleFeint, both). Still open: Pressure has no way to close at Long and every round opens there (John: start a round where
 the last ended, or a Step-In Guard card); Hold Ground parry used to stall twice in a row (Kalli); the Stance Guard should say
 what it covers - body shots under it (Maria); counter v counter at Mid is a free reset (Claude).
+
+## S575: the r21 asks measured, cup round 22 (BALANCE ONLY, owner S574)
+New switches (ops/research/octagon/s575/grid1.txt, grid2.txt; n=200 x seeds 7/11/13):
+| switch | ask | bots | |
+|---|---|---|---|
+| roundKeep 1: a round starts where the last ended | John r21 | Long Night 41-44, Snapshot 57-59 | OFF |
+| roundKeep 2: a round that ended at Close starts at Mid, else Long | John r21 | v6.9 45-57, lite 44-57 | ON |
+| holdTwice: no Hold Ground parry twice in a row | Kalli r21 | unchanged (bots never hold twice) | ON |
+| ctrCtr: counter v counter costs both 1 | Claude r21 | unchanged | ON |
+| stanceHead: the Stance Guard covers the head only | Maria r21 | unchanged | OFF (a test; the card text now says head or body) |
+
+Cup round 22 (the verdict asks BALANCE + the three styles only, `balance=1`; 5 = just right):
+| bout | version | result | BALANCE | OUT | PRESSURE | COUNTER |
+|---|---|---|---|---|---|---|
+| Claude (Long Night) v Maria (Iron) | v6.9 | draw 29-29 | 7 / 6 | 5 / 7 | 6 / 4 | 5 / 6 |
+| John (Truck) v Kalli (Metronome) | LITE | Kalli 30-26 | 4 / 5 | 8 / 7 | 3 / 3 | 5 / 6 |
+Means: v6.9 6.5, LITE 4.5. The "every style just right" of balance rating #3 did not hold once Pressure met an out-fighter
+in play: three of four seats put Pressure at 3-4. Why (all three): every round opens at Long and Pressure has no way in -
+the out-fighter's jab wins every speed race there (+1 hand speed, +1 at Long, the Lead +1 in v6.9 / +2 in LITE), a beaten
+step-in punch does not step in (stopNoStep), stick and move takes him back out for 1 stamina, and the Pressure man runs out
+of stamina guarding. Asks: a cheap Pressure card that closes Long -> Mid and blocks a jab (John, Maria); a beaten step-in
+still closes to Mid (Kalli - the reverse of stopNoStep, for Pressure); a heavy hook trades through a faster jab (John,
+Kalli); stick and move costs 2 (Maria); a counter lands OR staggers, not both (Claude); a one-card swap for a hand with one
+card legal at this range (Claude). The bots (45-57%) cannot see this: they never play the Long game the agents play.

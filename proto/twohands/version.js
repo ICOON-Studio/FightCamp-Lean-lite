@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.575.1', date: '2026-11-28', items: [
+    'Card fight: every card now shows DAMAGE as a big number beside SPEED, the same size (damage includes the power of your fighter). Guards show what they BLOCK (head, body, any, half). Stamina sits under them.',
+    'Card fight rules (ours and lite): a round that ended inside starts the next at Mid; Hold Ground does not parry twice in a row; counter against counter costs both 1 stamina. The Stance Guard card says it blocks head or body.',
+  ] },
   { v: '0.574.1', date: '2026-11-28', items: [
     'The card fight is on the board (cards.html): the card game the cup bouts play, you against the bot. Pick the rules at the top - ours (v6.9), yours with the fewest fixes (lite) or yours as written (v2.7) - and both fighters. Click a card, then Throw; point at a card to read all of it.',
   ] },

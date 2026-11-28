@@ -36,11 +36,15 @@ export function newGame({ seed = 1, me = 'metronome', him = 'truck' } = {}) {
 function ready(G) { G.pre = !G.S.over && tellOn(G, 0) ? bot(G) : null; }   // your tell: he seals first, you see his colour
 
 /* what the page shows this exchange */
+/* S575 (owner: "why is speed so much important to put the number for it so big and damage not so important and i can barely see the damage numbers?"):
+   the damage a card does NOW, with this fighter's power - the same sum as engine.mjs attackDmg before the exchange's own extras (combo, after-a-jab, the Lead) */
+const dmgNow = (S, k, c) => { if (!c || !c.dmg) return 0; const F = S.f[k], Pk = PROFILES[F.prof] || {}; let d = c.dmg + (F.buff ? 1 : 0); if (c.hook && F.prof === 'press') d += TUNE.hook;
+  d += Pk.attr && TUNE.jabNoPower && c.straight && c.dmg <= 2 ? (Pk.punch || 0) : TUNE.powHalf ? Math.ceil((Pk.dmgBonus || 0) / 2) : Pk.dmgBonus || 0; if (Pk.attr && Pk.attr.reach >= 7 && c.pre && c.straight) d += 1; if (S.f[1 - k].cage <= 0) d += 1; return Math.max(0, d); };
 export function table(G) { const S = G.S, F = S.f[0], O = S.f[1], txt = view(S, 0), now = {};
   for (const m of txt.matchAll(/^ {2}(?:\d+x )?(\w+) = .*?speed (\d+)(?: \(NOW (\d+)\))?/gm)) now[m[1]] = +(m[3] || m[2]);
   const st = /STATUS - YOU: (.*?)\. HIM: (.*?)(?: - HIS CUT SHOWS YOU: \w+)?\.$/m.exec(txt);
   const ids = [...new Set([...F.hand, ...legalCards(S, 0).filter((id) => CARDS[id] && CARDS[id].virtual), ...(CARDS.stance && TUNE.stance ? ['stance'] : [])])];
-  const hand = ids.filter((id) => CARDS[id]).map((id) => ({ ...CARDS[id], code: CARDS[id].id, id, count: F.hand.filter((x) => x === id).length, always: !!CARDS[id].virtual, now: now[id] ?? CARDS[id].spd, cost: cost(S, 0, id), why: why(S, 0, id) || '' }));
+  const hand = ids.filter((id) => CARDS[id]).map((id) => ({ ...CARDS[id], code: CARDS[id].id, id, count: F.hand.filter((x) => x === id).length, always: !!CARDS[id].virtual, now: now[id] ?? CARDS[id].spd, dmgNow: dmgNow(S, 0, CARDS[id]), cost: cost(S, 0, id), why: why(S, 0, id) || '' }));
   const side = (X) => ({ name: PROFILES[X.prof].n, style: STYLES[POOL[X.prof] ? POOL[X.prof].style : 'out'] ? STYLES[POOL[X.prof].style].n : '', trait: PROFILES[X.prof].trait || '', head: X.head, headMax: X.headMax, body: X.body, bodyMax: X.bodyMax, st: X.st, stMax: X.stMax, cage: X.cage, rocked: !!X.rocked, cards: X.hand.length });
   return { round: S.round, ex: S.ex, rounds: ROUNDS, exchanges: EXCHANGES, range: S.range, lead: S.init < 0 ? 'none' : S.init === 0 ? 'you' : 'him',
     judges: [S.score[0], S.score[1]], thisRound: [S.roundDmg[0] + S.roundCtr[0], S.roundDmg[1] + S.roundCtr[1]], you: side(F), him: side(O),

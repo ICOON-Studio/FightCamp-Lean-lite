@@ -41,11 +41,14 @@ function draw() { const T = table(G);
   const canCombo = selC && T.comboOk && selC.chain && selC.type === 'A';
   $('hand').innerHTML = H.map((c) => { const inCombo = combo.includes(c.id), dead = !!c.why && !inCombo;
     const rg = ['long', 'mid', 'close'].map((r) => `<i class="${(c.legal || []).includes(r) ? 'on' : ''}">${r[0].toUpperCase()}</i>`).join('');
-    const sp = c.type === 'A' ? `<div class="spd ${c.now > c.spd ? 'up' : c.now < c.spd ? 'down' : ''}"><small>SPEED</small>${c.now}</div>` : `<div class="spd"><small>SPEED</small>${c.spd}</div>`;
-    const short = c.dmg ? `${c.dmg} to the ${c.zone || 'head'}${c.type === 'C' ? ' if he attacks' : ''}` : c.type === 'D' ? (c.covers === 'none' ? 'blocks nothing' : 'blocks an attack') : c.type === 'F' ? 'beats a Counter or a Defend' : '';
+    /* S575 (owner: 'why is speed so much important ... i can barely see the damage numbers?'): damage and speed are the same size side by side */
+    const big = (lab, val, cls = '') => `<div class="spd ${cls}"><small>${lab}</small>${val}</div>`;
+    const left = c.dmg ? big('DAMAGE', c.dmgNow || c.dmg, 'dmg' + ((c.dmgNow || c.dmg) > c.dmg ? ' up' : '')) : c.type === 'D' ? big('BLOCKS', ({ head: 'HEAD', body: 'BODY', any: 'ANY', half: 'HALF', all: 'ALL', none: '-' })[c.covers] || '-', 'word') : c.type === 'F' ? big('DAMAGE', 0, 'dmg') : big('DAMAGE', 0, 'dmg');
+    const sp = big('SPEED', c.type === 'A' ? c.now : c.spd, c.type === 'A' ? (c.now > c.spd ? 'up' : c.now < c.spd ? 'down' : '') : '');
+    const short = c.dmg ? `to the ${c.zone || 'head'}${c.type === 'C' ? ', only if he attacks' : ''}` : c.type === 'D' ? (c.covers === 'none' ? 'blocks nothing' : c.covers === 'half' ? 'halves an attack' : c.covers === 'any' ? 'blocks head or body' : `blocks the ${c.covers}`) : c.type === 'F' ? 'beats a Counter or a Defend' : '';
     return `<div class="card ${c.type}${c.id === sel ? ' sel' : ''}${inCombo ? ' combo' : ''}${dead ? ' dead' : ''}" data-id="${c.id}" title="${esc(c.n + ' - ' + c.t + (c.why ? '\n\nNOT NOW: ' + c.why : ''))}">`
       + `<div class="band">${TYPE[c.type].toUpperCase()}${c.chain ? ' &middot; CHAIN' : ''}</div>${c.count > 1 ? `<span class="n2">x${c.count}</span>` : ''}${c.always ? '<span class="alw">ALWAYS THERE</span>' : ''}`
-      + `<div class="nm">${esc(c.n)}</div><div class="row">${sp}<div class="cost">stamina<br><b style="color:var(--ink);font-size:1rem">${c.cost}</b></div></div><div class="rg">${rg}</div><div class="short">${short}</div></div>`; }).join('');
+      + `<div class="nm">${esc(c.n)}</div><div class="row">${left}${sp}</div><div class="cost">stamina <b>${c.cost}</b></div><div class="rg">${rg}</div><div class="short">${short}</div></div>`; }).join('');
   [...$('hand').querySelectorAll('.card')].forEach((el) => { el.onclick = () => { const id = el.dataset.id, c = H.find((x) => x.id === id);
     if (canCombo && id !== sel && c.type === 'A' && c.count) { combo = combo.includes(id) ? combo.filter((x) => x !== id) : [...combo, id].slice(0, 2); return draw(); }
     if (c.why) return; sel = sel === id ? null : id; combo = []; keep = swap = undefined; draw(); }; el.ondblclick = () => { if (!H.find((x) => x.id === el.dataset.id).why) { sel = el.dataset.id; go(); } }; });

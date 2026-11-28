@@ -40,7 +40,8 @@ main{flex:1;display:grid;grid-template-columns:1fr 1.15fr 1fr;grid-template-rows
 .card .row{display:flex;justify-content:space-between;align-items:end;padding:.2rem .5rem 0}
 .card .spd{font-size:1.7rem;font-weight:800;line-height:1}.card .spd small{font-size:.62rem;color:var(--muted);display:block;font-weight:500;letter-spacing:.05em}
 .card .spd.up{color:var(--gold)}.card .spd.down{color:#e07b72}
-.card .cost{font-size:.75rem;color:var(--muted);text-align:right}
+.card .spd.dmg{color:#ff8a7f}.card .spd.dmg.up{color:#ffb35c}.card .spd.word{font-size:1.15rem;padding-top:.3rem}.card .row .spd:last-child{text-align:right}
+.card .cost{font-size:.82rem;color:var(--muted);padding:.25rem .5rem 0}.card .cost b{color:var(--ink);font-size:1rem}
 .card .rg{display:flex;gap:3px;padding:.35rem .5rem 0}.card .rg i{font-style:normal;font-size:.64rem;padding:0 .3rem;border-radius:4px;border:1px solid var(--line);color:var(--muted)}.card .rg i.on{color:var(--ink);border-color:#8b7c66}
 .card .short{padding:.3rem .5rem 0;font-size:.74rem;color:#cfc4b4}
 .card .n2{position:absolute;top:-8px;right:-8px;background:var(--gold);color:#120f0c;border-radius:10px;font-size:.7rem;font-weight:800;padding:.05rem .4rem}
@@ -78,9 +79,9 @@ main{flex:1;display:grid;grid-template-columns:1fr 1.15fr 1fr;grid-template-rows
 <div id="help"><b>How to play</b><ul>
   <li>Each exchange you both pick one card at the same time. Then both show.</li>
   <li><b style="color:var(--A)">Attack</b> beats a Feint. <b style="color:var(--C)">Counter</b> beats an Attack. <b style="color:var(--F)">Feint</b> beats a Counter or a Defend. <b style="color:var(--D)">Defend</b> blocks an Attack.</li>
-  <li>Two attacks: the faster one lands first and stops the other. The big number on a card is its speed right now.</li>
+  <li>Each card shows two big numbers: DAMAGE (with your fighter's power) and SPEED. Two attacks: the faster one lands first and stops the other.</li>
   <li>Range: Long, Mid, Close. A card only works at the ranges lit on it. Some cards step you in.</li>
-  <li>The Lead: +1 speed on your attacks, and a Chain card can be followed by a combo.</li>
+  <li>The Lead: +1 speed on your attacks (+2 on your v2.7 rules and lite), and a Chain card can be followed by a combo. Speed bonuses do not add up: only the biggest one counts.</li>
   <li>Cards cost stamina. A guard gives a little back.</li>
   <li>Judges score each round on damage plus clean counters. 3 rounds of 6 exchanges.</li>
   <li>A tell shows you the colour of his card before you pick.</li>
