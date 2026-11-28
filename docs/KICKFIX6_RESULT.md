@@ -35,8 +35,9 @@ kickfix6_f6_n12_s1.txt.
 
 ## Decision
 F6 does not pass its trial: same bars passed as the control (4 of 9), two new failures. It goes in as the base for F7, not
-on the page. F7 = F6 + the low kick can be checked (a lifted lead leg stops it: lands 50-65%, not 90%) + head kick back
-to 2 stamina + KICKFIX5's clinch smothers kicks. Nothing on kick.html yet. The N=56 run of F6 is not needed.
+on the page. F7 (ops/research/TASK_KICKFIX7.md): find why F6's leg cover (feet hold / back off / a feet teep, which
+replaced the Check switch) still lets 90% of low kicks land, and fix it to 50-65%; head kick back to 2 stamina; KICKFIX5's
+clinch smothers kicks. Nothing on kick.html yet. The N=56 run of F6 is not needed.
 
 ## Feedback loops
 The limp loop (more low kicks thrown, more limps, no back off, more low kicks) was not measured: no run finished.
@@ -52,7 +53,7 @@ passes, run `play:f6:56:1 play:f6:56:2`.
 
 ## For the owner
 Nothing changed on kick.html. The test version halves the knockouts but low kicks still land 9 times in 10, so it is not good enough yet.
-The next version stops the low kick when the other man lifts his leg, and makes the head kick cheaper again.
+The next version makes a man who stands his ground or backs off stop the low kick, and makes the head kick cheaper again.
 You feel no change until that version passes.
 
-KICKFIX6 DONE: F6 trial fails (4 of 9 bars like the control; stoppages 96% -> 50% but the low kick still lands 90%, the head kick dies); next F7 = F6 + low kick check + head kick 2 stamina + clinch smothers kicks
+KICKFIX6 DONE: F6 trial fails (4 of 9 bars like the control; stoppages 96% -> 50% but the low kick still lands 90%, the head kick dies); next F7 = F6 + a leg cover that works + head kick 2 stamina + clinch smothers kicks (TASK_KICKFIX7.md)

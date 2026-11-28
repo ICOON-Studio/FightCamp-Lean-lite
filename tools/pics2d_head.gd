@@ -50,7 +50,8 @@ var lean_step := -1   # the boxer whose step in carries the slip
 ## The ranges each run happens at on head.html (ACT reach; a lean back only at Mid or Long):
 const HEAD_RANGES := {"jab_slipped": [3, 2], "cross_slipped": [2, 1], "lead_hook_rolled": [2, 1], "overhand_rolled": [2, 1],
 	"jab_leaned": [3, 2], "cross_leaned": [2], "lead_hook_leaned": [2], "overhand_leaned": [2]}
-var glide_a := -INF   # the run's first kept picture: the glide in starts there (its earlier offsets are not drawn)
+## glide_a (the run's first kept picture: the glide in starts there) is pics2d_anim.gd's own since S564 - declared here too
+## it stopped this tool from loading at all ("member already exists in parent class"); LAYERS1 S572 removed the copy.
 
 
 ## The trunk turned from one bone up, in the world's own axes, after the take has been applied (and before the skin).

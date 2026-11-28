@@ -44,8 +44,8 @@
    ],
    "range": 3,
    "hit": [
-    0.412,
-    0.388
+    0.403,
+    0.397
    ]
   },
   "blue_body_cross_landed": {
@@ -90,7 +90,7 @@
    "range": 3,
    "hit": [
     0.381,
-    0.422
+    0.424
    ]
   },
   "blue_body_cross_missed": {
@@ -137,8 +137,8 @@
    ],
    "range": 3,
    "hit": [
-    0.413,
-    0.346
+    0.406,
+    0.376
    ]
   },
   "blue_body_hook_blocked": {
@@ -185,8 +185,8 @@
    ],
    "range": 3,
    "hit": [
-    0.379,
-    0.388
+    0.395,
+    0.391
    ]
   },
   "blue_body_hook_missed": {
@@ -233,8 +233,8 @@
    ],
    "range": 3,
    "hit": [
-    0.379,
-    0.433
+    0.378,
+    0.359
    ]
   },
   "blue_cross_blocked": {
@@ -278,8 +278,8 @@
    ],
    "range": 3,
    "hit": [
-    0.45,
-    0.254
+    0.449,
+    0.264
    ]
   },
   "blue_cross_landed": {
@@ -372,7 +372,7 @@
    "range": 3,
    "hit": [
     0.389,
-    0.301
+    0.294
    ]
   },
   "blue_jab_blocked": {
@@ -563,8 +563,8 @@
    ],
    "range": 3,
    "hit": [
-    0.436,
-    0.296
+    0.429,
+    0.235
    ]
   },
   "blue_lead_hook_landed": {
@@ -611,8 +611,8 @@
    ],
    "range": 3,
    "hit": [
-    0.395,
-    0.257
+    0.394,
+    0.259
    ]
   },
   "blue_lead_hook_missed": {
@@ -659,8 +659,8 @@
    ],
    "range": 3,
    "hit": [
-    0.394,
-    0.261
+    0.402,
+    0.266
    ]
   },
   "blue_lead_uppercut_landed": {
@@ -756,7 +756,7 @@
    "range": 3,
    "hit": [
     0.385,
-    0.26
+    0.206
    ]
   },
   "blue_rear_hook_blocked": {
@@ -803,8 +803,8 @@
    ],
    "range": 3,
    "hit": [
-    0.425,
-    0.245
+    0.428,
+    0.305
    ]
   },
   "blue_rear_hook_landed": {
@@ -852,7 +852,7 @@
    "range": 3,
    "hit": [
     0.393,
-    0.257
+    0.258
    ]
   },
   "blue_rear_hook_missed": {
@@ -899,8 +899,8 @@
    ],
    "range": 3,
    "hit": [
-    0.399,
-    0.295
+    0.4,
+    0.268
    ]
   },
   "blue_rear_uppercut_blocked": {
@@ -947,8 +947,8 @@
    ],
    "range": 3,
    "hit": [
-    0.439,
-    0.273
+    0.44,
+    0.296
    ]
   },
   "blue_rear_uppercut_landed": {
@@ -995,8 +995,8 @@
    ],
    "range": 3,
    "hit": [
-    0.391,
-    0.263
+    0.389,
+    0.267
    ]
   },
   "blue_rear_uppercut_missed": {
@@ -1043,8 +1043,8 @@
    ],
    "range": 3,
    "hit": [
-    0.392,
-    0.265
+    0.391,
+    0.286
    ]
   },
   "red_body_cross_blocked": {
@@ -1091,8 +1091,8 @@
    ],
    "range": 3,
    "hit": [
-    0.701,
-    0.357
+    0.7,
+    0.385
    ]
   },
   "red_body_cross_landed": {
@@ -1136,8 +1136,8 @@
    ],
    "range": 3,
    "hit": [
-    0.734,
-    0.406
+    0.737,
+    0.416
    ]
   },
   "red_body_cross_missed": {
@@ -1232,8 +1232,8 @@
    ],
    "range": 3,
    "hit": [
-    0.723,
-    0.38
+    0.698,
+    0.389
    ]
   },
   "red_body_hook_landed": {
@@ -1281,7 +1281,7 @@
    "range": 3,
    "hit": [
     0.739,
-    0.407
+    0.416
    ]
   },
   "red_body_hook_missed": {
@@ -1373,8 +1373,8 @@
    ],
    "range": 3,
    "hit": [
-    0.645,
-    0.234
+    0.649,
+    0.26
    ]
   },
   "red_cross_landed": {
@@ -1418,8 +1418,8 @@
    ],
    "range": 3,
    "hit": [
-    0.709,
-    0.223
+    0.71,
+    0.255
    ]
   },
   "red_cross_missed": {
@@ -1658,8 +1658,8 @@
    ],
    "range": 3,
    "hit": [
-    0.661,
-    0.205
+    0.674,
+    0.225
    ]
   },
   "red_lead_hook_landed": {
@@ -1706,8 +1706,8 @@
    ],
    "range": 3,
    "hit": [
-    0.71,
-    0.217
+    0.712,
+    0.245
    ]
   },
   "red_lead_hook_missed": {
@@ -1803,7 +1803,7 @@
    "range": 3,
    "hit": [
     0.675,
-    0.231
+    0.257
    ]
   },
   "red_lead_uppercut_landed": {
@@ -1834,7 +1834,7 @@
     0.3
    ],
    "contact": 6,
-   "clip": "pro_left_uppercut_hard",
+   "clip": "pro_left_uppercut",
    "masks": [
     "red_lead_uppercut_landed_0_mask.png",
     "red_lead_uppercut_landed_1_mask.png",
@@ -1851,7 +1851,7 @@
    "range": 3,
    "hit": [
     0.706,
-    0.219
+    0.249
    ]
   },
   "red_lead_uppercut_missed": {
@@ -1899,7 +1899,7 @@
    "range": 3,
    "hit": [
     0.706,
-    0.226
+    0.227
    ]
   },
   "red_rear_hook_blocked": {
@@ -1947,7 +1947,7 @@
    "range": 3,
    "hit": [
     0.679,
-    0.265
+    0.285
    ]
   },
   "red_rear_hook_landed": {
@@ -1994,8 +1994,8 @@
    ],
    "range": 3,
    "hit": [
-    0.711,
-    0.217
+    0.712,
+    0.244
    ]
   },
   "red_rear_hook_missed": {
@@ -2090,8 +2090,8 @@
    ],
    "range": 3,
    "hit": [
-    0.656,
-    0.253
+    0.658,
+    0.283
    ]
   },
   "red_rear_uppercut_landed": {
@@ -2138,8 +2138,8 @@
    ],
    "range": 3,
    "hit": [
-    0.703,
-    0.219
+    0.707,
+    0.254
    ]
   },
   "red_rear_uppercut_missed": {
@@ -2186,7 +2186,7 @@
    ],
    "range": 3,
    "hit": [
-    0.698,
+    0.699,
     0.294
    ]
   },
@@ -3664,23 +3664,9 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
-   "masks": [
-    "blue_body_hook_landed_0_mask.png",
-    "blue_body_hook_landed_1_mask.png",
-    "blue_body_hook_landed_2_mask.png",
-    "blue_body_hook_landed_3_mask.png",
-    "blue_body_hook_landed_4_mask.png",
-    "blue_body_hook_landed_5_mask.png",
-    "blue_body_hook_landed_6_mask.png",
-    "blue_body_hook_landed_7_mask.png",
-    "blue_body_hook_landed_8_mask.png",
-    "blue_body_hook_landed_9_mask.png",
-    "blue_body_hook_landed_10_mask.png"
-   ],
-   "range": 3,
    "hit": [
     0.374,
-    0.427
+    0.428
    ]
   },
   "blue_lead_uppercut_blocked": {
@@ -3712,23 +3698,9 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
-   "masks": [
-    "blue_lead_uppercut_blocked_0_mask.png",
-    "blue_lead_uppercut_blocked_1_mask.png",
-    "blue_lead_uppercut_blocked_2_mask.png",
-    "blue_lead_uppercut_blocked_3_mask.png",
-    "blue_lead_uppercut_blocked_4_mask.png",
-    "blue_lead_uppercut_blocked_5_mask.png",
-    "blue_lead_uppercut_blocked_6_mask.png",
-    "blue_lead_uppercut_blocked_7_mask.png",
-    "blue_lead_uppercut_blocked_8_mask.png",
-    "blue_lead_uppercut_blocked_9_mask.png",
-    "blue_lead_uppercut_blocked_10_mask.png"
-   ],
-   "range": 3,
    "hit": [
     0.427,
-    0.298
+    0.275
    ]
   },
   "blue_both_high_high": {
@@ -5106,12 +5078,12 @@
   },
   "red_clinch": {
    "files": [
-    "red_clinch_0.webp",
-    "red_clinch_1.webp",
-    "red_clinch_2.webp",
-    "red_clinch_3.webp",
-    "red_clinch_4.webp",
-    "red_clinch_5.webp"
+    "blue_clinch_0.webp",
+    "blue_clinch_1.webp",
+    "blue_clinch_2.webp",
+    "blue_clinch_3.webp",
+    "blue_clinch_4.webp",
+    "blue_clinch_5.webp"
    ],
    "offs": [
     0.0,
@@ -5123,14 +5095,7 @@
    ],
    "contact": -1,
    "clip": "Clinch",
-   "masks": [
-    "red_clinch_0_mask.png",
-    "red_clinch_1_mask.png",
-    "red_clinch_2_mask.png",
-    "red_clinch_3_mask.png",
-    "red_clinch_4_mask.png",
-    "red_clinch_5_mask.png"
-   ]
+   "same_as": "blue_clinch"
   },
   "blue_step_in": {
    "files": [
@@ -5210,8 +5175,8 @@
    ],
    "range": 3,
    "hit": [
-    0.415,
-    0.399
+    0.419,
+    0.391
    ]
   },
   "blue_body_jab_landed": {
@@ -5255,8 +5220,8 @@
    ],
    "range": 3,
    "hit": [
-    0.386,
-    0.424
+    0.384,
+    0.421
    ]
   },
   "blue_body_jab_missed": {
@@ -5303,8 +5268,8 @@
    ],
    "range": 3,
    "hit": [
-    0.417,
-    0.384
+    0.409,
+    0.33
    ]
   },
   "red_body_jab_blocked": {
@@ -5351,8 +5316,8 @@
    ],
    "range": 3,
    "hit": [
-    0.698,
-    0.357
+    0.7,
+    0.384
    ]
   },
   "red_body_jab_landed": {
@@ -5396,8 +5361,8 @@
    ],
    "range": 3,
    "hit": [
-    0.728,
-    0.405
+    0.736,
+    0.416
    ]
   },
   "red_body_jab_missed": {
@@ -6781,8 +6746,8 @@
    ],
    "range": 2,
    "hit": [
-    0.412,
-    0.388
+    0.403,
+    0.397
    ]
   },
   "blue_body_cross_landed_r2": {
@@ -6827,7 +6792,7 @@
    "range": 2,
    "hit": [
     0.381,
-    0.422
+    0.424
    ]
   },
   "blue_body_cross_missed_r2": {
@@ -6874,8 +6839,8 @@
    ],
    "range": 2,
    "hit": [
-    0.413,
-    0.346
+    0.406,
+    0.376
    ]
   },
   "blue_body_hook_blocked_r2": {
@@ -6922,8 +6887,8 @@
    ],
    "range": 2,
    "hit": [
-    0.379,
-    0.388
+    0.395,
+    0.391
    ]
   },
   "blue_body_hook_missed_r2": {
@@ -6970,8 +6935,8 @@
    ],
    "range": 2,
    "hit": [
-    0.379,
-    0.433
+    0.378,
+    0.359
    ]
   },
   "blue_body_jab_blocked_r2": {
@@ -7018,8 +6983,8 @@
    ],
    "range": 2,
    "hit": [
-    0.415,
-    0.399
+    0.419,
+    0.391
    ]
   },
   "blue_body_jab_landed_r2": {
@@ -7063,8 +7028,8 @@
    ],
    "range": 2,
    "hit": [
-    0.386,
-    0.423
+    0.385,
+    0.421
    ]
   },
   "blue_body_jab_missed_r2": {
@@ -7111,8 +7076,8 @@
    ],
    "range": 2,
    "hit": [
-    0.417,
-    0.384
+    0.409,
+    0.33
    ]
   },
   "blue_cross_blocked_r2": {
@@ -7156,8 +7121,8 @@
    ],
    "range": 2,
    "hit": [
-    0.45,
-    0.254
+    0.449,
+    0.264
    ]
   },
   "blue_cross_landed_r2": {
@@ -7250,7 +7215,7 @@
    "range": 2,
    "hit": [
     0.389,
-    0.301
+    0.294
    ]
   },
   "blue_jab_blocked_r2": {
@@ -7441,8 +7406,8 @@
    ],
    "range": 2,
    "hit": [
-    0.436,
-    0.296
+    0.429,
+    0.235
    ]
   },
   "blue_lead_hook_landed_r2": {
@@ -7489,8 +7454,8 @@
    ],
    "range": 2,
    "hit": [
-    0.395,
-    0.257
+    0.394,
+    0.259
    ]
   },
   "blue_lead_hook_missed_r2": {
@@ -7537,8 +7502,8 @@
    ],
    "range": 2,
    "hit": [
-    0.394,
-    0.261
+    0.402,
+    0.266
    ]
   },
   "blue_rear_hook_blocked_r2": {
@@ -7585,8 +7550,8 @@
    ],
    "range": 2,
    "hit": [
-    0.425,
-    0.245
+    0.428,
+    0.305
    ]
   },
   "blue_rear_hook_landed_r2": {
@@ -7634,7 +7599,7 @@
    "range": 2,
    "hit": [
     0.393,
-    0.257
+    0.258
    ]
   },
   "blue_rear_hook_missed_r2": {
@@ -7681,8 +7646,8 @@
    ],
    "range": 2,
    "hit": [
-    0.399,
-    0.295
+    0.4,
+    0.268
    ]
   },
   "red_body_cross_blocked_r2": {
@@ -7729,8 +7694,8 @@
    ],
    "range": 2,
    "hit": [
-    0.701,
-    0.357
+    0.7,
+    0.385
    ]
   },
   "red_body_cross_landed_r2": {
@@ -7774,8 +7739,8 @@
    ],
    "range": 2,
    "hit": [
-    0.734,
-    0.406
+    0.737,
+    0.416
    ]
   },
   "red_body_cross_missed_r2": {
@@ -7870,8 +7835,8 @@
    ],
    "range": 2,
    "hit": [
-    0.723,
-    0.38
+    0.698,
+    0.389
    ]
   },
   "red_body_hook_landed_r2": {
@@ -7919,7 +7884,7 @@
    "range": 2,
    "hit": [
     0.739,
-    0.407
+    0.416
    ]
   },
   "red_body_hook_missed_r2": {
@@ -8014,8 +7979,8 @@
    ],
    "range": 2,
    "hit": [
-    0.698,
-    0.357
+    0.7,
+    0.384
    ]
   },
   "red_body_jab_landed_r2": {
@@ -8059,8 +8024,8 @@
    ],
    "range": 2,
    "hit": [
-    0.728,
-    0.405
+    0.736,
+    0.416
    ]
   },
   "red_body_jab_missed_r2": {
@@ -8152,8 +8117,8 @@
    ],
    "range": 2,
    "hit": [
-    0.645,
-    0.234
+    0.649,
+    0.26
    ]
   },
   "red_cross_landed_r2": {
@@ -8197,8 +8162,8 @@
    ],
    "range": 2,
    "hit": [
-    0.709,
-    0.223
+    0.71,
+    0.255
    ]
   },
   "red_cross_missed_r2": {
@@ -8437,8 +8402,8 @@
    ],
    "range": 2,
    "hit": [
-    0.661,
-    0.205
+    0.674,
+    0.225
    ]
   },
   "red_lead_hook_landed_r2": {
@@ -8485,8 +8450,8 @@
    ],
    "range": 2,
    "hit": [
-    0.71,
-    0.217
+    0.712,
+    0.245
    ]
   },
   "red_lead_hook_missed_r2": {
@@ -8582,7 +8547,7 @@
    "range": 2,
    "hit": [
     0.679,
-    0.265
+    0.285
    ]
   },
   "red_rear_hook_landed_r2": {
@@ -8629,8 +8594,8 @@
    ],
    "range": 2,
    "hit": [
-    0.711,
-    0.217
+    0.712,
+    0.244
    ]
   },
   "red_rear_hook_missed_r2": {
@@ -8941,8 +8906,8 @@
    ],
    "range": 1,
    "hit": [
-    0.412,
-    0.388
+    0.403,
+    0.397
    ]
   },
   "blue_body_cross_landed_r1": {
@@ -8987,7 +8952,7 @@
    "range": 1,
    "hit": [
     0.381,
-    0.422
+    0.424
    ]
   },
   "blue_body_cross_missed_r1": {
@@ -9034,8 +8999,8 @@
    ],
    "range": 1,
    "hit": [
-    0.413,
-    0.346
+    0.406,
+    0.376
    ]
   },
   "blue_body_hook_blocked_r1": {
@@ -9082,8 +9047,8 @@
    ],
    "range": 1,
    "hit": [
-    0.379,
-    0.388
+    0.395,
+    0.391
    ]
   },
   "blue_body_hook_missed_r1": {
@@ -9130,8 +9095,8 @@
    ],
    "range": 1,
    "hit": [
-    0.379,
-    0.433
+    0.378,
+    0.359
    ]
   },
   "blue_cross_blocked_r1": {
@@ -9175,8 +9140,8 @@
    ],
    "range": 1,
    "hit": [
-    0.45,
-    0.254
+    0.449,
+    0.264
    ]
   },
   "blue_cross_landed_r1": {
@@ -9269,7 +9234,7 @@
    "range": 1,
    "hit": [
     0.389,
-    0.301
+    0.294
    ]
   },
   "blue_lead_hook_blocked_r1": {
@@ -9316,8 +9281,8 @@
    ],
    "range": 1,
    "hit": [
-    0.436,
-    0.296
+    0.429,
+    0.235
    ]
   },
   "blue_lead_hook_landed_r1": {
@@ -9364,8 +9329,8 @@
    ],
    "range": 1,
    "hit": [
-    0.395,
-    0.257
+    0.394,
+    0.259
    ]
   },
   "blue_lead_hook_missed_r1": {
@@ -9412,8 +9377,8 @@
    ],
    "range": 1,
    "hit": [
-    0.394,
-    0.261
+    0.402,
+    0.266
    ]
   },
   "blue_lead_uppercut_landed_r1": {
@@ -9509,7 +9474,7 @@
    "range": 1,
    "hit": [
     0.385,
-    0.26
+    0.206
    ]
   },
   "blue_rear_hook_blocked_r1": {
@@ -9556,8 +9521,8 @@
    ],
    "range": 1,
    "hit": [
-    0.425,
-    0.245
+    0.428,
+    0.305
    ]
   },
   "blue_rear_hook_landed_r1": {
@@ -9605,7 +9570,7 @@
    "range": 1,
    "hit": [
     0.393,
-    0.257
+    0.258
    ]
   },
   "blue_rear_hook_missed_r1": {
@@ -9652,8 +9617,8 @@
    ],
    "range": 1,
    "hit": [
-    0.399,
-    0.295
+    0.4,
+    0.268
    ]
   },
   "blue_rear_uppercut_blocked_r1": {
@@ -9700,8 +9665,8 @@
    ],
    "range": 1,
    "hit": [
-    0.439,
-    0.273
+    0.44,
+    0.296
    ]
   },
   "blue_rear_uppercut_landed_r1": {
@@ -9748,8 +9713,8 @@
    ],
    "range": 1,
    "hit": [
-    0.391,
-    0.263
+    0.389,
+    0.267
    ]
   },
   "blue_rear_uppercut_missed_r1": {
@@ -9796,8 +9761,8 @@
    ],
    "range": 1,
    "hit": [
-    0.392,
-    0.265
+    0.391,
+    0.286
    ]
   },
   "red_body_cross_blocked_r1": {
@@ -9844,8 +9809,8 @@
    ],
    "range": 1,
    "hit": [
-    0.701,
-    0.357
+    0.7,
+    0.385
    ]
   },
   "red_body_cross_landed_r1": {
@@ -9889,8 +9854,8 @@
    ],
    "range": 1,
    "hit": [
-    0.734,
-    0.406
+    0.737,
+    0.416
    ]
   },
   "red_body_cross_missed_r1": {
@@ -9985,8 +9950,8 @@
    ],
    "range": 1,
    "hit": [
-    0.723,
-    0.38
+    0.698,
+    0.389
    ]
   },
   "red_body_hook_landed_r1": {
@@ -10034,7 +9999,7 @@
    "range": 1,
    "hit": [
     0.739,
-    0.407
+    0.416
    ]
   },
   "red_body_hook_missed_r1": {
@@ -10126,8 +10091,8 @@
    ],
    "range": 1,
    "hit": [
-    0.645,
-    0.234
+    0.649,
+    0.26
    ]
   },
   "red_cross_landed_r1": {
@@ -10171,8 +10136,8 @@
    ],
    "range": 1,
    "hit": [
-    0.709,
-    0.223
+    0.71,
+    0.255
    ]
   },
   "red_cross_missed_r1": {
@@ -10267,8 +10232,8 @@
    ],
    "range": 1,
    "hit": [
-    0.661,
-    0.205
+    0.674,
+    0.225
    ]
   },
   "red_lead_hook_landed_r1": {
@@ -10315,8 +10280,8 @@
    ],
    "range": 1,
    "hit": [
-    0.71,
-    0.217
+    0.712,
+    0.245
    ]
   },
   "red_lead_hook_missed_r1": {
@@ -10412,7 +10377,7 @@
    "range": 1,
    "hit": [
     0.675,
-    0.231
+    0.257
    ]
   },
   "red_lead_uppercut_landed_r1": {
@@ -10443,7 +10408,7 @@
     0.3
    ],
    "contact": 6,
-   "clip": "pro_left_uppercut_hard",
+   "clip": "pro_left_uppercut",
    "masks": [
     "red_lead_uppercut_landed_r1_0_mask.png",
     "red_lead_uppercut_landed_r1_1_mask.png",
@@ -10460,7 +10425,7 @@
    "range": 1,
    "hit": [
     0.706,
-    0.219
+    0.249
    ]
   },
   "red_lead_uppercut_missed_r1": {
@@ -10508,7 +10473,7 @@
    "range": 1,
    "hit": [
     0.706,
-    0.226
+    0.227
    ]
   },
   "red_rear_hook_blocked_r1": {
@@ -10556,7 +10521,7 @@
    "range": 1,
    "hit": [
     0.679,
-    0.265
+    0.285
    ]
   },
   "red_rear_hook_landed_r1": {
@@ -10603,8 +10568,8 @@
    ],
    "range": 1,
    "hit": [
-    0.711,
-    0.217
+    0.712,
+    0.244
    ]
   },
   "red_rear_hook_missed_r1": {
@@ -10699,8 +10664,8 @@
    ],
    "range": 1,
    "hit": [
-    0.656,
-    0.253
+    0.658,
+    0.283
    ]
   },
   "red_rear_uppercut_landed_r1": {
@@ -10747,8 +10712,8 @@
    ],
    "range": 1,
    "hit": [
-    0.703,
-    0.219
+    0.707,
+    0.254
    ]
   },
   "red_rear_uppercut_missed_r1": {
@@ -10795,7 +10760,7 @@
    ],
    "range": 1,
    "hit": [
-    0.698,
+    0.699,
     0.294
    ]
   },
@@ -11056,8 +11021,8 @@
    ],
    "range": 3,
    "hit": [
-    0.519,
-    0.346
+    0.514,
+    0.376
    ]
   },
   "blue_body_hook_short": {
@@ -11104,8 +11069,8 @@
    ],
    "range": 3,
    "hit": [
-    0.541,
-    0.433
+    0.539,
+    0.358
    ]
   },
   "blue_cross_short": {
@@ -11185,8 +11150,8 @@
    ],
    "range": 3,
    "hit": [
-    0.542,
-    0.26
+    0.541,
+    0.267
    ]
   },
   "blue_lead_uppercut_short": {
@@ -11233,8 +11198,8 @@
    ],
    "range": 3,
    "hit": [
-    0.618,
-    0.26
+    0.617,
+    0.205
    ]
   },
   "blue_rear_hook_short": {
@@ -11282,7 +11247,7 @@
    "range": 3,
    "hit": [
     0.569,
-    0.295
+    0.268
    ]
   },
   "blue_rear_uppercut_short": {
@@ -11329,8 +11294,8 @@
    ],
    "range": 3,
    "hit": [
-    0.599,
-    0.264
+    0.6,
+    0.285
    ]
   },
   "red_body_cross_short": {
@@ -11360,10 +11325,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_short_0_mask.png",
+    "red_body_cross_short_1_mask.png",
+    "red_body_cross_short_2_mask.png",
+    "red_body_cross_short_3_mask.png",
+    "red_body_cross_short_4_mask.png",
+    "red_body_cross_short_5_mask.png",
+    "red_body_cross_short_6_mask.png",
+    "red_body_cross_short_7_mask.png",
+    "red_body_cross_short_8_mask.png",
+    "red_body_cross_short_9_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.572,
-    0.385
+    0.384
    ]
   },
   "red_body_hook_short": {
@@ -11441,10 +11418,22 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_short_0_mask.png",
+    "red_cross_short_1_mask.png",
+    "red_cross_short_2_mask.png",
+    "red_cross_short_3_mask.png",
+    "red_cross_short_4_mask.png",
+    "red_cross_short_5_mask.png",
+    "red_cross_short_6_mask.png",
+    "red_cross_short_7_mask.png",
+    "red_cross_short_8_mask.png",
+    "red_cross_short_9_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.64,
-    0.309
+    0.308
    ]
   },
   "red_lead_hook_short": {
@@ -11636,7 +11625,7 @@
    "range": 3,
    "hit": [
     0.576,
-    0.272
+    0.273
    ]
   },
   "blue_overhand_short": {
@@ -11864,23 +11853,10 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
-   "masks": [
-    "blue_body_hook_landed_r2_0_mask.png",
-    "blue_body_hook_landed_r2_1_mask.png",
-    "blue_body_hook_landed_r2_2_mask.png",
-    "blue_body_hook_landed_r2_3_mask.png",
-    "blue_body_hook_landed_r2_4_mask.png",
-    "blue_body_hook_landed_r2_5_mask.png",
-    "blue_body_hook_landed_r2_6_mask.png",
-    "blue_body_hook_landed_r2_7_mask.png",
-    "blue_body_hook_landed_r2_8_mask.png",
-    "blue_body_hook_landed_r2_9_mask.png",
-    "blue_body_hook_landed_r2_10_mask.png"
-   ],
    "range": 2,
    "hit": [
     0.374,
-    0.427
+    0.428
    ]
   },
   "blue_body_hook_landed_r1": {
@@ -11912,23 +11888,10 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
-   "masks": [
-    "blue_body_hook_landed_r1_0_mask.png",
-    "blue_body_hook_landed_r1_1_mask.png",
-    "blue_body_hook_landed_r1_2_mask.png",
-    "blue_body_hook_landed_r1_3_mask.png",
-    "blue_body_hook_landed_r1_4_mask.png",
-    "blue_body_hook_landed_r1_5_mask.png",
-    "blue_body_hook_landed_r1_6_mask.png",
-    "blue_body_hook_landed_r1_7_mask.png",
-    "blue_body_hook_landed_r1_8_mask.png",
-    "blue_body_hook_landed_r1_9_mask.png",
-    "blue_body_hook_landed_r1_10_mask.png"
-   ],
    "range": 1,
    "hit": [
     0.374,
-    0.427
+    0.428
    ]
   },
   "blue_lead_uppercut_blocked_r1": {
@@ -11959,24 +11922,11 @@
     0.3
    ],
    "contact": 6,
-   "clip": "pro_left_uppercut",
-   "masks": [
-    "blue_lead_uppercut_blocked_r1_0_mask.png",
-    "blue_lead_uppercut_blocked_r1_1_mask.png",
-    "blue_lead_uppercut_blocked_r1_2_mask.png",
-    "blue_lead_uppercut_blocked_r1_3_mask.png",
-    "blue_lead_uppercut_blocked_r1_4_mask.png",
-    "blue_lead_uppercut_blocked_r1_5_mask.png",
-    "blue_lead_uppercut_blocked_r1_6_mask.png",
-    "blue_lead_uppercut_blocked_r1_7_mask.png",
-    "blue_lead_uppercut_blocked_r1_8_mask.png",
-    "blue_lead_uppercut_blocked_r1_9_mask.png",
-    "blue_lead_uppercut_blocked_r1_10_mask.png"
-   ],
+   "clip": "pro_left_uppercut_hard",
    "range": 1,
    "hit": [
-    0.427,
-    0.298
+    0.45,
+    0.271
    ]
   },
   "blue_lead_uppercut_short_r2": {
@@ -12023,8 +11973,8 @@
    ],
    "range": 2,
    "hit": [
-    0.506,
-    0.26
+    0.505,
+    0.206
    ]
   },
   "blue_rear_uppercut_short_r2": {
@@ -12071,8 +12021,8 @@
    ],
    "range": 2,
    "hit": [
-    0.486,
-    0.264
+    0.487,
+    0.286
    ]
   },
   "red_lead_uppercut_short_r2": {
@@ -12120,7 +12070,7 @@
    "range": 2,
    "hit": [
     0.596,
-    0.226
+    0.227
    ]
   },
   "red_rear_uppercut_short_r2": {

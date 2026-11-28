@@ -4,6 +4,8 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.572.4', date: '2026-11-28', items: [
+    'Fix: the punch, step, feint and push pictures made earlier tonight had blue standing the wrong way round (half his back to you). They are made again with blue facing you, as in every other picture.'] },
   { v: '0.572.3', date: '2026-11-28', items: [
     'With ?layers=1 steps in, back offs, the feint, the push and the clinch are two separate men too. Fix: a man who stepped no longer jumps a step too far on the last picture of his step (and back again).'] },
   { v: '0.572.2', date: '2026-11-28', items: [

@@ -91,3 +91,28 @@ picture and counted the step twice. Fix: each man's spot is read once, when a ru
 65 boundaries, 11 jumps, **0 where both runs are layered**; every one of the 11 touches the short cross or the short body
 cross (red), the two runs that fail the picture gate and keep their old two-man picture.
 Regression: anim_check PASS, page_play_test 4 passed.
+
+## MISTAKE FOUND AND BEING FIXED: the renders above left out south=blue
+Every picture of the page is rendered with `south=blue` (ops/research/MASK1_RESULT.md, RESUME_S564_RENDERS.md: blue is
+mirrored so both men show the camera their chest; the head and bob tools say it in their usage line, pics2d_anim.gd does
+not). My cross, punch and family-b renders were made without it, so blue stood orthodox, half his back to the camera,
+in those pictures - and they replaced the old ones in img/anim, so the plain page showed it too (commits 6ad20a23b,
+b5cf3e78b, 61da431ec). It is also why blue's stance read 0.43 m off in the cross trial: the anchor fix is still right
+(a stance must not move the man) but the stance itself was wrong. Re-render of all of them with south=blue started 01:27
+(render_sb.sh in the work folder, same order, one render at a time); the gates and stills are redone on those pictures.
+
+### The south=blue re-render (01:27-02:46): results
+All cross, punch and family-b runs again with south=blue. Picture gate failures this time (near misses; the gate is not
+loosened, each keeps its ORIGINAL pre-S572 picture, restored from git 6ad20a23b^, with no layers):
+blue body hook landed at Long/Mid/Inside (head 0.570 m from the other body, gate 0.60), blue lead uppercut blocked at
+Long/Inside (feet 0.159 m apart, gate 0.16), red clinch (arm 0.046 m from a torso, gate 0.07); the short cross (blue) and
+the short rear uppercut at Mid (red) still fail too and keep theirs. Red's short body cross now passes and is layered.
+Gate on the corrected pictures: **8 random bouts: 533 pictures, 74 boundaries, 0 jumps of any kind.** 6 directed bouts:
+9 jumps, the 5 between layered runs are all the recorder pushing the range from Long to Mid/Inside on a bout's first beat
+(a man moves 88-137 px with no step - not the page), the rest touch the restored body hook (no layers).
+Stills (south=blue, paused contact, both sides): cross Mid + Inside, body jab, lead hook Mid + Inside, body hook blocked,
+overhand, body cross, both uppercuts, red's cross, lead hook and rear uppercut - blue faces the camera as in the holds; the
+page holds each man within 0.09 m of the render (the cross 0.01-0.04, most under 0.06).
+Also found: tools/pics2d_head.gd did not load at all on main (it declared glide_a, which pics2d_anim.gd gained in S564):
+the copy is removed. And the head / kick tools never made a part mask (their own _run skipped anim_more's): _frame now
+makes it when layers=1. Head and kick pictures in this commit are south=blue but not yet layered (masked render running).

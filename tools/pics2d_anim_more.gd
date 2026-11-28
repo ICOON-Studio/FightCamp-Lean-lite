@@ -101,10 +101,9 @@ func _run() -> void:
 	_finish()
 
 
-## MASK1: the planning pictures (the guard and the holds) are saved with their part mask, from the same drawn frame.
-## LAYERS1 (S572): layers=1 masks EVERY frame (steps, feint, push, clinch, knockdown; pics2d_head / pics2d_kick go
-## through here too), so proto/twohands/tools/layers_cut.py can cut each man out (one man per picture).
+## MASK1: the guard and holds get a part mask from the same drawn frame; LAYERS1 (S572): layers=1 masks every frame.
 func _frame(name: String, who: Array = [0, 1]) -> bool:
+	if mask == null and _arg("layers", "0") == "1": mask = Mask.new(root, stage, cam, sv)
 	var masked := mask != null and (_arg("layers", "0") == "1" or name.contains("_guard") or HOLDS.keys().any(func(k) -> bool: return name.contains("_" + str(k))))
 	if masked:
 		mask.sync()
