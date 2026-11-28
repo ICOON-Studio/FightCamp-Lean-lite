@@ -6,8 +6,8 @@
   "id": "S573",
   "owner": "S573 (Opus 5.5)",
   "updated": "2026-11-28",
-  "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15.",
-  "next_action": "S574: (1) Octagon cup round 17 on v6.4 (fun 8 target; v6 best r15 7.5) - Claude v John, Kalli v Maria; (2) next rule candidates measured: Pull Counter 5 -> 4, a rocked man gives something up, live round score, the slow puncher v the fast jab (John/Claude v Maria - a real tension); (3) collect LAYERS1 (paused for his game), RULES569, KICKFIX6; (4) BUILD1 round 4, MMCPLAY1, LONG3.",
+  "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15. Then (owner: 'add statuses ... staggered or stunned, keg injured, cut'): v6.5 statuses ON (Staggered, Rocked +1 judges, Cut + doctor at 5, Winded; bots 35-57%), cup r17 fun 7.25; v6.6 live judges' score + Stance repeat 2. v6 cup table from r14: Kalli 10, Claude 10, Maria 5, John 0.",
+  "next_action": "S574: (0) measure the three balance fixes from the v6.6 rating (all 6/10, Out-Fighter 4): speed gap 2+ stops, reset costs the leader 1, Step-In Jab off a fake lands damage OR range; (1) cup round 18 on the result; (2) collect LAYERS1, RULES569, KICKFIX6; (3) BUILD1 round 4, MMCPLAY1, LONG3.",
   "last_working_commit": "5c2eda7e6",
   "verified_playable": "Builds/ exported in S556 (the S547 game plus S548's two changes: the 3D fight throws the body cross, the trial evening's pictures show the prospect's own body; pro_body_jab is on disk and unused by the game). Ring Switches (a browser toy): one beat played in the browser in S556 against the Jabber - both men threw a body jab, both landed, no console error; rules_test 34 pass; anim_check 124 runs PASS.",
   "incomplete_blocked": "Four Arena measures running (FEINTFIX2, SHORTBEAT1, TELLS5M, KICKFIX4). No export: no Godot code changed. The kick, head, All in and wait pages had no play-test run after v0.567.8 / .9. The public site was not looked at signed in.",
@@ -2526,7 +2526,7 @@
    "id": "S573",
    "date": "2026-11-28",
    "model": "Opus 5.5",
-   "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15."
+   "summary": "S573: C: drive cleared on his yes (8.6 -> 14.5 GB). Octagon cup r13 on v5.3 fun 7.5 -> v5.4 wall clinch. His v2.7 Director's Cut built as v6 (proto/octagon/cards_v6.mjs) with HIS TELL (a won Shoulder Twitch Feint shows the colour of the next card); his question 'is 2.7 missing anything from the 7/8 version': yes - v5's cup rules, Initiative +1, half the power bonus -> v6.1 bots 37-59% (as written 32-74%). Cup r14 v6.1 fun 6.75 (free Stance Guard 9 of 18), r15 v6.2 fun 7.5 (Stance tax + Range Jab at Mid), r16 v6.3 fun 7.0; v6.4 ON (Read shows one card). Standings after r14: Maria 29, John 20, Kalli 17, Claude 15. Then (owner: 'add statuses ... staggered or stunned, keg injured, cut'): v6.5 statuses ON (Staggered, Rocked +1 judges, Cut + doctor at 5, Winded; bots 35-57%), cup r17 fun 7.25; v6.6 live judges' score + Stance repeat 2. v6 cup table from r14: Kalli 10, Claude 10, Maria 5, John 0."
   }
  ],
  "blocked_on_operator": [],
@@ -6410,6 +6410,10 @@
     {
      "text": "Cup r14-r16 on v6: best 7.5",
      "who": "claude"
+    },
+    {
+     "text": "Statuses: stagger, cut, rock",
+     "who": "claude"
     }
    ],
    "now": [
@@ -7008,11 +7012,11 @@
      "who": "claude"
     },
     {
-     "text": "Cup r17 on v6.4: fun to 8",
+     "text": "Pull Counter 5->4, rocked rule",
      "who": "claude"
     },
     {
-     "text": "Pull Counter 5->4, rocked rule",
+     "text": "Cup r18 on v6.6: fun to 8",
      "who": "claude"
     }
    ],
@@ -7022,7 +7026,7 @@
  "verified_playable": "S294 2026-10-28: E:\\FightCamp\\Lean\\Builds\\FightCamp.exe (week 1 build, Lean 4437ac0). tests/golden_path_test.gd: quick start -> sign Lucy -> hire Luke Reid -> four weeks of CONTINUE that stops by itself -> week review shows a whole-point gain -> goal MET. Real screenshots checked on the hidden desktop (tools/hidden_desktop.py).",
  "backlog_note_S188": "Ludo Q1.1 (dead arms) partly folded into FLOORGAIN2/SPAR1 tuning; Q1.3 footwork budget deferred until R16 (ring cutting) lands; Q3 spy day deferred (rival gyms EA).",
  "last_working_commit": "5c2eda7e6",
- "next_action": "S574: (1) Octagon cup round 17 on v6.4 (fun 8 target; v6 best r15 7.5) - Claude v John, Kalli v Maria; (2) next rule candidates measured: Pull Counter 5 -> 4, a rocked man gives something up, live round score, the slow puncher v the fast jab (John/Claude v Maria - a real tension); (3) collect LAYERS1 (paused for his game), RULES569, KICKFIX6; (4) BUILD1 round 4, MMCPLAY1, LONG3.",
+ "next_action": "S574: (0) measure the three balance fixes from the v6.6 rating (all 6/10, Out-Fighter 4): speed gap 2+ stops, reset costs the leader 1, Step-In Jab off a fake lands damage OR range; (1) cup round 18 on the result; (2) collect LAYERS1, RULES569, KICKFIX6; (3) BUILD1 round 4, MMCPLAY1, LONG3.",
  "next_acceptance": "Rulers vs r0: head jumps on the contact frame under 4, a head inside the other's body under 5 frames, arm out median under 4 frames with join_return green, then r1 film at two fresh blind critics 5+/10",
  "superseded_archive": [
   {

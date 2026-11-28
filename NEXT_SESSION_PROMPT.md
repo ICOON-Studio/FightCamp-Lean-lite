@@ -7,11 +7,18 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
 `docs/OCTAGON_V6_RESULT.md`.
 
 ## S574: DO THESE FIRST
-1. OCTAGON CUP ROUND 17 on v6.4 (fun 8 is the target; r15 v6.2 7.5 - best on v6, r16 v6.3 7.0). `node ops/Tools/versus_by_message.mjs
+0. FIRST (owner S573: "Next session"): measure the three balance fixes from the v6.6 balance rating (all four seats 6/10,
+   Out-Fighter 4 from all four; docs/OCTAGON_V6_RESULT.md): John - 2+ speed faster stops the slower punch outright; Kalli - a
+   neutral reset costs the man ahead on the live score 1 stamina; Maria - a Step-In Jab catching a fake lands the damage OR
+   closes the range, not both + Lead. Each a TUNE switch OFF, pool_sim n=40, then ON the ones that lift the out-fighters
+   (Metronome 43%, Long Night 35%) without breaking 40-60%, then ask all four for a balance rating again.
+1. OCTAGON CUP ROUND 18 on v6.6 (statuses + live score; fun 8 is the target; v6 best r15 7.5, r17 v6.5 7.25). The v6 cup has its own
+   table from r14 (Kalli 10, Claude 10, Maria 5, John 0) - the owner asked for it. Pairings next: Claude v Kalli, John v Maria. `node ops/Tools/versus_by_message.mjs
    E:/FightCamp/tmp/octcup4/r17_<a>_v_<b> a=<seat>:<via> b=<seat>:grok game=octagon v6=1 pa=<id> pb=<id> seed=17x`; Claude plays
-   with a scratchpad oct6.sh (plan; exit 3 = WAIT for your tell - `show` until "TELL: his card", then choose). Pairings not yet
-   played on v6: Claude v John, Kalli v Maria.
-2. Measured and left OFF (bots 37-61%): heavyTrade (a heavy punch trades through a faster straight - John r15, Claude r16; Maria
+   with a scratchpad oct6.sh (plan; exit 3 = WAIT for your tell - `show` until "TELL: his card", then choose). 
+2. Open asks after r17: a widening cut should score (John); the Step-In Jab off a fake pays too much (Maria x3); a
+   counter-puncher needs a way out of Close (Maria); tell the cut man which card his cut showed (Claude); a cutman card
+   between rounds (Claude). Measured and left OFF (bots 37-61%): heavyTrade (a heavy punch trades through a faster straight - John r15, Claude r16; Maria
    r16 wants the opposite: the fast jab should keep the slow puncher off) and stanceTax=2. Open asks: Pull Counter 5 -> 4
    (Kalli r13 + r15, Maria r16: one counter decides a round; the 6 = his 5 + the +1 reflex bonus), a rocked man gives something
    up (Maria r15, Claude r16), a live round score (Kalli r12, r13, r15), the always-there cards still half of all plays (r16).

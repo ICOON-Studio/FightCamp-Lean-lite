@@ -29,6 +29,13 @@
 - Bugs found playing and fixed: Stance Guard locked, Counter v Defend paid a whiff, NOW speed of a step-in card, tell
   off a clinch, tell line said "you" to both men, always-there punches could not combo, D v D logged twice.
 
+- His next message: "add statuses and debugs like staggered or stunned, keg injured, cut etc" + the 2.5D art pipeline
+  ("We need these ?") -> not yet (his S542 order: mechanics first; bosses/arenas are the career layer that waits for balance;
+  LAYERS1 is our own Spine-like route). v6.5 STATUSES ON: Staggered (legs), Rocked +1 to the judges, Cut (his Eye Cut, from
+  sharp straights, the doctor at 5), Winded - bots 35-57%, doctor 4%. Cup r17: fun 7.25, depth 7.0 (Claude beat John
+  30-27, Kalli beat Maria 29-28). v6.6: live judges' score + Stance Guard repeat costs 2 (37-59%).
+- "when you will make a new cup for that version ?" -> a separate v6 table from r14: Kalli 10, Claude 10, Maria 5, John 0.
+
 ## Standings (r1-r14, 3 a win, 1 a draw)
 Maria 9-2-3 29, John 6-2-6 20, Kalli 5-2-7 17, Claude 5-0-9 15. r15: Claude beat John, Kalli-Maria drew. r16: Claude-Maria drew, Kalli beat John.
 

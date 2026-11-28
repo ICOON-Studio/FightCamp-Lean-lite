@@ -29,9 +29,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_blocked_0_mask.png",
+    "blue_body_cross_blocked_1_mask.png",
+    "blue_body_cross_blocked_2_mask.png",
+    "blue_body_cross_blocked_3_mask.png",
+    "blue_body_cross_blocked_4_mask.png",
+    "blue_body_cross_blocked_5_mask.png",
+    "blue_body_cross_blocked_6_mask.png",
+    "blue_body_cross_blocked_7_mask.png",
+    "blue_body_cross_blocked_8_mask.png",
+    "blue_body_cross_blocked_9_mask.png",
+    "blue_body_cross_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.403,
-    0.397
+    0.412,
+    0.388
    ]
   },
   "blue_body_cross_landed": {
@@ -61,9 +75,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_landed_0_mask.png",
+    "blue_body_cross_landed_1_mask.png",
+    "blue_body_cross_landed_2_mask.png",
+    "blue_body_cross_landed_3_mask.png",
+    "blue_body_cross_landed_4_mask.png",
+    "blue_body_cross_landed_5_mask.png",
+    "blue_body_cross_landed_6_mask.png",
+    "blue_body_cross_landed_7_mask.png",
+    "blue_body_cross_landed_8_mask.png",
+    "blue_body_cross_landed_9_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.381,
-    0.424
+    0.422
    ]
   },
   "blue_body_cross_missed": {
@@ -95,9 +122,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_missed_0_mask.png",
+    "blue_body_cross_missed_1_mask.png",
+    "blue_body_cross_missed_2_mask.png",
+    "blue_body_cross_missed_3_mask.png",
+    "blue_body_cross_missed_4_mask.png",
+    "blue_body_cross_missed_5_mask.png",
+    "blue_body_cross_missed_6_mask.png",
+    "blue_body_cross_missed_7_mask.png",
+    "blue_body_cross_missed_8_mask.png",
+    "blue_body_cross_missed_9_mask.png",
+    "blue_body_cross_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.406,
-    0.376
+    0.413,
+    0.346
    ]
   },
   "blue_body_hook_blocked": {
@@ -129,9 +170,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "blue_body_hook_blocked_0_mask.png",
+    "blue_body_hook_blocked_1_mask.png",
+    "blue_body_hook_blocked_2_mask.png",
+    "blue_body_hook_blocked_3_mask.png",
+    "blue_body_hook_blocked_4_mask.png",
+    "blue_body_hook_blocked_5_mask.png",
+    "blue_body_hook_blocked_6_mask.png",
+    "blue_body_hook_blocked_7_mask.png",
+    "blue_body_hook_blocked_8_mask.png",
+    "blue_body_hook_blocked_9_mask.png",
+    "blue_body_hook_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.395,
-    0.391
+    0.379,
+    0.388
    ]
   },
   "blue_body_hook_missed": {
@@ -163,9 +218,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "blue_body_hook_missed_0_mask.png",
+    "blue_body_hook_missed_1_mask.png",
+    "blue_body_hook_missed_2_mask.png",
+    "blue_body_hook_missed_3_mask.png",
+    "blue_body_hook_missed_4_mask.png",
+    "blue_body_hook_missed_5_mask.png",
+    "blue_body_hook_missed_6_mask.png",
+    "blue_body_hook_missed_7_mask.png",
+    "blue_body_hook_missed_8_mask.png",
+    "blue_body_hook_missed_9_mask.png",
+    "blue_body_hook_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.378,
-    0.359
+    0.379,
+    0.433
    ]
   },
   "blue_cross_blocked": {
@@ -479,9 +548,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_blocked_0_mask.png",
+    "blue_lead_hook_blocked_1_mask.png",
+    "blue_lead_hook_blocked_2_mask.png",
+    "blue_lead_hook_blocked_3_mask.png",
+    "blue_lead_hook_blocked_4_mask.png",
+    "blue_lead_hook_blocked_5_mask.png",
+    "blue_lead_hook_blocked_6_mask.png",
+    "blue_lead_hook_blocked_7_mask.png",
+    "blue_lead_hook_blocked_8_mask.png",
+    "blue_lead_hook_blocked_9_mask.png",
+    "blue_lead_hook_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.429,
-    0.235
+    0.436,
+    0.296
    ]
   },
   "blue_lead_hook_landed": {
@@ -513,9 +596,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_landed_0_mask.png",
+    "blue_lead_hook_landed_1_mask.png",
+    "blue_lead_hook_landed_2_mask.png",
+    "blue_lead_hook_landed_3_mask.png",
+    "blue_lead_hook_landed_4_mask.png",
+    "blue_lead_hook_landed_5_mask.png",
+    "blue_lead_hook_landed_6_mask.png",
+    "blue_lead_hook_landed_7_mask.png",
+    "blue_lead_hook_landed_8_mask.png",
+    "blue_lead_hook_landed_9_mask.png",
+    "blue_lead_hook_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.394,
-    0.259
+    0.395,
+    0.257
    ]
   },
   "blue_lead_hook_missed": {
@@ -547,9 +644,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_missed_0_mask.png",
+    "blue_lead_hook_missed_1_mask.png",
+    "blue_lead_hook_missed_2_mask.png",
+    "blue_lead_hook_missed_3_mask.png",
+    "blue_lead_hook_missed_4_mask.png",
+    "blue_lead_hook_missed_5_mask.png",
+    "blue_lead_hook_missed_6_mask.png",
+    "blue_lead_hook_missed_7_mask.png",
+    "blue_lead_hook_missed_8_mask.png",
+    "blue_lead_hook_missed_9_mask.png",
+    "blue_lead_hook_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.402,
-    0.266
+    0.394,
+    0.261
    ]
   },
   "blue_lead_uppercut_landed": {
@@ -581,6 +692,20 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_landed_0_mask.png",
+    "blue_lead_uppercut_landed_1_mask.png",
+    "blue_lead_uppercut_landed_2_mask.png",
+    "blue_lead_uppercut_landed_3_mask.png",
+    "blue_lead_uppercut_landed_4_mask.png",
+    "blue_lead_uppercut_landed_5_mask.png",
+    "blue_lead_uppercut_landed_6_mask.png",
+    "blue_lead_uppercut_landed_7_mask.png",
+    "blue_lead_uppercut_landed_8_mask.png",
+    "blue_lead_uppercut_landed_9_mask.png",
+    "blue_lead_uppercut_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.392,
     0.263
@@ -615,9 +740,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_missed_0_mask.png",
+    "blue_lead_uppercut_missed_1_mask.png",
+    "blue_lead_uppercut_missed_2_mask.png",
+    "blue_lead_uppercut_missed_3_mask.png",
+    "blue_lead_uppercut_missed_4_mask.png",
+    "blue_lead_uppercut_missed_5_mask.png",
+    "blue_lead_uppercut_missed_6_mask.png",
+    "blue_lead_uppercut_missed_7_mask.png",
+    "blue_lead_uppercut_missed_8_mask.png",
+    "blue_lead_uppercut_missed_9_mask.png",
+    "blue_lead_uppercut_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.385,
-    0.206
+    0.26
    ]
   },
   "blue_rear_hook_blocked": {
@@ -649,9 +788,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_blocked_0_mask.png",
+    "blue_rear_hook_blocked_1_mask.png",
+    "blue_rear_hook_blocked_2_mask.png",
+    "blue_rear_hook_blocked_3_mask.png",
+    "blue_rear_hook_blocked_4_mask.png",
+    "blue_rear_hook_blocked_5_mask.png",
+    "blue_rear_hook_blocked_6_mask.png",
+    "blue_rear_hook_blocked_7_mask.png",
+    "blue_rear_hook_blocked_8_mask.png",
+    "blue_rear_hook_blocked_9_mask.png",
+    "blue_rear_hook_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.428,
-    0.305
+    0.425,
+    0.245
    ]
   },
   "blue_rear_hook_landed": {
@@ -683,9 +836,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_landed_0_mask.png",
+    "blue_rear_hook_landed_1_mask.png",
+    "blue_rear_hook_landed_2_mask.png",
+    "blue_rear_hook_landed_3_mask.png",
+    "blue_rear_hook_landed_4_mask.png",
+    "blue_rear_hook_landed_5_mask.png",
+    "blue_rear_hook_landed_6_mask.png",
+    "blue_rear_hook_landed_7_mask.png",
+    "blue_rear_hook_landed_8_mask.png",
+    "blue_rear_hook_landed_9_mask.png",
+    "blue_rear_hook_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.393,
-    0.258
+    0.257
    ]
   },
   "blue_rear_hook_missed": {
@@ -717,9 +884,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_missed_0_mask.png",
+    "blue_rear_hook_missed_1_mask.png",
+    "blue_rear_hook_missed_2_mask.png",
+    "blue_rear_hook_missed_3_mask.png",
+    "blue_rear_hook_missed_4_mask.png",
+    "blue_rear_hook_missed_5_mask.png",
+    "blue_rear_hook_missed_6_mask.png",
+    "blue_rear_hook_missed_7_mask.png",
+    "blue_rear_hook_missed_8_mask.png",
+    "blue_rear_hook_missed_9_mask.png",
+    "blue_rear_hook_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.4,
-    0.268
+    0.399,
+    0.295
    ]
   },
   "blue_rear_uppercut_blocked": {
@@ -751,9 +932,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_blocked_0_mask.png",
+    "blue_rear_uppercut_blocked_1_mask.png",
+    "blue_rear_uppercut_blocked_2_mask.png",
+    "blue_rear_uppercut_blocked_3_mask.png",
+    "blue_rear_uppercut_blocked_4_mask.png",
+    "blue_rear_uppercut_blocked_5_mask.png",
+    "blue_rear_uppercut_blocked_6_mask.png",
+    "blue_rear_uppercut_blocked_7_mask.png",
+    "blue_rear_uppercut_blocked_8_mask.png",
+    "blue_rear_uppercut_blocked_9_mask.png",
+    "blue_rear_uppercut_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.44,
-    0.296
+    0.439,
+    0.273
    ]
   },
   "blue_rear_uppercut_landed": {
@@ -785,9 +980,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_landed_0_mask.png",
+    "blue_rear_uppercut_landed_1_mask.png",
+    "blue_rear_uppercut_landed_2_mask.png",
+    "blue_rear_uppercut_landed_3_mask.png",
+    "blue_rear_uppercut_landed_4_mask.png",
+    "blue_rear_uppercut_landed_5_mask.png",
+    "blue_rear_uppercut_landed_6_mask.png",
+    "blue_rear_uppercut_landed_7_mask.png",
+    "blue_rear_uppercut_landed_8_mask.png",
+    "blue_rear_uppercut_landed_9_mask.png",
+    "blue_rear_uppercut_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.389,
-    0.267
+    0.391,
+    0.263
    ]
   },
   "blue_rear_uppercut_missed": {
@@ -819,9 +1028,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_missed_0_mask.png",
+    "blue_rear_uppercut_missed_1_mask.png",
+    "blue_rear_uppercut_missed_2_mask.png",
+    "blue_rear_uppercut_missed_3_mask.png",
+    "blue_rear_uppercut_missed_4_mask.png",
+    "blue_rear_uppercut_missed_5_mask.png",
+    "blue_rear_uppercut_missed_6_mask.png",
+    "blue_rear_uppercut_missed_7_mask.png",
+    "blue_rear_uppercut_missed_8_mask.png",
+    "blue_rear_uppercut_missed_9_mask.png",
+    "blue_rear_uppercut_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.391,
-    0.286
+    0.392,
+    0.265
    ]
   },
   "red_body_cross_blocked": {
@@ -853,9 +1076,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_blocked_0_mask.png",
+    "red_body_cross_blocked_1_mask.png",
+    "red_body_cross_blocked_2_mask.png",
+    "red_body_cross_blocked_3_mask.png",
+    "red_body_cross_blocked_4_mask.png",
+    "red_body_cross_blocked_5_mask.png",
+    "red_body_cross_blocked_6_mask.png",
+    "red_body_cross_blocked_7_mask.png",
+    "red_body_cross_blocked_8_mask.png",
+    "red_body_cross_blocked_9_mask.png",
+    "red_body_cross_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.7,
-    0.385
+    0.701,
+    0.357
    ]
   },
   "red_body_cross_landed": {
@@ -885,9 +1122,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_landed_0_mask.png",
+    "red_body_cross_landed_1_mask.png",
+    "red_body_cross_landed_2_mask.png",
+    "red_body_cross_landed_3_mask.png",
+    "red_body_cross_landed_4_mask.png",
+    "red_body_cross_landed_5_mask.png",
+    "red_body_cross_landed_6_mask.png",
+    "red_body_cross_landed_7_mask.png",
+    "red_body_cross_landed_8_mask.png",
+    "red_body_cross_landed_9_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.737,
-    0.416
+    0.734,
+    0.406
    ]
   },
   "red_body_cross_missed": {
@@ -919,6 +1169,20 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_missed_0_mask.png",
+    "red_body_cross_missed_1_mask.png",
+    "red_body_cross_missed_2_mask.png",
+    "red_body_cross_missed_3_mask.png",
+    "red_body_cross_missed_4_mask.png",
+    "red_body_cross_missed_5_mask.png",
+    "red_body_cross_missed_6_mask.png",
+    "red_body_cross_missed_7_mask.png",
+    "red_body_cross_missed_8_mask.png",
+    "red_body_cross_missed_9_mask.png",
+    "red_body_cross_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.706,
     0.384
@@ -953,9 +1217,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "red_body_hook_blocked_0_mask.png",
+    "red_body_hook_blocked_1_mask.png",
+    "red_body_hook_blocked_2_mask.png",
+    "red_body_hook_blocked_3_mask.png",
+    "red_body_hook_blocked_4_mask.png",
+    "red_body_hook_blocked_5_mask.png",
+    "red_body_hook_blocked_6_mask.png",
+    "red_body_hook_blocked_7_mask.png",
+    "red_body_hook_blocked_8_mask.png",
+    "red_body_hook_blocked_9_mask.png",
+    "red_body_hook_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.698,
-    0.389
+    0.723,
+    0.38
    ]
   },
   "red_body_hook_landed": {
@@ -987,9 +1265,23 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
+   "masks": [
+    "red_body_hook_landed_0_mask.png",
+    "red_body_hook_landed_1_mask.png",
+    "red_body_hook_landed_2_mask.png",
+    "red_body_hook_landed_3_mask.png",
+    "red_body_hook_landed_4_mask.png",
+    "red_body_hook_landed_5_mask.png",
+    "red_body_hook_landed_6_mask.png",
+    "red_body_hook_landed_7_mask.png",
+    "red_body_hook_landed_8_mask.png",
+    "red_body_hook_landed_9_mask.png",
+    "red_body_hook_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.739,
-    0.416
+    0.407
    ]
   },
   "red_body_hook_missed": {
@@ -1021,6 +1313,20 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "red_body_hook_missed_0_mask.png",
+    "red_body_hook_missed_1_mask.png",
+    "red_body_hook_missed_2_mask.png",
+    "red_body_hook_missed_3_mask.png",
+    "red_body_hook_missed_4_mask.png",
+    "red_body_hook_missed_5_mask.png",
+    "red_body_hook_missed_6_mask.png",
+    "red_body_hook_missed_7_mask.png",
+    "red_body_hook_missed_8_mask.png",
+    "red_body_hook_missed_9_mask.png",
+    "red_body_hook_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.701,
     0.375
@@ -1337,9 +1643,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_blocked_0_mask.png",
+    "red_lead_hook_blocked_1_mask.png",
+    "red_lead_hook_blocked_2_mask.png",
+    "red_lead_hook_blocked_3_mask.png",
+    "red_lead_hook_blocked_4_mask.png",
+    "red_lead_hook_blocked_5_mask.png",
+    "red_lead_hook_blocked_6_mask.png",
+    "red_lead_hook_blocked_7_mask.png",
+    "red_lead_hook_blocked_8_mask.png",
+    "red_lead_hook_blocked_9_mask.png",
+    "red_lead_hook_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.674,
-    0.225
+    0.661,
+    0.205
    ]
   },
   "red_lead_hook_landed": {
@@ -1371,9 +1691,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_landed_0_mask.png",
+    "red_lead_hook_landed_1_mask.png",
+    "red_lead_hook_landed_2_mask.png",
+    "red_lead_hook_landed_3_mask.png",
+    "red_lead_hook_landed_4_mask.png",
+    "red_lead_hook_landed_5_mask.png",
+    "red_lead_hook_landed_6_mask.png",
+    "red_lead_hook_landed_7_mask.png",
+    "red_lead_hook_landed_8_mask.png",
+    "red_lead_hook_landed_9_mask.png",
+    "red_lead_hook_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.712,
-    0.245
+    0.71,
+    0.217
    ]
   },
   "red_lead_hook_missed": {
@@ -1405,6 +1739,20 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_missed_0_mask.png",
+    "red_lead_hook_missed_1_mask.png",
+    "red_lead_hook_missed_2_mask.png",
+    "red_lead_hook_missed_3_mask.png",
+    "red_lead_hook_missed_4_mask.png",
+    "red_lead_hook_missed_5_mask.png",
+    "red_lead_hook_missed_6_mask.png",
+    "red_lead_hook_missed_7_mask.png",
+    "red_lead_hook_missed_8_mask.png",
+    "red_lead_hook_missed_9_mask.png",
+    "red_lead_hook_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.709,
     0.281
@@ -1439,9 +1787,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "red_lead_uppercut_blocked_0_mask.png",
+    "red_lead_uppercut_blocked_1_mask.png",
+    "red_lead_uppercut_blocked_2_mask.png",
+    "red_lead_uppercut_blocked_3_mask.png",
+    "red_lead_uppercut_blocked_4_mask.png",
+    "red_lead_uppercut_blocked_5_mask.png",
+    "red_lead_uppercut_blocked_6_mask.png",
+    "red_lead_uppercut_blocked_7_mask.png",
+    "red_lead_uppercut_blocked_8_mask.png",
+    "red_lead_uppercut_blocked_9_mask.png",
+    "red_lead_uppercut_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.675,
-    0.257
+    0.231
    ]
   },
   "red_lead_uppercut_landed": {
@@ -1472,10 +1834,24 @@
     0.3
    ],
    "contact": 6,
-   "clip": "pro_left_uppercut",
+   "clip": "pro_left_uppercut_hard",
+   "masks": [
+    "red_lead_uppercut_landed_0_mask.png",
+    "red_lead_uppercut_landed_1_mask.png",
+    "red_lead_uppercut_landed_2_mask.png",
+    "red_lead_uppercut_landed_3_mask.png",
+    "red_lead_uppercut_landed_4_mask.png",
+    "red_lead_uppercut_landed_5_mask.png",
+    "red_lead_uppercut_landed_6_mask.png",
+    "red_lead_uppercut_landed_7_mask.png",
+    "red_lead_uppercut_landed_8_mask.png",
+    "red_lead_uppercut_landed_9_mask.png",
+    "red_lead_uppercut_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.706,
-    0.249
+    0.219
    ]
   },
   "red_lead_uppercut_missed": {
@@ -1507,9 +1883,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "red_lead_uppercut_missed_0_mask.png",
+    "red_lead_uppercut_missed_1_mask.png",
+    "red_lead_uppercut_missed_2_mask.png",
+    "red_lead_uppercut_missed_3_mask.png",
+    "red_lead_uppercut_missed_4_mask.png",
+    "red_lead_uppercut_missed_5_mask.png",
+    "red_lead_uppercut_missed_6_mask.png",
+    "red_lead_uppercut_missed_7_mask.png",
+    "red_lead_uppercut_missed_8_mask.png",
+    "red_lead_uppercut_missed_9_mask.png",
+    "red_lead_uppercut_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.706,
-    0.227
+    0.226
    ]
   },
   "red_rear_hook_blocked": {
@@ -1541,9 +1931,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_blocked_0_mask.png",
+    "red_rear_hook_blocked_1_mask.png",
+    "red_rear_hook_blocked_2_mask.png",
+    "red_rear_hook_blocked_3_mask.png",
+    "red_rear_hook_blocked_4_mask.png",
+    "red_rear_hook_blocked_5_mask.png",
+    "red_rear_hook_blocked_6_mask.png",
+    "red_rear_hook_blocked_7_mask.png",
+    "red_rear_hook_blocked_8_mask.png",
+    "red_rear_hook_blocked_9_mask.png",
+    "red_rear_hook_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.679,
-    0.285
+    0.265
    ]
   },
   "red_rear_hook_landed": {
@@ -1575,9 +1979,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_landed_0_mask.png",
+    "red_rear_hook_landed_1_mask.png",
+    "red_rear_hook_landed_2_mask.png",
+    "red_rear_hook_landed_3_mask.png",
+    "red_rear_hook_landed_4_mask.png",
+    "red_rear_hook_landed_5_mask.png",
+    "red_rear_hook_landed_6_mask.png",
+    "red_rear_hook_landed_7_mask.png",
+    "red_rear_hook_landed_8_mask.png",
+    "red_rear_hook_landed_9_mask.png",
+    "red_rear_hook_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.712,
-    0.244
+    0.711,
+    0.217
    ]
   },
   "red_rear_hook_missed": {
@@ -1609,6 +2027,20 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_missed_0_mask.png",
+    "red_rear_hook_missed_1_mask.png",
+    "red_rear_hook_missed_2_mask.png",
+    "red_rear_hook_missed_3_mask.png",
+    "red_rear_hook_missed_4_mask.png",
+    "red_rear_hook_missed_5_mask.png",
+    "red_rear_hook_missed_6_mask.png",
+    "red_rear_hook_missed_7_mask.png",
+    "red_rear_hook_missed_8_mask.png",
+    "red_rear_hook_missed_9_mask.png",
+    "red_rear_hook_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.706,
     0.285
@@ -1643,9 +2075,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "red_rear_uppercut_blocked_0_mask.png",
+    "red_rear_uppercut_blocked_1_mask.png",
+    "red_rear_uppercut_blocked_2_mask.png",
+    "red_rear_uppercut_blocked_3_mask.png",
+    "red_rear_uppercut_blocked_4_mask.png",
+    "red_rear_uppercut_blocked_5_mask.png",
+    "red_rear_uppercut_blocked_6_mask.png",
+    "red_rear_uppercut_blocked_7_mask.png",
+    "red_rear_uppercut_blocked_8_mask.png",
+    "red_rear_uppercut_blocked_9_mask.png",
+    "red_rear_uppercut_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.658,
-    0.283
+    0.656,
+    0.253
    ]
   },
   "red_rear_uppercut_landed": {
@@ -1677,9 +2123,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "red_rear_uppercut_landed_0_mask.png",
+    "red_rear_uppercut_landed_1_mask.png",
+    "red_rear_uppercut_landed_2_mask.png",
+    "red_rear_uppercut_landed_3_mask.png",
+    "red_rear_uppercut_landed_4_mask.png",
+    "red_rear_uppercut_landed_5_mask.png",
+    "red_rear_uppercut_landed_6_mask.png",
+    "red_rear_uppercut_landed_7_mask.png",
+    "red_rear_uppercut_landed_8_mask.png",
+    "red_rear_uppercut_landed_9_mask.png",
+    "red_rear_uppercut_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.707,
-    0.254
+    0.703,
+    0.219
    ]
   },
   "red_rear_uppercut_missed": {
@@ -1711,8 +2171,22 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "red_rear_uppercut_missed_0_mask.png",
+    "red_rear_uppercut_missed_1_mask.png",
+    "red_rear_uppercut_missed_2_mask.png",
+    "red_rear_uppercut_missed_3_mask.png",
+    "red_rear_uppercut_missed_4_mask.png",
+    "red_rear_uppercut_missed_5_mask.png",
+    "red_rear_uppercut_missed_6_mask.png",
+    "red_rear_uppercut_missed_7_mask.png",
+    "red_rear_uppercut_missed_8_mask.png",
+    "red_rear_uppercut_missed_9_mask.png",
+    "red_rear_uppercut_missed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
-    0.699,
+    0.698,
     0.294
    ]
   },
@@ -3058,9 +3532,23 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
+   "masks": [
+    "blue_body_hook_landed_0_mask.png",
+    "blue_body_hook_landed_1_mask.png",
+    "blue_body_hook_landed_2_mask.png",
+    "blue_body_hook_landed_3_mask.png",
+    "blue_body_hook_landed_4_mask.png",
+    "blue_body_hook_landed_5_mask.png",
+    "blue_body_hook_landed_6_mask.png",
+    "blue_body_hook_landed_7_mask.png",
+    "blue_body_hook_landed_8_mask.png",
+    "blue_body_hook_landed_9_mask.png",
+    "blue_body_hook_landed_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.374,
-    0.428
+    0.427
    ]
   },
   "blue_lead_uppercut_blocked": {
@@ -3092,9 +3580,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_blocked_0_mask.png",
+    "blue_lead_uppercut_blocked_1_mask.png",
+    "blue_lead_uppercut_blocked_2_mask.png",
+    "blue_lead_uppercut_blocked_3_mask.png",
+    "blue_lead_uppercut_blocked_4_mask.png",
+    "blue_lead_uppercut_blocked_5_mask.png",
+    "blue_lead_uppercut_blocked_6_mask.png",
+    "blue_lead_uppercut_blocked_7_mask.png",
+    "blue_lead_uppercut_blocked_8_mask.png",
+    "blue_lead_uppercut_blocked_9_mask.png",
+    "blue_lead_uppercut_blocked_10_mask.png"
+   ],
+   "range": 3,
    "hit": [
     0.427,
-    0.275
+    0.298
    ]
   },
   "blue_both_high_high": {
@@ -4537,10 +5039,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "blue_body_jab_blocked_0_mask.png",
+    "blue_body_jab_blocked_1_mask.png",
+    "blue_body_jab_blocked_2_mask.png",
+    "blue_body_jab_blocked_3_mask.png",
+    "blue_body_jab_blocked_4_mask.png",
+    "blue_body_jab_blocked_5_mask.png",
+    "blue_body_jab_blocked_6_mask.png",
+    "blue_body_jab_blocked_7_mask.png",
+    "blue_body_jab_blocked_8_mask.png",
+    "blue_body_jab_blocked_9_mask.png",
+    "blue_body_jab_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.419,
-    0.391
+    0.415,
+    0.399
    ]
   },
   "blue_body_jab_landed": {
@@ -4570,10 +5085,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_jab",
+   "masks": [
+    "blue_body_jab_landed_0_mask.png",
+    "blue_body_jab_landed_1_mask.png",
+    "blue_body_jab_landed_2_mask.png",
+    "blue_body_jab_landed_3_mask.png",
+    "blue_body_jab_landed_4_mask.png",
+    "blue_body_jab_landed_5_mask.png",
+    "blue_body_jab_landed_6_mask.png",
+    "blue_body_jab_landed_7_mask.png",
+    "blue_body_jab_landed_8_mask.png",
+    "blue_body_jab_landed_9_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.385,
-    0.421
+    0.386,
+    0.424
    ]
   },
   "blue_body_jab_missed": {
@@ -4605,10 +5132,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "blue_body_jab_missed_0_mask.png",
+    "blue_body_jab_missed_1_mask.png",
+    "blue_body_jab_missed_2_mask.png",
+    "blue_body_jab_missed_3_mask.png",
+    "blue_body_jab_missed_4_mask.png",
+    "blue_body_jab_missed_5_mask.png",
+    "blue_body_jab_missed_6_mask.png",
+    "blue_body_jab_missed_7_mask.png",
+    "blue_body_jab_missed_8_mask.png",
+    "blue_body_jab_missed_9_mask.png",
+    "blue_body_jab_missed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.409,
-    0.33
+    0.417,
+    0.384
    ]
   },
   "red_body_jab_blocked": {
@@ -4640,10 +5180,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "red_body_jab_blocked_0_mask.png",
+    "red_body_jab_blocked_1_mask.png",
+    "red_body_jab_blocked_2_mask.png",
+    "red_body_jab_blocked_3_mask.png",
+    "red_body_jab_blocked_4_mask.png",
+    "red_body_jab_blocked_5_mask.png",
+    "red_body_jab_blocked_6_mask.png",
+    "red_body_jab_blocked_7_mask.png",
+    "red_body_jab_blocked_8_mask.png",
+    "red_body_jab_blocked_9_mask.png",
+    "red_body_jab_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.7,
-    0.384
+    0.698,
+    0.357
    ]
   },
   "red_body_jab_landed": {
@@ -4673,10 +5226,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_jab",
+   "masks": [
+    "red_body_jab_landed_0_mask.png",
+    "red_body_jab_landed_1_mask.png",
+    "red_body_jab_landed_2_mask.png",
+    "red_body_jab_landed_3_mask.png",
+    "red_body_jab_landed_4_mask.png",
+    "red_body_jab_landed_5_mask.png",
+    "red_body_jab_landed_6_mask.png",
+    "red_body_jab_landed_7_mask.png",
+    "red_body_jab_landed_8_mask.png",
+    "red_body_jab_landed_9_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.736,
-    0.416
+    0.728,
+    0.405
    ]
   },
   "red_body_jab_missed": {
@@ -4708,6 +5273,19 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "red_body_jab_missed_0_mask.png",
+    "red_body_jab_missed_1_mask.png",
+    "red_body_jab_missed_2_mask.png",
+    "red_body_jab_missed_3_mask.png",
+    "red_body_jab_missed_4_mask.png",
+    "red_body_jab_missed_5_mask.png",
+    "red_body_jab_missed_6_mask.png",
+    "red_body_jab_missed_7_mask.png",
+    "red_body_jab_missed_8_mask.png",
+    "red_body_jab_missed_9_mask.png",
+    "red_body_jab_missed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.702,
@@ -6032,10 +6610,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_blocked_r2_0_mask.png",
+    "blue_body_cross_blocked_r2_1_mask.png",
+    "blue_body_cross_blocked_r2_2_mask.png",
+    "blue_body_cross_blocked_r2_3_mask.png",
+    "blue_body_cross_blocked_r2_4_mask.png",
+    "blue_body_cross_blocked_r2_5_mask.png",
+    "blue_body_cross_blocked_r2_6_mask.png",
+    "blue_body_cross_blocked_r2_7_mask.png",
+    "blue_body_cross_blocked_r2_8_mask.png",
+    "blue_body_cross_blocked_r2_9_mask.png",
+    "blue_body_cross_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.403,
-    0.397
+    0.412,
+    0.388
    ]
   },
   "blue_body_cross_landed_r2": {
@@ -6065,10 +6656,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_landed_r2_0_mask.png",
+    "blue_body_cross_landed_r2_1_mask.png",
+    "blue_body_cross_landed_r2_2_mask.png",
+    "blue_body_cross_landed_r2_3_mask.png",
+    "blue_body_cross_landed_r2_4_mask.png",
+    "blue_body_cross_landed_r2_5_mask.png",
+    "blue_body_cross_landed_r2_6_mask.png",
+    "blue_body_cross_landed_r2_7_mask.png",
+    "blue_body_cross_landed_r2_8_mask.png",
+    "blue_body_cross_landed_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.381,
-    0.424
+    0.422
    ]
   },
   "blue_body_cross_missed_r2": {
@@ -6100,10 +6703,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_missed_r2_0_mask.png",
+    "blue_body_cross_missed_r2_1_mask.png",
+    "blue_body_cross_missed_r2_2_mask.png",
+    "blue_body_cross_missed_r2_3_mask.png",
+    "blue_body_cross_missed_r2_4_mask.png",
+    "blue_body_cross_missed_r2_5_mask.png",
+    "blue_body_cross_missed_r2_6_mask.png",
+    "blue_body_cross_missed_r2_7_mask.png",
+    "blue_body_cross_missed_r2_8_mask.png",
+    "blue_body_cross_missed_r2_9_mask.png",
+    "blue_body_cross_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.406,
-    0.376
+    0.413,
+    0.346
    ]
   },
   "blue_body_hook_blocked_r2": {
@@ -6135,10 +6751,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "blue_body_hook_blocked_r2_0_mask.png",
+    "blue_body_hook_blocked_r2_1_mask.png",
+    "blue_body_hook_blocked_r2_2_mask.png",
+    "blue_body_hook_blocked_r2_3_mask.png",
+    "blue_body_hook_blocked_r2_4_mask.png",
+    "blue_body_hook_blocked_r2_5_mask.png",
+    "blue_body_hook_blocked_r2_6_mask.png",
+    "blue_body_hook_blocked_r2_7_mask.png",
+    "blue_body_hook_blocked_r2_8_mask.png",
+    "blue_body_hook_blocked_r2_9_mask.png",
+    "blue_body_hook_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.395,
-    0.391
+    0.379,
+    0.388
    ]
   },
   "blue_body_hook_missed_r2": {
@@ -6170,10 +6799,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "blue_body_hook_missed_r2_0_mask.png",
+    "blue_body_hook_missed_r2_1_mask.png",
+    "blue_body_hook_missed_r2_2_mask.png",
+    "blue_body_hook_missed_r2_3_mask.png",
+    "blue_body_hook_missed_r2_4_mask.png",
+    "blue_body_hook_missed_r2_5_mask.png",
+    "blue_body_hook_missed_r2_6_mask.png",
+    "blue_body_hook_missed_r2_7_mask.png",
+    "blue_body_hook_missed_r2_8_mask.png",
+    "blue_body_hook_missed_r2_9_mask.png",
+    "blue_body_hook_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.378,
-    0.359
+    0.379,
+    0.433
    ]
   },
   "blue_body_jab_blocked_r2": {
@@ -6205,10 +6847,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "blue_body_jab_blocked_r2_0_mask.png",
+    "blue_body_jab_blocked_r2_1_mask.png",
+    "blue_body_jab_blocked_r2_2_mask.png",
+    "blue_body_jab_blocked_r2_3_mask.png",
+    "blue_body_jab_blocked_r2_4_mask.png",
+    "blue_body_jab_blocked_r2_5_mask.png",
+    "blue_body_jab_blocked_r2_6_mask.png",
+    "blue_body_jab_blocked_r2_7_mask.png",
+    "blue_body_jab_blocked_r2_8_mask.png",
+    "blue_body_jab_blocked_r2_9_mask.png",
+    "blue_body_jab_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.419,
-    0.391
+    0.415,
+    0.399
    ]
   },
   "blue_body_jab_landed_r2": {
@@ -6238,10 +6893,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_jab",
+   "masks": [
+    "blue_body_jab_landed_r2_0_mask.png",
+    "blue_body_jab_landed_r2_1_mask.png",
+    "blue_body_jab_landed_r2_2_mask.png",
+    "blue_body_jab_landed_r2_3_mask.png",
+    "blue_body_jab_landed_r2_4_mask.png",
+    "blue_body_jab_landed_r2_5_mask.png",
+    "blue_body_jab_landed_r2_6_mask.png",
+    "blue_body_jab_landed_r2_7_mask.png",
+    "blue_body_jab_landed_r2_8_mask.png",
+    "blue_body_jab_landed_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.385,
-    0.421
+    0.386,
+    0.423
    ]
   },
   "blue_body_jab_missed_r2": {
@@ -6273,10 +6940,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "blue_body_jab_missed_r2_0_mask.png",
+    "blue_body_jab_missed_r2_1_mask.png",
+    "blue_body_jab_missed_r2_2_mask.png",
+    "blue_body_jab_missed_r2_3_mask.png",
+    "blue_body_jab_missed_r2_4_mask.png",
+    "blue_body_jab_missed_r2_5_mask.png",
+    "blue_body_jab_missed_r2_6_mask.png",
+    "blue_body_jab_missed_r2_7_mask.png",
+    "blue_body_jab_missed_r2_8_mask.png",
+    "blue_body_jab_missed_r2_9_mask.png",
+    "blue_body_jab_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.409,
-    0.33
+    0.417,
+    0.384
    ]
   },
   "blue_cross_blocked_r2": {
@@ -6590,10 +7270,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_blocked_r2_0_mask.png",
+    "blue_lead_hook_blocked_r2_1_mask.png",
+    "blue_lead_hook_blocked_r2_2_mask.png",
+    "blue_lead_hook_blocked_r2_3_mask.png",
+    "blue_lead_hook_blocked_r2_4_mask.png",
+    "blue_lead_hook_blocked_r2_5_mask.png",
+    "blue_lead_hook_blocked_r2_6_mask.png",
+    "blue_lead_hook_blocked_r2_7_mask.png",
+    "blue_lead_hook_blocked_r2_8_mask.png",
+    "blue_lead_hook_blocked_r2_9_mask.png",
+    "blue_lead_hook_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.429,
-    0.235
+    0.436,
+    0.296
    ]
   },
   "blue_lead_hook_landed_r2": {
@@ -6625,10 +7318,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_landed_r2_0_mask.png",
+    "blue_lead_hook_landed_r2_1_mask.png",
+    "blue_lead_hook_landed_r2_2_mask.png",
+    "blue_lead_hook_landed_r2_3_mask.png",
+    "blue_lead_hook_landed_r2_4_mask.png",
+    "blue_lead_hook_landed_r2_5_mask.png",
+    "blue_lead_hook_landed_r2_6_mask.png",
+    "blue_lead_hook_landed_r2_7_mask.png",
+    "blue_lead_hook_landed_r2_8_mask.png",
+    "blue_lead_hook_landed_r2_9_mask.png",
+    "blue_lead_hook_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.394,
-    0.259
+    0.395,
+    0.257
    ]
   },
   "blue_lead_hook_missed_r2": {
@@ -6660,10 +7366,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_missed_r2_0_mask.png",
+    "blue_lead_hook_missed_r2_1_mask.png",
+    "blue_lead_hook_missed_r2_2_mask.png",
+    "blue_lead_hook_missed_r2_3_mask.png",
+    "blue_lead_hook_missed_r2_4_mask.png",
+    "blue_lead_hook_missed_r2_5_mask.png",
+    "blue_lead_hook_missed_r2_6_mask.png",
+    "blue_lead_hook_missed_r2_7_mask.png",
+    "blue_lead_hook_missed_r2_8_mask.png",
+    "blue_lead_hook_missed_r2_9_mask.png",
+    "blue_lead_hook_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.402,
-    0.266
+    0.394,
+    0.261
    ]
   },
   "blue_rear_hook_blocked_r2": {
@@ -6695,10 +7414,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_blocked_r2_0_mask.png",
+    "blue_rear_hook_blocked_r2_1_mask.png",
+    "blue_rear_hook_blocked_r2_2_mask.png",
+    "blue_rear_hook_blocked_r2_3_mask.png",
+    "blue_rear_hook_blocked_r2_4_mask.png",
+    "blue_rear_hook_blocked_r2_5_mask.png",
+    "blue_rear_hook_blocked_r2_6_mask.png",
+    "blue_rear_hook_blocked_r2_7_mask.png",
+    "blue_rear_hook_blocked_r2_8_mask.png",
+    "blue_rear_hook_blocked_r2_9_mask.png",
+    "blue_rear_hook_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.428,
-    0.305
+    0.425,
+    0.245
    ]
   },
   "blue_rear_hook_landed_r2": {
@@ -6730,10 +7462,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_landed_r2_0_mask.png",
+    "blue_rear_hook_landed_r2_1_mask.png",
+    "blue_rear_hook_landed_r2_2_mask.png",
+    "blue_rear_hook_landed_r2_3_mask.png",
+    "blue_rear_hook_landed_r2_4_mask.png",
+    "blue_rear_hook_landed_r2_5_mask.png",
+    "blue_rear_hook_landed_r2_6_mask.png",
+    "blue_rear_hook_landed_r2_7_mask.png",
+    "blue_rear_hook_landed_r2_8_mask.png",
+    "blue_rear_hook_landed_r2_9_mask.png",
+    "blue_rear_hook_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.393,
-    0.258
+    0.257
    ]
   },
   "blue_rear_hook_missed_r2": {
@@ -6765,10 +7510,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_missed_r2_0_mask.png",
+    "blue_rear_hook_missed_r2_1_mask.png",
+    "blue_rear_hook_missed_r2_2_mask.png",
+    "blue_rear_hook_missed_r2_3_mask.png",
+    "blue_rear_hook_missed_r2_4_mask.png",
+    "blue_rear_hook_missed_r2_5_mask.png",
+    "blue_rear_hook_missed_r2_6_mask.png",
+    "blue_rear_hook_missed_r2_7_mask.png",
+    "blue_rear_hook_missed_r2_8_mask.png",
+    "blue_rear_hook_missed_r2_9_mask.png",
+    "blue_rear_hook_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.4,
-    0.268
+    0.399,
+    0.295
    ]
   },
   "red_body_cross_blocked_r2": {
@@ -6800,10 +7558,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_blocked_r2_0_mask.png",
+    "red_body_cross_blocked_r2_1_mask.png",
+    "red_body_cross_blocked_r2_2_mask.png",
+    "red_body_cross_blocked_r2_3_mask.png",
+    "red_body_cross_blocked_r2_4_mask.png",
+    "red_body_cross_blocked_r2_5_mask.png",
+    "red_body_cross_blocked_r2_6_mask.png",
+    "red_body_cross_blocked_r2_7_mask.png",
+    "red_body_cross_blocked_r2_8_mask.png",
+    "red_body_cross_blocked_r2_9_mask.png",
+    "red_body_cross_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.7,
-    0.385
+    0.701,
+    0.357
    ]
   },
   "red_body_cross_landed_r2": {
@@ -6833,10 +7604,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_landed_r2_0_mask.png",
+    "red_body_cross_landed_r2_1_mask.png",
+    "red_body_cross_landed_r2_2_mask.png",
+    "red_body_cross_landed_r2_3_mask.png",
+    "red_body_cross_landed_r2_4_mask.png",
+    "red_body_cross_landed_r2_5_mask.png",
+    "red_body_cross_landed_r2_6_mask.png",
+    "red_body_cross_landed_r2_7_mask.png",
+    "red_body_cross_landed_r2_8_mask.png",
+    "red_body_cross_landed_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.737,
-    0.416
+    0.734,
+    0.406
    ]
   },
   "red_body_cross_missed_r2": {
@@ -6868,6 +7651,19 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_missed_r2_0_mask.png",
+    "red_body_cross_missed_r2_1_mask.png",
+    "red_body_cross_missed_r2_2_mask.png",
+    "red_body_cross_missed_r2_3_mask.png",
+    "red_body_cross_missed_r2_4_mask.png",
+    "red_body_cross_missed_r2_5_mask.png",
+    "red_body_cross_missed_r2_6_mask.png",
+    "red_body_cross_missed_r2_7_mask.png",
+    "red_body_cross_missed_r2_8_mask.png",
+    "red_body_cross_missed_r2_9_mask.png",
+    "red_body_cross_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.706,
@@ -6903,10 +7699,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "red_body_hook_blocked_r2_0_mask.png",
+    "red_body_hook_blocked_r2_1_mask.png",
+    "red_body_hook_blocked_r2_2_mask.png",
+    "red_body_hook_blocked_r2_3_mask.png",
+    "red_body_hook_blocked_r2_4_mask.png",
+    "red_body_hook_blocked_r2_5_mask.png",
+    "red_body_hook_blocked_r2_6_mask.png",
+    "red_body_hook_blocked_r2_7_mask.png",
+    "red_body_hook_blocked_r2_8_mask.png",
+    "red_body_hook_blocked_r2_9_mask.png",
+    "red_body_hook_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.698,
-    0.389
+    0.723,
+    0.38
    ]
   },
   "red_body_hook_landed_r2": {
@@ -6938,10 +7747,23 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
+   "masks": [
+    "red_body_hook_landed_r2_0_mask.png",
+    "red_body_hook_landed_r2_1_mask.png",
+    "red_body_hook_landed_r2_2_mask.png",
+    "red_body_hook_landed_r2_3_mask.png",
+    "red_body_hook_landed_r2_4_mask.png",
+    "red_body_hook_landed_r2_5_mask.png",
+    "red_body_hook_landed_r2_6_mask.png",
+    "red_body_hook_landed_r2_7_mask.png",
+    "red_body_hook_landed_r2_8_mask.png",
+    "red_body_hook_landed_r2_9_mask.png",
+    "red_body_hook_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.739,
-    0.416
+    0.407
    ]
   },
   "red_body_hook_missed_r2": {
@@ -6973,6 +7795,19 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "red_body_hook_missed_r2_0_mask.png",
+    "red_body_hook_missed_r2_1_mask.png",
+    "red_body_hook_missed_r2_2_mask.png",
+    "red_body_hook_missed_r2_3_mask.png",
+    "red_body_hook_missed_r2_4_mask.png",
+    "red_body_hook_missed_r2_5_mask.png",
+    "red_body_hook_missed_r2_6_mask.png",
+    "red_body_hook_missed_r2_7_mask.png",
+    "red_body_hook_missed_r2_8_mask.png",
+    "red_body_hook_missed_r2_9_mask.png",
+    "red_body_hook_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.701,
@@ -7008,10 +7843,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "red_body_jab_blocked_r2_0_mask.png",
+    "red_body_jab_blocked_r2_1_mask.png",
+    "red_body_jab_blocked_r2_2_mask.png",
+    "red_body_jab_blocked_r2_3_mask.png",
+    "red_body_jab_blocked_r2_4_mask.png",
+    "red_body_jab_blocked_r2_5_mask.png",
+    "red_body_jab_blocked_r2_6_mask.png",
+    "red_body_jab_blocked_r2_7_mask.png",
+    "red_body_jab_blocked_r2_8_mask.png",
+    "red_body_jab_blocked_r2_9_mask.png",
+    "red_body_jab_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.7,
-    0.384
+    0.698,
+    0.357
    ]
   },
   "red_body_jab_landed_r2": {
@@ -7041,10 +7889,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_jab",
+   "masks": [
+    "red_body_jab_landed_r2_0_mask.png",
+    "red_body_jab_landed_r2_1_mask.png",
+    "red_body_jab_landed_r2_2_mask.png",
+    "red_body_jab_landed_r2_3_mask.png",
+    "red_body_jab_landed_r2_4_mask.png",
+    "red_body_jab_landed_r2_5_mask.png",
+    "red_body_jab_landed_r2_6_mask.png",
+    "red_body_jab_landed_r2_7_mask.png",
+    "red_body_jab_landed_r2_8_mask.png",
+    "red_body_jab_landed_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.736,
-    0.416
+    0.728,
+    0.405
    ]
   },
   "red_body_jab_missed_r2": {
@@ -7076,9 +7936,22 @@
    ],
    "contact": 6,
    "clip": "pro_body_jab",
+   "masks": [
+    "red_body_jab_missed_r2_0_mask.png",
+    "red_body_jab_missed_r2_1_mask.png",
+    "red_body_jab_missed_r2_2_mask.png",
+    "red_body_jab_missed_r2_3_mask.png",
+    "red_body_jab_missed_r2_4_mask.png",
+    "red_body_jab_missed_r2_5_mask.png",
+    "red_body_jab_missed_r2_6_mask.png",
+    "red_body_jab_missed_r2_7_mask.png",
+    "red_body_jab_missed_r2_8_mask.png",
+    "red_body_jab_missed_r2_9_mask.png",
+    "red_body_jab_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.703,
+    0.702,
     0.344
    ]
   },
@@ -7393,10 +8266,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_blocked_r2_0_mask.png",
+    "red_lead_hook_blocked_r2_1_mask.png",
+    "red_lead_hook_blocked_r2_2_mask.png",
+    "red_lead_hook_blocked_r2_3_mask.png",
+    "red_lead_hook_blocked_r2_4_mask.png",
+    "red_lead_hook_blocked_r2_5_mask.png",
+    "red_lead_hook_blocked_r2_6_mask.png",
+    "red_lead_hook_blocked_r2_7_mask.png",
+    "red_lead_hook_blocked_r2_8_mask.png",
+    "red_lead_hook_blocked_r2_9_mask.png",
+    "red_lead_hook_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.674,
-    0.225
+    0.661,
+    0.205
    ]
   },
   "red_lead_hook_landed_r2": {
@@ -7428,10 +8314,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_landed_r2_0_mask.png",
+    "red_lead_hook_landed_r2_1_mask.png",
+    "red_lead_hook_landed_r2_2_mask.png",
+    "red_lead_hook_landed_r2_3_mask.png",
+    "red_lead_hook_landed_r2_4_mask.png",
+    "red_lead_hook_landed_r2_5_mask.png",
+    "red_lead_hook_landed_r2_6_mask.png",
+    "red_lead_hook_landed_r2_7_mask.png",
+    "red_lead_hook_landed_r2_8_mask.png",
+    "red_lead_hook_landed_r2_9_mask.png",
+    "red_lead_hook_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.712,
-    0.245
+    0.71,
+    0.217
    ]
   },
   "red_lead_hook_missed_r2": {
@@ -7463,6 +8362,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_missed_r2_0_mask.png",
+    "red_lead_hook_missed_r2_1_mask.png",
+    "red_lead_hook_missed_r2_2_mask.png",
+    "red_lead_hook_missed_r2_3_mask.png",
+    "red_lead_hook_missed_r2_4_mask.png",
+    "red_lead_hook_missed_r2_5_mask.png",
+    "red_lead_hook_missed_r2_6_mask.png",
+    "red_lead_hook_missed_r2_7_mask.png",
+    "red_lead_hook_missed_r2_8_mask.png",
+    "red_lead_hook_missed_r2_9_mask.png",
+    "red_lead_hook_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.709,
@@ -7498,10 +8410,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_blocked_r2_0_mask.png",
+    "red_rear_hook_blocked_r2_1_mask.png",
+    "red_rear_hook_blocked_r2_2_mask.png",
+    "red_rear_hook_blocked_r2_3_mask.png",
+    "red_rear_hook_blocked_r2_4_mask.png",
+    "red_rear_hook_blocked_r2_5_mask.png",
+    "red_rear_hook_blocked_r2_6_mask.png",
+    "red_rear_hook_blocked_r2_7_mask.png",
+    "red_rear_hook_blocked_r2_8_mask.png",
+    "red_rear_hook_blocked_r2_9_mask.png",
+    "red_rear_hook_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.679,
-    0.285
+    0.265
    ]
   },
   "red_rear_hook_landed_r2": {
@@ -7533,10 +8458,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_landed_r2_0_mask.png",
+    "red_rear_hook_landed_r2_1_mask.png",
+    "red_rear_hook_landed_r2_2_mask.png",
+    "red_rear_hook_landed_r2_3_mask.png",
+    "red_rear_hook_landed_r2_4_mask.png",
+    "red_rear_hook_landed_r2_5_mask.png",
+    "red_rear_hook_landed_r2_6_mask.png",
+    "red_rear_hook_landed_r2_7_mask.png",
+    "red_rear_hook_landed_r2_8_mask.png",
+    "red_rear_hook_landed_r2_9_mask.png",
+    "red_rear_hook_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.712,
-    0.244
+    0.711,
+    0.217
    ]
   },
   "red_rear_hook_missed_r2": {
@@ -7568,6 +8506,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_missed_r2_0_mask.png",
+    "red_rear_hook_missed_r2_1_mask.png",
+    "red_rear_hook_missed_r2_2_mask.png",
+    "red_rear_hook_missed_r2_3_mask.png",
+    "red_rear_hook_missed_r2_4_mask.png",
+    "red_rear_hook_missed_r2_5_mask.png",
+    "red_rear_hook_missed_r2_6_mask.png",
+    "red_rear_hook_missed_r2_7_mask.png",
+    "red_rear_hook_missed_r2_8_mask.png",
+    "red_rear_hook_missed_r2_9_mask.png",
+    "red_rear_hook_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.706,
@@ -7819,10 +8770,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_blocked_r1_0_mask.png",
+    "blue_body_cross_blocked_r1_1_mask.png",
+    "blue_body_cross_blocked_r1_2_mask.png",
+    "blue_body_cross_blocked_r1_3_mask.png",
+    "blue_body_cross_blocked_r1_4_mask.png",
+    "blue_body_cross_blocked_r1_5_mask.png",
+    "blue_body_cross_blocked_r1_6_mask.png",
+    "blue_body_cross_blocked_r1_7_mask.png",
+    "blue_body_cross_blocked_r1_8_mask.png",
+    "blue_body_cross_blocked_r1_9_mask.png",
+    "blue_body_cross_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.403,
-    0.397
+    0.412,
+    0.388
    ]
   },
   "blue_body_cross_landed_r1": {
@@ -7852,10 +8816,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_landed_r1_0_mask.png",
+    "blue_body_cross_landed_r1_1_mask.png",
+    "blue_body_cross_landed_r1_2_mask.png",
+    "blue_body_cross_landed_r1_3_mask.png",
+    "blue_body_cross_landed_r1_4_mask.png",
+    "blue_body_cross_landed_r1_5_mask.png",
+    "blue_body_cross_landed_r1_6_mask.png",
+    "blue_body_cross_landed_r1_7_mask.png",
+    "blue_body_cross_landed_r1_8_mask.png",
+    "blue_body_cross_landed_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.381,
-    0.424
+    0.422
    ]
   },
   "blue_body_cross_missed_r1": {
@@ -7887,10 +8863,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_missed_r1_0_mask.png",
+    "blue_body_cross_missed_r1_1_mask.png",
+    "blue_body_cross_missed_r1_2_mask.png",
+    "blue_body_cross_missed_r1_3_mask.png",
+    "blue_body_cross_missed_r1_4_mask.png",
+    "blue_body_cross_missed_r1_5_mask.png",
+    "blue_body_cross_missed_r1_6_mask.png",
+    "blue_body_cross_missed_r1_7_mask.png",
+    "blue_body_cross_missed_r1_8_mask.png",
+    "blue_body_cross_missed_r1_9_mask.png",
+    "blue_body_cross_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.406,
-    0.376
+    0.413,
+    0.346
    ]
   },
   "blue_body_hook_blocked_r1": {
@@ -7922,10 +8911,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "blue_body_hook_blocked_r1_0_mask.png",
+    "blue_body_hook_blocked_r1_1_mask.png",
+    "blue_body_hook_blocked_r1_2_mask.png",
+    "blue_body_hook_blocked_r1_3_mask.png",
+    "blue_body_hook_blocked_r1_4_mask.png",
+    "blue_body_hook_blocked_r1_5_mask.png",
+    "blue_body_hook_blocked_r1_6_mask.png",
+    "blue_body_hook_blocked_r1_7_mask.png",
+    "blue_body_hook_blocked_r1_8_mask.png",
+    "blue_body_hook_blocked_r1_9_mask.png",
+    "blue_body_hook_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.395,
-    0.391
+    0.379,
+    0.388
    ]
   },
   "blue_body_hook_missed_r1": {
@@ -7957,10 +8959,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "blue_body_hook_missed_r1_0_mask.png",
+    "blue_body_hook_missed_r1_1_mask.png",
+    "blue_body_hook_missed_r1_2_mask.png",
+    "blue_body_hook_missed_r1_3_mask.png",
+    "blue_body_hook_missed_r1_4_mask.png",
+    "blue_body_hook_missed_r1_5_mask.png",
+    "blue_body_hook_missed_r1_6_mask.png",
+    "blue_body_hook_missed_r1_7_mask.png",
+    "blue_body_hook_missed_r1_8_mask.png",
+    "blue_body_hook_missed_r1_9_mask.png",
+    "blue_body_hook_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.378,
-    0.359
+    0.379,
+    0.433
    ]
   },
   "blue_cross_blocked_r1": {
@@ -8130,10 +9145,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_blocked_r1_0_mask.png",
+    "blue_lead_hook_blocked_r1_1_mask.png",
+    "blue_lead_hook_blocked_r1_2_mask.png",
+    "blue_lead_hook_blocked_r1_3_mask.png",
+    "blue_lead_hook_blocked_r1_4_mask.png",
+    "blue_lead_hook_blocked_r1_5_mask.png",
+    "blue_lead_hook_blocked_r1_6_mask.png",
+    "blue_lead_hook_blocked_r1_7_mask.png",
+    "blue_lead_hook_blocked_r1_8_mask.png",
+    "blue_lead_hook_blocked_r1_9_mask.png",
+    "blue_lead_hook_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.429,
-    0.235
+    0.436,
+    0.296
    ]
   },
   "blue_lead_hook_landed_r1": {
@@ -8165,10 +9193,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_landed_r1_0_mask.png",
+    "blue_lead_hook_landed_r1_1_mask.png",
+    "blue_lead_hook_landed_r1_2_mask.png",
+    "blue_lead_hook_landed_r1_3_mask.png",
+    "blue_lead_hook_landed_r1_4_mask.png",
+    "blue_lead_hook_landed_r1_5_mask.png",
+    "blue_lead_hook_landed_r1_6_mask.png",
+    "blue_lead_hook_landed_r1_7_mask.png",
+    "blue_lead_hook_landed_r1_8_mask.png",
+    "blue_lead_hook_landed_r1_9_mask.png",
+    "blue_lead_hook_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.394,
-    0.259
+    0.395,
+    0.257
    ]
   },
   "blue_lead_hook_missed_r1": {
@@ -8200,10 +9241,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_missed_r1_0_mask.png",
+    "blue_lead_hook_missed_r1_1_mask.png",
+    "blue_lead_hook_missed_r1_2_mask.png",
+    "blue_lead_hook_missed_r1_3_mask.png",
+    "blue_lead_hook_missed_r1_4_mask.png",
+    "blue_lead_hook_missed_r1_5_mask.png",
+    "blue_lead_hook_missed_r1_6_mask.png",
+    "blue_lead_hook_missed_r1_7_mask.png",
+    "blue_lead_hook_missed_r1_8_mask.png",
+    "blue_lead_hook_missed_r1_9_mask.png",
+    "blue_lead_hook_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.402,
-    0.266
+    0.394,
+    0.261
    ]
   },
   "blue_lead_uppercut_landed_r1": {
@@ -8235,6 +9289,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_landed_r1_0_mask.png",
+    "blue_lead_uppercut_landed_r1_1_mask.png",
+    "blue_lead_uppercut_landed_r1_2_mask.png",
+    "blue_lead_uppercut_landed_r1_3_mask.png",
+    "blue_lead_uppercut_landed_r1_4_mask.png",
+    "blue_lead_uppercut_landed_r1_5_mask.png",
+    "blue_lead_uppercut_landed_r1_6_mask.png",
+    "blue_lead_uppercut_landed_r1_7_mask.png",
+    "blue_lead_uppercut_landed_r1_8_mask.png",
+    "blue_lead_uppercut_landed_r1_9_mask.png",
+    "blue_lead_uppercut_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.392,
@@ -8270,10 +9337,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_missed_r1_0_mask.png",
+    "blue_lead_uppercut_missed_r1_1_mask.png",
+    "blue_lead_uppercut_missed_r1_2_mask.png",
+    "blue_lead_uppercut_missed_r1_3_mask.png",
+    "blue_lead_uppercut_missed_r1_4_mask.png",
+    "blue_lead_uppercut_missed_r1_5_mask.png",
+    "blue_lead_uppercut_missed_r1_6_mask.png",
+    "blue_lead_uppercut_missed_r1_7_mask.png",
+    "blue_lead_uppercut_missed_r1_8_mask.png",
+    "blue_lead_uppercut_missed_r1_9_mask.png",
+    "blue_lead_uppercut_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.385,
-    0.206
+    0.26
    ]
   },
   "blue_rear_hook_blocked_r1": {
@@ -8305,10 +9385,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_blocked_r1_0_mask.png",
+    "blue_rear_hook_blocked_r1_1_mask.png",
+    "blue_rear_hook_blocked_r1_2_mask.png",
+    "blue_rear_hook_blocked_r1_3_mask.png",
+    "blue_rear_hook_blocked_r1_4_mask.png",
+    "blue_rear_hook_blocked_r1_5_mask.png",
+    "blue_rear_hook_blocked_r1_6_mask.png",
+    "blue_rear_hook_blocked_r1_7_mask.png",
+    "blue_rear_hook_blocked_r1_8_mask.png",
+    "blue_rear_hook_blocked_r1_9_mask.png",
+    "blue_rear_hook_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.428,
-    0.305
+    0.425,
+    0.245
    ]
   },
   "blue_rear_hook_landed_r1": {
@@ -8340,10 +9433,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_landed_r1_0_mask.png",
+    "blue_rear_hook_landed_r1_1_mask.png",
+    "blue_rear_hook_landed_r1_2_mask.png",
+    "blue_rear_hook_landed_r1_3_mask.png",
+    "blue_rear_hook_landed_r1_4_mask.png",
+    "blue_rear_hook_landed_r1_5_mask.png",
+    "blue_rear_hook_landed_r1_6_mask.png",
+    "blue_rear_hook_landed_r1_7_mask.png",
+    "blue_rear_hook_landed_r1_8_mask.png",
+    "blue_rear_hook_landed_r1_9_mask.png",
+    "blue_rear_hook_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.393,
-    0.258
+    0.257
    ]
   },
   "blue_rear_hook_missed_r1": {
@@ -8375,10 +9481,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_missed_r1_0_mask.png",
+    "blue_rear_hook_missed_r1_1_mask.png",
+    "blue_rear_hook_missed_r1_2_mask.png",
+    "blue_rear_hook_missed_r1_3_mask.png",
+    "blue_rear_hook_missed_r1_4_mask.png",
+    "blue_rear_hook_missed_r1_5_mask.png",
+    "blue_rear_hook_missed_r1_6_mask.png",
+    "blue_rear_hook_missed_r1_7_mask.png",
+    "blue_rear_hook_missed_r1_8_mask.png",
+    "blue_rear_hook_missed_r1_9_mask.png",
+    "blue_rear_hook_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.4,
-    0.268
+    0.399,
+    0.295
    ]
   },
   "blue_rear_uppercut_blocked_r1": {
@@ -8410,10 +9529,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_blocked_r1_0_mask.png",
+    "blue_rear_uppercut_blocked_r1_1_mask.png",
+    "blue_rear_uppercut_blocked_r1_2_mask.png",
+    "blue_rear_uppercut_blocked_r1_3_mask.png",
+    "blue_rear_uppercut_blocked_r1_4_mask.png",
+    "blue_rear_uppercut_blocked_r1_5_mask.png",
+    "blue_rear_uppercut_blocked_r1_6_mask.png",
+    "blue_rear_uppercut_blocked_r1_7_mask.png",
+    "blue_rear_uppercut_blocked_r1_8_mask.png",
+    "blue_rear_uppercut_blocked_r1_9_mask.png",
+    "blue_rear_uppercut_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.44,
-    0.296
+    0.439,
+    0.273
    ]
   },
   "blue_rear_uppercut_landed_r1": {
@@ -8445,10 +9577,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_landed_r1_0_mask.png",
+    "blue_rear_uppercut_landed_r1_1_mask.png",
+    "blue_rear_uppercut_landed_r1_2_mask.png",
+    "blue_rear_uppercut_landed_r1_3_mask.png",
+    "blue_rear_uppercut_landed_r1_4_mask.png",
+    "blue_rear_uppercut_landed_r1_5_mask.png",
+    "blue_rear_uppercut_landed_r1_6_mask.png",
+    "blue_rear_uppercut_landed_r1_7_mask.png",
+    "blue_rear_uppercut_landed_r1_8_mask.png",
+    "blue_rear_uppercut_landed_r1_9_mask.png",
+    "blue_rear_uppercut_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.389,
-    0.267
+    0.391,
+    0.263
    ]
   },
   "blue_rear_uppercut_missed_r1": {
@@ -8480,10 +9625,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_missed_r1_0_mask.png",
+    "blue_rear_uppercut_missed_r1_1_mask.png",
+    "blue_rear_uppercut_missed_r1_2_mask.png",
+    "blue_rear_uppercut_missed_r1_3_mask.png",
+    "blue_rear_uppercut_missed_r1_4_mask.png",
+    "blue_rear_uppercut_missed_r1_5_mask.png",
+    "blue_rear_uppercut_missed_r1_6_mask.png",
+    "blue_rear_uppercut_missed_r1_7_mask.png",
+    "blue_rear_uppercut_missed_r1_8_mask.png",
+    "blue_rear_uppercut_missed_r1_9_mask.png",
+    "blue_rear_uppercut_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.391,
-    0.286
+    0.392,
+    0.265
    ]
   },
   "red_body_cross_blocked_r1": {
@@ -8515,10 +9673,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_blocked_r1_0_mask.png",
+    "red_body_cross_blocked_r1_1_mask.png",
+    "red_body_cross_blocked_r1_2_mask.png",
+    "red_body_cross_blocked_r1_3_mask.png",
+    "red_body_cross_blocked_r1_4_mask.png",
+    "red_body_cross_blocked_r1_5_mask.png",
+    "red_body_cross_blocked_r1_6_mask.png",
+    "red_body_cross_blocked_r1_7_mask.png",
+    "red_body_cross_blocked_r1_8_mask.png",
+    "red_body_cross_blocked_r1_9_mask.png",
+    "red_body_cross_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.7,
-    0.385
+    0.701,
+    0.357
    ]
   },
   "red_body_cross_landed_r1": {
@@ -8548,10 +9719,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_landed_r1_0_mask.png",
+    "red_body_cross_landed_r1_1_mask.png",
+    "red_body_cross_landed_r1_2_mask.png",
+    "red_body_cross_landed_r1_3_mask.png",
+    "red_body_cross_landed_r1_4_mask.png",
+    "red_body_cross_landed_r1_5_mask.png",
+    "red_body_cross_landed_r1_6_mask.png",
+    "red_body_cross_landed_r1_7_mask.png",
+    "red_body_cross_landed_r1_8_mask.png",
+    "red_body_cross_landed_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.737,
-    0.416
+    0.734,
+    0.406
    ]
   },
   "red_body_cross_missed_r1": {
@@ -8583,6 +9766,19 @@
    ],
    "contact": 6,
    "clip": "pro_body_cross",
+   "masks": [
+    "red_body_cross_missed_r1_0_mask.png",
+    "red_body_cross_missed_r1_1_mask.png",
+    "red_body_cross_missed_r1_2_mask.png",
+    "red_body_cross_missed_r1_3_mask.png",
+    "red_body_cross_missed_r1_4_mask.png",
+    "red_body_cross_missed_r1_5_mask.png",
+    "red_body_cross_missed_r1_6_mask.png",
+    "red_body_cross_missed_r1_7_mask.png",
+    "red_body_cross_missed_r1_8_mask.png",
+    "red_body_cross_missed_r1_9_mask.png",
+    "red_body_cross_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.706,
@@ -8618,10 +9814,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "red_body_hook_blocked_r1_0_mask.png",
+    "red_body_hook_blocked_r1_1_mask.png",
+    "red_body_hook_blocked_r1_2_mask.png",
+    "red_body_hook_blocked_r1_3_mask.png",
+    "red_body_hook_blocked_r1_4_mask.png",
+    "red_body_hook_blocked_r1_5_mask.png",
+    "red_body_hook_blocked_r1_6_mask.png",
+    "red_body_hook_blocked_r1_7_mask.png",
+    "red_body_hook_blocked_r1_8_mask.png",
+    "red_body_hook_blocked_r1_9_mask.png",
+    "red_body_hook_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.698,
-    0.389
+    0.723,
+    0.38
    ]
   },
   "red_body_hook_landed_r1": {
@@ -8653,10 +9862,23 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
+   "masks": [
+    "red_body_hook_landed_r1_0_mask.png",
+    "red_body_hook_landed_r1_1_mask.png",
+    "red_body_hook_landed_r1_2_mask.png",
+    "red_body_hook_landed_r1_3_mask.png",
+    "red_body_hook_landed_r1_4_mask.png",
+    "red_body_hook_landed_r1_5_mask.png",
+    "red_body_hook_landed_r1_6_mask.png",
+    "red_body_hook_landed_r1_7_mask.png",
+    "red_body_hook_landed_r1_8_mask.png",
+    "red_body_hook_landed_r1_9_mask.png",
+    "red_body_hook_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.739,
-    0.416
+    0.407
    ]
   },
   "red_body_hook_missed_r1": {
@@ -8688,6 +9910,19 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "red_body_hook_missed_r1_0_mask.png",
+    "red_body_hook_missed_r1_1_mask.png",
+    "red_body_hook_missed_r1_2_mask.png",
+    "red_body_hook_missed_r1_3_mask.png",
+    "red_body_hook_missed_r1_4_mask.png",
+    "red_body_hook_missed_r1_5_mask.png",
+    "red_body_hook_missed_r1_6_mask.png",
+    "red_body_hook_missed_r1_7_mask.png",
+    "red_body_hook_missed_r1_8_mask.png",
+    "red_body_hook_missed_r1_9_mask.png",
+    "red_body_hook_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.701,
@@ -8861,10 +10096,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_blocked_r1_0_mask.png",
+    "red_lead_hook_blocked_r1_1_mask.png",
+    "red_lead_hook_blocked_r1_2_mask.png",
+    "red_lead_hook_blocked_r1_3_mask.png",
+    "red_lead_hook_blocked_r1_4_mask.png",
+    "red_lead_hook_blocked_r1_5_mask.png",
+    "red_lead_hook_blocked_r1_6_mask.png",
+    "red_lead_hook_blocked_r1_7_mask.png",
+    "red_lead_hook_blocked_r1_8_mask.png",
+    "red_lead_hook_blocked_r1_9_mask.png",
+    "red_lead_hook_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.674,
-    0.225
+    0.661,
+    0.205
    ]
   },
   "red_lead_hook_landed_r1": {
@@ -8896,10 +10144,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_landed_r1_0_mask.png",
+    "red_lead_hook_landed_r1_1_mask.png",
+    "red_lead_hook_landed_r1_2_mask.png",
+    "red_lead_hook_landed_r1_3_mask.png",
+    "red_lead_hook_landed_r1_4_mask.png",
+    "red_lead_hook_landed_r1_5_mask.png",
+    "red_lead_hook_landed_r1_6_mask.png",
+    "red_lead_hook_landed_r1_7_mask.png",
+    "red_lead_hook_landed_r1_8_mask.png",
+    "red_lead_hook_landed_r1_9_mask.png",
+    "red_lead_hook_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.712,
-    0.245
+    0.71,
+    0.217
    ]
   },
   "red_lead_hook_missed_r1": {
@@ -8931,6 +10192,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_missed_r1_0_mask.png",
+    "red_lead_hook_missed_r1_1_mask.png",
+    "red_lead_hook_missed_r1_2_mask.png",
+    "red_lead_hook_missed_r1_3_mask.png",
+    "red_lead_hook_missed_r1_4_mask.png",
+    "red_lead_hook_missed_r1_5_mask.png",
+    "red_lead_hook_missed_r1_6_mask.png",
+    "red_lead_hook_missed_r1_7_mask.png",
+    "red_lead_hook_missed_r1_8_mask.png",
+    "red_lead_hook_missed_r1_9_mask.png",
+    "red_lead_hook_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.709,
@@ -8966,10 +10240,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "red_lead_uppercut_blocked_r1_0_mask.png",
+    "red_lead_uppercut_blocked_r1_1_mask.png",
+    "red_lead_uppercut_blocked_r1_2_mask.png",
+    "red_lead_uppercut_blocked_r1_3_mask.png",
+    "red_lead_uppercut_blocked_r1_4_mask.png",
+    "red_lead_uppercut_blocked_r1_5_mask.png",
+    "red_lead_uppercut_blocked_r1_6_mask.png",
+    "red_lead_uppercut_blocked_r1_7_mask.png",
+    "red_lead_uppercut_blocked_r1_8_mask.png",
+    "red_lead_uppercut_blocked_r1_9_mask.png",
+    "red_lead_uppercut_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.675,
-    0.257
+    0.231
    ]
   },
   "red_lead_uppercut_landed_r1": {
@@ -9000,11 +10287,24 @@
     0.3
    ],
    "contact": 6,
-   "clip": "pro_left_uppercut",
+   "clip": "pro_left_uppercut_hard",
+   "masks": [
+    "red_lead_uppercut_landed_r1_0_mask.png",
+    "red_lead_uppercut_landed_r1_1_mask.png",
+    "red_lead_uppercut_landed_r1_2_mask.png",
+    "red_lead_uppercut_landed_r1_3_mask.png",
+    "red_lead_uppercut_landed_r1_4_mask.png",
+    "red_lead_uppercut_landed_r1_5_mask.png",
+    "red_lead_uppercut_landed_r1_6_mask.png",
+    "red_lead_uppercut_landed_r1_7_mask.png",
+    "red_lead_uppercut_landed_r1_8_mask.png",
+    "red_lead_uppercut_landed_r1_9_mask.png",
+    "red_lead_uppercut_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.706,
-    0.249
+    0.219
    ]
   },
   "red_lead_uppercut_missed_r1": {
@@ -9036,10 +10336,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "red_lead_uppercut_missed_r1_0_mask.png",
+    "red_lead_uppercut_missed_r1_1_mask.png",
+    "red_lead_uppercut_missed_r1_2_mask.png",
+    "red_lead_uppercut_missed_r1_3_mask.png",
+    "red_lead_uppercut_missed_r1_4_mask.png",
+    "red_lead_uppercut_missed_r1_5_mask.png",
+    "red_lead_uppercut_missed_r1_6_mask.png",
+    "red_lead_uppercut_missed_r1_7_mask.png",
+    "red_lead_uppercut_missed_r1_8_mask.png",
+    "red_lead_uppercut_missed_r1_9_mask.png",
+    "red_lead_uppercut_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.706,
-    0.227
+    0.226
    ]
   },
   "red_rear_hook_blocked_r1": {
@@ -9071,10 +10384,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_blocked_r1_0_mask.png",
+    "red_rear_hook_blocked_r1_1_mask.png",
+    "red_rear_hook_blocked_r1_2_mask.png",
+    "red_rear_hook_blocked_r1_3_mask.png",
+    "red_rear_hook_blocked_r1_4_mask.png",
+    "red_rear_hook_blocked_r1_5_mask.png",
+    "red_rear_hook_blocked_r1_6_mask.png",
+    "red_rear_hook_blocked_r1_7_mask.png",
+    "red_rear_hook_blocked_r1_8_mask.png",
+    "red_rear_hook_blocked_r1_9_mask.png",
+    "red_rear_hook_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.679,
-    0.285
+    0.265
    ]
   },
   "red_rear_hook_landed_r1": {
@@ -9106,10 +10432,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_landed_r1_0_mask.png",
+    "red_rear_hook_landed_r1_1_mask.png",
+    "red_rear_hook_landed_r1_2_mask.png",
+    "red_rear_hook_landed_r1_3_mask.png",
+    "red_rear_hook_landed_r1_4_mask.png",
+    "red_rear_hook_landed_r1_5_mask.png",
+    "red_rear_hook_landed_r1_6_mask.png",
+    "red_rear_hook_landed_r1_7_mask.png",
+    "red_rear_hook_landed_r1_8_mask.png",
+    "red_rear_hook_landed_r1_9_mask.png",
+    "red_rear_hook_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.712,
-    0.244
+    0.711,
+    0.217
    ]
   },
   "red_rear_hook_missed_r1": {
@@ -9141,6 +10480,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_missed_r1_0_mask.png",
+    "red_rear_hook_missed_r1_1_mask.png",
+    "red_rear_hook_missed_r1_2_mask.png",
+    "red_rear_hook_missed_r1_3_mask.png",
+    "red_rear_hook_missed_r1_4_mask.png",
+    "red_rear_hook_missed_r1_5_mask.png",
+    "red_rear_hook_missed_r1_6_mask.png",
+    "red_rear_hook_missed_r1_7_mask.png",
+    "red_rear_hook_missed_r1_8_mask.png",
+    "red_rear_hook_missed_r1_9_mask.png",
+    "red_rear_hook_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.706,
@@ -9176,10 +10528,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "red_rear_uppercut_blocked_r1_0_mask.png",
+    "red_rear_uppercut_blocked_r1_1_mask.png",
+    "red_rear_uppercut_blocked_r1_2_mask.png",
+    "red_rear_uppercut_blocked_r1_3_mask.png",
+    "red_rear_uppercut_blocked_r1_4_mask.png",
+    "red_rear_uppercut_blocked_r1_5_mask.png",
+    "red_rear_uppercut_blocked_r1_6_mask.png",
+    "red_rear_uppercut_blocked_r1_7_mask.png",
+    "red_rear_uppercut_blocked_r1_8_mask.png",
+    "red_rear_uppercut_blocked_r1_9_mask.png",
+    "red_rear_uppercut_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.658,
-    0.283
+    0.656,
+    0.253
    ]
   },
   "red_rear_uppercut_landed_r1": {
@@ -9211,10 +10576,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "red_rear_uppercut_landed_r1_0_mask.png",
+    "red_rear_uppercut_landed_r1_1_mask.png",
+    "red_rear_uppercut_landed_r1_2_mask.png",
+    "red_rear_uppercut_landed_r1_3_mask.png",
+    "red_rear_uppercut_landed_r1_4_mask.png",
+    "red_rear_uppercut_landed_r1_5_mask.png",
+    "red_rear_uppercut_landed_r1_6_mask.png",
+    "red_rear_uppercut_landed_r1_7_mask.png",
+    "red_rear_uppercut_landed_r1_8_mask.png",
+    "red_rear_uppercut_landed_r1_9_mask.png",
+    "red_rear_uppercut_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.707,
-    0.254
+    0.703,
+    0.219
    ]
   },
   "red_rear_uppercut_missed_r1": {
@@ -9246,9 +10624,22 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "red_rear_uppercut_missed_r1_0_mask.png",
+    "red_rear_uppercut_missed_r1_1_mask.png",
+    "red_rear_uppercut_missed_r1_2_mask.png",
+    "red_rear_uppercut_missed_r1_3_mask.png",
+    "red_rear_uppercut_missed_r1_4_mask.png",
+    "red_rear_uppercut_missed_r1_5_mask.png",
+    "red_rear_uppercut_missed_r1_6_mask.png",
+    "red_rear_uppercut_missed_r1_7_mask.png",
+    "red_rear_uppercut_missed_r1_8_mask.png",
+    "red_rear_uppercut_missed_r1_9_mask.png",
+    "red_rear_uppercut_missed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.699,
+    0.698,
     0.294
    ]
   },
@@ -9495,10 +10886,22 @@
    ],
    "contact": 5,
    "clip": "pro_body_cross",
+   "masks": [
+    "blue_body_cross_short_0_mask.png",
+    "blue_body_cross_short_1_mask.png",
+    "blue_body_cross_short_2_mask.png",
+    "blue_body_cross_short_3_mask.png",
+    "blue_body_cross_short_4_mask.png",
+    "blue_body_cross_short_5_mask.png",
+    "blue_body_cross_short_6_mask.png",
+    "blue_body_cross_short_7_mask.png",
+    "blue_body_cross_short_8_mask.png",
+    "blue_body_cross_short_9_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.514,
-    0.376
+    0.519,
+    0.346
    ]
   },
   "blue_body_hook_short": {
@@ -9530,10 +10933,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "blue_body_hook_short_0_mask.png",
+    "blue_body_hook_short_1_mask.png",
+    "blue_body_hook_short_2_mask.png",
+    "blue_body_hook_short_3_mask.png",
+    "blue_body_hook_short_4_mask.png",
+    "blue_body_hook_short_5_mask.png",
+    "blue_body_hook_short_6_mask.png",
+    "blue_body_hook_short_7_mask.png",
+    "blue_body_hook_short_8_mask.png",
+    "blue_body_hook_short_9_mask.png",
+    "blue_body_hook_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.543,
-    0.359
+    0.541,
+    0.433
    ]
   },
   "blue_cross_short": {
@@ -9598,10 +11014,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_short_0_mask.png",
+    "blue_lead_hook_short_1_mask.png",
+    "blue_lead_hook_short_2_mask.png",
+    "blue_lead_hook_short_3_mask.png",
+    "blue_lead_hook_short_4_mask.png",
+    "blue_lead_hook_short_5_mask.png",
+    "blue_lead_hook_short_6_mask.png",
+    "blue_lead_hook_short_7_mask.png",
+    "blue_lead_hook_short_8_mask.png",
+    "blue_lead_hook_short_9_mask.png",
+    "blue_lead_hook_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.54,
-    0.266
+    0.542,
+    0.26
    ]
   },
   "blue_lead_uppercut_short": {
@@ -9633,10 +11062,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_short_0_mask.png",
+    "blue_lead_uppercut_short_1_mask.png",
+    "blue_lead_uppercut_short_2_mask.png",
+    "blue_lead_uppercut_short_3_mask.png",
+    "blue_lead_uppercut_short_4_mask.png",
+    "blue_lead_uppercut_short_5_mask.png",
+    "blue_lead_uppercut_short_6_mask.png",
+    "blue_lead_uppercut_short_7_mask.png",
+    "blue_lead_uppercut_short_8_mask.png",
+    "blue_lead_uppercut_short_9_mask.png",
+    "blue_lead_uppercut_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.618,
-    0.206
+    0.26
    ]
   },
   "blue_rear_hook_short": {
@@ -9668,10 +11110,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_rear_hook_short_0_mask.png",
+    "blue_rear_hook_short_1_mask.png",
+    "blue_rear_hook_short_2_mask.png",
+    "blue_rear_hook_short_3_mask.png",
+    "blue_rear_hook_short_4_mask.png",
+    "blue_rear_hook_short_5_mask.png",
+    "blue_rear_hook_short_6_mask.png",
+    "blue_rear_hook_short_7_mask.png",
+    "blue_rear_hook_short_8_mask.png",
+    "blue_rear_hook_short_9_mask.png",
+    "blue_rear_hook_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.57,
-    0.268
+    0.569,
+    0.295
    ]
   },
   "blue_rear_uppercut_short": {
@@ -9703,10 +11158,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_short_0_mask.png",
+    "blue_rear_uppercut_short_1_mask.png",
+    "blue_rear_uppercut_short_2_mask.png",
+    "blue_rear_uppercut_short_3_mask.png",
+    "blue_rear_uppercut_short_4_mask.png",
+    "blue_rear_uppercut_short_5_mask.png",
+    "blue_rear_uppercut_short_6_mask.png",
+    "blue_rear_uppercut_short_7_mask.png",
+    "blue_rear_uppercut_short_8_mask.png",
+    "blue_rear_uppercut_short_9_mask.png",
+    "blue_rear_uppercut_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.6,
-    0.285
+    0.599,
+    0.264
    ]
   },
   "red_body_cross_short": {
@@ -9771,10 +11239,23 @@
    ],
    "contact": 6,
    "clip": "pro_body_shot",
+   "masks": [
+    "red_body_hook_short_0_mask.png",
+    "red_body_hook_short_1_mask.png",
+    "red_body_hook_short_2_mask.png",
+    "red_body_hook_short_3_mask.png",
+    "red_body_hook_short_4_mask.png",
+    "red_body_hook_short_5_mask.png",
+    "red_body_hook_short_6_mask.png",
+    "red_body_hook_short_7_mask.png",
+    "red_body_hook_short_8_mask.png",
+    "red_body_hook_short_9_mask.png",
+    "red_body_hook_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.546,
-    0.376
+    0.55,
+    0.375
    ]
   },
   "red_cross_short": {
@@ -9839,9 +11320,22 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_short_0_mask.png",
+    "red_lead_hook_short_1_mask.png",
+    "red_lead_hook_short_2_mask.png",
+    "red_lead_hook_short_3_mask.png",
+    "red_lead_hook_short_4_mask.png",
+    "red_lead_hook_short_5_mask.png",
+    "red_lead_hook_short_6_mask.png",
+    "red_lead_hook_short_7_mask.png",
+    "red_lead_hook_short_8_mask.png",
+    "red_lead_hook_short_9_mask.png",
+    "red_lead_hook_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.558,
+    0.557,
     0.282
    ]
   },
@@ -9874,6 +11368,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "red_lead_uppercut_short_0_mask.png",
+    "red_lead_uppercut_short_1_mask.png",
+    "red_lead_uppercut_short_2_mask.png",
+    "red_lead_uppercut_short_3_mask.png",
+    "red_lead_uppercut_short_4_mask.png",
+    "red_lead_uppercut_short_5_mask.png",
+    "red_lead_uppercut_short_6_mask.png",
+    "red_lead_uppercut_short_7_mask.png",
+    "red_lead_uppercut_short_8_mask.png",
+    "red_lead_uppercut_short_9_mask.png",
+    "red_lead_uppercut_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.483,
@@ -9909,10 +11416,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_rear_hook_short_0_mask.png",
+    "red_rear_hook_short_1_mask.png",
+    "red_rear_hook_short_2_mask.png",
+    "red_rear_hook_short_3_mask.png",
+    "red_rear_hook_short_4_mask.png",
+    "red_rear_hook_short_5_mask.png",
+    "red_rear_hook_short_6_mask.png",
+    "red_rear_hook_short_7_mask.png",
+    "red_rear_hook_short_8_mask.png",
+    "red_rear_hook_short_9_mask.png",
+    "red_rear_hook_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.525,
-    0.286
+    0.526,
+    0.285
    ]
   },
   "red_rear_uppercut_short": {
@@ -9943,11 +11463,24 @@
     0.3
    ],
    "contact": 6,
-   "clip": "pro_right_uppercut",
+   "clip": "pro_right_uppercut_hurt",
+   "masks": [
+    "red_rear_uppercut_short_0_mask.png",
+    "red_rear_uppercut_short_1_mask.png",
+    "red_rear_uppercut_short_2_mask.png",
+    "red_rear_uppercut_short_3_mask.png",
+    "red_rear_uppercut_short_4_mask.png",
+    "red_rear_uppercut_short_5_mask.png",
+    "red_rear_uppercut_short_6_mask.png",
+    "red_rear_uppercut_short_7_mask.png",
+    "red_rear_uppercut_short_8_mask.png",
+    "red_rear_uppercut_short_9_mask.png",
+    "red_rear_uppercut_short_10_mask.png"
+   ],
    "range": 3,
    "hit": [
-    0.497,
-    0.295
+    0.576,
+    0.272
    ]
   },
   "blue_overhand_short": {
@@ -10139,10 +11672,23 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
+   "masks": [
+    "blue_body_hook_landed_r2_0_mask.png",
+    "blue_body_hook_landed_r2_1_mask.png",
+    "blue_body_hook_landed_r2_2_mask.png",
+    "blue_body_hook_landed_r2_3_mask.png",
+    "blue_body_hook_landed_r2_4_mask.png",
+    "blue_body_hook_landed_r2_5_mask.png",
+    "blue_body_hook_landed_r2_6_mask.png",
+    "blue_body_hook_landed_r2_7_mask.png",
+    "blue_body_hook_landed_r2_8_mask.png",
+    "blue_body_hook_landed_r2_9_mask.png",
+    "blue_body_hook_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.374,
-    0.428
+    0.427
    ]
   },
   "blue_body_hook_landed_r1": {
@@ -10174,10 +11720,23 @@
    ],
    "contact": 6,
    "clip": "pro_kidney_shot",
+   "masks": [
+    "blue_body_hook_landed_r1_0_mask.png",
+    "blue_body_hook_landed_r1_1_mask.png",
+    "blue_body_hook_landed_r1_2_mask.png",
+    "blue_body_hook_landed_r1_3_mask.png",
+    "blue_body_hook_landed_r1_4_mask.png",
+    "blue_body_hook_landed_r1_5_mask.png",
+    "blue_body_hook_landed_r1_6_mask.png",
+    "blue_body_hook_landed_r1_7_mask.png",
+    "blue_body_hook_landed_r1_8_mask.png",
+    "blue_body_hook_landed_r1_9_mask.png",
+    "blue_body_hook_landed_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.374,
-    0.428
+    0.427
    ]
   },
   "blue_lead_uppercut_blocked_r1": {
@@ -10208,11 +11767,24 @@
     0.3
    ],
    "contact": 6,
-   "clip": "pro_left_uppercut_hard",
+   "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_blocked_r1_0_mask.png",
+    "blue_lead_uppercut_blocked_r1_1_mask.png",
+    "blue_lead_uppercut_blocked_r1_2_mask.png",
+    "blue_lead_uppercut_blocked_r1_3_mask.png",
+    "blue_lead_uppercut_blocked_r1_4_mask.png",
+    "blue_lead_uppercut_blocked_r1_5_mask.png",
+    "blue_lead_uppercut_blocked_r1_6_mask.png",
+    "blue_lead_uppercut_blocked_r1_7_mask.png",
+    "blue_lead_uppercut_blocked_r1_8_mask.png",
+    "blue_lead_uppercut_blocked_r1_9_mask.png",
+    "blue_lead_uppercut_blocked_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
-    0.45,
-    0.271
+    0.427,
+    0.298
    ]
   },
   "blue_lead_uppercut_short_r2": {
@@ -10244,10 +11816,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "blue_lead_uppercut_short_r2_0_mask.png",
+    "blue_lead_uppercut_short_r2_1_mask.png",
+    "blue_lead_uppercut_short_r2_2_mask.png",
+    "blue_lead_uppercut_short_r2_3_mask.png",
+    "blue_lead_uppercut_short_r2_4_mask.png",
+    "blue_lead_uppercut_short_r2_5_mask.png",
+    "blue_lead_uppercut_short_r2_6_mask.png",
+    "blue_lead_uppercut_short_r2_7_mask.png",
+    "blue_lead_uppercut_short_r2_8_mask.png",
+    "blue_lead_uppercut_short_r2_9_mask.png",
+    "blue_lead_uppercut_short_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.505,
-    0.206
+    0.506,
+    0.26
    ]
   },
   "blue_rear_uppercut_short_r2": {
@@ -10279,10 +11864,23 @@
    ],
    "contact": 6,
    "clip": "pro_right_uppercut",
+   "masks": [
+    "blue_rear_uppercut_short_r2_0_mask.png",
+    "blue_rear_uppercut_short_r2_1_mask.png",
+    "blue_rear_uppercut_short_r2_2_mask.png",
+    "blue_rear_uppercut_short_r2_3_mask.png",
+    "blue_rear_uppercut_short_r2_4_mask.png",
+    "blue_rear_uppercut_short_r2_5_mask.png",
+    "blue_rear_uppercut_short_r2_6_mask.png",
+    "blue_rear_uppercut_short_r2_7_mask.png",
+    "blue_rear_uppercut_short_r2_8_mask.png",
+    "blue_rear_uppercut_short_r2_9_mask.png",
+    "blue_rear_uppercut_short_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
-    0.487,
-    0.286
+    0.486,
+    0.264
    ]
   },
   "red_lead_uppercut_short_r2": {
@@ -10314,10 +11912,23 @@
    ],
    "contact": 6,
    "clip": "pro_left_uppercut",
+   "masks": [
+    "red_lead_uppercut_short_r2_0_mask.png",
+    "red_lead_uppercut_short_r2_1_mask.png",
+    "red_lead_uppercut_short_r2_2_mask.png",
+    "red_lead_uppercut_short_r2_3_mask.png",
+    "red_lead_uppercut_short_r2_4_mask.png",
+    "red_lead_uppercut_short_r2_5_mask.png",
+    "red_lead_uppercut_short_r2_6_mask.png",
+    "red_lead_uppercut_short_r2_7_mask.png",
+    "red_lead_uppercut_short_r2_8_mask.png",
+    "red_lead_uppercut_short_r2_9_mask.png",
+    "red_lead_uppercut_short_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.596,
-    0.227
+    0.226
    ]
   },
   "red_rear_uppercut_short_r2": {

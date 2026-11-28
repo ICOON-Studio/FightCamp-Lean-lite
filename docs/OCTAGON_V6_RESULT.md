@@ -66,3 +66,33 @@ resets in a bout = dead air (Kalli); one counter decides a round (Maria). Measur
 37-61%, both 37-59%; counters at half power (ctrHalfPow) changed nothing - the 6 is the card's 5 + the +1 reflex bonus.
 
 ## v6.4 (ON): Read Tendencies shows ONE card (his v2.7 card text) - bots unchanged 39-57%
+
+## v6.5 (ON): STATUSES (owner S573: "add statuses and debugs like staggered or stunned, keg injured, cut etc")
+STAGGERED (the legs: 2 under his rock line, or a rock the rules blocked -> -1 speed, no stepping in next exchange), ROCKED
+(+1 to the judges for the man who rocked him: "a rocked man should give something up"), CUT (his v2.7 Eye Cut: clean
+straight punches of 2+ - the 2nd opens it, each after widens it; shows a card of his hand every exchange; the doctor stops it
+at 5), WINDED (body at half: Defends give 1 less back). Leg injury proper (kicks) waits for the kickboxing deck.
+| status + | staggers / cuts a bout | doctor stops | finishes | fighters |
+|---|---|---|---|---|
+| off (v6.4) | 0 / 0 | 0 | 18% | 39-57 |
+| cuts from heavy (4+) head hits, doctor 3 | 1.45 / 0.61 | 0 | 18% | 40-60 (Truck 60) |
+| cuts from 3+ head hits | 1.41 / 0.86 | 3% | 22% | 38-62 |
+| cuts from sharp straights 2+, doctor 3 / 4 / **5** / 7 | 1.4 / 1.4 | 39 / 15 / **4** / 0% | 52 / 32 / **24** / 20% | 39-57 / 35-59 / **35-57** / 40-61 |
+
+## Cup round 17 on v6.5 STATUSES (fun 8/7/7/7 = 7.25, depth 8/6/7/7 = 7.0; r16: 7.0 / 6.75)
+Claude (Iron) beat John 30-27: a rock + the judges' +1 won round 2 by one point, a stagger left him at Close for the
+Rear Uppercut, his jabs cut Claude to 3 of 5. Kalli beat Maria 29-28; Kalli timed a counter off her cut card. Asks: the
+man ahead stalls round 3 behind guards (John, Kalli, Maria); the live round score (Kalli, 4th time); a widening cut should
+score (John); the Step-In Jab off a fake at Long pays too much (Maria, 3rd bout).
+
+## v6.6 (ON): the live judges' score on the screen; a Stance Guard repeat costs 2 - bots 37-59%
+
+## Balance rating on v6.6 (owner S573: "i want balance rating from all")
+| seat | BALANCE | Pressure | Out-Fighter | Counter | too strong | one fix |
+|---|---|---|---|---|---|---|
+| John | 6 | 7 | 4 | 6 | a heavy punch trading through a faster jab | 2+ speed faster stops the slower punch outright |
+| Kalli | 6 | 7 | 4 | 5 | free neutral resets let the leader stall | a reset costs the man ahead on the live score 1 stamina |
+| Maria | 6 | 6 | 4 | 5 | the Step-In Jab catching a fake at Long (4 + range + Lead + stagger + cut) | it lands the damage OR closes the range, not all |
+| Claude | 6 | 6 | 4 | 6 | the leader guarding out round 3 | Kalli's: the man ahead pays on a reset |
+Too weak: Check Left Hook (John: almost nobody steps in at Mid), the Out-Fighter's safe Mid punch (Kalli), Deep Breath (Maria).
+All four: BALANCE 6, Out-Fighter 4 (bots agree: Metronome 43%, Long Night 35%).

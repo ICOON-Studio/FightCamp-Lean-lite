@@ -15,7 +15,7 @@
   const css = document.createElement('style'); css.textContent = '.stage img.lay{pointer-events:none}.stage img.pic-off{opacity:0}'; document.head.appendChild(css);
   Promise.all([fetch('img/layers/frames.json').then((r) => r.json()), fetch('img/anim/frames.json').then((r) => r.json())]).then(([lj, aj]) => {
     L = lj;
-    for (const [run, row] of Object.entries(aj.runs || {})) (row.files || []).forEach((f, k) => { FILE[f] = [run, k]; });
+    for (const [run, row] of Object.entries(aj.runs || {})) if (!row.same_as) (row.files || []).forEach((f, k) => { FILE[f] = [run, k]; });   /* LAYERS1: an alias run (the overhand plays the rear hook's frames) maps to the run it borrows, whose layers exist */
     /* the guard spots: where blue's own hold at Long puts each man on its first frame (picture metres, +x = blue's side) */
     const h = L.runs['blue_both_high_high_blue'], hr = L.runs['blue_both_high_high_red'];
     CANON = h && hr ? { blue: h.root[0], red: hr.root[0] } : { blue: 1.05, red: -0.68 };

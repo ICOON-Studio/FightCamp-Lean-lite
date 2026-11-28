@@ -46,3 +46,37 @@ Mid and Inside - each man where the 3D take has him (the page's two layers are 8
 render), red's cross meets blue's raised glove at his face as the take does. Both men head to feet, feet on the canvas
 line, no arm through a body Inside. Long: the cross falls short - still the old two-man picture.
 Regression: anim_check PASS (160 runs), page_play_test 4 passed.
+
+## The other punch families (render chain, one render at a time)
+| family | runs re-rendered | picture gate | start gap vs the hold |
+|---|---|---|---|
+| body jab | 12 (Long, Mid) | all pass | within 0.08 m |
+| lead hook | 20 (Long, Mid, Inside, short) | all pass | within 0.09 m (Long 0.08: the page never plays a hook at Long) |
+| rear hook (+ overhand, which plays its pictures) | 20 | all pass | within 0.11 m (Long only) |
+| body hook | 20 | all pass | within 0.09 m |
+| body cross | 19 + red short fails the gate (keeps its old picture) | 19 pass | within 0.09 m |
+The overhand is an alias of the rear hook in img/anim/frames.json; layers_ui.js now maps an alias's pictures to the run
+it borrows, so the overhand is layered with the rear hook. pics2d_anim_more.gd: layers=1 masks every frame (steps, feint,
+push, clinch, knockdown; the head and kick tools go through it) - needed for families b-d.
+01:30-02:12 the owner played ArcheAge; the chain waited in its preflight and went on when he closed it.
+| lead uppercut | 16 (Long, Inside, short at Long and Mid) | all pass | within 0.09 m |
+| rear uppercut | 15 + red short at Mid fails the gate (keeps its old picture) | 15 pass | within 0.10 m |
+
+Gate on all punch families (jumps over 4 px, recorded with the hit shake off):
+- 12 random bouts: 765 pictures, 110 boundaries, 0 jumps where both runs are layered for every family. The random bouts
+  hardly reach Mid/Inside (body hook and rear uppercut never played), so:
+- 6 directed bouts (both men forced to throw every punch, each bout held at Mid or Inside): 508 pictures, 72 boundaries,
+  **1 jump in all** (a guard change, no punch).
+- 3 directed bouts at Inside (uppercuts, body punches, overhand; health kept up so the bouts run long): 316 pictures,
+  1 jump (the recorder's own jump from Long to Inside on the first beat).
+- a scripted 16-beat sequence (rear uppercut both sides at Inside, overhand both sides at Mid): 1330 pictures, 88
+  boundaries, 2 jumps - both the recorder setting the range on a beat, none touching a punch.
+Regression: anim_check PASS (160 runs), page_play_test 4 passed.
+
+Stills at the contact frame (paused page, full size, opened; ring crops in the work folder sheet_a/sheet_b.png): body jab
+blocked Long + Mid, lead hook landed Mid + Inside, body hook blocked Mid + Inside, overhand landed Mid + Inside, body cross
+blocked Mid + Inside, lead + rear uppercut blocked Inside. Both men head to feet, feet on the canvas line, no arm through
+a body Inside. How far the page puts the two men from where the render had them at contact (from the page's own layer
+offsets): body jab 0.02-0.03 m, body cross 0.02-0.05, overhand 0.03-0.07, body hook 0.06-0.09, lead hook 0.06-0.09,
+uppercuts 0.08-0.10. That is the anchor reading the guard stance a little differently run to run (the feet span); the
+exact fix is the renderer writing each man's true root per frame (next, below).
