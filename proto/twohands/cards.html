@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Puncher's chance - the card fight</title>
+<!-- S574 (owner: "yes put the card game on the board"): the card game the cup bouts play (proto/octagon), you against
+     the cup's reader bot, on any of the three rule sets. The flow is proto/octagon/table.mjs (node test table_test.mjs). -->
+<style>
+:root{--bg:#14110e;--panel:#1d1915;--line:#3a322a;--ink:#efe6d8;--muted:#9a9184;--gold:#e3ab45;--A:#d9453b;--C:#3d7fd9;--F:#e3ab45;--D:#4caf6a}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.35 system-ui,Segoe UI,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;flex-wrap:wrap;gap:.5rem .9rem;align-items:center;padding:.55rem 1rem;border-bottom:1px solid var(--line);background:#100d0b}
+header h1{font-size:1.05rem;margin:0 .6rem 0 0;color:var(--gold);letter-spacing:.02em}
+header label{font-size:.8rem;color:var(--muted);display:flex;gap:.35rem;align-items:center}
+select,button,input{font:inherit;color:var(--ink);background:#26201b;border:1px solid var(--line);border-radius:6px;padding:.25rem .45rem}
+button{cursor:pointer}button:hover{border-color:var(--gold)}input[type=number]{width:4.5rem}
+.sp{flex:1}
+main{flex:1;display:grid;grid-template-columns:1fr 1.15fr 1fr;grid-template-rows:auto auto auto minmax(0,1fr);align-content:start;gap:.7rem;padding:.7rem 1rem;max-width:1700px;width:100%;margin:0 auto}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.7rem .85rem}
+.who{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}.who b{font-size:1.05rem}.who span{color:var(--muted);font-size:.8rem}
+.bar{margin:.42rem 0}.bar .t{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted)}
+.bar .g{height:10px;background:#2c2620;border-radius:5px;overflow:hidden}.bar .g i{display:block;height:100%;border-radius:5px;transition:width .45s ease}
+.pips{display:flex;gap:4px;align-items:center;font-size:.78rem;color:var(--muted)}.pips i{width:16px;height:8px;border-radius:3px;background:#2c2620}.pips i.on{background:#b9a27f}
+.chips{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.45rem}.chip{font-size:.75rem;padding:.12rem .45rem;border-radius:10px;border:1px solid var(--line);background:#26201b}
+.chip.A{border-color:var(--A);color:#ffb1aa}.chip.C{border-color:var(--C);color:#a9c8ff}.chip.F{border-color:var(--F);color:#ffd88c}.chip.D{border-color:var(--D);color:#a9e6b9}.chip.warn{border-color:#c9584e;color:#ffb1aa}
+.ring{text-align:center}.ring .rd{color:var(--muted);font-size:.85rem}
+.range{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin:.55rem 0}.range div{padding:.5rem 0;border-radius:7px;border:1px solid var(--line);color:var(--muted);font-weight:600;letter-spacing:.08em;font-size:.85rem}
+.range div.on{background:#3a2e1c;border-color:var(--gold);color:var(--gold)}
+.score{display:flex;justify-content:center;gap:1.4rem;font-size:.85rem;color:var(--muted)}.score b{color:var(--ink);font-size:1.15rem}
+.lead{margin-top:.35rem;font-size:.85rem}.lead b{color:var(--gold)}
+.tell{margin-top:.5rem;font-size:.88rem;padding:.35rem .5rem;border-radius:7px;border:1px dashed var(--gold)}
+#result{grid-column:1/4;min-height:2.6rem;display:flex;flex-wrap:wrap;gap:.3rem .9rem;align-items:center;font-size:.9rem}
+#result .vs{font-weight:700;color:var(--gold)}#result .y{color:#d8e7ff}#result .h{color:#ffd2c9}#result .n{color:var(--muted)}
+#handwrap{grid-column:1/4}
+#hand{display:flex;flex-wrap:wrap;gap:.6rem}
+.card{width:150px;min-height:178px;border-radius:10px;background:#221d18;border:2px solid var(--line);padding:0 0 .5rem;cursor:pointer;position:relative;display:flex;flex-direction:column;transition:transform .12s,border-color .12s}
+.card:hover{transform:translateY(-3px)}.card.sel{border-color:var(--gold);box-shadow:0 0 0 2px #e3ab4555;transform:translateY(-5px)}
+.card.combo{border-color:#f0d9a8;border-style:dashed}
+.card.dead{opacity:.38;cursor:not-allowed;transform:none}
+.card .band{border-radius:8px 8px 0 0;padding:.22rem .5rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;color:#120f0c}
+.card.A .band{background:var(--A)}.card.C .band{background:var(--C)}.card.F .band{background:var(--F)}.card.D .band{background:var(--D)}
+.card .nm{padding:.35rem .5rem 0;font-weight:650;font-size:.92rem;line-height:1.2;min-height:2.3em}
+.card .row{display:flex;justify-content:space-between;align-items:end;padding:.2rem .5rem 0}
+.card .spd{font-size:1.7rem;font-weight:800;line-height:1}.card .spd small{font-size:.62rem;color:var(--muted);display:block;font-weight:500;letter-spacing:.05em}
+.card .spd.up{color:var(--gold)}.card .spd.down{color:#e07b72}
+.card .cost{font-size:.75rem;color:var(--muted);text-align:right}
+.card .rg{display:flex;gap:3px;padding:.35rem .5rem 0}.card .rg i{font-style:normal;font-size:.64rem;padding:0 .3rem;border-radius:4px;border:1px solid var(--line);color:var(--muted)}.card .rg i.on{color:var(--ink);border-color:#8b7c66}
+.card .short{padding:.3rem .5rem 0;font-size:.74rem;color:#cfc4b4}
+.card .n2{position:absolute;top:-8px;right:-8px;background:var(--gold);color:#120f0c;border-radius:10px;font-size:.7rem;font-weight:800;padding:.05rem .4rem}
+.card .alw{position:absolute;top:.28rem;right:.45rem;font-size:.58rem;font-weight:700;color:#120f0cbb;letter-spacing:.04em}
+#plan{display:flex;flex-wrap:wrap;gap:.6rem 1.1rem;align-items:center;margin-top:.7rem;font-size:.85rem;color:var(--muted)}
+#go{font-size:1.05rem;font-weight:700;padding:.5rem 1.6rem;background:#3a2e1c;border-color:var(--gold);color:var(--gold)}#go:disabled{opacity:.4;cursor:not-allowed}
+#log{grid-column:1/4;font-size:.8rem;color:var(--muted);max-height:12rem;overflow:auto}#log:empty{display:none}
+#log div{padding:.1rem 0;border-bottom:1px solid #231e19}
+#over{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center}
+#over .box{background:var(--panel);border:2px solid var(--gold);border-radius:14px;padding:1.4rem 2.2rem;text-align:center}
+#over h2{margin:.2rem 0 .6rem;color:var(--gold)}
+#help{position:fixed;top:3.2rem;right:1rem;width:min(430px,92vw);background:var(--panel);border:1px solid var(--gold);border-radius:10px;padding:.8rem 1rem;font-size:.88rem;display:none;z-index:5}
+#help li{margin:.2rem 0}
+</style></head><body>
+<header>
+  <h1>Puncher's chance &middot; card fight</h1>
+  <label>Rules <select id="rules"></select></label>
+  <label>You <select id="me"></select></label>
+  <label>Him <select id="him"></select></label>
+  <label title="The same bout number deals the same cards">Bout <input id="seed" type="number" min="1"></label>
+  <button id="new">New bout</button>
+  <span class="sp"></span>
+  <button id="q" title="How to play">How to play</button>
+  <span id="mute"></span>
+</header>
+<main>
+  <section class="panel" id="you"></section>
+  <section class="panel ring" id="ring"></section>
+  <section class="panel" id="hims"></section>
+  <section class="panel" id="result"><span class="n">Pick a card, then Throw (or press Enter).</span></section>
+  <section class="panel" id="handwrap"><div id="hand"></div><div id="plan"></div></section>
+  <section class="panel" id="log"></section>
+</main>
+<div id="over"><div class="box"><h2 id="overt"></h2><div id="overd"></div><p><button id="again">New bout</button></p></div></div>
+<div id="help"><b>How to play</b><ul>
+  <li>Each exchange you both pick one card at the same time. Then both show.</li>
+  <li><b style="color:var(--A)">Attack</b> beats a Feint. <b style="color:var(--C)">Counter</b> beats an Attack. <b style="color:var(--F)">Feint</b> beats a Counter or a Defend. <b style="color:var(--D)">Defend</b> blocks an Attack.</li>
+  <li>Two attacks: the faster one lands first and stops the other. The big number on a card is its speed right now.</li>
+  <li>Range: Long, Mid, Close. A card only works at the ranges lit on it. Some cards step you in.</li>
+  <li>The Lead: +1 speed on your attacks, and a Chain card can be followed by a combo.</li>
+  <li>Cards cost stamina. A guard gives a little back.</li>
+  <li>Judges score each round on damage plus clean counters. 3 rounds of 6 exchanges.</li>
+  <li>A tell shows you the colour of his card before you pick.</li>
+  <li>Point at a card to read all of it.</li></ul></div>
+<script src="version.js" defer></script>
+<script type="module" src="cards_ui.js"></script>
+</body></html>

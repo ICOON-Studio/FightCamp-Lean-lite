@@ -4,6 +4,9 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.574.1', date: '2026-11-28', items: [
+    'The card fight is on the board (cards.html): the card game the cup bouts play, you against the bot. Pick the rules at the top - ours (v6.9), yours with the fewest fixes (lite) or yours as written (v2.7) - and both fighters. Click a card, then Throw; point at a card to read all of it.',
+  ] },
   { v: '0.572.6', date: '2026-11-28', items: [
     'Each fighter is now his own picture on every page (one man per picture, ON for everyone): he stays where he stands between moves, and every punch, step, head move and kick meets the other man where the 3D take has it. The few moves still on the old picture: the short cross and the short rear uppercut, blue\'s landed body hook, blue\'s blocked lead uppercut, red\'s clinch and red\'s missed low kick. ?layers=0 shows the old way for one session.'] },
   { v: '0.572.5', date: '2026-11-28', items: [

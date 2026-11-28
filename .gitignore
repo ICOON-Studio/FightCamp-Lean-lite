@@ -50,3 +50,6 @@ assets/anim/animo_boxing/*.fbx
 
 # S570: Godot import files of the web pages (proto/ has a .gdignore now)
 proto/**/*.import
+
+# S574: the page server's root is proto/twohands; this junction lets cards.html load proto/octagon (serve.py also maps /octagon/)
+proto/twohands/octagon

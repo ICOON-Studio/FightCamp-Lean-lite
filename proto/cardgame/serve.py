@@ -14,6 +14,11 @@ class NoCache(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a):
         pass
 
+    def translate_path(self, path):   # S574: /octagon/... is proto/octagon (the card game's engine) from any root
+        if path.startswith('/octagon/'):
+            return os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'octagon', path[len('/octagon/'):].split('?')[0].split('#')[0])
+        return super().translate_path(path)
+
 
 if __name__ == "__main__":
     here = os.path.dirname(os.path.abspath(__file__))
