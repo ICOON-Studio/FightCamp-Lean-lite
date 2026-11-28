@@ -1,0 +1,8 @@
+V69 BALANCE: 8
+V69 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 5
+LITE BALANCE: 7
+LITE STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 5
+TOO STRONG: both - Snapshot (55-56%): speed 8 and IQ 8 win every counter race, and the clean counter now scores 2.
+TOO WEAK: LITE - Long Night (44%): with his IQ 3 and no Range-Jab tax in LITE, the paw war goes to the faster Silk; the engine fighter has no engine rule.
+ONE FIX: LITE - keep his rules but give his Desperation Surge a use for the cardio fighter (a Defend at 0 stamina costs 0 and gives 1 back to a fighter with cardio 8+).
+END

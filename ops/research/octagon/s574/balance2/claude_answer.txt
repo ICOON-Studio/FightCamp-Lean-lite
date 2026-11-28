@@ -1,0 +1,8 @@
+V67 BALANCE: 7
+V67 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 5
+LITE BALANCE: 6
+LITE STYLES: Pressure 6, Out-Fighter 5, Counter-Puncher 5
+TOO STRONG: LITE - the free Signature Stance Guard: in round 18 I led 20-17 and guarded 7 of the last 9 exchanges at no cost.
+TOO WEAK: v6.7 - Ghost (counter, 43%): his counters only answer at Mid, and with every round opening at Long he waits two exchanges to use them.
+ONE FIX: LITE - the Stance Guard costs +1 a use after the first in a round (his card is free every time), the one stall the judges' point does not cover.
+END

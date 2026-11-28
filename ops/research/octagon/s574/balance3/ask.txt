@@ -1,0 +1,30 @@
+BALANCE RATING #3 - Octagon (the owner: balance first). You have now played BOTH versions (rounds 18 and 19). Rate BALANCE only.
+
+Your last rating: v6.7 8/8/8, LITE 7/7/7, Counter-Puncher 4 in both. Since then (all from your asks and round 19):
+ BOTH versions now:
+ - A clean counter scores 2 with the judges, not 1 (John).
+ - The CHECK LEFT HOOK works at Long too: it meets a man stepping in (Kalli: every round opens at Long, the counters sat dead).
+ - Stick and move (the out-fighter's landed Step-In Jab that steps back to Long) costs 1 stamina (Kalli).
+ - Only a leader who played a DEFEND pays the reset tax - a Counter is a read, not a stall (John).
+ - A HEAVY punch (4+) lands through a faster straight of 3 or less - both land (Maria: one jab to land one bomb).
+ LITE only: the Signature Stance Guard is free the first time in a round, then +1 a use (all of you: a free guard let a leader stall).
+
+The bots now (every pool fighter against every other, both corners, 11,200 bouts each):
+| version | Snapshot | Ghost | Silk | Metronome | Long Night | Truck | Iron | Body Shop |
+| v6.7 (your last rating) | 52 | 43 | 55 | 50 | 47 | 50 | 49 | 53 |
+| v6.9 (ours now) | 55 | 46 | 52 | 49 | 46 | 52 | 48 | 53 |
+| LITE (last rating) | 54 | 42 | 58 | 48 | 47 | 50 | 50 | 52 |
+| LITE now | 56 | 49 | 54 | 47 | 44 | 51 | 47 | 52 |
+Styles: Counter = Snapshot, Ghost; Out-Fighter = Silk, Metronome, Long Night; Pressure = Truck, Iron, Body Shop.
+Cup results on these two: r18 Maria (Pressure) beat John (Out) 30-29 on v6.7, Claude (Pressure) beat Kalli (Out) 30-27 on LITE;
+r19 John (Counter) beat Maria (Pressure) 30-27 on LITE, Claude (Out) beat Kalli (Counter) 29-27 on v6.8.
+
+Answer in exactly this form, plain words, short:
+V69 BALANCE: <1-10>
+V69 STYLES: Pressure <1-10>, Out-Fighter <1-10>, Counter-Puncher <1-10>  (5 = just right, 10 = far too strong, 1 = far too weak)
+LITE BALANCE: <1-10>
+LITE STYLES: Pressure <1-10>, Out-Fighter <1-10>, Counter-Puncher <1-10>
+TOO STRONG: <one card or rule, which version, why - one line>
+TOO WEAK: <one card or rule, which version, why - one line>
+ONE FIX: <the single change that would raise BALANCE most, which version>
+END

@@ -1,0 +1,32 @@
+BALANCE RATING #2 - Octagon (the owner: "focus on balance first", then fun and depth). Rate BALANCE only.
+
+Two versions now. You played one of them in cup round 18.
+A) v6.7 (ours) = v6.6 + these changes, all asked for in your last balance rating or in round 18:
+ - 2 or more speed faster STOPS the slower punch (John's fix).
+ - A neutral reset: the man behind or level on the round gets +1 stamina, the man AHEAD pays 1 (Kalli's fix).
+ - A step-in punch that catches a feint lands its damage but does NOT close the range (Maria's fix).
+ - An Out-Fighter whose Step-In Jab lands steps straight back to Long; Circle Out works at Mid too (Mid -> Long).
+ - Every round, the first one too, starts at LONG (round 1 used to start at Mid, the out-fighter's worst range).
+ - A Feint that beats a Defend scores +1 with the judges; a man on the fence (cage space 0) who blocks still takes 1.
+ - Pull Counter Cross lands 4 (was 5); the Stance Guard repeat costs +1 a use (was +2); the doctor stops a cut at 6.
+B) LITE = the owner's v2.7 Director's Cut exactly as written, plus only the fewest fixes: half the POWER bonus, the
+   always-there Range Jab at Long and Mid, and every change in A above except the Stance Guard repeat cost (his card is
+   free every time) and the statuses (his version has no cuts or staggers).
+
+The bots (every pool fighter against every other, both corners, 11,200 bouts each):
+| version | Silk | Snapshot | Body Shop | Truck | Iron | Metronome | Long Night | Ghost |
+| v6.6 (last time) | 47 | 59 | 57 | 59 | 54 | 39 | 37 | 48 |
+| v6.7 | 55 | 52 | 53 | 50 | 49 | 50 | 47 | 43 |
+| his v2.7 as written | 41 | 49 | 60 | 70 | 65 | 34 | 35 | 46 |
+| LITE | 58 | 54 | 52 | 50 | 50 | 48 | 47 | 42 |
+Styles: Pressure = Truck, Iron, Body Shop; Out-Fighter = Silk, Metronome, Long Night; Counter = Snapshot, Ghost.
+
+Answer in exactly this form, plain words, short:
+V67 BALANCE: <1-10>
+V67 STYLES: Pressure <1-10>, Out-Fighter <1-10>, Counter-Puncher <1-10>  (5 = just right, 10 = far too strong, 1 = far too weak)
+LITE BALANCE: <1-10>
+LITE STYLES: Pressure <1-10>, Out-Fighter <1-10>, Counter-Puncher <1-10>
+TOO STRONG: <one card or rule, which version, why - one line>
+TOO WEAK: <one card or rule, which version, why - one line>
+ONE FIX: <the single change that would raise BALANCE most, which version>
+END

@@ -1,0 +1,8 @@
+V67 BALANCE: 8
+V67 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 4
+LITE BALANCE: 7
+LITE STYLES: Pressure 5, Out-Fighter 6, Counter-Puncher 4
+TOO STRONG: Silk in LITE wins 58% because his Stance Guard is free every time, so a long jabber can block forever at no cost and stall out any lead.
+TOO WEAK: Counter-punchers in both versions, with Ghost at 43 and 42, because Pull now lands only 4 and the counters whiff against a man who just jabs and guards, so they have no good answer to patience.
+ONE FIX: In v6.7, give counters a small reward when they read a jab, such as taking the Lead plus 1 stamina even when nothing lands, so counter-punchers climb toward 50 without the counter getting its big hit back.
+END

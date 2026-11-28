@@ -1,0 +1,8 @@
+V69 BALANCE: 8
+V69 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 5
+LITE BALANCE: 7
+LITE STYLES: Pressure 5, Out-Fighter 4, Counter-Puncher 6
+TOO STRONG: Snapshot's counters in both versions, 55% and 56%. Now that a clean counter scores 2 with the judges, one good read is worth a whole exchange of jabs.
+TOO WEAK: Long Night in LITE, at 44%. His jab-and-step-back now costs 1 stamina, and he has no heavy punch to use the new rule that lets a bomb land through a jab.
+ONE FIX: In v6.9, close the gap inside each style. Give Ghost one cheap Mid punch, so his counters aren't his only way to score, and he climbs toward Snapshot's 55% while the counter style stays at 50% overall.
+END

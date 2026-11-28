@@ -1,0 +1,8 @@
+V69 BALANCE: 8
+V69 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 5
+LITE BALANCE: 7
+LITE STYLES: Pressure 5, Out-Fighter 4, Counter-Puncher 6
+TOO STRONG: In LITE, Snapshot is at 56. The free Check Left Hook at Long plus 2-point clean counters punish every step-in, so the fast reader farms the judges.
+TOO WEAK: In LITE, Long Night is at 44. Stick and move now costs 1, and the Check Hook at Long meets his Step-In Jab, so the slow out-fighter has no safe way to score.
+ONE FIX: In LITE, let a Step-In Jab that lands keep the out-fighter at Long for free, but only when the jab is 2+ faster. That lifts Long Night and Metronome without helping Silk.
+END

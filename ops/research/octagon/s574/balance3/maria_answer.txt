@@ -1,0 +1,8 @@
+V69 BALANCE: 8
+V69 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 5
+LITE BALANCE: 8
+LITE STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 5
+TOO STRONG: Snapshot in LITE, at 56, because a fast counter-puncher wins every tied poke on speed and reach and still has a counter for the one big punch you finally throw, as he did in round 19.
+TOO WEAK: Long Night in LITE, at 44, because the Long Night out-fighter now pays stamina to stick and move and has no strong counter of his own, so he runs dry before the third round.
+ONE FIX: In LITE, let a tied poke land for both men instead of going to the man with more reach. The fast fighters lose their free 2 points a round and the spread closes from both ends.
+END

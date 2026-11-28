@@ -1,12 +1,16 @@
 // v4 pool balance (S570): every pool fighter against every other, both corners, reader bots - each fighter's win rate
 // (target 40-60%), the class's finish rate and the comeback share.   node proto/octagon/pool_sim.mjs [n=60] [seed=7]
-import { newBout, play, legalCards, why, CARDS, TUNE } from './engine.mjs';
-import { useV4, POOL } from './fighters_v4.mjs';
+import { newBout, play, legalCards, why, CARDS, TUNE, PROFILES } from './engine.mjs';
+const PROFILES_SET = (id) => { PROFILES[id] = profileOf(id); };
+import { useV4, POOL, profileOf } from './fighters_v4.mjs';
 import { useV5 } from './cards_v5.mjs';
 import { useV6 } from './cards_v6.mjs';
 const arg = Object.fromEntries(process.argv.slice(2).map((x) => x.split('='))), N = +(arg.n || 60);
 if (arg.v6 === '1') useV6(arg.pure === '1' ? { pure: 1 } : arg.lite === '1' ? { lite: 1 } : arg.v66 === '1' ? { v66: 1 } : {}); else if (arg.v5 === '1') useV5(); else useV4();   /* S573: v6 = the owner's v2.7 Director's Cut, boxing */   /* S572: v5 = the owner's v2.0 rulebook + v2 cards */
 for (const key of Object.keys(TUNE)) if (arg[key] !== undefined) TUNE[key] = +arg[key];
+for (const key of Object.keys(arg)) if (key.includes('.')) { const [id, at] = key.split('.'); POOL[id].a[at] = +arg[key]; PROFILES_SET(id); }   /* S574: try a pool fighter's attribute, e.g. ghost.speed=8 */
+if (TUNE.chkLong) CARDS.lchk = { ...CARDS.lchk, legal: ['long', 'mid'] };   /* S574 chkLong (cup r19, Kalli) */
+if (TUNE.slipLong) CARDS.slip3 = { ...CARDS.slip3, legal: ['long', 'mid'] };   /* S574 slipLong */
 if (arg.circleMid === '0') CARDS.circle3 = { ...CARDS.circle3, legal: ['close'] }; else if (TUNE.circleMid) CARDS.circle3 = { ...CARDS.circle3, legal: ['mid', 'close'], t: 'Mid or Close (S574 circleMid). Blocks an attack, steps out one range, +2 cage space. Loses to a Feint.' };   /* S574 circleMid: a way out of Mid */
 let seed = +(arg.seed || 7); const r = () => { seed ^= seed << 13; seed >>>= 0; seed ^= seed >> 17; seed ^= seed << 5; seed >>>= 0; return seed / 4294967296; };
 const pick = (a) => a[Math.floor(r() * a.length)], ANSWER = { A: 'C', F: 'A', C: 'F' };

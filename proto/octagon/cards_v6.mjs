@@ -27,7 +27,7 @@ export const V6_CARDS = {
   circle3:  { id: 'FIQ-02', n: 'Circle Out & Reset', type: 'D', spd: 8, st: 1, legal: ['close'], covers: 'any', rec: 0, post: -1, cageGain: 2, t: 'Close. Blocks an attack, steps out to Mid, +2 cage space. Loses to a Feint.' },
   read3:    { id: 'FIQ-03', n: 'Read Tendencies', type: 'F', spd: 9, st: 0, legal: ['long', 'mid', 'close'], read: 1, chain: 0, t: 'Any range. FEINT: beats a Counter and a Defend; TELL: you see ONE card of his hand (v6.4, his v2.7 card), draw 1, take the Lead. Loses to an Attack.' },
   breath:   { id: 'FIQ-04', n: 'Deep Breath & Pace', type: 'D', spd: 6, st: 0, legal: ['long', 'mid'], covers: 'none', rec: 3, recUnhit: 1, t: 'Long or Mid. +3 stamina if he does not hit you (it blocks nothing); costs 1 at Long. Loses to a Feint.' },
-  stance:   { id: 'SYS-01', n: 'Signature Stance Guard', type: 'D', spd: 5, st: 0, legal: ['long', 'mid', 'close'], covers: 'any', rec: 0, virtual: 1, t: 'ALWAYS THERE (outside your hand): blocks an attack (a HEAVY one still chips 1); no stamina back; free the first time in a round, then +2 stamina a use (v6.6); +1 more at Long. Loses to a Feint.' },
+  stance:   { id: 'SYS-01', n: 'Signature Stance Guard', type: 'D', spd: 5, st: 0, legal: ['long', 'mid', 'close'], covers: 'any', rec: 0, virtual: 1, t: 'ALWAYS THERE (outside your hand): blocks an attack (a HEAVY one still chips 1); no stamina back; free the first time in a round, then +1 stamina a use (v6.7; +2 in v6.6); +1 more at Long. Loses to a Feint.' },
 };
 // 20 cards, at most 2 of a card; every deck keeps at least two Close attacks (cup r12-r13). CALL: the decks are ours (his PDF lists cards, not boxing decks)
 export const V6_DECKS = {
@@ -44,16 +44,18 @@ export function useV6(opt = {}) {
   for (const id of Object.keys(POOL)) PROFILES[id] = profileOf(id);
   Object.assign(TUNE, {
     feintDef: 1, chip: 1, chipPress: 1, longTax: 1, ctrSplit: 1, econ: 1, taxReset: 1, fix572: 1, lead: 2, hp: 1,   // his v2.0 rules kept in v2.7; chipPress = Pocket Armor's +1 chip
-    stance: 1, surge: 1, neutral1: 1, capOne: 1, tellColor: 1, pocket: 1,                                    // his v2.7 rules (S573)
+    stance: 1, surge: 1, neutral1: 1, capOne: 1, tellColor: 1, pocket: 1, readCards: 1,   /* readCards (S574): his FIQ-03 card shows ONE card - pure and lite showed 2 until S574 (cup r18 E5) */                                    // his v2.7 rules (S573)
     holdCard: 0, longJab: 0, elbows: 0, rockClinch: 0, wallClinch: 0, cover: 0, ctrDuel: 0, pressPre: 0, rockSafe: 0, ctrRefund: 0, openSoft: 0, holdReads: 0, holdParry: 0, feelMeets: 0,   // our cup extras OFF
   });
-  const S574 = { gapStop: 2, resetTax: 2, fakeJab: 1, stickMove: 1, circleMid: 1 };
+  const S574 = { gapStop: 2, resetTax: 2, fakeJab: 1, stickMove: 1, circleMid: 1, startLong: 1, featPt: 1, pinLeak: 1, pull4: 1, ctrPt: 1, chkLong: 1, stickCost: 1, resetD: 1, heavyTrade: 1 };   /* v6.9 (cup r19): chkLong - the Check Left Hook meets a man stepping in from Long (Kalli: every round opens at Long, the counter-puncher's counters sat dead), stickCost - stick and move costs 1 stamina (Kalli), resetD - only a leader who GUARDED pays the reset tax, a Counter is a read (John), heavyTrade - a heavy punch (4+) lands through a faster straight of 3 or less (Maria: a slow power fighter takes one jab to land one bomb) - bots v6.9 46-55%, lite 44-56% (grid12.txt) */   /* ctrPt (v6.8, balance rating #2: Counter-Puncher 4 from all three seats; John's fix): a clean counter scores 2 with the judges, not 1 - bots unchanged (grid7.txt); slipLong (Kalli) lifted Snapshot to 59 and dropped Iron to 41-43, Ghost's own numbers only moved the weak spot to Long Night (grid8, grid9) */   /* featPt, pinLeak, pull4 (cup r18: Kalli - three won exchanges scored 0-0 behind a guard, the fence earned nothing, one 6-point counter decided the fight): bots unchanged 40-59% (grid6.txt) */   /* startLong (cup r18, Claude v Kalli: the bout opened at Mid, the out-fighter's worst range; his v2.7 names no start range): every round starts at Long - v6.7 41-57%, all three styles ~50%; lite 41-57% (grid5.txt) */
+  const pull4 = () => { CARDS.pull3 = { ...CARDS.pull3, t: 'Mid. POWER counter: answers any attack landing at Mid - it misses, you land 4 (S574; his card 5). A whiff or a feint costs 2 stamina more.' }; };
+  const chkLong = () => { CARDS.lchk = { ...CARDS.lchk, legal: ['long', 'mid'], t: 'Long or Mid (v6.9). REACTIVE counter: answers a man stepping in - it misses, you land 3 and pivot out to Long. A whiff costs nothing more.' }; };
   const circleMid = () => { CARDS.circle3 = { ...CARDS.circle3, legal: ['mid', 'close'], t: 'Mid or Close (v6.7). Blocks an attack, steps out one range, +2 cage space. Loses to a Feint.' }; };
   /* S574 lite=1 (owner: "focus on balance first then fun and depth also try my version too"): his v2.7 exactly as written plus the
      FEWEST changes that balance it on the bots (pure: Truck 66-70%, Iron 64-67%, out-fighters 32-37%): half the power bonus, the
      Range Jab at Long and Mid (a punch that does not step in; it meets a man stepping in from Long), and the five S574 switches below
      - bots n=200 x 3 seeds 40-58%, finishes 13%. ops/research/octagon/s574/grid4.txt */
-  if (opt.lite) { Object.assign(TUNE, { powHalf: 1, longJab: 1, feelMeets: 1, feelMid: 1 }, S574); CARDS.feel = { ...CARDS.feel, legal: ['long', 'mid'], t: 'Always there at Long or Mid: a pawing jab - 1 to the head. Does not step in; it meets a man stepping in from Long.' }; circleMid(); return; }
+  if (opt.lite) { Object.assign(TUNE, { powHalf: 1, longJab: 1, feelMeets: 1, feelMid: 1 }, S574); CARDS.feel = { ...CARDS.feel, legal: ['long', 'mid'], t: 'Always there at Long or Mid: a pawing jab - 1 to the head. Does not step in; it meets a man stepping in from Long.' }; TUNE.stanceTax = 1; circleMid(); pull4(); chkLong(); CARDS.stance = { ...CARDS.stance, t: 'ALWAYS THERE (outside your hand): blocks an attack (a HEAVY one still chips 1); no stamina back (his v2.7 card); free the first time in a round, then +1 a use (S574: all four seats - free every time, a leader stalled a whole round); like every Defend, +1 at Long (his Long Tax). Loses to a Feint.' }; return; }
   if (opt.pure) return;   // pure=1: v2.7 exactly as written - bots: Iron 69-77%, Truck 74%, out-fighters 31-35% (Pressure runs away)
   /* v6.1 (S573, owner: "check if 2.7 is missing anything from the version that rate 7/8 ... and see if you can fix it"): v2.7 lacks
      what the cup added to v5 (7.5-7.75 fun). Measured on the bots, n=20 each (docs/OCTAGON_V6_RESULT.md): Initiative +1 alone 31-68%;
@@ -72,5 +74,5 @@ export function useV6(opt = {}) {
      out-fighters only) and Circle Out works at Mid too (circleMid). Bots n=200 x 3 seeds: v6.6 37-60% -> 42-58% (Long Night 37 -> 42,
      Metronome 40 -> 45, Truck 59 -> 54); the reset tax and the feint fix do not move the bots (they never stall or farm feints) -
      those two are for the agents. ops/research/octagon/s574/grid.txt, grid2.txt */
-  if (!opt.v66) { Object.assign(TUNE, S574); circleMid(); }
+  if (!opt.v66) { Object.assign(TUNE, S574, { cutStop: 6, stanceTax: 1 }); circleMid(); pull4(); chkLong(); }   /* stanceTax 1 (cup r18, Maria: the repeat cost reached 4 by round 3; the stall is now paid by featPt) */   /* cutStop 6 (S574): starting at Long means more jabs, more cuts - the doctor at 5 stopped 12%, at 6 3% (42-56%) */
 }

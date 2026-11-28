@@ -1,0 +1,8 @@
+V67 BALANCE: 8
+V67 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 4
+LITE BALANCE: 7
+LITE STYLES: Pressure 5, Out-Fighter 6, Counter-Puncher 4
+TOO STRONG: LITE, Silk at 58. Her Stance Guard is free every time, so a fast out-fighter blocks forever and jabs for points.
+TOO WEAK: v6.7, Ghost at 43. With Pull Counter Cross down to 4 and a 2+ speed punch stopping counters, the slow counter-puncher can't punish a fast jab.
+ONE FIX: In v6.7, a clean counter that lands scores +1 with the judges, which lifts Ghost and Snapshot without touching Pressure or the Out-Fighters.
+END

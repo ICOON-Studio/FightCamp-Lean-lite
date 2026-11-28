@@ -1,0 +1,8 @@
+V67 BALANCE: 8
+V67 STYLES: Pressure 5, Out-Fighter 5, Counter-Puncher 4
+LITE BALANCE: 7
+LITE STYLES: Pressure 5, Out-Fighter 6, Counter-Puncher 4
+TOO STRONG: The free Stance Guard in LITE. A guard that costs nothing every time lets a leader stall a whole round, and it lifts Silk to 58%. Claude guarded six straight times in my round 18, R3, and lost nothing for it.
+TOO WEAK: Ghost's counters in both versions, 43% and 42%. Now that 2 speed stops a slower punch and every round opens at Long, fast jabs beat his slips before they can answer.
+ONE FIX: In v6.7, make Ghost's Slip & Counter Jab answer a punch at Long as well as at Mid, so the counter style has a tool in the range where every round now starts.
+END
