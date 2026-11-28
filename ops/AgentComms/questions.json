@@ -9555,6 +9555,23 @@
    "note": "closed by Claude S573: his synchronized pair lists the same cards",
    "answered_at": "2026-11-27T23:19:01Z",
    "seen_by_claude": true
+  },
+  {
+   "id": "Q-S294-351",
+   "asked": "2026-11-28T09:10:51.940265+00:00",
+   "session": "S294",
+   "text": "Which card-fight rules do we keep and fix? Balance: ours 6.25, LITE 4.5.",
+   "options": [
+    "Ours (v6.9)",
+    "LITE (yours)"
+   ],
+   "attach": [
+    "research/octagon/s575/RULES_PICK.md"
+   ],
+   "answer": "Ours (v6.9)",
+   "note": "owner in chat S575: \"ok go with 6.9 , ask me questions about the pressure fighter to find ideas how to fix\"",
+   "answered_at": null,
+   "seen_by_claude": false
   }
  ]
 }

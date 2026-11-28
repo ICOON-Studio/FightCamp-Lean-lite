@@ -197,3 +197,23 @@ of stamina guarding. Asks: a cheap Pressure card that closes Long -> Mid and blo
 still closes to Mid (Kalli - the reverse of stopNoStep, for Pressure); a heavy hook trades through a faster jab (John,
 Kalli); stick and move costs 2 (Maria); a counter lands OR staggers, not both (Claude); a one-card swap for a hand with one
 card legal at this range (Claude). The bots (45-57%) cannot see this: they never play the Long game the agents play.
+
+### Pressure fixes (cup r22 asks) and cup round 23
+ON in both (grid3.txt, bots v6.9 42-56, lite 41-55): Walk Him Down (always there for Pressure at Long: blocks a head
+attack, steps to Mid, loses to a feint - the bots never play it), pressWalk (a beaten Pressure step-in still closes to
+Mid), heavyGap (a heavy punch trades through a light one however fast). After r23: fakeFwd ON (feint v feint, the man
+walking forward takes the Lead; bots unchanged). Measured, OFF and ready: tieStraight (same-speed straights both land,
+John + Kalli r23) - Truck 61-62% in v6.9 (grid4.txt).
+| bout | version | result | BALANCE | OUT | PRESSURE | COUNTER |
+|---|---|---|---|---|---|---|
+| John (Iron) v Kalli (Silk) | v6.9 | Kalli 29-28 | 6 / 6 | 7 / 6 | 4 / 4 | 5 / 5 |
+| Claude (Metronome) v Maria (Truck) | LITE | Claude 30-24 | 5 / 4 | 7 / 8 | 3 / 3 | 5 / 6 |
+Balance over r22 + r23 (four ratings each): v6.9 6.25, LITE 4.5. Walk Him Down got Pressure in once a bout; feints
+answered it after that. Still asked: same-speed jabs trade (John, Kalli), LITE's Lead +2 speed too much (Claude),
+Pressure stamina runs dry (Maria, Claude), a blocked heavy chips 2 (Kalli), a counter lands or staggers, not both (Claude).
+
+### The owner's Pressure fighter (S575, asked in chat; he picked ours, v6.9)
+His answers: Pressure gets in by CUTTING OFF THE RING; inside, his BODY WORK DRAINS the out-fighter; his stamina is an
+ENGINE THAT NEVER STOPS; the out-fighter beats him by TIMING A COUNTER. Built (v6.9 only, ON): Walk Him Down is free and
+a feint gets nothing from it; each Walk Him Down that steps in takes 1 cage space; a Check Hook meets it (lands, no
+step); a Pressure body punch that lands takes 2 stamina; Pressure +2 stamina between rounds. Bots 43-56% (grid6.txt).
