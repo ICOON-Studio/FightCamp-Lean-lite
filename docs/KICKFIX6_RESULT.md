@@ -1,4 +1,4 @@
-# KICKFIX6 - the kicks on the rebuilt kick.html: stopped for low memory before any number (S570 console worker)
+# KICKFIX6 - the kicks on the rebuilt kick.html: control and F6 measured (S570 worker, resumed S571)
 
 2026-11-27 - PC console worker (Opus 5.5, main checkout) - kickboxing (Puncher's chance, kick.html) - no page, tool or test changed.
 
@@ -14,15 +14,29 @@ playing), CPU 70%. The chain processes had outlived the stop, so I ended them my
 mine). Nothing of KICKFIX6 is running now and nothing will start by itself. balance.mjs writes a table only when it is done,
 so the two half-built tables were lost.
 
-| version | N | seed | bars passed | low kick lands | knockdowns | stoppages | limp bouts, stops after a limp |
+| version | N | seed | bars passed | low kick lands | knockdowns a bout | stoppages | limp bouts (stops, to the bell) |
 |---|---:|---:|---|---|---|---|---|
-| control (rebuilt kick.html, own table) | 56 | 1, 2 | not measured: table stopped at about 1 of 3.5 hours | | | | |
-| F6 = F5 + low kick speed 3 + head kick 3 stamina + health 22 | 12 | 1 | not measured: table stopped at about 1 of 3.5 hours | | | | |
+| control (rebuilt kick.html, own table) | 56 | 1 | 4 of 9 | 88% | 4.2 | 96% | 34/56 (20, 1) |
+| control | 56 | 2 | 5 of 9 | 89% | 4.4 | 98% | 31/56 (23, 0) |
+| F6 = F5 + low kick speed 3 + head kick 3 stamina + health 22 | 12 | 1 | 4 of 9 | 90% | 2.7 | 50% | 8/12 (4, 4) |
+
+RESUMED (S571 session, 27-28 Nov, both chains in the background beside ArcheAge; they waited on RED by themselves):
+chain B ended 03:03, chain A 05:08. Results: ops/research/s558_balance/results/kickfix6_control_n56_s1.txt, _s2.txt,
+kickfix6_f6_n12_s1.txt.
+
+## What the numbers say
+- The control is broken the way KICKFIX5 said: almost every bout is stopped (96-98%, 4.3 knockdowns), a kick lands about
+  9 times in 10 (low 88%, head 91%), and 56-61% of beats throw nothing. Five dead switches (clinch 2%, teep 2%, overhand 2%).
+- F6 halves the stoppages (50%) and the knockdowns (2.7), the men throw more (no strike 30%, two strikes 33%), the cross
+  and the body kick become real weapons (44% and 56% landed), and 4 of 8 limp bouts reach the bell.
+- F6 does NOT fix the low kick (still lands 90%), kills the head kick (2% of beats: 3 stamina is too dear) and makes the
+  feet go first 62% of ordered beats (the order bar fails). Stoppages 50% and knockdowns 2.7 are still above the bars
+  (10-40%, 0.5-2.5).
 
 ## Decision
-The harness says not to restart a run it stopped for memory, and the owner is playing, so I am not restarting anything.
-F7 and F8 are not written: each must follow what the control and F6 show, and neither has a number yet. KICKFIX5's
-candidate for F7 still stands: a clinch smothers kicks (the clinch was dead at 2% of beats on every kicks version).
+F6 does not pass its trial: same bars passed as the control (4 of 9), two new failures. It goes in as the base for F7, not
+on the page. F7 = F6 + the low kick can be checked (a lifted lead leg stops it: lands 50-65%, not 90%) + head kick back
+to 2 stamina + KICKFIX5's clinch smothers kicks. Nothing on kick.html yet. The N=56 run of F6 is not needed.
 
 ## Feedback loops
 The limp loop (more low kicks thrown, more limps, no back off, more low kicks) was not measured: no run finished.
@@ -37,8 +51,8 @@ llama-server holds more than 4 GB. It commits each result to ops/research/s558_b
 passes, run `play:f6:56:1 play:f6:56:2`.
 
 ## For the owner
-Nothing went on kick.html: the kicks measuring was stopped for low memory an hour in, while your game was running, before any number came out.
-The player feels no change yet.
-It needs about 4.5 hours with the PC free of the game and the local model. The commands to restart it are above.
+Nothing changed on kick.html. The test version halves the knockouts but low kicks still land 9 times in 10, so it is not good enough yet.
+The next version stops the low kick when the other man lifts his leg, and makes the head kick cheaper again.
+You feel no change until that version passes.
 
-KICKFIX6 BLOCKED: stopped for low memory at about 20:50 (RAM 93%, ArcheAge 7.3 GB, watchdog RED) about an hour into the control and F6 tables, before any number; my leftover processes are ended, nothing runs or restarts by itself; resume commands above
+KICKFIX6 DONE: F6 trial fails (4 of 9 bars like the control; stoppages 96% -> 50% but the low kick still lands 90%, the head kick dies); next F7 = F6 + low kick check + head kick 2 stamina + clinch smothers kicks

@@ -49,7 +49,7 @@ Start: `git pull && python ops/Tools/agent_comms.py start`, then this page, then
    r16 wants the opposite: the fast jab should keep the slow puncher off) and stanceTax=2. Open asks: Pull Counter 5 -> 4
    (Kalli r13 + r15, Maria r16: one counter decides a round; the 6 = his 5 + the +1 reflex bonus), a rocked man gives something
    up (Maria r15, Claude r16), a live round score (Kalli r12, r13, r15), the always-there cards still half of all plays (r16).
-3. COLLECT: LAYERS1 (worker tab of S572; paused itself for his ArcheAge at 01:30 on 28 Nov), RULES569 (chain_p2), KICKFIX6.
+3. COLLECT: LAYERS1 (worker tab of S572; paused itself for his ArcheAge at 01:30 on 28 Nov), RULES569 (chain_p2); KICKFIX6 COLLECTED by S571 on 28 Nov (docs/KICKFIX6_RESULT.md: F6 trial fails, 4 of 9 bars; F7 = F6 + low kick check + head kick 2 stamina + clinch smothers kicks, not briefed yet).
 4. BUILD1 round 4, MMCPLAY1, LONG3 when a seat frees.
 
 ## Rules learned in S573 (also in memory)
