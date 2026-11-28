@@ -116,3 +116,74 @@ page holds each man within 0.09 m of the render (the cross 0.01-0.04, most under
 Also found: tools/pics2d_head.gd did not load at all on main (it declared glide_a, which pics2d_anim.gd gained in S564):
 the copy is removed. And the head / kick tools never made a part mask (their own _run skipped anim_more's): _frame now
 makes it when layers=1. Head and kick pictures in this commit are south=blue but not yet layered (masked render running).
+
+## Family c: head moves (pics2d_head.gd, south=blue, layers=1)
+The head tool did not load on main (duplicate glide_a, fixed above) and the head / kick tools made no masks (fixed above).
+Re-rendered: jab slipped / leaned at Long, every head move at Mid, cross slipped + lead hook / overhand rolled at Inside,
+the slip in at every range: 32 runs, 330 frames, 0 gate failures, all layered.
+Gate: head.html, 6 random bouts: 370 pictures, 52 boundaries, **0 jumps** (random bouts only reach the slip in), so a
+directed 16-beat sequence (each man slips the other's jab and cross, rolls the hook and overhand, leans back from them, at
+Mid and Inside): 1316 pictures, 89 boundaries, 3 jumps - all three blue landing in his Mid hold right after the script set
+the range itself (Inside -> Mid, Long -> Mid), none touching a head move.
+Stills (paused contact): red's jab slipped and leaned, blue's cross slipped and leaned, red's lead hook rolled, blue's
+overhand rolled - the head off the line / under / back, the glove past or short as the take has it.
+
+## Family d: kicks (pics2d_kick.gd, kick.html only)
+Teep and low kick at Long and Mid, the check: 24 runs, 0 gate failures; red's missed low kick is refused at both ranges
+(blue's toes leave the picture) and keeps its old picture. Gate: kick.html, 6 random bouts: 379 pictures, 42 boundaries,
+**0 jumps** (teeps and low kicks played; the body and head kicks borrow pictures).
+First stills: the page put the men 0.13-0.15 m too far apart on the teeps (the sole stopped at the knee) and 0.07-0.17 m
+too close on the low kicks (red's shin through blue's leg) - each run's first picture reads a few cm off the hold (a kick's
+chamber, a hook's set-up). Fix in layers_ui.js: the page's spots say where the PAIR stands, the render says how far apart
+the men are - at a run's start the gap between the two is split between the men for the whole run (at most 0.25 m) and
+the blend at the boundary eases it in. After: every kick still 0.000-0.002 m from the render (punches were 0.01-0.09).
+
+## Step 3: layers ON by default (layers_ui.js), ?layers=0 the old way for one session
+- order.html, 8 random bouts after the gap split: 583 pictures, 81 boundaries, **3 jumps**: two touch the short cross (old
+  picture), one is after a push (the page keeps no distance for a push: its next run starts back on the old spots - the
+  page's distance model, not the pictures; noted for the push's own fix).
+- Plain order.html (no query), 6 bouts: 383 of 383 pictures drawn as two men, **0 jumps**. ?layers=0, 1 bout: 0 of 247.
+- kick.html 6 bouts after the split: 329 pictures, **0 jumps**. head.html sequence: 3 (the script's own range sets).
+- **Total jumps over 4 px: 3 in 8 bouts (target below 10; 54 on the S570 page).**
+- ring_ui.js, removed (dead since the floor bar was hidden in S562): holdSlide(), TOES, PX_M, FLOOR, X(). KEPT, because
+  the runs still on their old two-man picture and ?layers=0 need them: slide() (the two-man picture's slide by metres),
+  atRange() (the run made at the range they stand at - layers need it too), stepChain()/playSteps() (each man's own step).
+- make_head.py, make_kick.py, make_one.py rebuilt: byte-identical (every built page already loads layers_ui.js).
+- Regression: anim_check PASS (160 runs), page_play_test 4 passed.
+
+## What stays on the old two-man picture, and why
+- short cross (blue), short rear uppercut at Mid (red): the picture gate (glove 0.085-0.107 m from his gloves, gate 0.14).
+- blue's landed body hook (Long/Mid/Inside): head 0.570 m from the other body (gate 0.60).
+- blue's blocked lead uppercut (Long/Inside): feet 0.159 m apart (gate 0.16).
+- red's clinch: an arm 0.046 m from a torso (gate 0.07).
+- red's missed low kick (Long/Mid): blue's toes leave the picture (refused by the framing gate).
+- the knockdowns and the *_ko runs: not re-made here (the jump read skips them; the Animo knockdowns are meant to replace
+  them, item 2).
+Each of these restored from git 6ad20a23b^ where my first (orthodox) render had replaced it; no layers for them.
+
+## Not done: item 2, the hit man's own reaction from the Animo pack
+The pack (assets/anim/animo_boxing, one FBX, 121 takes) is on a 3ds Max Biped rig: "Robot:Bip01 Pelvis / Spine..Spine3 /
+Neck / Head / L|R Clavicle / UpperArm / Forearm / Hand / Thigh / Calf / Foot / Toe0" (read from the file). The repo's
+retarget (scripts/fight3d/RkRetarget.gd, the kicks' route) reads Mixamo names; the map is one-to-one (Pelvis->Hips,
+Spine..Spine3->Spine..Spine2, Clavicle->Shoulder, UpperArm->Arm, Forearm->ForeArm, Thigh->UpLeg, Calf->Leg, Toe0->ToeBase),
+so the next task is: copy the FBX to an imported folder (it is .gdignore'd), bake Get_Hit head / body, one stagger and one
+knockdown through RkRetarget with that name table (the hold-bake route, assets/anim/baked/), put them in pics2d_set.gd
+REACT / KO_CLIP, re-render the landed runs (south=blue, layers=1) and gate them as above. Not started tonight: it is a new
+retarget route plus a re-render of every landed run (~1.5 h of GPU), past the 05:00 nightly run on this PC.
+
+## Tools and files changed (all committed)
+proto/twohands/layers_ui.js (warm preload, alias runs, spots once per run, render gap per run, ON by default),
+proto/twohands/ring_ui.js (dead floor-bar code out), proto/twohands/tools/layers_cut.py (feet-span anchor),
+tools/pics2d_anim_more.gd (layers=1 masks every frame, mask made for head/kick), tools/pics2d_head.gd (loads again),
+proto/twohands/img/anim + img/layers (pictures, masks, layers), proto/twohands/version.js (0.572.1-.4, .6).
+Work files: E:\FightCamp\wt_tmp\LAYERS1 (renders, logs, the reduced-motion / directed recorders, contact-shot tools).
+
+## For the owner (three lines)
+1. Every page now draws each fighter as his own picture: he stays where he stands between moves, and every punch, step,
+   head move and kick meets the other man where the 3D take has him (0 jumps on the plain page in 6 bouts; 54 before).
+2. A handful of moves still show the old picture (short cross, blue's landed body hook, a clinch, one missed kick); add
+   ?layers=0 to the address to see the old way for comparison.
+3. Your look decides it: http://127.0.0.1:8797/order.html - the hit man's own fall-back and knockdowns from the Animo pack
+   are the next task.
+
+LAYERS1 BLOCKED: items 1 and 3 done and ON by default; item 2 (the Animo hit reactions) needs a new Biped-rig retarget route (the repo's RkRetarget reads Mixamo names) and a re-render of every landed run - a task of its own, not started.

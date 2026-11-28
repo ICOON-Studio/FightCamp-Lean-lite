@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.572.6', date: '2026-11-28', items: [
+    'Each fighter is now his own picture on every page (one man per picture, ON for everyone): he stays where he stands between moves, and every punch, step, head move and kick meets the other man where the 3D take has it. The few moves still on the old picture: the short cross and the short rear uppercut, blue\'s landed body hook, blue\'s blocked lead uppercut, red\'s clinch and red\'s missed low kick. ?layers=0 shows the old way for one session.'] },
+  { v: '0.572.5', date: '2026-11-28', items: [
+    'Trial page rules.html (RULES569, not the main page): one Guard up card instead of four guard buttons, a full-power choice on a punch card, and the bars that affect each other (lost health shrinks stamina, tired arms, soft guard, on the ropes) shown on the gauges. Measured: the power switch and the health-stamina link hold; the one guard card does not.'] },
   { v: '0.572.4', date: '2026-11-28', items: [
     'Fix: the punch, step, feint and push pictures made earlier tonight had blue standing the wrong way round (half his back to you). They are made again with blue facing you, as in every other picture.'] },
   { v: '0.572.3', date: '2026-11-28', items: [

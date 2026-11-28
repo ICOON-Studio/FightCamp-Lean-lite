@@ -1,0 +1,8 @@
+BALANCE_TABLE beats left 1: at Long, full stamina v 4: 0.316; having given ground twice v none: -0.593; Mid 0.864; Inside 0.875
+BALANCE_TABLE beats left 2: at Long, full stamina v 4: 1.315; having given ground twice v none: -0.608; Mid 1.745; Inside 1.524
+BALANCE_TABLE beats left 3: at Long, full stamina v 4: 1.231; having given ground twice v none: -0.314; Mid 1.729; Inside 1.521
+BALANCE_TABLE beats left 4: at Long, full stamina v 4: 1.298; having given ground twice v none: -0.269; Mid 1.777; Inside 1.548
+BALANCE_TABLE beats left 5: at Long, full stamina v 4: 1.286; having given ground twice v none: -0.276; Mid 1.775; Inside 1.551
+BALANCE_TABLE beats left 6: at Long, full stamina v 4: 1.279; having given ground twice v none: -0.282; Mid 1.768; Inside 1.551
+BALANCE_TABLE wrote E:/FightCamp/wt_tmp/RULES569/p2.vt.json in 5391 s
+EXIT 0

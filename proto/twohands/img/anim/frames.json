@@ -5532,7 +5532,16 @@
     0.5
    ],
    "contact": -1,
-   "clip": "hold_check"
+   "clip": "hold_check",
+   "masks": [
+    "blue_check_0_mask.png",
+    "blue_check_1_mask.png",
+    "blue_check_2_mask.png",
+    "blue_check_3_mask.png",
+    "blue_check_4_mask.png",
+    "blue_check_5_mask.png",
+    "blue_check_6_mask.png"
+   ]
   },
   "blue_low_kick_blocked": {
    "files": [
@@ -5563,6 +5572,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "blue_low_kick_blocked_0_mask.png",
+    "blue_low_kick_blocked_1_mask.png",
+    "blue_low_kick_blocked_2_mask.png",
+    "blue_low_kick_blocked_3_mask.png",
+    "blue_low_kick_blocked_4_mask.png",
+    "blue_low_kick_blocked_5_mask.png",
+    "blue_low_kick_blocked_6_mask.png",
+    "blue_low_kick_blocked_7_mask.png",
+    "blue_low_kick_blocked_8_mask.png",
+    "blue_low_kick_blocked_9_mask.png",
+    "blue_low_kick_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.455,
@@ -5598,6 +5620,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "blue_low_kick_landed_0_mask.png",
+    "blue_low_kick_landed_1_mask.png",
+    "blue_low_kick_landed_2_mask.png",
+    "blue_low_kick_landed_3_mask.png",
+    "blue_low_kick_landed_4_mask.png",
+    "blue_low_kick_landed_5_mask.png",
+    "blue_low_kick_landed_6_mask.png",
+    "blue_low_kick_landed_7_mask.png",
+    "blue_low_kick_landed_8_mask.png",
+    "blue_low_kick_landed_9_mask.png",
+    "blue_low_kick_landed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.411,
@@ -5633,6 +5668,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "blue_teep_blocked_0_mask.png",
+    "blue_teep_blocked_1_mask.png",
+    "blue_teep_blocked_2_mask.png",
+    "blue_teep_blocked_3_mask.png",
+    "blue_teep_blocked_4_mask.png",
+    "blue_teep_blocked_5_mask.png",
+    "blue_teep_blocked_6_mask.png",
+    "blue_teep_blocked_7_mask.png",
+    "blue_teep_blocked_8_mask.png",
+    "blue_teep_blocked_9_mask.png",
+    "blue_teep_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.39,
@@ -5668,6 +5716,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "blue_teep_landed_0_mask.png",
+    "blue_teep_landed_1_mask.png",
+    "blue_teep_landed_2_mask.png",
+    "blue_teep_landed_3_mask.png",
+    "blue_teep_landed_4_mask.png",
+    "blue_teep_landed_5_mask.png",
+    "blue_teep_landed_6_mask.png",
+    "blue_teep_landed_7_mask.png",
+    "blue_teep_landed_8_mask.png",
+    "blue_teep_landed_9_mask.png",
+    "blue_teep_landed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.374,
@@ -5703,6 +5764,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "blue_teep_missed_0_mask.png",
+    "blue_teep_missed_1_mask.png",
+    "blue_teep_missed_2_mask.png",
+    "blue_teep_missed_3_mask.png",
+    "blue_teep_missed_4_mask.png",
+    "blue_teep_missed_5_mask.png",
+    "blue_teep_missed_6_mask.png",
+    "blue_teep_missed_7_mask.png",
+    "blue_teep_missed_8_mask.png",
+    "blue_teep_missed_9_mask.png",
+    "blue_teep_missed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.374,
@@ -5729,7 +5803,16 @@
     0.5
    ],
    "contact": -1,
-   "clip": "hold_check"
+   "clip": "hold_check",
+   "masks": [
+    "red_check_0_mask.png",
+    "red_check_1_mask.png",
+    "red_check_2_mask.png",
+    "red_check_3_mask.png",
+    "red_check_4_mask.png",
+    "red_check_5_mask.png",
+    "red_check_6_mask.png"
+   ]
   },
   "red_low_kick_blocked": {
    "files": [
@@ -5760,6 +5843,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "red_low_kick_blocked_0_mask.png",
+    "red_low_kick_blocked_1_mask.png",
+    "red_low_kick_blocked_2_mask.png",
+    "red_low_kick_blocked_3_mask.png",
+    "red_low_kick_blocked_4_mask.png",
+    "red_low_kick_blocked_5_mask.png",
+    "red_low_kick_blocked_6_mask.png",
+    "red_low_kick_blocked_7_mask.png",
+    "red_low_kick_blocked_8_mask.png",
+    "red_low_kick_blocked_9_mask.png",
+    "red_low_kick_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.649,
@@ -5795,6 +5891,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "red_low_kick_landed_0_mask.png",
+    "red_low_kick_landed_1_mask.png",
+    "red_low_kick_landed_2_mask.png",
+    "red_low_kick_landed_3_mask.png",
+    "red_low_kick_landed_4_mask.png",
+    "red_low_kick_landed_5_mask.png",
+    "red_low_kick_landed_6_mask.png",
+    "red_low_kick_landed_7_mask.png",
+    "red_low_kick_landed_8_mask.png",
+    "red_low_kick_landed_9_mask.png",
+    "red_low_kick_landed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.686,
@@ -5830,6 +5939,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "red_teep_blocked_0_mask.png",
+    "red_teep_blocked_1_mask.png",
+    "red_teep_blocked_2_mask.png",
+    "red_teep_blocked_3_mask.png",
+    "red_teep_blocked_4_mask.png",
+    "red_teep_blocked_5_mask.png",
+    "red_teep_blocked_6_mask.png",
+    "red_teep_blocked_7_mask.png",
+    "red_teep_blocked_8_mask.png",
+    "red_teep_blocked_9_mask.png",
+    "red_teep_blocked_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.712,
@@ -5865,6 +5987,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "red_teep_landed_0_mask.png",
+    "red_teep_landed_1_mask.png",
+    "red_teep_landed_2_mask.png",
+    "red_teep_landed_3_mask.png",
+    "red_teep_landed_4_mask.png",
+    "red_teep_landed_5_mask.png",
+    "red_teep_landed_6_mask.png",
+    "red_teep_landed_7_mask.png",
+    "red_teep_landed_8_mask.png",
+    "red_teep_landed_9_mask.png",
+    "red_teep_landed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.739,
@@ -5900,6 +6035,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "blue_low_kick_missed_0_mask.png",
+    "blue_low_kick_missed_1_mask.png",
+    "blue_low_kick_missed_2_mask.png",
+    "blue_low_kick_missed_3_mask.png",
+    "blue_low_kick_missed_4_mask.png",
+    "blue_low_kick_missed_5_mask.png",
+    "blue_low_kick_missed_6_mask.png",
+    "blue_low_kick_missed_7_mask.png",
+    "blue_low_kick_missed_8_mask.png",
+    "blue_low_kick_missed_9_mask.png",
+    "blue_low_kick_missed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.411,
@@ -6008,6 +6156,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "red_teep_missed_0_mask.png",
+    "red_teep_missed_1_mask.png",
+    "red_teep_missed_2_mask.png",
+    "red_teep_missed_3_mask.png",
+    "red_teep_missed_4_mask.png",
+    "red_teep_missed_5_mask.png",
+    "red_teep_missed_6_mask.png",
+    "red_teep_missed_7_mask.png",
+    "red_teep_missed_8_mask.png",
+    "red_teep_missed_9_mask.png",
+    "red_teep_missed_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.739,
@@ -6075,6 +6236,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_slipped_0_mask.png",
+    "blue_jab_slipped_1_mask.png",
+    "blue_jab_slipped_2_mask.png",
+    "blue_jab_slipped_3_mask.png",
+    "blue_jab_slipped_4_mask.png",
+    "blue_jab_slipped_5_mask.png",
+    "blue_jab_slipped_6_mask.png",
+    "blue_jab_slipped_7_mask.png",
+    "blue_jab_slipped_8_mask.png",
+    "blue_jab_slipped_9_mask.png",
+    "blue_jab_slipped_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.35,
@@ -6103,7 +6277,17 @@
     0.86
    ],
    "contact": -1,
-   "clip": "st_in_m"
+   "clip": "st_in_m",
+   "masks": [
+    "blue_slip_in_0_mask.png",
+    "blue_slip_in_1_mask.png",
+    "blue_slip_in_2_mask.png",
+    "blue_slip_in_3_mask.png",
+    "blue_slip_in_4_mask.png",
+    "blue_slip_in_5_mask.png",
+    "blue_slip_in_6_mask.png",
+    "blue_slip_in_7_mask.png"
+   ]
   },
   "blue_slip_in_r1": {
    "files": [
@@ -6127,7 +6311,17 @@
     0.86
    ],
    "contact": -1,
-   "clip": "st_in_m"
+   "clip": "st_in_m",
+   "masks": [
+    "blue_slip_in_r1_0_mask.png",
+    "blue_slip_in_r1_1_mask.png",
+    "blue_slip_in_r1_2_mask.png",
+    "blue_slip_in_r1_3_mask.png",
+    "blue_slip_in_r1_4_mask.png",
+    "blue_slip_in_r1_5_mask.png",
+    "blue_slip_in_r1_6_mask.png",
+    "blue_slip_in_r1_7_mask.png"
+   ]
   },
   "blue_slip_in_r2": {
    "files": [
@@ -6151,7 +6345,17 @@
     0.86
    ],
    "contact": -1,
-   "clip": "st_in_m"
+   "clip": "st_in_m",
+   "masks": [
+    "blue_slip_in_r2_0_mask.png",
+    "blue_slip_in_r2_1_mask.png",
+    "blue_slip_in_r2_2_mask.png",
+    "blue_slip_in_r2_3_mask.png",
+    "blue_slip_in_r2_4_mask.png",
+    "blue_slip_in_r2_5_mask.png",
+    "blue_slip_in_r2_6_mask.png",
+    "blue_slip_in_r2_7_mask.png"
+   ]
   },
   "red_cross_slipped": {
    "files": [
@@ -6214,6 +6418,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_slipped_0_mask.png",
+    "red_jab_slipped_1_mask.png",
+    "red_jab_slipped_2_mask.png",
+    "red_jab_slipped_3_mask.png",
+    "red_jab_slipped_4_mask.png",
+    "red_jab_slipped_5_mask.png",
+    "red_jab_slipped_6_mask.png",
+    "red_jab_slipped_7_mask.png",
+    "red_jab_slipped_8_mask.png",
+    "red_jab_slipped_9_mask.png",
+    "red_jab_slipped_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.75,
@@ -6242,7 +6459,17 @@
     0.86
    ],
    "contact": -1,
-   "clip": "st_in_m"
+   "clip": "st_in_m",
+   "masks": [
+    "red_slip_in_0_mask.png",
+    "red_slip_in_1_mask.png",
+    "red_slip_in_2_mask.png",
+    "red_slip_in_3_mask.png",
+    "red_slip_in_4_mask.png",
+    "red_slip_in_5_mask.png",
+    "red_slip_in_6_mask.png",
+    "red_slip_in_7_mask.png"
+   ]
   },
   "red_slip_in_r1": {
    "files": [
@@ -6266,7 +6493,17 @@
     0.86
    ],
    "contact": -1,
-   "clip": "st_in_m"
+   "clip": "st_in_m",
+   "masks": [
+    "red_slip_in_r1_0_mask.png",
+    "red_slip_in_r1_1_mask.png",
+    "red_slip_in_r1_2_mask.png",
+    "red_slip_in_r1_3_mask.png",
+    "red_slip_in_r1_4_mask.png",
+    "red_slip_in_r1_5_mask.png",
+    "red_slip_in_r1_6_mask.png",
+    "red_slip_in_r1_7_mask.png"
+   ]
   },
   "red_slip_in_r2": {
    "files": [
@@ -6290,7 +6527,17 @@
     0.86
    ],
    "contact": -1,
-   "clip": "st_in_m"
+   "clip": "st_in_m",
+   "masks": [
+    "red_slip_in_r2_0_mask.png",
+    "red_slip_in_r2_1_mask.png",
+    "red_slip_in_r2_2_mask.png",
+    "red_slip_in_r2_3_mask.png",
+    "red_slip_in_r2_4_mask.png",
+    "red_slip_in_r2_5_mask.png",
+    "red_slip_in_r2_6_mask.png",
+    "red_slip_in_r2_7_mask.png"
+   ]
   },
   "blue_cross_leaned": {
    "files": [
@@ -6355,6 +6602,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_leaned_0_mask.png",
+    "blue_jab_leaned_1_mask.png",
+    "blue_jab_leaned_2_mask.png",
+    "blue_jab_leaned_3_mask.png",
+    "blue_jab_leaned_4_mask.png",
+    "blue_jab_leaned_5_mask.png",
+    "blue_jab_leaned_6_mask.png",
+    "blue_jab_leaned_7_mask.png",
+    "blue_jab_leaned_8_mask.png",
+    "blue_jab_leaned_9_mask.png",
+    "blue_jab_leaned_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.436,
@@ -6560,6 +6820,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_leaned_0_mask.png",
+    "red_jab_leaned_1_mask.png",
+    "red_jab_leaned_2_mask.png",
+    "red_jab_leaned_3_mask.png",
+    "red_jab_leaned_4_mask.png",
+    "red_jab_leaned_5_mask.png",
+    "red_jab_leaned_6_mask.png",
+    "red_jab_leaned_7_mask.png",
+    "red_jab_leaned_8_mask.png",
+    "red_jab_leaned_9_mask.png",
+    "red_jab_leaned_10_mask.png"
+   ],
    "range": 3,
    "hit": [
     0.665,
@@ -12137,6 +12410,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_leaned_r2_0_mask.png",
+    "blue_cross_leaned_r2_1_mask.png",
+    "blue_cross_leaned_r2_2_mask.png",
+    "blue_cross_leaned_r2_3_mask.png",
+    "blue_cross_leaned_r2_4_mask.png",
+    "blue_cross_leaned_r2_5_mask.png",
+    "blue_cross_leaned_r2_6_mask.png",
+    "blue_cross_leaned_r2_7_mask.png",
+    "blue_cross_leaned_r2_8_mask.png",
+    "blue_cross_leaned_r2_9_mask.png",
+    "blue_cross_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.435,
@@ -12170,6 +12456,18 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_slipped_r2_0_mask.png",
+    "blue_cross_slipped_r2_1_mask.png",
+    "blue_cross_slipped_r2_2_mask.png",
+    "blue_cross_slipped_r2_3_mask.png",
+    "blue_cross_slipped_r2_4_mask.png",
+    "blue_cross_slipped_r2_5_mask.png",
+    "blue_cross_slipped_r2_6_mask.png",
+    "blue_cross_slipped_r2_7_mask.png",
+    "blue_cross_slipped_r2_8_mask.png",
+    "blue_cross_slipped_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.349,
@@ -12205,6 +12503,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_leaned_r2_0_mask.png",
+    "blue_jab_leaned_r2_1_mask.png",
+    "blue_jab_leaned_r2_2_mask.png",
+    "blue_jab_leaned_r2_3_mask.png",
+    "blue_jab_leaned_r2_4_mask.png",
+    "blue_jab_leaned_r2_5_mask.png",
+    "blue_jab_leaned_r2_6_mask.png",
+    "blue_jab_leaned_r2_7_mask.png",
+    "blue_jab_leaned_r2_8_mask.png",
+    "blue_jab_leaned_r2_9_mask.png",
+    "blue_jab_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.436,
@@ -12240,6 +12551,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "blue_jab_slipped_r2_0_mask.png",
+    "blue_jab_slipped_r2_1_mask.png",
+    "blue_jab_slipped_r2_2_mask.png",
+    "blue_jab_slipped_r2_3_mask.png",
+    "blue_jab_slipped_r2_4_mask.png",
+    "blue_jab_slipped_r2_5_mask.png",
+    "blue_jab_slipped_r2_6_mask.png",
+    "blue_jab_slipped_r2_7_mask.png",
+    "blue_jab_slipped_r2_8_mask.png",
+    "blue_jab_slipped_r2_9_mask.png",
+    "blue_jab_slipped_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.35,
@@ -12275,6 +12599,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_leaned_r2_0_mask.png",
+    "blue_lead_hook_leaned_r2_1_mask.png",
+    "blue_lead_hook_leaned_r2_2_mask.png",
+    "blue_lead_hook_leaned_r2_3_mask.png",
+    "blue_lead_hook_leaned_r2_4_mask.png",
+    "blue_lead_hook_leaned_r2_5_mask.png",
+    "blue_lead_hook_leaned_r2_6_mask.png",
+    "blue_lead_hook_leaned_r2_7_mask.png",
+    "blue_lead_hook_leaned_r2_8_mask.png",
+    "blue_lead_hook_leaned_r2_9_mask.png",
+    "blue_lead_hook_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.438,
@@ -12310,6 +12647,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_rolled_r2_0_mask.png",
+    "blue_lead_hook_rolled_r2_1_mask.png",
+    "blue_lead_hook_rolled_r2_2_mask.png",
+    "blue_lead_hook_rolled_r2_3_mask.png",
+    "blue_lead_hook_rolled_r2_4_mask.png",
+    "blue_lead_hook_rolled_r2_5_mask.png",
+    "blue_lead_hook_rolled_r2_6_mask.png",
+    "blue_lead_hook_rolled_r2_7_mask.png",
+    "blue_lead_hook_rolled_r2_8_mask.png",
+    "blue_lead_hook_rolled_r2_9_mask.png",
+    "blue_lead_hook_rolled_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.361,
@@ -12345,6 +12695,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_overhand_leaned_r2_0_mask.png",
+    "blue_overhand_leaned_r2_1_mask.png",
+    "blue_overhand_leaned_r2_2_mask.png",
+    "blue_overhand_leaned_r2_3_mask.png",
+    "blue_overhand_leaned_r2_4_mask.png",
+    "blue_overhand_leaned_r2_5_mask.png",
+    "blue_overhand_leaned_r2_6_mask.png",
+    "blue_overhand_leaned_r2_7_mask.png",
+    "blue_overhand_leaned_r2_8_mask.png",
+    "blue_overhand_leaned_r2_9_mask.png",
+    "blue_overhand_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.444,
@@ -12380,6 +12743,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_overhand_rolled_r2_0_mask.png",
+    "blue_overhand_rolled_r2_1_mask.png",
+    "blue_overhand_rolled_r2_2_mask.png",
+    "blue_overhand_rolled_r2_3_mask.png",
+    "blue_overhand_rolled_r2_4_mask.png",
+    "blue_overhand_rolled_r2_5_mask.png",
+    "blue_overhand_rolled_r2_6_mask.png",
+    "blue_overhand_rolled_r2_7_mask.png",
+    "blue_overhand_rolled_r2_8_mask.png",
+    "blue_overhand_rolled_r2_9_mask.png",
+    "blue_overhand_rolled_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.367,
@@ -12415,6 +12791,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_leaned_r2_0_mask.png",
+    "red_cross_leaned_r2_1_mask.png",
+    "red_cross_leaned_r2_2_mask.png",
+    "red_cross_leaned_r2_3_mask.png",
+    "red_cross_leaned_r2_4_mask.png",
+    "red_cross_leaned_r2_5_mask.png",
+    "red_cross_leaned_r2_6_mask.png",
+    "red_cross_leaned_r2_7_mask.png",
+    "red_cross_leaned_r2_8_mask.png",
+    "red_cross_leaned_r2_9_mask.png",
+    "red_cross_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.662,
@@ -12448,6 +12837,18 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_slipped_r2_0_mask.png",
+    "red_cross_slipped_r2_1_mask.png",
+    "red_cross_slipped_r2_2_mask.png",
+    "red_cross_slipped_r2_3_mask.png",
+    "red_cross_slipped_r2_4_mask.png",
+    "red_cross_slipped_r2_5_mask.png",
+    "red_cross_slipped_r2_6_mask.png",
+    "red_cross_slipped_r2_7_mask.png",
+    "red_cross_slipped_r2_8_mask.png",
+    "red_cross_slipped_r2_9_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.748,
@@ -12483,6 +12884,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_leaned_r2_0_mask.png",
+    "red_jab_leaned_r2_1_mask.png",
+    "red_jab_leaned_r2_2_mask.png",
+    "red_jab_leaned_r2_3_mask.png",
+    "red_jab_leaned_r2_4_mask.png",
+    "red_jab_leaned_r2_5_mask.png",
+    "red_jab_leaned_r2_6_mask.png",
+    "red_jab_leaned_r2_7_mask.png",
+    "red_jab_leaned_r2_8_mask.png",
+    "red_jab_leaned_r2_9_mask.png",
+    "red_jab_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.665,
@@ -12518,6 +12932,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_jab",
+   "masks": [
+    "red_jab_slipped_r2_0_mask.png",
+    "red_jab_slipped_r2_1_mask.png",
+    "red_jab_slipped_r2_2_mask.png",
+    "red_jab_slipped_r2_3_mask.png",
+    "red_jab_slipped_r2_4_mask.png",
+    "red_jab_slipped_r2_5_mask.png",
+    "red_jab_slipped_r2_6_mask.png",
+    "red_jab_slipped_r2_7_mask.png",
+    "red_jab_slipped_r2_8_mask.png",
+    "red_jab_slipped_r2_9_mask.png",
+    "red_jab_slipped_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.75,
@@ -12553,6 +12980,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_leaned_r2_0_mask.png",
+    "red_lead_hook_leaned_r2_1_mask.png",
+    "red_lead_hook_leaned_r2_2_mask.png",
+    "red_lead_hook_leaned_r2_3_mask.png",
+    "red_lead_hook_leaned_r2_4_mask.png",
+    "red_lead_hook_leaned_r2_5_mask.png",
+    "red_lead_hook_leaned_r2_6_mask.png",
+    "red_lead_hook_leaned_r2_7_mask.png",
+    "red_lead_hook_leaned_r2_8_mask.png",
+    "red_lead_hook_leaned_r2_9_mask.png",
+    "red_lead_hook_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.664,
@@ -12588,6 +13028,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_rolled_r2_0_mask.png",
+    "red_lead_hook_rolled_r2_1_mask.png",
+    "red_lead_hook_rolled_r2_2_mask.png",
+    "red_lead_hook_rolled_r2_3_mask.png",
+    "red_lead_hook_rolled_r2_4_mask.png",
+    "red_lead_hook_rolled_r2_5_mask.png",
+    "red_lead_hook_rolled_r2_6_mask.png",
+    "red_lead_hook_rolled_r2_7_mask.png",
+    "red_lead_hook_rolled_r2_8_mask.png",
+    "red_lead_hook_rolled_r2_9_mask.png",
+    "red_lead_hook_rolled_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.741,
@@ -12623,6 +13076,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_overhand_leaned_r2_0_mask.png",
+    "red_overhand_leaned_r2_1_mask.png",
+    "red_overhand_leaned_r2_2_mask.png",
+    "red_overhand_leaned_r2_3_mask.png",
+    "red_overhand_leaned_r2_4_mask.png",
+    "red_overhand_leaned_r2_5_mask.png",
+    "red_overhand_leaned_r2_6_mask.png",
+    "red_overhand_leaned_r2_7_mask.png",
+    "red_overhand_leaned_r2_8_mask.png",
+    "red_overhand_leaned_r2_9_mask.png",
+    "red_overhand_leaned_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.661,
@@ -12658,6 +13124,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_overhand_rolled_r2_0_mask.png",
+    "red_overhand_rolled_r2_1_mask.png",
+    "red_overhand_rolled_r2_2_mask.png",
+    "red_overhand_rolled_r2_3_mask.png",
+    "red_overhand_rolled_r2_4_mask.png",
+    "red_overhand_rolled_r2_5_mask.png",
+    "red_overhand_rolled_r2_6_mask.png",
+    "red_overhand_rolled_r2_7_mask.png",
+    "red_overhand_rolled_r2_8_mask.png",
+    "red_overhand_rolled_r2_9_mask.png",
+    "red_overhand_rolled_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.736,
@@ -12693,6 +13172,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "blue_low_kick_blocked_r2_0_mask.png",
+    "blue_low_kick_blocked_r2_1_mask.png",
+    "blue_low_kick_blocked_r2_2_mask.png",
+    "blue_low_kick_blocked_r2_3_mask.png",
+    "blue_low_kick_blocked_r2_4_mask.png",
+    "blue_low_kick_blocked_r2_5_mask.png",
+    "blue_low_kick_blocked_r2_6_mask.png",
+    "blue_low_kick_blocked_r2_7_mask.png",
+    "blue_low_kick_blocked_r2_8_mask.png",
+    "blue_low_kick_blocked_r2_9_mask.png",
+    "blue_low_kick_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.455,
@@ -12728,6 +13220,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "blue_low_kick_landed_r2_0_mask.png",
+    "blue_low_kick_landed_r2_1_mask.png",
+    "blue_low_kick_landed_r2_2_mask.png",
+    "blue_low_kick_landed_r2_3_mask.png",
+    "blue_low_kick_landed_r2_4_mask.png",
+    "blue_low_kick_landed_r2_5_mask.png",
+    "blue_low_kick_landed_r2_6_mask.png",
+    "blue_low_kick_landed_r2_7_mask.png",
+    "blue_low_kick_landed_r2_8_mask.png",
+    "blue_low_kick_landed_r2_9_mask.png",
+    "blue_low_kick_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.411,
@@ -12763,6 +13268,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "blue_low_kick_missed_r2_0_mask.png",
+    "blue_low_kick_missed_r2_1_mask.png",
+    "blue_low_kick_missed_r2_2_mask.png",
+    "blue_low_kick_missed_r2_3_mask.png",
+    "blue_low_kick_missed_r2_4_mask.png",
+    "blue_low_kick_missed_r2_5_mask.png",
+    "blue_low_kick_missed_r2_6_mask.png",
+    "blue_low_kick_missed_r2_7_mask.png",
+    "blue_low_kick_missed_r2_8_mask.png",
+    "blue_low_kick_missed_r2_9_mask.png",
+    "blue_low_kick_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.411,
@@ -12798,6 +13316,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "blue_teep_blocked_r2_0_mask.png",
+    "blue_teep_blocked_r2_1_mask.png",
+    "blue_teep_blocked_r2_2_mask.png",
+    "blue_teep_blocked_r2_3_mask.png",
+    "blue_teep_blocked_r2_4_mask.png",
+    "blue_teep_blocked_r2_5_mask.png",
+    "blue_teep_blocked_r2_6_mask.png",
+    "blue_teep_blocked_r2_7_mask.png",
+    "blue_teep_blocked_r2_8_mask.png",
+    "blue_teep_blocked_r2_9_mask.png",
+    "blue_teep_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.39,
@@ -12833,6 +13364,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "blue_teep_landed_r2_0_mask.png",
+    "blue_teep_landed_r2_1_mask.png",
+    "blue_teep_landed_r2_2_mask.png",
+    "blue_teep_landed_r2_3_mask.png",
+    "blue_teep_landed_r2_4_mask.png",
+    "blue_teep_landed_r2_5_mask.png",
+    "blue_teep_landed_r2_6_mask.png",
+    "blue_teep_landed_r2_7_mask.png",
+    "blue_teep_landed_r2_8_mask.png",
+    "blue_teep_landed_r2_9_mask.png",
+    "blue_teep_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.374,
@@ -12868,6 +13412,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "blue_teep_missed_r2_0_mask.png",
+    "blue_teep_missed_r2_1_mask.png",
+    "blue_teep_missed_r2_2_mask.png",
+    "blue_teep_missed_r2_3_mask.png",
+    "blue_teep_missed_r2_4_mask.png",
+    "blue_teep_missed_r2_5_mask.png",
+    "blue_teep_missed_r2_6_mask.png",
+    "blue_teep_missed_r2_7_mask.png",
+    "blue_teep_missed_r2_8_mask.png",
+    "blue_teep_missed_r2_9_mask.png",
+    "blue_teep_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.374,
@@ -12903,6 +13460,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "red_low_kick_blocked_r2_0_mask.png",
+    "red_low_kick_blocked_r2_1_mask.png",
+    "red_low_kick_blocked_r2_2_mask.png",
+    "red_low_kick_blocked_r2_3_mask.png",
+    "red_low_kick_blocked_r2_4_mask.png",
+    "red_low_kick_blocked_r2_5_mask.png",
+    "red_low_kick_blocked_r2_6_mask.png",
+    "red_low_kick_blocked_r2_7_mask.png",
+    "red_low_kick_blocked_r2_8_mask.png",
+    "red_low_kick_blocked_r2_9_mask.png",
+    "red_low_kick_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.649,
@@ -12938,6 +13508,19 @@
    ],
    "contact": 5,
    "clip": "kick_low_kick",
+   "masks": [
+    "red_low_kick_landed_r2_0_mask.png",
+    "red_low_kick_landed_r2_1_mask.png",
+    "red_low_kick_landed_r2_2_mask.png",
+    "red_low_kick_landed_r2_3_mask.png",
+    "red_low_kick_landed_r2_4_mask.png",
+    "red_low_kick_landed_r2_5_mask.png",
+    "red_low_kick_landed_r2_6_mask.png",
+    "red_low_kick_landed_r2_7_mask.png",
+    "red_low_kick_landed_r2_8_mask.png",
+    "red_low_kick_landed_r2_9_mask.png",
+    "red_low_kick_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.686,
@@ -12973,6 +13556,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "red_teep_blocked_r2_0_mask.png",
+    "red_teep_blocked_r2_1_mask.png",
+    "red_teep_blocked_r2_2_mask.png",
+    "red_teep_blocked_r2_3_mask.png",
+    "red_teep_blocked_r2_4_mask.png",
+    "red_teep_blocked_r2_5_mask.png",
+    "red_teep_blocked_r2_6_mask.png",
+    "red_teep_blocked_r2_7_mask.png",
+    "red_teep_blocked_r2_8_mask.png",
+    "red_teep_blocked_r2_9_mask.png",
+    "red_teep_blocked_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.712,
@@ -13008,6 +13604,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "red_teep_landed_r2_0_mask.png",
+    "red_teep_landed_r2_1_mask.png",
+    "red_teep_landed_r2_2_mask.png",
+    "red_teep_landed_r2_3_mask.png",
+    "red_teep_landed_r2_4_mask.png",
+    "red_teep_landed_r2_5_mask.png",
+    "red_teep_landed_r2_6_mask.png",
+    "red_teep_landed_r2_7_mask.png",
+    "red_teep_landed_r2_8_mask.png",
+    "red_teep_landed_r2_9_mask.png",
+    "red_teep_landed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.739,
@@ -13043,6 +13652,19 @@
    ],
    "contact": 6,
    "clip": "kick_teep",
+   "masks": [
+    "red_teep_missed_r2_0_mask.png",
+    "red_teep_missed_r2_1_mask.png",
+    "red_teep_missed_r2_2_mask.png",
+    "red_teep_missed_r2_3_mask.png",
+    "red_teep_missed_r2_4_mask.png",
+    "red_teep_missed_r2_5_mask.png",
+    "red_teep_missed_r2_6_mask.png",
+    "red_teep_missed_r2_7_mask.png",
+    "red_teep_missed_r2_8_mask.png",
+    "red_teep_missed_r2_9_mask.png",
+    "red_teep_missed_r2_10_mask.png"
+   ],
    "range": 2,
    "hit": [
     0.739,
@@ -13076,6 +13698,18 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "blue_cross_slipped_r1_0_mask.png",
+    "blue_cross_slipped_r1_1_mask.png",
+    "blue_cross_slipped_r1_2_mask.png",
+    "blue_cross_slipped_r1_3_mask.png",
+    "blue_cross_slipped_r1_4_mask.png",
+    "blue_cross_slipped_r1_5_mask.png",
+    "blue_cross_slipped_r1_6_mask.png",
+    "blue_cross_slipped_r1_7_mask.png",
+    "blue_cross_slipped_r1_8_mask.png",
+    "blue_cross_slipped_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.349,
@@ -13111,6 +13745,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "blue_lead_hook_rolled_r1_0_mask.png",
+    "blue_lead_hook_rolled_r1_1_mask.png",
+    "blue_lead_hook_rolled_r1_2_mask.png",
+    "blue_lead_hook_rolled_r1_3_mask.png",
+    "blue_lead_hook_rolled_r1_4_mask.png",
+    "blue_lead_hook_rolled_r1_5_mask.png",
+    "blue_lead_hook_rolled_r1_6_mask.png",
+    "blue_lead_hook_rolled_r1_7_mask.png",
+    "blue_lead_hook_rolled_r1_8_mask.png",
+    "blue_lead_hook_rolled_r1_9_mask.png",
+    "blue_lead_hook_rolled_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.361,
@@ -13146,6 +13793,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "blue_overhand_rolled_r1_0_mask.png",
+    "blue_overhand_rolled_r1_1_mask.png",
+    "blue_overhand_rolled_r1_2_mask.png",
+    "blue_overhand_rolled_r1_3_mask.png",
+    "blue_overhand_rolled_r1_4_mask.png",
+    "blue_overhand_rolled_r1_5_mask.png",
+    "blue_overhand_rolled_r1_6_mask.png",
+    "blue_overhand_rolled_r1_7_mask.png",
+    "blue_overhand_rolled_r1_8_mask.png",
+    "blue_overhand_rolled_r1_9_mask.png",
+    "blue_overhand_rolled_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.367,
@@ -13179,6 +13839,18 @@
    ],
    "contact": 5,
    "clip": "pro_right_cross",
+   "masks": [
+    "red_cross_slipped_r1_0_mask.png",
+    "red_cross_slipped_r1_1_mask.png",
+    "red_cross_slipped_r1_2_mask.png",
+    "red_cross_slipped_r1_3_mask.png",
+    "red_cross_slipped_r1_4_mask.png",
+    "red_cross_slipped_r1_5_mask.png",
+    "red_cross_slipped_r1_6_mask.png",
+    "red_cross_slipped_r1_7_mask.png",
+    "red_cross_slipped_r1_8_mask.png",
+    "red_cross_slipped_r1_9_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.748,
@@ -13214,6 +13886,19 @@
    ],
    "contact": 6,
    "clip": "pro_left_hook_ft",
+   "masks": [
+    "red_lead_hook_rolled_r1_0_mask.png",
+    "red_lead_hook_rolled_r1_1_mask.png",
+    "red_lead_hook_rolled_r1_2_mask.png",
+    "red_lead_hook_rolled_r1_3_mask.png",
+    "red_lead_hook_rolled_r1_4_mask.png",
+    "red_lead_hook_rolled_r1_5_mask.png",
+    "red_lead_hook_rolled_r1_6_mask.png",
+    "red_lead_hook_rolled_r1_7_mask.png",
+    "red_lead_hook_rolled_r1_8_mask.png",
+    "red_lead_hook_rolled_r1_9_mask.png",
+    "red_lead_hook_rolled_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.741,
@@ -13249,6 +13934,19 @@
    ],
    "contact": 6,
    "clip": "pro_right_hook_ft",
+   "masks": [
+    "red_overhand_rolled_r1_0_mask.png",
+    "red_overhand_rolled_r1_1_mask.png",
+    "red_overhand_rolled_r1_2_mask.png",
+    "red_overhand_rolled_r1_3_mask.png",
+    "red_overhand_rolled_r1_4_mask.png",
+    "red_overhand_rolled_r1_5_mask.png",
+    "red_overhand_rolled_r1_6_mask.png",
+    "red_overhand_rolled_r1_7_mask.png",
+    "red_overhand_rolled_r1_8_mask.png",
+    "red_overhand_rolled_r1_9_mask.png",
+    "red_overhand_rolled_r1_10_mask.png"
+   ],
    "range": 1,
    "hit": [
     0.736,

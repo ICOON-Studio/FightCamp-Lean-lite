@@ -35,7 +35,6 @@
     const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = metresOf(im.getAttribute('src'));
     SX = -m * CAM.axis_px[0] * k; SY = m * CAM.axis_px[1] * k;   /* the picture is drawn mirrored: its +x is the screen's -x */
     im.style.translate = SX || SY ? `${SX.toFixed(1)}px ${SY.toFixed(1)}px` : ''; }
-  const holdSlide = () => { if (!CAM || !CAM.axis_px) return [0, 0]; const k = st.clientHeight * 1.26 / (CAM.render_px || 768), m = redM; return [-m * CAM.axis_px[0] * k, m * CAM.axis_px[1] * k]; };
   new MutationObserver(slide).observe(im, { attributes: true, attributeFilter: ['src'] });   /* runs before the frame is painted */
   const fit = () => { const t = 3 - (range || 3); redIn = Math.max(-2, Math.min(2, redIn)); blueIn = t - redIn; blueM = RANGE_M[range || 3] - redM; };   /* the range is the truth: blue takes up what the counts (and the metres) missed */
   /* S562 GLIDE1 (owner: "the distance between fighters is not consistant when clips play, it gets reset when some clip
@@ -113,17 +112,10 @@
   window.ringSpots = (v) => { if (!v) return [redIn, blueIn, redM, blueM]; [redIn, blueIn, redM, blueM] = v; slide(); };   /* S567: the round replay starts both men on their spots and puts them back where they stood */
   window.ringSlide = () => ({ redIn, blueIn, redM, blueM, range, sx: SX, sy: SY, pic: (im.getAttribute('src') || '').split('/').pop() });   // read by the browser check
   // ---- 1. the distance on the floor (S559 v2, owner on the nested plates: "idonot understand this ,it is not symmetrical"):
-  // ONE bar between the two men's front toes at the range they are at, ticks at both toes, its length the real gap, the
-  // label in words. A range change slides it and flashes. Hover a switch: green if it reaches at this range, red if not.
-  // RENDERFIT1 (S559) re-measured on the owner's camera (raised 31 deg, 3.149 m wide; blue_both_high_high*_6, the lead
-  // boots' inner ends): red's front toe stays at 231 (red on his spot), blue's comes in one step (0.355 m = 54 px) a range;
-  // Inside the lead boots pass each other (they stand at different depths), so the gap is 0. 152.4 px a metre (the
-  // camera's axis_px 243.85 of the 768 render). The front toes sit at y 318 (red's) and 331 (blue's): the bar at 324.
-  const TOES = { 3: [231, 318], 2: [231, 264], 1: [231, 231] };   // [red front toe, blue front toe], x in the 480 px picture
-  const PX_M = 152.4, FLOOR = 324 / 480;
+  /* LAYERS1 (S572): the floor bar's geometry (TOES, PX_M, FLOOR, X, and holdSlide above) is gone - the bar has been hidden
+     since S562 and nothing read it; the ruler element below only carries the range badge in the ring's corner. */
   const ruler = document.createElement('div'); ruler.id = 'ruler'; st.appendChild(ruler);
   ruler.innerHTML = '<div class="gap"><i></i><i></i></div><div class="plabel"></div>';
-  const X = (u) => st.clientWidth / 2 + (0.5 - u) * st.clientHeight * 1.26 + holdSlide()[0];   /* RENDERFIT1: u in square-picture widths from its middle (a wide picture has the same middle and scale); TOES are the hold pictures', so the bar takes the HOLD's slide (red's metres in) whatever picture is up */
   /* S562 (owner on the Inside bar, two ticks and 'INSIDE toe to toe': "wtf is this ? what is th eplayer supposed to
      understadn from this ?"): a distance in cm tells the player nothing. The label says what LANDS at the range he is at
      (this page's own ACT reach table, so the kick page lists its kicks), and Inside, where the boots meet, has no bar. */

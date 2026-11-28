@@ -5,9 +5,9 @@
    frame's part mask) and the PAGE keeps his spot: red's feet at his guard spot + the metres he has come in (redM), blue's
    at his + blueM - the same numbers the page already keeps. A run only adds its own movement since its first frame
    (root[k] - root[0]), so the next run starts where the last one ended: no jump at a run boundary.
-   A run with no layers yet plays the old two-man picture as before. Without ?layers=1 this file does nothing. */
+   A run with no layers plays the old two-man picture as before. On by default since LAYERS1 (S572); ?layers=0 turns it off. */
 (() => {
-  if (!/[?&]layers=1\b/.test(location.search)) return;
+  if (/[?&]layers=0\b/.test(location.search)) return;   /* LAYERS1 (S572): ON by default; ?layers=0 keeps the old two-man pictures for one session */
   const st = document.getElementById('stage'), im = document.getElementById('pic');
   if (!st || !im) return;
   let L = null, FILE = {}, CANON = null;
@@ -28,7 +28,7 @@
   /* the blend between two runs (fighting games blend clips): where a run ends a little off its first frame (a bob's sway,
      a blocked jab left forward), the next run would start back on the spot - a jump. The gap is carried over and eased
      out over the next frames (x0.45 a frame: under 10% after three pictures). */
-  const last = { red: null, blue: null }, carry = { red: 0, blue: 0 }; let lastRun = '', runM = null;
+  const last = { red: null, blue: null }, carry = { red: 0, blue: 0 }; let lastRun = '', runM = null, runDev = 0;
   function draw() {
     if (!L || !CANON) return;
     const f = (im.getAttribute('src') || '').split('/').pop(), at = FILE[f];
@@ -39,9 +39,16 @@
        picture is still up, and done() moves the stepper's spot to the end of his step at once: read again on that last
        picture, the step was counted twice (a back off drew red 126 px too far on its last frame, then snapped back). */
     if (fresh || !runM) runM = inM(); const m = runM;
+    /* LAYERS1 (S572): the page's spots say where the PAIR stands; the render says how far apart the two men are. Each
+       run's first picture can read a few cm off the hold (his stance there is not the hold's: a kick's chamber, a hook's
+       set-up), and on the page that left a teep 0.15 m short of the belly or a low kick's shin through his leg. So the
+       gap between the page's spots and the run's own first gap is split between the two men for the whole run (at most
+       0.25 m) - the contact is the render's - and the blend at the run boundary eases it in like any other gap. */
+    if (fresh) { const r0b = rows[1].root[0], r0r = rows[0].root[0], gp = (CANON.blue - m.blue) - (CANON.red + m.red);
+      runDev = r0b != null && r0r != null ? Math.max(-0.25, Math.min(0.25, (r0b - r0r) - gp)) : 0; }
     ['red', 'blue'].forEach((side, i) => { const row = rows[i], e = lay[i], r0 = row.root[0], rk = row.root[Math.min(k, row.root.length - 1)];
       if (r0 == null || rk == null) { e.style.display = 'none'; return; }
-      const spot = side === 'red' ? CANON.red + m.red : CANON.blue - m.blue;   /* picture metres: red comes in toward +x, blue toward -x */
+      const spot = (side === 'red' ? CANON.red + m.red : CANON.blue - m.blue) + (side === 'red' ? -runDev / 2 : runDev / 2);   /* picture metres: red comes in toward +x, blue toward -x */
       let want = spot + (rk - r0);
       if (fresh && last[side] != null && Math.abs(last[side] - want) < 0.3) carry[side] = last[side] - want; else carry[side] *= 0.45;   /* a real step (0.3 m+) is not blended */
       want += carry[side]; last[side] = want; const dx = want - rk;            /* move this layer so his feet stand on `want` */
