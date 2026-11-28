@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Puncher's chance - the fight (v6.9 cards)</title>
+<!-- S575 (owner: "how will you fit the v6.9 to puncher chance interface ?" -> picked: the hand under the ring, its own page
+     first, a picture first (docs/mockups/s575/cardfight_hud.png) -> "ok look good build it"). The v6.9 card fight
+     (proto/octagon/table.mjs, the cup's rules) in the Puncher's Chance look, played in the ring with our pictures
+     (img/anim + one man per picture, img/layers via layers_ui.js). order.html is not touched. -->
+<style>
+:root{--bg:#151211;--panel:#221c18;--line:#43332a;--fg:#f2e9dd;--muted:#b7a595;--gold:#e3ab45;--red:#d9534a;--blue:#5f92d8;--green:#74bd7c;--A:#d9453b;--C:#3d7fd9;--F:#e3ab45;--D:#4caf6a}
+*{box-sizing:border-box}html,body{margin:0;height:100%}body{background:var(--bg);color:var(--fg);font:16px/1.3 "Segoe UI",system-ui,sans-serif;display:flex;flex-direction:column;min-height:100vh}
+select,button{font:inherit;color:var(--fg);background:#26201b;border:1px solid var(--line);border-radius:6px;padding:3px 8px}button{cursor:pointer}button:hover{border-color:var(--gold)}
+.top{display:flex;align-items:center;gap:18px;padding:8px 20px;border-bottom:1px solid var(--line);background:#100d0b;flex-wrap:wrap}
+.top h1{margin:0;font-size:20px;letter-spacing:.06em;color:var(--gold)}
+.pips{display:flex;gap:6px;align-items:center}.pips i{width:22px;height:9px;border-radius:4px;background:#3a2f27}.pips i.d{background:#9c8a72}.pips i.now{background:var(--gold);box-shadow:0 0 8px #e3ab4599}
+.exn{color:var(--muted);font-size:14px}.judges{color:var(--muted)}.judges b{color:var(--fg);font-size:18px}.judges b.y{color:var(--green)}
+.sp{flex:1}.top label{font-size:13px;color:var(--muted);display:flex;gap:5px;align-items:center}
+.main{display:grid;grid-template-columns:300px 1fr 300px;gap:14px;padding:12px 20px 0;flex:1;min-height:340px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;position:relative}
+.nm{font-size:20px;font-weight:700}.nm.y{color:var(--blue)}.nm.h{color:var(--red)}.sty{font-size:14px;color:var(--muted);margin:2px 0 12px}
+.gauges{display:flex;justify-content:space-between}
+.g{width:84px;text-align:center;position:relative}.g .c{width:76px;height:76px;margin:auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;position:relative}
+.g .c::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(var(--col) calc(var(--p)*1%),#3a2f27 0);-webkit-mask:radial-gradient(circle,transparent 28px,#000 29px);mask:radial-gradient(circle,transparent 28px,#000 29px);transition:background .4s}
+.g small{display:block;white-space:nowrap;font-size:11px;color:var(--muted);letter-spacing:.08em;margin-top:4px}
+.g .d{position:absolute;top:-6px;right:0;font-size:17px;font-weight:800;color:var(--green);opacity:0;transition:opacity .3s}.g .d.on{opacity:1}
+.g.hit .c{animation:hit .5s}@keyframes hit{30%{transform:scale(1.12);filter:brightness(1.6)}}
+.row{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;color:var(--muted)}
+.ropes{display:flex;gap:4px}.ropes i{width:30px;height:11px;border-radius:4px;background:#3a2f27}.ropes i.on{background:#b9a27f}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chip{font-size:13px;font-weight:700;letter-spacing:.04em;padding:4px 10px;border-radius:14px;border:1.5px solid var(--line)}
+.chip.lead{border-color:var(--gold);color:var(--gold);background:#3a2e1c}.chip.warn{border-color:var(--red);color:#ffb1aa}
+.chip.A{border-color:var(--A);color:#ffb1aa}.chip.C{border-color:var(--C);color:#a9c8ff}.chip.F{border-color:var(--F);color:#ffd88c}.chip.D{border-color:var(--D);color:#a9e6b9}
+.mini{font-size:13px;color:var(--muted);margin-top:12px}.mini .chips{margin-top:4px}
+.tell{margin-top:14px;display:flex;align-items:center;gap:12px;font-size:14px;color:var(--muted)}
+.cb{width:52px;height:72px;border-radius:8px;flex:none;background:repeating-linear-gradient(45deg,#2c241e 0 8px,#251f1a 8px 16px);border:2px solid var(--line)}
+.cb.AC{border-color:var(--A);box-shadow:0 0 16px #d9453baa}.cb.FD{border-color:var(--D);box-shadow:0 0 16px #e3ab45aa}
+.tell b{color:var(--fg);display:block;font-size:15px}
+/* the ring: the same pictures and camera as order.html (img/anim, img/layers, img/ring_bg.webp) */
+.stage{position:relative;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:#0f1013;min-height:300px}
+.stage img{position:absolute;top:-17%;height:126%;left:50%;transform:translateX(-50%) scaleX(-1);z-index:1;filter:drop-shadow(0 8px 6px rgba(0,0,0,.45));pointer-events:none}
+.stage img#ringbg{z-index:0;filter:none}.stage img.lay{z-index:2}
+.stage.shake{animation:shake .28s}@keyframes shake{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+.rng{position:absolute;left:12px;top:10px;z-index:4;background:#0b1428d0;border:1px solid #2c4a7a;border-radius:6px;padding:3px 12px;font-weight:800;letter-spacing:.1em;color:#ffe08a;font-size:18px}
+.rng span{display:block;font-size:11px;letter-spacing:.05em;color:#9fb6da;font-weight:600}
+.last{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:8px 14px;background:linear-gradient(0deg,#0b0f1cf0,#0b0f1c00);font-size:15px;max-height:45%;overflow:auto}
+.last .vs{font-weight:700;color:var(--gold)}.last .y{color:#bcd4ff}.last .h{color:#ffc4bc}.last .n{color:#cdbfae}
+.hand{margin:12px 20px 14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}
+.grp{display:flex;flex-direction:column;gap:6px}.grp>.t{font-size:12px;letter-spacing:.1em;color:var(--muted);font-weight:700}
+.cards{display:flex;gap:10px;align-items:flex-end;padding-top:22px}
+.card{width:150px;height:226px;border-radius:12px;background:#221d18;border:2px solid var(--line);display:flex;flex-direction:column;position:relative;cursor:pointer;transition:transform .12s,border-color .12s}
+.card:hover{transform:translateY(-4px)}.card.sm{width:124px;height:226px}
+.card .band{border-radius:10px 10px 0 0;padding:4px 9px;font-size:11px;font-weight:800;letter-spacing:.09em;color:#120f0c}
+.A .band{background:var(--A)}.C .band{background:var(--C)}.F .band{background:var(--F)}.D .band{background:var(--D)}
+.card .n{padding:7px 9px 0;font-weight:700;font-size:15px;line-height:1.15;min-height:42px}.sm .n{font-size:14px;min-height:36px}
+.card .big{display:flex;justify-content:space-between;padding:3px 9px 0}
+.big div{font-size:32px;font-weight:800;line-height:1}.big small{display:block;font-size:10px;letter-spacing:.08em;color:var(--muted);font-weight:600}
+.sm .big div{font-size:25px}.big .dm{color:#ff8a7f}.big .dm.up{color:#ffb35c}.big .sp{text-align:right}.big .sp.up{color:var(--gold)}.big .sp.down{color:#e07b72}.big .wd{font-size:19px;padding-top:7px}.sm .big .wd{font-size:16px}
+.card .st{padding:7px 9px 0;font-size:13px;color:var(--muted)}.card .st b{color:var(--fg);font-size:16px}
+.card .rg{display:flex;gap:3px;padding:6px 9px 0}.rg i{font-style:normal;font-size:11px;padding:0 5px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}.rg i.on{color:var(--fg);border-color:#8b7c66}
+.card .s{padding:6px 9px 8px;font-size:12px;color:#cfc4b4}
+.card .x2{position:absolute;top:-9px;right:-9px;background:var(--gold);color:#120f0c;border-radius:10px;font-size:12px;font-weight:800;padding:1px 7px}
+.card.sel{border-color:var(--gold);box-shadow:0 0 0 3px #e3ab4555;transform:translateY(-18px)}
+.card.combo{border:2px dashed #f0d9a8;transform:translateY(-18px)}
+.card.dead{opacity:.35;cursor:not-allowed}.card.dead:hover{transform:none}
+.lab{position:absolute;left:6px;top:-26px;font-size:12px;color:#1a140e;background:#f0d9a8;border-radius:10px;padding:2px 9px;font-weight:700;white-space:nowrap}
+.slot{width:140px;min-height:180px;border:2px dashed #5a4a3c;border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-size:14px;padding:8px;margin-top:22px;cursor:pointer}
+.slot .card{cursor:pointer;transform:none}
+.go{margin-left:auto;align-self:center;display:flex;flex-direction:column;align-items:center;gap:10px;max-width:220px}
+#throw{font-size:24px;font-weight:800;letter-spacing:.06em;color:#1a140e;background:var(--gold);border:0;border-radius:12px;padding:16px 40px;box-shadow:0 0 20px #e3ab4577}
+#throw:disabled{opacity:.35;box-shadow:none;cursor:not-allowed}
+.go small{color:var(--muted);font-size:13px;text-align:center;line-height:1.35}
+#over{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:9}
+#over .box{background:var(--panel);border:2px solid var(--gold);border-radius:14px;padding:22px 36px;text-align:center}#over h2{margin:4px 0 10px;color:var(--gold)}
+#help{position:fixed;top:52px;right:16px;width:min(420px,92vw);background:var(--panel);border:1px solid var(--gold);border-radius:10px;padding:12px 16px;font-size:14px;display:none;z-index:8}#help li{margin:4px 0}
+@media (max-width:1200px){.main{grid-template-columns:240px 1fr 240px}.g{width:66px}.g .c{width:62px;height:62px;font-size:17px}}
+</style></head><body>
+<div class="top">
+  <h1>PUNCHER'S CHANCE</h1>
+  <span id="rd"></span><div class="pips" id="pips"></div><span class="exn" id="exn"></span>
+  <span class="judges" id="judges"></span>
+  <span class="sp"></span>
+  <label>You <select id="me"></select></label><label>Him <select id="him"></select></label>
+  <button id="new">New bout</button><button id="q">How to play</button><span id="mute"></span>
+</div>
+<div class="main">
+  <section class="panel" id="you"></section>
+  <section class="stage" id="stage"><img id="ringbg" src="img/ring_bg.webp" alt=""><img id="pic" alt=""><div class="rng" id="rng"></div><div class="last" id="last"></div></section>
+  <section class="panel" id="hims"></section>
+</div>
+<section class="hand" id="hand"></section>
+<div id="over"><div class="box"><h2 id="overt"></h2><div id="overd"></div><p><button id="again">New bout</button></p></div></div>
+<div id="help"><b>How to play</b><ul>
+  <li>Each exchange you both pick one card at the same time; then both turn over and the exchange plays in the ring.</li>
+  <li><b style="color:var(--A)">Attack</b> beats a Feint. <b style="color:var(--C)">Counter</b> beats the attacks it names. <b style="color:var(--F)">Feint</b> beats a Counter or a Defend. <b style="color:var(--D)">Defend</b> blocks an Attack.</li>
+  <li>Two attacks: the faster lands first. 2 or more faster stops the other punch. DAMAGE on a card includes your power.</li>
+  <li>The Lead: win an exchange and you hold it: +1 speed, and a CHAIN card can be followed by up to two more attacks (click them).</li>
+  <li>Range: Long, Mid, Close. A card works only at the ranges lit on it. Room to the ropes: at 0 your back is on the ropes.</li>
+  <li>Judges score each round on damage plus clean counters. 3 rounds of 6 exchanges.</li>
+  <li>Point at a card to read all of it. Enter throws, Escape closes this.</li></ul></div>
+<script>window.range = 3;</script>
+<script src="layers_ui.js"></script>
+<script src="version.js" defer></script>
+<script type="module" src="fight_ui.js"></script>
+</body></html>

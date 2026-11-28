@@ -570,6 +570,19 @@
      ]
     }
    ]
+  },
+  {
+   "title": "NOW",
+   "frames": [
+    {
+     "id": "s575_cardhud",
+     "title": "v6.9 card fight HUD (mockup)",
+     "kind": "gallery",
+     "globs": [
+      "docs/mockups/s575/cardfight_hud.png"
+     ]
+    }
+   ]
   }
  ]
 }

@@ -4,6 +4,10 @@
    number: 0.<session>.<n> (n counts up inside the session). The top entry is the version the page shows beside the
    sound button. A measure that changed nothing on a page is not an entry. */
 window.RS_CHANGES = [
+  { v: '0.575.2', date: '2026-11-28', items: [
+    'New page: the fight (fight.html) - the v6.9 card fight in the Puncher’s chance look, as in the picture you approved. Your hand under the ring, damage and speed on every card, room to the ropes, the Lead, his tell; each exchange is played by the fighters in the ring at its range.',
+    'v6.9 Pressure fighter (your answers): Walk Him Down is free, a feint gets nothing from it, it cuts off the ring (1 room to the ropes each time); the Check Hook is the answer; his body shots drain 2 stamina; +2 stamina between rounds.',
+  ] },
   { v: '0.575.1', date: '2026-11-28', items: [
     'Card fight: every card now shows DAMAGE as a big number beside SPEED, the same size (damage includes the power of your fighter). Guards show what they BLOCK (head, body, any, half). Stamina sits under them.',
     'Card fight rules (ours and lite): a round that ended inside starts the next at Mid; Hold Ground does not parry twice in a row; counter against counter costs both 1 stamina. The Stance Guard card says it blocks head or body.',
